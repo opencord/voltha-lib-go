@@ -1,0 +1,57 @@
+# PyCharm
+.idea
+exportToHTML
+
+# Python
+*.pyc
+
+# Emacs
+*~
+.#*
+
+# Vagrant
+.vagrant
+*.box
+
+# Ansible
+ansible/*.retry
+
+# Any vi swap files
+*.swp
+
+# Virtualenv
+python/venv-*
+
+# Protobuf output files
+python/**/*_pb2.py
+python/**/*_pb2_grpc.py
+python/**/*.desc
+protos/**/*.pb.go
+protos/**/*.desc
+protos/voltha.pb
+
+# Editors
+*.bak
+*.project
+*.pydevproject
+
+# Docker
+.docker-base-built
+
+# Mac stuff
+.DS_Store
+**/.DS_Store
+
+# Generated docs
+**/*.pdf
+
+# Vagrant logfile
+*.logo
+
+# voltha cli history
+python/cli/.voltha_cli_history
+
+python/local_imports/**/*
+
+# test output
+tests/results
