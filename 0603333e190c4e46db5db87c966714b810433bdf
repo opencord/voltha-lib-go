@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f9757b3_3e9f9dce",
+        "filename": "VERSION",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-10-17T18:26:22Z",
+      "side": 1,
+      "message": "should this be a -dev, or are you going to release as 2.2.1 and then move it to 2.2.2-dev?",
+      "revId": "0603333e190c4e46db5db87c966714b810433bdf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
