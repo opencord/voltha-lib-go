@@ -19,7 +19,7 @@ package model
 import (
 	"errors"
 	"fmt"
-	"github.com/opencord/voltha-lib-go/pkg/common/log"
+	"github.com/opencord/voltha-lib-go/pkg/log"
 	"github.com/opencord/voltha-lib-go/pkg/db/kvstore"
 	"strconv"
 	"sync"

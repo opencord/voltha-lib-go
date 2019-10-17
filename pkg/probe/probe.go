@@ -18,7 +18,7 @@ package probe
 import (
 	"context"
 	"fmt"
-	"github.com/opencord/voltha-lib-go/pkg/common/log"
+	"github.com/opencord/voltha-lib-go/pkg/log"
 	"net/http"
 	"sync"
 )

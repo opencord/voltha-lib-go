@@ -21,7 +21,7 @@ import (
 	"crypto/md5"
 	"fmt"
 	"github.com/golang/protobuf/proto"
-	"github.com/opencord/voltha-lib-go/pkg/common/log"
+	"github.com/opencord/voltha-lib-go/pkg/log"
 	"github.com/opencord/voltha-lib-go/pkg/db/kvstore"
 	"reflect"
 	"sort"
