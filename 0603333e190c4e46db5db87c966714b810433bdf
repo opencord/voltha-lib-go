@@ -16,6 +16,24 @@
       "revId": "0603333e190c4e46db5db87c966714b810433bdf",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28db35b1_72cd5b0a",
+        "filename": "VERSION",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-10-17T18:43:20Z",
+      "side": 1,
+      "message": "I\u0027m going to release it and them move immediately to 2.2.2-dev. I need the release asap in order to use it as a dependency for voltha-go.",
+      "parentUuid": "4f9757b3_3e9f9dce",
+      "revId": "0603333e190c4e46db5db87c966714b810433bdf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
