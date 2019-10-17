@@ -24,10 +24,10 @@ import (
 	"strconv"
 
 	bitmap "github.com/boljen/go-bitmap"
-	"github.com/opencord/voltha-lib-go/pkg/common/log"
-	tp "github.com/opencord/voltha-lib-go/pkg/common/techprofile"
 	"github.com/opencord/voltha-lib-go/pkg/db/kvstore"
 	"github.com/opencord/voltha-lib-go/pkg/db/model"
+	"github.com/opencord/voltha-lib-go/pkg/log"
+	tp "github.com/opencord/voltha-lib-go/pkg/techprofile"
 )
 
 const (

@@ -19,7 +19,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	log "github.com/opencord/voltha-lib-go/pkg/common/log"
+	log "github.com/opencord/voltha-lib-go/pkg/log"
 	"sync"
 	"time"
 	//log "ciena.com/coordinator/common"

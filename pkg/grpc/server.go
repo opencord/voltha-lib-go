@@ -18,7 +18,7 @@ package grpc
 import (
 	"context"
 	"fmt"
-	"github.com/opencord/voltha-lib-go/pkg/common/log"
+	"github.com/opencord/voltha-lib-go/pkg/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"net"

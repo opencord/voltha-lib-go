@@ -16,7 +16,7 @@
 package model
 
 import (
-	"github.com/opencord/voltha-lib-go/pkg/common/log"
+	"github.com/opencord/voltha-lib-go/pkg/log"
 )
 
 func init() {

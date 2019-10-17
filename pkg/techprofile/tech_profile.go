@@ -22,9 +22,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/opencord/voltha-lib-go/pkg/common/log"
 	"github.com/opencord/voltha-lib-go/pkg/db/kvstore"
 	"github.com/opencord/voltha-lib-go/pkg/db/model"
+	"github.com/opencord/voltha-lib-go/pkg/log"
 	tp_pb "github.com/opencord/voltha-protos/go/tech_profile"
 )
 
