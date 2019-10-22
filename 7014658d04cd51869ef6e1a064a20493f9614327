@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ded13952_555d1156",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-10-22T08:37:34Z",
+      "side": 1,
+      "message": "\u003cdevice_id\u003e missing",
+      "revId": "7014658d04cd51869ef6e1a064a20493f9614327",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc88aad3_f85d01bf",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-10-22T08:37:34Z",
+      "side": 1,
+      "message": "Does not match the string on the path",
+      "range": {
+        "startLine": 110,
+        "startChar": 11,
+        "endLine": 110,
+        "endChar": 18
+      },
+      "revId": "7014658d04cd51869ef6e1a064a20493f9614327",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f54bac9b_d7a8ef7d",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-10-22T08:37:34Z",
+      "side": 1,
+      "message": "\u003cdevice_id\u003e missing",
+      "revId": "7014658d04cd51869ef6e1a064a20493f9614327",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4007fbc1_042f9630",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-10-22T08:37:34Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 111,
+        "startChar": 49,
+        "endLine": 111,
+        "endChar": 67
+      },
+      "revId": "7014658d04cd51869ef6e1a064a20493f9614327",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4fd803d4_126ba60d",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-10-22T08:37:34Z",
+      "side": 1,
+      "message": "Shouldn\u0027t you pass a pointer here",
+      "range": {
+        "startLine": 1212,
+        "startChar": 61,
+        "endLine": 1212,
+        "endChar": 70
+      },
+      "revId": "7014658d04cd51869ef6e1a064a20493f9614327",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63066170_590b3630",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-10-22T08:37:34Z",
+      "side": 1,
+      "message": "GetOnuGemInfo",
+      "revId": "7014658d04cd51869ef6e1a064a20493f9614327",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
