@@ -25,6 +25,7 @@ import (
 	"github.com/opencord/voltha-lib-go/pkg/log"
 	"reflect"
 	"sort"
+	"strings"
 	"sync"
 	"time"
 )
@@ -195,6 +196,10 @@ func (npr *NonPersistedRevision) hashContent() string {
 
 	if npr.Config != nil {
 		buffer.WriteString(npr.Config.Hash)
+
+		if npr.Config.Data != nil {
+			buffer.WriteString(npr.Config.Data.(proto.Message).String())
+		}
 	}
 
 	if npr.Name != "" {
@@ -284,12 +289,7 @@ func (npr *NonPersistedRevision) UpdateData(ctx context.Context, data interface{
 	npr.mutex.Lock()
 	defer npr.mutex.Unlock()
 
-	if ctx != nil {
-		if ctxTS, ok := ctx.Value(RequestTimestamp).(int64); ok && npr.lastUpdate.UnixNano() > ctxTS {
-			log.Warnw("data-is-older-than-current", log.Fields{"ctx-ts": ctxTS, "rev-ts": npr.lastUpdate.UnixNano()})
-			return npr
-		}
-	}
+	log.Debugw("update-data", log.Fields{"hash": npr.GetHash(), "current": npr.Config.Data, "provided": data})
 
 	// Do not update the revision if data is the same
 	if npr.Config.Data != nil && npr.Config.hashData(npr.Root, data) == npr.Config.Hash {
@@ -312,6 +312,8 @@ func (npr *NonPersistedRevision) UpdateData(ctx context.Context, data interface{
 	}
 
 	newRev.Finalize(false)
+
+	log.Debugw("update-data-complete", log.Fields{"updated": newRev.Config.Data, "provided": data})
 
 	return &newRev
 }
@@ -453,6 +455,25 @@ func (npr *NonPersistedRevision) ChildDrop(childType string, childHash string) {
 		copy(children, npr.GetChildren(childType))
 		for i, child := range children {
 			if child.GetHash() == childHash {
+				children = append(children[:i], children[i+1:]...)
+				npr.SetChildren(childType, children)
+				break
+			}
+		}
+	}
+}
+
+/// ChildDropByName will remove a child entry matching the type and name
+func (npr *NonPersistedRevision) ChildDropByName(childName string) {
+	// Extract device type
+	parts := strings.SplitN(childName, "/", 2)
+	childType := parts[0]
+
+	if childType != "" {
+		children := make([]Revision, len(npr.GetChildren(childType)))
+		copy(children, npr.GetChildren(childType))
+		for i, child := range children {
+			if child.GetName() == childName {
 				children = append(children[:i], children[i+1:]...)
 				npr.SetChildren(childType, children)
 				break
