@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "576f28a6_7d3ac7e8",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000015
+      },
+      "writtenOn": "2019-10-23T18:39:16Z",
+      "side": 1,
+      "message": "Should be declared as Strtype and marshalled. \nreason :\u003d \u0026ic.StrType{Val: deviceReason}\n   args[1] \u003d \u0026kafka.KVArg{\n       Key:   \"device_reason\",\n              Value: reason,\n      }",
+      "revId": "263996ecd86ef788f0e5bf7fbc9256dfe8e5caac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
