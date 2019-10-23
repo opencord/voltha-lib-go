@@ -18,7 +18,7 @@ package probe
 import (
 	"context"
 	"encoding/json"
-	"github.com/opencord/voltha-lib-go/pkg/log"
+	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"net/http"

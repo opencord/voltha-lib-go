@@ -16,7 +16,7 @@
 package common
 
 import (
-	adapterIf "github.com/opencord/voltha-lib-go/pkg/adapters/adapterif"
+	adapterIf "github.com/opencord/voltha-lib-go/v2/pkg/adapters/adapterif"
 	"testing"
 )
 
