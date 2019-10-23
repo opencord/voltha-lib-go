@@ -16,6 +16,23 @@
       "revId": "263996ecd86ef788f0e5bf7fbc9256dfe8e5caac",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7370d37f_1dc614b3",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-10-23T18:41:07Z",
+      "side": 1,
+      "message": "Value needs to be a proto",
+      "revId": "263996ecd86ef788f0e5bf7fbc9256dfe8e5caac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
