@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "174abc1d_69e5818b",
+        "filename": "pkg/db/model/non_persisted_revision.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-10-23T15:38:59Z",
+      "side": 1,
+      "message": "Let me check again.",
+      "parentUuid": "746330eb_7bbef592",
+      "revId": "56ea82658eb39fb1d122b339b0eee1e520a805fb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cdcba55_59a0a297",
         "filename": "pkg/db/model/non_persisted_revision.go",
         "patchSetId": 1
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "6e815d34_3530f65d",
+        "filename": "pkg/db/model/non_persisted_revision.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-10-23T15:38:59Z",
+      "side": 1,
+      "message": "In a case where childName \u003d\u003d \"\" ... parts[0] will be \"\"",
+      "parentUuid": "9cdcba55_59a0a297",
+      "revId": "56ea82658eb39fb1d122b339b0eee1e520a805fb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9024ed44_e5979e36",
         "filename": "pkg/db/model/persisted_revision.go",
         "patchSetId": 1
@@ -65,6 +101,24 @@
       "writtenOn": "2019-10-23T15:22:37Z",
       "side": 1,
       "message": "Any risk of running into nil pointers with these combined statements?",
+      "revId": "56ea82658eb39fb1d122b339b0eee1e520a805fb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5369ef20_8539a495",
+        "filename": "pkg/db/model/persisted_revision.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-10-23T15:38:59Z",
+      "side": 1,
+      "message": "There shouldn\u0027t be ... worst case would be GetName()\u003d\u003d\"\" and GetRevCache() is a singleton... but I can add a nil check if you want",
+      "parentUuid": "9024ed44_e5979e36",
       "revId": "56ea82658eb39fb1d122b339b0eee1e520a805fb",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
