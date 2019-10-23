@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "61f569e3_7979d94b",
+        "filename": "pkg/db/model/non_persisted_revision.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-10-23T15:37:39Z",
+      "side": 1,
+      "message": "SplitN will always return at least a length of 1, with [0] \u003d\u003d the entire string if the split character is not found.",
+      "parentUuid": "9cdcba55_59a0a297",
+      "revId": "56ea82658eb39fb1d122b339b0eee1e520a805fb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9024ed44_e5979e36",
         "filename": "pkg/db/model/persisted_revision.go",
         "patchSetId": 1
