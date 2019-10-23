@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "61f538ff_46a12efc",
+        "filename": "pkg/db/model/non_persisted_revision.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-10-23T15:47:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e815d34_3530f65d",
+      "revId": "56ea82658eb39fb1d122b339b0eee1e520a805fb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9024ed44_e5979e36",
         "filename": "pkg/db/model/persisted_revision.go",
         "patchSetId": 1
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "There shouldn\u0027t be ... worst case would be GetName()\u003d\u003d\"\" and GetRevCache() is a singleton... but I can add a nil check if you want",
       "parentUuid": "9024ed44_e5979e36",
+      "revId": "56ea82658eb39fb1d122b339b0eee1e520a805fb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69187731_5e84b9d1",
+        "filename": "pkg/db/model/persisted_revision.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-10-23T15:47:28Z",
+      "side": 1,
+      "message": "That\u0027s ok if there are no risk.",
+      "parentUuid": "5369ef20_8539a495",
       "revId": "56ea82658eb39fb1d122b339b0eee1e520a805fb",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
