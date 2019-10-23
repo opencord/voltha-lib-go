@@ -19,7 +19,7 @@ import (
 	"context"
 	"encoding/hex"
 	"github.com/google/uuid"
-	"github.com/opencord/voltha-lib-go/pkg/log"
+	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"github.com/opencord/voltha-protos/go/common"
 	"github.com/opencord/voltha-protos/go/openflow_13"
 	"github.com/opencord/voltha-protos/go/voltha"
@@ -94,7 +94,7 @@ func init() {
 	if err := log.UpdateAllLoggers(log.Fields{"instanceId": "PLT"}); err != nil {
 		log.With(log.Fields{"error": err}).Fatal("Cannot setup logging")
 	}
-	log.SetPackageLogLevel("github.com/opencord/voltha-lib-go/pkg/db/model", log.DebugLevel)
+	log.SetPackageLogLevel("github.com/opencord/voltha-lib-go/v2/pkg/db/model", log.DebugLevel)
 
 	BenchmarkProxy_DeviceProxy = BenchmarkProxy_Root.node.CreateProxy(context.Background(), "/", false)
 	// Register ADD instructions callbacks

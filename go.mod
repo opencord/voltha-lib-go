@@ -1,4 +1,4 @@
-module github.com/opencord/voltha-lib-go
+module github.com/opencord/voltha-lib-go/v2
 
 go 1.12
 

@@ -17,7 +17,7 @@ package model
 
 import (
 	"context"
-	"github.com/opencord/voltha-lib-go/pkg/log"
+	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 )
 
 type Transaction struct {

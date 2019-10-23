@@ -23,7 +23,7 @@ import (
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/google/uuid"
-	"github.com/opencord/voltha-lib-go/pkg/log"
+	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	ic "github.com/opencord/voltha-protos/go/inter_container"
 	"reflect"
 	"strings"

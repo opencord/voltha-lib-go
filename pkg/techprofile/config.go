@@ -16,7 +16,7 @@
 package techprofile
 
 import (
-	"github.com/opencord/voltha-lib-go/pkg/db/model"
+	"github.com/opencord/voltha-lib-go/v2/pkg/db/model"
 )
 
 // tech profile default constants
