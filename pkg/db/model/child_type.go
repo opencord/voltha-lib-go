@@ -20,7 +20,7 @@ import (
 	desc "github.com/golang/protobuf/descriptor"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	"github.com/opencord/voltha-lib-go/pkg/log"
+	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"github.com/opencord/voltha-protos/go/common"
 	"reflect"
 	"strconv"

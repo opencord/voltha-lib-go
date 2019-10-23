@@ -23,7 +23,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/golang/protobuf/proto"
-	"github.com/opencord/voltha-lib-go/pkg/log"
+	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"reflect"
 	"strings"
 	"sync"
