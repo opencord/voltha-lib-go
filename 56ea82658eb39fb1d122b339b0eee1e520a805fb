@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "746330eb_7bbef592",
+        "filename": "pkg/db/model/non_persisted_revision.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-10-23T15:22:37Z",
+      "side": 1,
+      "message": "isn\u0027t the config.Data already included in the config.Hash?",
+      "revId": "56ea82658eb39fb1d122b339b0eee1e520a805fb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cdcba55_59a0a297",
+        "filename": "pkg/db/model/non_persisted_revision.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-10-23T15:22:37Z",
+      "side": 1,
+      "message": "is it possible for parts to be of length 0?",
+      "revId": "56ea82658eb39fb1d122b339b0eee1e520a805fb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9024ed44_e5979e36",
+        "filename": "pkg/db/model/persisted_revision.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-10-23T15:22:37Z",
+      "side": 1,
+      "message": "Any risk of running into nil pointers with these combined statements?",
+      "revId": "56ea82658eb39fb1d122b339b0eee1e520a805fb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
