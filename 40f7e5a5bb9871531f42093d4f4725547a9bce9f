@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dd79d4c_a4c2a8c1",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-10-25T15:04:16Z",
+      "side": 1,
+      "message": "The proto definition suggest that the \"Id\" is a unique ID for this event.  Using \"STATS_EVENT\" as an Id will make all the KPI events have the same Id.  Is it intentional?",
+      "revId": "40f7e5a5bb9871531f42093d4f4725547a9bce9f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db1a1cab_ac8f947d",
+        "filename": "pkg/pmmetrics/performance_metrics.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-10-25T15:04:16Z",
+      "side": 1,
+      "message": "Some code and protos refer to kpi while others refer to pm.   Would it be useful to use one term only?  Can be addressed in a different Jira if there is a need.",
+      "revId": "40f7e5a5bb9871531f42093d4f4725547a9bce9f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
