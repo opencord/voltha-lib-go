@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3130d9d8_90a28349",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000628
+      },
+      "writtenOn": "2019-10-26T07:09:33Z",
+      "side": 1,
+      "message": "Sure Addressed.",
+      "parentUuid": "5dd79d4c_a4c2a8c1",
+      "revId": "40f7e5a5bb9871531f42093d4f4725547a9bce9f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db1a1cab_ac8f947d",
         "filename": "pkg/pmmetrics/performance_metrics.go",
         "patchSetId": 4
