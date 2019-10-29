@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a36d200_ba6cc554",
+        "filename": "pkg/db/model/node.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-10-29T15:59:45Z",
+      "side": 1,
+      "message": "Once more, pr !\u003d nil is probably redundant ;)",
+      "revId": "73a20e3f0811e9282e596deb02d433ac6acab700",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
