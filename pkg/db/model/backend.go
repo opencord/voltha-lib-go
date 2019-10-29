@@ -23,7 +23,6 @@ import (
 	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"strconv"
 	"sync"
-	"time"
 )
 
 //TODO: missing cache stuff
@@ -88,7 +87,6 @@ func (b *Backend) List(key string, lock ...bool) (map[string]*kvstore.KVPair, er
 
 	formattedPath := b.makePath(key)
 	log.Debugw("listing-key", log.Fields{"key": key, "path": formattedPath, "lock": lock})
-
 	return b.Client.List(formattedPath, b.Timeout, lock...)
 }
 
@@ -100,13 +98,7 @@ func (b *Backend) Get(key string, lock ...bool) (*kvstore.KVPair, error) {
 	formattedPath := b.makePath(key)
 	log.Debugw("getting-key", log.Fields{"key": key, "path": formattedPath, "lock": lock})
 
-	start := time.Now()
-	err, pair := b.Client.Get(formattedPath, b.Timeout, lock...)
-	stop := time.Now()
-
-	GetProfiling().AddToDatabaseRetrieveTime(stop.Sub(start).Seconds())
-
-	return err, pair
+	return b.Client.Get(formattedPath, b.Timeout, lock...)
 }
 
 // Put stores an item value under the specifed key
