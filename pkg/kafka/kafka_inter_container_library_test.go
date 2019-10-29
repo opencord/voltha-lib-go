@@ -20,6 +20,15 @@ import (
 	"testing"
 )
 
+/*
+type MockClient struct {
+
+}
+
+func (m *MockClient) EnableLivenessChannel(enable bool) {
+
+}*/
+
 func TestDefaultKafkaProxy(t *testing.T) {
 	actualResult, error := NewInterContainerProxy()
 	assert.Equal(t, error, nil)
@@ -80,4 +89,33 @@ func TestKafkaProxyChangeAllOptions(t *testing.T) {
 	assert.Equal(t, actualResult.kafkaPort, 1020)
 	assert.Equal(t, actualResult.defaultRequestHandlerInterface, m)
 	assert.Equal(t, actualResult.DefaultTopic.Name, "Adapter")
+}
+
+func TestKafkaProxyEnableLivenessChannel(t *testing.T) {
+	var m *myInter
+
+	// Note: This doesn't actually start the client
+	client := NewSaramaClient()
+
+	probe, err := NewInterContainerProxy(
+		InterContainerHost("10.20.30.40"),
+		InterContainerPort(1020),
+		DefaultTopic(&Topic{Name: "Adapter"}),
+		RequestHandlerInterface(m),
+		MsgClient(client),
+	)
+
+	assert.Nil(t, err)
+
+	ch := probe.EnableLivenessChannel(true)
+
+	// The channel should have one "true" message on it
+	assert.NotEmpty(t, ch)
+
+	select {
+	case stuff := <-ch:
+		assert.True(t, stuff)
+	default:
+		t.Error("Failed to read from the channel")
+	}
 }
