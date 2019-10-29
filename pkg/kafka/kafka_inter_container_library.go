@@ -446,6 +446,15 @@ func (kp *InterContainerProxy) deleteAllTopicRequestHandlerChannelMap() error {
 }
 
 func (kp *InterContainerProxy) addToTransactionIdToChannelMap(id string, topic *Topic, arg chan *ic.InterContainerMessage) {
+	if kp == nil {
+		panic("addToTransactionIdToChannelMap: kp is nil")
+	}
+	if topic == nil {
+		panic("addToTransactionIdToChannelMap: topic is nil")
+	}
+	if arg == nil {
+		panic("addToTransactionIdToChannelMap: arg is nil")
+	}
 	kp.lockTransactionIdToChannelMap.Lock()
 	defer kp.lockTransactionIdToChannelMap.Unlock()
 	if _, exist := kp.transactionIdToChannelMap[id]; !exist {
@@ -762,6 +771,19 @@ func (kp *InterContainerProxy) unSubscribeForResponse(trnsId string) error {
 	log.Debugw("unsubscribe-for-response", log.Fields{"trnsId": trnsId})
 	kp.deleteFromTransactionIdToChannelMap(trnsId)
 	return nil
+}
+
+func (kp *InterContainerProxy) EnableLivenessChannel(enable bool) chan bool {
+	return kp.kafkaClient.EnableLivenessChannel(enable)
+}
+
+func (kp *InterContainerProxy) SendLiveness() error {
+	return kp.kafkaClient.SendLiveness()
+}
+
+func (kp *InterContainerProxy) LivenessCheck() {
+	log.Debugw("sending-kafka-liveness-msg", log.Fields{})
+	kp.kafkaClient.SendLiveness()
 }
 
 //formatRequest formats a request to send over kafka and returns an InterContainerMessage message on success
