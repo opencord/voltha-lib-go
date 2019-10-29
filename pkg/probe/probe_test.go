@@ -37,6 +37,7 @@ func TestServiceStatusString(t *testing.T) {
 	assert.Equal(t, "Running", ServiceStatusRunning.String(), "ServiceStatusRunning")
 	assert.Equal(t, "Stopped", ServiceStatusStopped.String(), "ServiceStatusStopped")
 	assert.Equal(t, "Failed", ServiceStatusFailed.String(), "ServiceStatusFailed")
+	assert.Equal(t, "NotReady", ServiceStatusNotReady.String(), "ServiceStatusNotReady")
 }
 
 func AlwaysTrue(map[string]ServiceStatus) bool {
@@ -333,6 +334,20 @@ func TestSetFuncsToNil(t *testing.T) {
 	assert.Nil(t, p.healthFunc, "health func not reset to nil")
 }
 
+func TestGetProbeFromContext(t *testing.T) {
+	p := &Probe{}
+	p.RegisterService("one")
+	ctx := context.WithValue(context.Background(), ProbeContextKey, p)
+	pc := GetProbeFromContext(ctx)
+	assert.Equal(t, p, pc, "Probe from context was not identical to original probe")
+}
+
+func TestGetProbeFromContextMssing(t *testing.T) {
+	ctx := context.Background()
+	pc := GetProbeFromContext(ctx)
+	assert.Nil(t, pc, "Context had a non-nil probe when it should have been nil")
+}
+
 func TestUpdateStatusFromContext(t *testing.T) {
 	p := &Probe{}
 	p.RegisterService("one")
@@ -343,7 +358,6 @@ func TestUpdateStatusFromContext(t *testing.T) {
 	_, ok := p.status["one"]
 	assert.True(t, ok, "unable to find registered service")
 	assert.Equal(t, ServiceStatusRunning, p.status["one"], "status not set correctly from context")
-
 }
 
 func TestUpdateStatusFromNilContext(t *testing.T) {
@@ -391,4 +405,39 @@ func TestUpdateStatusNoRegistered(t *testing.T) {
 	_, ok := p.status["one"]
 	assert.True(t, ok, "unable to find registered service")
 	assert.Equal(t, ServiceStatusRunning, p.status["one"], "status not set correctly from context")
+}
+
+func TestIsReadyTrue(t *testing.T) {
+	p := (&Probe{}).WithReadyFunc(AlwaysTrue).WithHealthFunc(AlwaysFalse)
+
+	p.RegisterService("SomeService")
+
+	assert.True(t, p.IsReady(), "IsReady should have been true")
+}
+
+func TestIsReadyFalse(t *testing.T) {
+	p := (&Probe{}).WithReadyFunc(AlwaysFalse).WithHealthFunc(AlwaysFalse)
+
+	p.RegisterService("SomeService")
+
+	assert.False(t, p.IsReady(), "IsReady should have been false")
+}
+
+func TestGetStatus(t *testing.T) {
+	p := &Probe{}
+
+	p.RegisterService("one", "two")
+	p.UpdateStatus("one", ServiceStatusRunning)
+
+	ss := p.GetStatus("one")
+	assert.Equal(t, ServiceStatusRunning, ss, "Service status should have been ServiceStatusRunning")
+}
+
+func TestGetStatusMissingService(t *testing.T) {
+	p := &Probe{}
+
+	p.RegisterService("one", "two")
+
+	ss := p.GetStatus("three")
+	assert.Equal(t, ServiceStatusUnknown, ss, "Service status should have been ServiceStatusUnknown")
 }
