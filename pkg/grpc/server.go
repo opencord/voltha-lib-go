@@ -20,7 +20,9 @@ import (
 	"fmt"
 	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/status"
 	"net"
 )
 
@@ -58,9 +60,13 @@ type GrpcServer struct {
 	port     int
 	secure   bool
 	services []func(*grpc.Server)
+	ready    bool
 
 	*GrpcSecurity
 }
+
+// so we can lookup the server from inside the interceptor
+var servers map[*grpc.Server]*GrpcServer = make(map[*grpc.Server]*GrpcServer)
 
 /*
 Instantiate a GRPC server data structure
@@ -76,8 +82,13 @@ func NewGrpcServer(
 		port:         port,
 		secure:       secure,
 		GrpcSecurity: certs,
+		ready:        true,
 	}
 	return server
+}
+
+func (s *GrpcServer) SetReady(ready bool) {
+	s.ready = ready
 }
 
 /*
@@ -97,12 +108,15 @@ func (s *GrpcServer) Start(ctx context.Context) {
 		if err != nil {
 			log.Fatalf("could not load TLS keys: %s", err)
 		}
-		s.gs = grpc.NewServer(grpc.Creds(creds))
+		s.gs = grpc.NewServer(grpc.Creds(creds),
+			withServerUnaryInterceptor(s))
 
 	} else {
 		log.Info("starting-insecure-grpc-server")
-		s.gs = grpc.NewServer()
+		s.gs = grpc.NewServer(withServerUnaryInterceptor(s))
 	}
+
+	servers[s.gs] = s
 
 	// Register all required services
 	for _, service := range s.services {
@@ -111,6 +125,35 @@ func (s *GrpcServer) Start(ctx context.Context) {
 
 	if err := s.gs.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v\n", err)
+	}
+}
+
+func withServerUnaryInterceptor(s *GrpcServer) grpc.ServerOption {
+	return grpc.UnaryInterceptor(mkServerInterceptor(s))
+}
+
+// Make a serverInterceptor for the given GrpcServer
+func mkServerInterceptor(s *GrpcServer) func(ctx context.Context,
+	req interface{},
+	info *grpc.UnaryServerInfo,
+	handler grpc.UnaryHandler) (interface{}, error) {
+
+	return func(ctx context.Context,
+		req interface{},
+		info *grpc.UnaryServerInfo,
+		handler grpc.UnaryHandler) (interface{}, error) {
+
+		log.Info("server-interceptor")
+
+		if !s.ready {
+			log.Warnf("Grpc request received while not ready %v", req)
+			return nil, status.Error(codes.Unavailable, "system is not ready")
+		}
+
+		// Calls the handler
+		h, err := handler(ctx, req)
+
+		return h, err
 	}
 }
 
