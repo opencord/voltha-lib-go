@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2761bd0f_d56b466c",
+        "filename": "pkg/db/model/backend.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-10-29T14:52:28Z",
+      "side": 1,
+      "message": "This is redundant.  err!\u003dnil implies that other return values are invalid.\n\nJust \u0027return b.Client.List(...)\u0027 is fine",
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6777247e_3403fe3f",
+        "filename": "pkg/db/model/backend.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-10-29T14:52:28Z",
+      "side": 1,
+      "message": "Remove commented code",
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35f0761f_fa677461",
+        "filename": "pkg/db/model/node.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-10-29T14:52:28Z",
+      "side": 1,
+      "message": "Redundant check.  Per convention, if err\u003d\u003dnil, other return value should be valid.",
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "348a0429_a042c4b0",
+        "filename": "pkg/db/model/node.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-10-29T14:52:28Z",
+      "side": 1,
+      "message": "Should check error first.",
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91f8ff1d_82e058ac",
+        "filename": "pkg/db/model/node.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-10-29T14:52:28Z",
+      "side": 1,
+      "message": "Unhandled error.  Is this intentional?",
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4435a29c_475a23d8",
+        "filename": "pkg/db/model/proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-10-29T14:52:28Z",
+      "side": 1,
+      "message": "Again, redundant.  Just `return ....List(...)`",
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72dba580_f55cc1a7",
+        "filename": "pkg/db/model/proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-10-29T14:52:28Z",
+      "side": 1,
+      "message": "Redundant again.",
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99a6813b_e6846a03",
+        "filename": "pkg/db/model/transaction.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-10-29T14:52:28Z",
+      "side": 1,
+      "message": "Return error in this case?",
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
