@@ -74,6 +74,7 @@ type SaramaClient struct {
 	topicLockMap                  map[string]*sync.RWMutex
 	lockOfTopicLockMap            sync.RWMutex
 	metadataMaxRetry              int
+	alive                         bool
 }
 
 type SaramaClientOption func(*SaramaClient)
@@ -474,8 +475,50 @@ func (sc *SaramaClient) Send(msg interface{}, topic *Topic, keys ...string) erro
 	select {
 	case ok := <-sc.producer.Successes():
 		log.Debugw("message-sent", log.Fields{"status": ok.Topic})
+		if !sc.alive {
+			log.Warnw("set-client-alive-false", log.Fields{"status": notOk})
+			sc.alive = true
+		}
 	case notOk := <-sc.producer.Errors():
 		log.Debugw("error-sending", log.Fields{"status": notOk})
+		if sc.alive && strings.Contains(notOk.Error(), "Failed to produce") {
+			log.Warnw("set-client-alive-false", log.Fields{"status": notOk})
+			sc.alive = false
+		}
+		return notOk
+	}
+	return nil
+}
+
+func (sc *SaramaClient) IsAlive() bool {
+	return sc.IsAlive
+}
+
+// send an empty message on the liveness channel to check whether connectivity has
+// been restored.
+func (sc *SaramaClient) SendLiveness() error {
+	kafkaMsg := &sarama.ProducerMessage{
+		Topic: "_liveness_test",
+		Value: sarama.ByteEncoder(""),
+	}
+
+	// Send message to kafka
+	sc.producer.Input() <- kafkaMsg
+	// Wait for result
+	// TODO: Use a lock or a different mechanism to ensure the response received corresponds to the message sent.
+	select {
+	case ok := <-sc.producer.Successes():
+		log.Debugw("liveness-message-sent", log.Fields{"status": ok.Topic})
+		if !sc.alive {
+			log.Warnw("set-client-alive-false", log.Fields{"status": notOk})
+			sc.alive = true
+		}
+	case notOk := <-sc.producer.Errors():
+		log.Debugw("liveness-error-sending", log.Fields{"status": notOk})
+		if sc.alive && strings.Contains(notOk.Error(), "Failed to produce") {
+			log.Warnw("set-client-alive-false", log.Fields{"status": notOk})
+			sc.alive = false
+		}
 		return notOk
 	}
 	return nil
@@ -713,6 +756,7 @@ func (sc *SaramaClient) createGroupConsumer(topic *Topic, groupId string, initia
 	config := scc.NewConfig()
 	config.ClientID = uuid.New().String()
 	config.Group.Mode = scc.ConsumerModeMultiplex
+	config.Consumer.Group.Heartbeat.Interval, _ = time.ParseDuration("1s")
 	//config.Consumer.Return.Errors = true
 	//config.Group.Return.Notifications = false
 	//config.Consumer.MaxWaitTime = time.Duration(DefaultConsumerMaxwait) * time.Millisecond
@@ -784,7 +828,7 @@ startloop:
 }
 
 func (sc *SaramaClient) consumeGroupMessages(topic *Topic, consumer *scc.Consumer, consumerChnls *consumerChannels) {
-	log.Debugw("starting-group-consumption-loop", log.Fields{"topic": topic.Name})
+	log.Debugw("starting-group-consumption-loop-XXXsmbaker2", log.Fields{"topic": topic.Name})
 
 startloop:
 	for {
@@ -793,11 +837,13 @@ startloop:
 			if ok {
 				log.Warnw("group-consumers-error", log.Fields{"topic": topic.Name, "error": err})
 			} else {
+				log.Warnw("group-consumers-closed-err", log.Fields{"topic": topic.Name})
 				// channel is closed
 				break startloop
 			}
 		case msg, ok := <-consumer.Messages():
 			if !ok {
+				log.Warnw("group-consumers-closed-msg", log.Fields{"topic": topic.Name})
 				// Channel closed
 				break startloop
 			}
