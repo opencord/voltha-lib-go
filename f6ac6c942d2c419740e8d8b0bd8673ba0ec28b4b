@@ -36,6 +36,29 @@
     },
     {
       "key": {
+        "uuid": "3770f8f4_51cc2108",
+        "filename": "pkg/db/model/backend.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-10-29T15:59:12Z",
+      "side": 1,
+      "message": "To simplify. You can remove the profiling call and replace this whole block with the following\n\nreturn b.Client.Get(formattedPath, b.Timeout, lock...)",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 1
+      },
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35f0761f_fa677461",
         "filename": "pkg/db/model/node.go",
         "patchSetId": 3
@@ -47,6 +70,24 @@
       "writtenOn": "2019-10-29T14:52:28Z",
       "side": 1,
       "message": "Redundant check.  Per convention, if err\u003d\u003dnil, other return value should be valid.",
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50ffcc33_4fb2d93e",
+        "filename": "pkg/db/model/node.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-10-29T15:59:12Z",
+      "side": 1,
+      "message": "that\u0027s an assumption ... but more importantly, if for some reason pr\u003d\u003dnil the range operation will simply skip it.  So no need for this extra else statement here.",
+      "parentUuid": "35f0761f_fa677461",
       "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
@@ -133,6 +174,29 @@
       "writtenOn": "2019-10-29T14:52:28Z",
       "side": 1,
       "message": "Redundant again.",
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c15e44a0_d072b425",
+        "filename": "pkg/db/model/proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-10-29T15:59:12Z",
+      "side": 1,
+      "message": "Why do you need this check here?",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 2
+      },
       "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
