@@ -58,9 +58,13 @@ type GrpcServer struct {
 	port     int
 	secure   bool
 	services []func(*grpc.Server)
+	notReady bool
 
 	*GrpcSecurity
 }
+
+// so we can lookup the server from inside the interceptor
+var servers map[*grpc.Server]*GrpcServer = make(map[*grpc.Server]*GrpcServer)
 
 /*
 Instantiate a GRPC server data structure
@@ -97,12 +101,15 @@ func (s *GrpcServer) Start(ctx context.Context) {
 		if err != nil {
 			log.Fatalf("could not load TLS keys: %s", err)
 		}
-		s.gs = grpc.NewServer(grpc.Creds(creds))
+		s.gs = grpc.NewServer(grpc.Creds(creds),
+			withServerUnaryInterceptor())
 
 	} else {
 		log.Info("starting-insecure-grpc-server")
 		s.gs = grpc.NewServer()
 	}
+
+	servers[s.gs] = s
 
 	// Register all required services
 	for _, service := range s.services {
@@ -112,6 +119,26 @@ func (s *GrpcServer) Start(ctx context.Context) {
 	if err := s.gs.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v\n", err)
 	}
+}
+
+func withServerUnaryInterceptor() grpc.ServerOption {
+	return grpc.UnaryInterceptor(serverInterceptor)
+}
+
+func serverInterceptor(ctx context.Context,
+	req interface{},
+	info *grpc.UnaryServerInfo,
+	handler grpc.UnaryHandler) (interface{}, error) {
+
+	s := servers[info.Server.(*grpc.Server)]
+	if s.notReady {
+		log.Infof("Grpc request received while not ready %v", req)
+	}
+
+	// Calls the handler
+	h, err := handler(ctx, req)
+
+	return h, err
 }
 
 /*
