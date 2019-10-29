@@ -87,6 +87,24 @@
     },
     {
       "key": {
+        "uuid": "788ad941_83bb1c9b",
+        "filename": "pkg/db/model/node.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1000619
+      },
+      "writtenOn": "2019-10-29T15:45:00Z",
+      "side": 1,
+      "message": "THank you Kent for your review. This was not changed as it will lead to more changes in voltha-go. If you feel that the error has to be handled we will do that.",
+      "parentUuid": "91f8ff1d_82e058ac",
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4435a29c_475a23d8",
         "filename": "pkg/db/model/proxy.go",
         "patchSetId": 3
