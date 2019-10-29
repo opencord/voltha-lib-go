@@ -47,6 +47,9 @@ const (
 
 	// ServiceStatusFailed service has stopped because of an error
 	ServiceStatusFailed
+
+	// ServiceStatusNotReady service has started but is unable to accept requests
+	ServiceStatusNotReady
 )
 
 const (
@@ -137,6 +140,13 @@ func (p *Probe) UpdateStatus(name string, status ServiceStatus) {
 	if p.status == nil {
 		p.status = make(map[string]ServiceStatus)
 	}
+
+	// if status hasn't changed, avoid doing useless work
+	existingStatus, ok := p.status[name]
+	if ok && (existingStatus == status) {
+		return
+	}
+
 	p.status[name] = status
 	if p.readyFunc != nil {
 		p.isReady = p.readyFunc(p.status)
@@ -156,6 +166,22 @@ func (p *Probe) UpdateStatus(name string, status ServiceStatus) {
 			"ready":        p.isReady,
 			"health":       p.isHealthy,
 		})
+}
+
+func (p *Probe) GetStatus(name string) ServiceStatus {
+	p.mutex.Lock()
+	defer p.mutex.Unlock()
+
+	if p.status == nil {
+		p.status = make(map[string]ServiceStatus)
+	}
+
+	currentStatus, ok := p.status[name]
+	if ok {
+		return currentStatus
+	}
+
+	return ServiceStatusUnknown
 }
 
 // UpdateStatusFromContext a convenience function to pull the Probe reference from the
