@@ -221,6 +221,30 @@
     },
     {
       "key": {
+        "uuid": "66f9abea_a4479be0",
+        "filename": "pkg/db/model/proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000619
+      },
+      "writtenOn": "2019-10-29T16:17:11Z",
+      "side": 1,
+      "message": "Thanks Stephane for your comments. We added this code as we could not check etcd state otherwise.",
+      "parentUuid": "c15e44a0_d072b425",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 2
+      },
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99a6813b_e6846a03",
         "filename": "pkg/db/model/transaction.go",
         "patchSetId": 3
