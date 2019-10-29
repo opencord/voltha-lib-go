@@ -71,8 +71,9 @@ type InterContainerProxy struct {
 	DefaultTopic                   *Topic
 	defaultRequestHandlerInterface interface{}
 	deviceDiscoveryTopic           *Topic
-	kafkaClient                    Client
-	doneCh                         chan int
+	//livenessTopic                  *Topic
+	kafkaClient Client
+	doneCh      chan int
 
 	// This map is used to map a topic to an interface and channel.   When a request is received
 	// on that channel (registered to the topic) then that interface is invoked.
@@ -116,6 +117,12 @@ func DeviceDiscoveryTopic(topic *Topic) InterContainerProxyOption {
 		args.deviceDiscoveryTopic = topic
 	}
 }
+
+/*func LivenessTopic(topic *Topic) InterContainerProxyOption {
+	return func(args *InterContainerProxy) {
+		args.livenessTopic = topic
+	}
+}*/
 
 func RequestHandlerInterface(handler interface{}) InterContainerProxyOption {
 	return func(args *InterContainerProxy) {
@@ -446,6 +453,15 @@ func (kp *InterContainerProxy) deleteAllTopicRequestHandlerChannelMap() error {
 }
 
 func (kp *InterContainerProxy) addToTransactionIdToChannelMap(id string, topic *Topic, arg chan *ic.InterContainerMessage) {
+	if kp == nil {
+		panic("addToTransactionIdToChannelMap: kp is nil")
+	}
+	if topic == nil {
+		panic("addToTransactionIdToChannelMap: topic is nil")
+	}
+	if arg == nil {
+		panic("addToTransactionIdToChannelMap: arg is nil")
+	}
 	kp.lockTransactionIdToChannelMap.Lock()
 	defer kp.lockTransactionIdToChannelMap.Unlock()
 	if _, exist := kp.transactionIdToChannelMap[id]; !exist {
@@ -762,6 +778,48 @@ func (kp *InterContainerProxy) unSubscribeForResponse(trnsId string) error {
 	log.Debugw("unsubscribe-for-response", log.Fields{"trnsId": trnsId})
 	kp.deleteFromTransactionIdToChannelMap(trnsId)
 	return nil
+}
+
+func (kp *InterContainerProxy) IsAlive() bool {
+	return kp.kafkaClient.IsAlive()
+}
+
+func (kp *InterContainerProxy) SendLiveness() error {
+	return kp.kafkaClient.SendLiveness()
+}
+
+/*func (kp *InterContainerProxy) LivenessCheck() {
+	log.Debugw("sending-kafka-liveness-msg", log.Fields{"deviceId": deviceId})
+	//	Create the device discovery message
+	header := &ic.Header{
+		Id:        uuid.New().String(),
+		Type:      ic.MessageType_LIVENESS_CHECK,
+		FromTopic: "",
+		ToTopic:   kp.livenessTopic.Name,
+		Timestamp: time.Now().UnixNano(),
+	}
+
+	var marshalledData *any.Any
+	var err error
+	if marshalledData, err = ptypes.MarshalAny(body); err != nil {
+		log.Errorw("cannot-marshal-request", log.Fields{"error": err})
+		return err
+	}
+	msg := &ic.InterContainerMessage{
+		Header: header,
+	}
+
+	// Send the message
+	if err := kp.kafkaClient.Send(msg, kp.deviceDiscoveryTopic); err != nil {
+		log.Errorw("cannot-send-device-discovery-message", log.Fields{"error": err})
+		return err
+	}
+	return nil
+}*/
+
+func (kp *InterContainerProxy) LivenessCheck() {
+	log.Debugw("sending-kafka-liveness-msg", log.Fields{})
+	kp.kafkaClient.SendLiveness()
 }
 
 //formatRequest formats a request to send over kafka and returns an InterContainerMessage message on success
