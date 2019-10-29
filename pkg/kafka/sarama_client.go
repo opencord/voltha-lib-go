@@ -74,6 +74,9 @@ type SaramaClient struct {
 	topicLockMap                  map[string]*sync.RWMutex
 	lockOfTopicLockMap            sync.RWMutex
 	metadataMaxRetry              int
+	alive                         bool
+	liveness                      chan bool
+	started                       bool
 }
 
 type SaramaClientOption func(*SaramaClient)
@@ -216,6 +219,10 @@ func NewSaramaClient(opts ...SaramaClientOption) *SaramaClient {
 	client.topicLockMap = make(map[string]*sync.RWMutex)
 	client.lockOfTopicLockMap = sync.RWMutex{}
 	client.lockOfGroupConsumers = sync.RWMutex{}
+
+	// alive until proven otherwise
+	client.alive = true
+
 	return client
 }
 
@@ -259,11 +266,15 @@ func (sc *SaramaClient) Start() error {
 
 	log.Info("kafka-sarama-client-started")
 
+	sc.started = true
+
 	return nil
 }
 
 func (sc *SaramaClient) Stop() {
 	log.Info("stopping-sarama-client")
+
+	sc.started = false
 
 	//Send a message over the done channel to close all long running routines
 	sc.doneCh <- 1
@@ -438,6 +449,20 @@ func (sc *SaramaClient) UnSubscribe(topic *Topic, ch <-chan *ic.InterContainerMe
 	return err
 }
 
+func (sc *SaramaClient) updateLiveness(alive bool) {
+	// Only emit a log message when the state changes
+	if sc.alive != alive {
+		log.Info("set-client-alive", log.Fields{"alive": alive})
+		sc.alive = alive
+	}
+	// Post a constant stream of liveness data to the channel,
+	// so that in a live state, the core does not timeout and
+	// send a forced liveness message.
+	if sc.liveness != nil {
+		sc.liveness <- alive
+	}
+}
+
 // send formats and sends the request onto the kafka messaging bus.
 func (sc *SaramaClient) Send(msg interface{}, topic *Topic, keys ...string) error {
 
@@ -474,8 +499,68 @@ func (sc *SaramaClient) Send(msg interface{}, topic *Topic, keys ...string) erro
 	select {
 	case ok := <-sc.producer.Successes():
 		log.Debugw("message-sent", log.Fields{"status": ok.Topic})
+		sc.updateLiveness(true)
 	case notOk := <-sc.producer.Errors():
 		log.Debugw("error-sending", log.Fields{"status": notOk})
+		if strings.Contains(notOk.Error(), "Failed to produce") {
+			sc.updateLiveness(false)
+		}
+		return notOk
+	}
+	return nil
+}
+
+// Enable the liveness monitor channel. This channel will report
+// a "true" or "false" on every publish, which indicates whether
+// or not the channel is still live. This channel is then picked up
+// by the service (i.e. rw_core / ro_core) to update readiness status
+// and/or take other actions.
+func (sc *SaramaClient) EnableLivenessChannel(enable bool) chan bool {
+	log.Infow("kafka-enable-liveness-channel", log.Fields{"enable": enable})
+	if enable {
+		if sc.liveness == nil {
+			log.Info("kafka-create-liveness-channel")
+			// At least 1, so we can immediately post to it without blocking
+			// Setting a bigger number (10) allows the monitor to fall behind
+			// without blocking others. The monitor shouldn't really fall
+			// behind...
+			sc.liveness = make(chan bool, 10)
+			// post intial state to the channel
+			sc.liveness <- sc.alive
+		}
+	} else {
+		// TODO: Think about whether we need the ability to turn off
+		// liveness monitoring
+		panic("Turning off liveness reporting is not supported")
+	}
+	return sc.liveness
+}
+
+// send an empty message on the liveness channel to check whether connectivity has
+// been restored.
+func (sc *SaramaClient) SendLiveness() error {
+	if !sc.started {
+		return fmt.Errorf("SendLiveness() called while not started")
+	}
+
+	kafkaMsg := &sarama.ProducerMessage{
+		Topic: "_liveness_test",
+		Value: sarama.StringEncoder(time.Now().Format(time.RFC3339)), // for debugging / informative use
+	}
+
+	// Send message to kafka
+	sc.producer.Input() <- kafkaMsg
+	// Wait for result
+	// TODO: Use a lock or a different mechanism to ensure the response received corresponds to the message sent.
+	select {
+	case ok := <-sc.producer.Successes():
+		log.Debugw("liveness-message-sent", log.Fields{"status": ok.Topic})
+		sc.updateLiveness(true)
+	case notOk := <-sc.producer.Errors():
+		log.Debugw("liveness-error-sending", log.Fields{"status": notOk})
+		if strings.Contains(notOk.Error(), "Failed to produce") {
+			sc.updateLiveness(false)
+		}
 		return notOk
 	}
 	return nil
@@ -713,6 +798,7 @@ func (sc *SaramaClient) createGroupConsumer(topic *Topic, groupId string, initia
 	config := scc.NewConfig()
 	config.ClientID = uuid.New().String()
 	config.Group.Mode = scc.ConsumerModeMultiplex
+	config.Consumer.Group.Heartbeat.Interval, _ = time.ParseDuration("1s")
 	//config.Consumer.Return.Errors = true
 	//config.Group.Return.Notifications = false
 	//config.Consumer.MaxWaitTime = time.Duration(DefaultConsumerMaxwait) * time.Millisecond
@@ -793,11 +879,13 @@ startloop:
 			if ok {
 				log.Warnw("group-consumers-error", log.Fields{"topic": topic.Name, "error": err})
 			} else {
+				log.Warnw("group-consumers-closed-err", log.Fields{"topic": topic.Name})
 				// channel is closed
 				break startloop
 			}
 		case msg, ok := <-consumer.Messages():
 			if !ok {
+				log.Warnw("group-consumers-closed-msg", log.Fields{"topic": topic.Name})
 				// Channel closed
 				break startloop
 			}
