@@ -88,8 +88,12 @@ func (b *Backend) List(key string, lock ...bool) (map[string]*kvstore.KVPair, er
 
 	formattedPath := b.makePath(key)
 	log.Debugw("listing-key", log.Fields{"key": key, "path": formattedPath, "lock": lock})
+	if list, err := b.Client.List(formattedPath, b.Timeout, lock...); err != nil {
+		return nil, err
+	} else {
+		return list, nil
+	}
 
-	return b.Client.List(formattedPath, b.Timeout, lock...)
 }
 
 // Get retrieves an item that matches the specified key
@@ -101,12 +105,16 @@ func (b *Backend) Get(key string, lock ...bool) (*kvstore.KVPair, error) {
 	log.Debugw("getting-key", log.Fields{"key": key, "path": formattedPath, "lock": lock})
 
 	start := time.Now()
-	err, pair := b.Client.Get(formattedPath, b.Timeout, lock...)
+	//err, pair := b.Client.Get(formattedPath, b.Timeout, lock...)
+	pair, err := b.Client.Get(formattedPath, b.Timeout, lock...)
+	if err != nil {
+		return nil, err
+	}
 	stop := time.Now()
 
 	GetProfiling().AddToDatabaseRetrieveTime(stop.Sub(start).Seconds())
 
-	return err, pair
+	return pair, nil
 }
 
 // Put stores an item value under the specifed key
