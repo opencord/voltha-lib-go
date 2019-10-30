@@ -317,6 +317,30 @@
     },
     {
       "key": {
+        "uuid": "71fe0a0b_c21d16c2",
+        "filename": "pkg/db/model/proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-10-30T15:43:31Z",
+      "side": 1,
+      "message": "The root cause of this issue if in the etcdclient.go where a lease is requested with specified context timeout.  A timeout needs to be specified, e.g:\n\n\tctx, cancel :\u003d context.WithTimeout(context.Background(), timeut*time.Millisecond)\n\tresp, err :\u003d c.ectdAPI.Grant(ctx, ttl)\n       ....\n\nThis will fix the \"lease grant freezing\" issue",
+      "parentUuid": "d3378957_8f0808be",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 2
+      },
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99a6813b_e6846a03",
         "filename": "pkg/db/model/transaction.go",
         "patchSetId": 3
