@@ -269,6 +269,30 @@
     },
     {
       "key": {
+        "uuid": "9ca83a0e_4af7f17b",
+        "filename": "pkg/db/model/proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000619
+      },
+      "writtenOn": "2019-10-30T05:34:07Z",
+      "side": 1,
+      "message": "We tried to fetch the \np.GetRoot().KvStore.Client.Reserve error from etcdclient.go. However it is not throwing error when etcd goes down.\nEtcdAPI.Grant calls EtcdAPI.Lease. This calls LeaseGrant which calls Invoke in grpc/call.go. \nIt seems that error handling does not happen in the lower layers.\nPlease advise how to proceed.",
+      "parentUuid": "d14c0e1b_9ab322f9",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 2
+      },
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99a6813b_e6846a03",
         "filename": "pkg/db/model/transaction.go",
         "patchSetId": 3
