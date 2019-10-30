@@ -293,6 +293,30 @@
     },
     {
       "key": {
+        "uuid": "d3378957_8f0808be",
+        "filename": "pkg/db/model/proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-10-30T14:08:34Z",
+      "side": 1,
+      "message": "Error handling in the lower layers needs to be fixed then.    Please don\u0027t just bolt on a hacky solution; fix the core problem instead.\n\nLet me take a look...",
+      "parentUuid": "9ca83a0e_4af7f17b",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 2
+      },
+      "revId": "f6ac6c942d2c419740e8d8b0bd8673ba0ec28b4b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99a6813b_e6846a03",
         "filename": "pkg/db/model/transaction.go",
         "patchSetId": 3
