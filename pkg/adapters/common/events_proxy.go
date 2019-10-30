@@ -102,6 +102,7 @@ func (ep *EventProxy) SendDeviceEvent(deviceEvent *voltha.DeviceEvent, category 
 
 }
 
+// SendKpiEvent is to send kpi events to voltha.event topic
 func (ep *EventProxy) SendKpiEvent(id string, kpiEvent *voltha.KpiEvent2, category adapterif.EventCategory, subCategory adapterif.EventSubCategory, raisedTs int64) error {
 	if kpiEvent == nil {
 		log.Error("Recieved empty kpi event")
