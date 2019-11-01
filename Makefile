@@ -49,15 +49,16 @@ help:
 local-protos:
 	@mkdir -p python/local_imports
 ifdef LOCAL_PROTOS
-	mkdir -p vendor/github.com/opencord/voltha-protos/go
-	cp -r ${GOPATH}/src/github.com/opencord/voltha-protos/go/* vendor/github.com/opencord/voltha-protos/go
+	rm -rf vendor/github.com/opencord/voltha-protos
+	mkdir -p vendor/github.com/opencord/voltha-protos/v2/go
+	cp -r ${LOCAL_PROTOS}/go/* vendor/github.com/opencord/voltha-protos/v2/go
 	rm -rf python/local_imports/voltha-protos
 	mkdir -p python/local_imports/voltha-protos/dist
-	cp ../voltha-protos/dist/*.tar.gz python/local_imports/voltha-protos/dist/
+	cp ${LOCAL_PROTOS}/dist/*.tar.gz python/local_imports/voltha-protos/dist/
 endif
 
 ## build the library
-build:
+build: local-protos
 	go build -mod=vendor ./...
 
 ## lint and unit tests
