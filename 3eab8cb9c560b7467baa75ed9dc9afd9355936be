@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a19843cf_cf54b754",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-11-01T07:09:46Z",
+      "side": 1,
+      "message": "I do not think ponresource manager should be concerned about which packet_in happened via which gemport. PON Resource manager\u0027s core job is assign pon resources and to store info about pon resources. Anything specific required for openolt\u0027s internal functioning and to do with pon resources should move to openolt\u0027s resourcemanager module.\nIf you see openolt\u0027s resourmanager already does interact with KV store to store some data. You should move this functionality there.",
+      "revId": "3eab8cb9c560b7467baa75ed9dc9afd9355936be",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbe08e8a_f7c3680d",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-11-01T07:09:46Z",
+      "side": 1,
+      "message": "Same here",
+      "revId": "3eab8cb9c560b7467baa75ed9dc9afd9355936be",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f767ba96_68a434db",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-11-01T07:09:46Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "3eab8cb9c560b7467baa75ed9dc9afd9355936be",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
