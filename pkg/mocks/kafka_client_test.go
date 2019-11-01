@@ -17,18 +17,19 @@
 package mocks
 
 import (
-	"github.com/opencord/voltha-lib-go/v2/pkg/kafka"
-	ic "github.com/opencord/voltha-protos/v2/go/inter_container"
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
+
+	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
+	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestKafkaClientImplementsKafkaClientIf(t *testing.T) {
 	client := NewKafkaClient()
 
 	if _, ok := interface{}(client).(kafka.Client); !ok {
-		t.Error("mock kafka client does not implement voltha-lib-go/v2/pkg/kafka/Client interface")
+		t.Error("mock kafka client does not implement voltha-lib-go/v3/pkg/kafka/Client interface")
 	}
 }
 
