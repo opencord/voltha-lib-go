@@ -18,7 +18,7 @@ package mocks
 
 import (
 	"fmt"
-	"github.com/opencord/voltha-lib-go/v2/pkg/db/kvstore"
+	"github.com/opencord/voltha-lib-go/v3/pkg/db/kvstore"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
 	"os"

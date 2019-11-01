@@ -23,11 +23,11 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/boljen/go-bitmap"
-	"github.com/opencord/voltha-lib-go/v2/pkg/db"
-	"github.com/opencord/voltha-lib-go/v2/pkg/db/kvstore"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
-	tp "github.com/opencord/voltha-lib-go/v2/pkg/techprofile"
+	bitmap "github.com/boljen/go-bitmap"
+	"github.com/opencord/voltha-lib-go/v3/pkg/db"
+	"github.com/opencord/voltha-lib-go/v3/pkg/db/kvstore"
+	"github.com/opencord/voltha-lib-go/v3/pkg/log"
+	tp "github.com/opencord/voltha-lib-go/v3/pkg/techprofile"
 )
 
 const (

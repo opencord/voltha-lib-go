@@ -19,16 +19,17 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
+	"sync"
+	"time"
+
 	"github.com/Shopify/sarama"
 	scc "github.com/bsm/sarama-cluster"
 	"github.com/eapache/go-resiliency/breaker"
 	"github.com/golang/protobuf/proto"
 	"github.com/google/uuid"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
-	ic "github.com/opencord/voltha-protos/v2/go/inter_container"
-	"strings"
-	"sync"
-	"time"
+	"github.com/opencord/voltha-lib-go/v3/pkg/log"
+	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
 )
 
 type returnErrorFunction func() error
