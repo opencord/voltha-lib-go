@@ -25,7 +25,7 @@ require (
 	github.com/hashicorp/serf v0.8.4 // indirect
 	github.com/jcmturner/gofork v1.0.0 // indirect
 	github.com/onsi/gomega v1.4.2 // indirect
-	github.com/opencord/voltha-protos v1.0.3
+	github.com/opencord/voltha-protos/v2 v2.0.1
 	github.com/pierrec/lz4 v2.3.0+incompatible // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20190826022208-cac0b30c2563 // indirect
 	github.com/spf13/pflag v1.0.3 // indirect
