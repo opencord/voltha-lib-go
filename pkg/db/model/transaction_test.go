@@ -20,8 +20,8 @@ import (
 	"context"
 	"encoding/hex"
 	"github.com/google/uuid"
-	"github.com/opencord/voltha-protos/go/common"
-	"github.com/opencord/voltha-protos/go/voltha"
+	"github.com/opencord/voltha-protos/v2/go/common"
+	"github.com/opencord/voltha-protos/v2/go/voltha"
 	"strconv"
 	"testing"
 )
