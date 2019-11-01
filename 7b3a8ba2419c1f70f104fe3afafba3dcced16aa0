@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da190b2f_d55667aa",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-11-01T16:32:20Z",
+      "side": 1,
+      "message": "Is this in seconds? If so, please attach a comment.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 23
+      },
+      "revId": "7b3a8ba2419c1f70f104fe3afafba3dcced16aa0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
