@@ -25,7 +25,7 @@ require (
 	github.com/hashicorp/serf v0.8.4 // indirect
 	github.com/jcmturner/gofork v1.0.0 // indirect
 	github.com/onsi/gomega v1.4.2 // indirect
-	github.com/opencord/voltha-protos v1.0.3
+	github.com/opencord/voltha-protos/v2 v2.0.1
 	github.com/pierrec/lz4 v2.3.0+incompatible // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20190826022208-cac0b30c2563 // indirect
 	github.com/spf13/pflag v1.0.3 // indirect
@@ -38,7 +38,6 @@ require (
 	golang.org/x/net v0.0.0-20190930134127-c5a3c61f89f3 // indirect
 	golang.org/x/sys v0.0.0-20191001151750-bb3f8db39f24 // indirect
 	golang.org/x/text v0.3.2 // indirect
-	google.golang.org/appengine v1.4.0 // indirect
 	google.golang.org/genproto v0.0.0-20190927181202-20e1ac93f88c // indirect
 	google.golang.org/grpc v1.24.0
 	gopkg.in/jcmturner/goidentity.v3 v3.0.0 // indirect
