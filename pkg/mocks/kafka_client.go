@@ -17,12 +17,13 @@ package mocks
 
 import (
 	"fmt"
-	"github.com/opencord/voltha-lib-go/v2/pkg/kafka"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
-	ic "github.com/opencord/voltha-protos/v2/go/inter_container"
+	"sync"
+
+	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
+	"github.com/opencord/voltha-lib-go/v3/pkg/log"
+	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"sync"
 )
 
 type KafkaClient struct {

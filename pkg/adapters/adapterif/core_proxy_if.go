@@ -19,7 +19,7 @@ package adapterif
 import (
 	"context"
 
-	"github.com/opencord/voltha-protos/v2/go/voltha"
+	"github.com/opencord/voltha-protos/v3/go/voltha"
 )
 
 // CoreProxy interface for voltha-go coreproxy.
@@ -32,10 +32,10 @@ type CoreProxy interface {
 	RegisterAdapter(ctx context.Context, adapter *voltha.Adapter, deviceTypes *voltha.DeviceTypes) error
 	DeviceUpdate(ctx context.Context, device *voltha.Device) error
 	PortCreated(ctx context.Context, deviceID string, port *voltha.Port) error
-	PortsStateUpdate(ctx context.Context, deviceID string, operStatus voltha.OperStatus_OperStatus) error
+	PortsStateUpdate(ctx context.Context, deviceID string, operStatus voltha.OperStatus_Types) error
 	DeleteAllPorts(ctx context.Context, deviceID string) error
 	DeviceStateUpdate(ctx context.Context, deviceID string,
-		connStatus voltha.ConnectStatus_ConnectStatus, operStatus voltha.OperStatus_OperStatus) error
+		connStatus voltha.ConnectStatus_Types, operStatus voltha.OperStatus_Types) error
 
 	DevicePMConfigUpdate(ctx context.Context, pmConfigs *voltha.PmConfigs) error
 	ChildDeviceDetected(ctx context.Context, parentDeviceID string, parentPortNo int,
