@@ -17,13 +17,14 @@ package flows
 
 import (
 	"bytes"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
-	ofp "github.com/opencord/voltha-protos/v2/go/openflow_13"
+	"strings"
+	"testing"
+
+	"github.com/opencord/voltha-lib-go/v3/pkg/log"
+	ofp "github.com/opencord/voltha-protos/v3/go/openflow_13"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"strings"
-	"testing"
 )
 
 var (
