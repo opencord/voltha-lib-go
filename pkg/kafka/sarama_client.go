@@ -18,15 +18,16 @@ package kafka
 import (
 	"errors"
 	"fmt"
+	"strings"
+	"sync"
+	"time"
+
 	"github.com/Shopify/sarama"
 	scc "github.com/bsm/sarama-cluster"
 	"github.com/golang/protobuf/proto"
 	"github.com/google/uuid"
 	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	ic "github.com/opencord/voltha-protos/go/inter_container"
-	"strings"
-	"sync"
-	"time"
 )
 
 func init() {
@@ -665,7 +666,7 @@ func (sc *SaramaClient) clearConsumerChannelMap() error {
 func (sc *SaramaClient) createPublisher() error {
 	// This Creates the publisher
 	config := sarama.NewConfig()
-	config.Producer.Partitioner = sarama.NewRandomPartitioner
+	config.Producer.Partitioner = sarama.NewHashPartitioner
 	config.Producer.Flush.Frequency = time.Duration(sc.producerFlushFrequency)
 	config.Producer.Flush.Messages = sc.producerFlushMessages
 	config.Producer.Flush.MaxMessages = sc.producerFlushMaxmessages
