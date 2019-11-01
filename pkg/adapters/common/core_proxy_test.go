@@ -16,8 +16,9 @@
 package common
 
 import (
-	adapterIf "github.com/opencord/voltha-lib-go/v2/pkg/adapters/adapterif"
 	"testing"
+
+	adapterIf "github.com/opencord/voltha-lib-go/v3/pkg/adapters/adapterif"
 )
 
 func TestCoreProxyImplementsAdapterIfCoreProxy(t *testing.T) {
