@@ -22,6 +22,30 @@
       "revId": "65f2e91703a1157f5afb2f94aa5a590e371de1d6",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03c67c82_eae24c52",
+        "filename": "pkg/adapters/common/utils_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2019-11-04T08:01:13Z",
+      "side": 1,
+      "message": "Ok, I delete this logs. I just prefer to have messages in case tests fail.",
+      "parentUuid": "8cdf559d_775f2ed3",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 44
+      },
+      "revId": "65f2e91703a1157f5afb2f94aa5a590e371de1d6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
