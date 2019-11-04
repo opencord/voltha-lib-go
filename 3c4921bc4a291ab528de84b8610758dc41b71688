@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "f789cd38_397e430c",
+        "filename": "pkg/grpc/server.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2019-11-04T15:00:44Z",
+      "side": 1,
+      "message": "Remove this info log after testing. If needed, should be changed to debug/trace level",
+      "revId": "3c4921bc4a291ab528de84b8610758dc41b71688",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c416dc3c_fe543b3f",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2019-11-04T15:00:44Z",
+      "side": 1,
+      "message": "Isn\u0027t this method redundant? It is not defined in Client interface and previous one SendLiveness() can be used instead, ignoring the return value",
+      "revId": "3c4921bc4a291ab528de84b8610758dc41b71688",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a29f7f95_c7f4d800",
         "filename": "pkg/kafka/sarama_client.go",
         "patchSetId": 11
