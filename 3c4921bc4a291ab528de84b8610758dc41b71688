@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a29f7f95_c7f4d800",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1000628
+      },
+      "writtenOn": "2019-11-04T07:37:44Z",
+      "side": 1,
+      "message": "Can we have the current timestamp as value, this might help in debugging (will get to know how many times and when connectivity has been restored)",
+      "range": {
+        "startLine": 544,
+        "startChar": 27,
+        "endLine": 544,
+        "endChar": 32
+      },
+      "revId": "3c4921bc4a291ab528de84b8610758dc41b71688",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
