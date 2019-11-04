@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35d9d8f7_7be9d441",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-11-04T14:39:25Z",
+      "side": 1,
+      "message": "Since these changes are in the library then a preferred fix would be to have a context passed in as a parameter.  This way a caller can set it\u0027s own timeout and if the context is nil then we can have a default timeout here.   Can you check how much work it would take to add a context parameter to all the KV client interface?  Thanks.",
+      "revId": "3d3d2da9d11d97e4e62891f502f2e5e9e53ed064",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
