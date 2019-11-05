@@ -22,6 +22,30 @@
       "revId": "89567d582f175628bf9cc009b3770644f2b56824",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22aef7f6_ae0a1be6",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-11-05T20:57:16Z",
+      "side": 0,
+      "message": "It was used at one point in the core, when we were issuing locks directly in etcd.  This change was removed but there are some remnants.",
+      "parentUuid": "1ee3baa4_e9e67b62",
+      "range": {
+        "startLine": 96,
+        "startChar": 34,
+        "endLine": 96,
+        "endChar": 46
+      },
+      "revId": "89567d582f175628bf9cc009b3770644f2b56824",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
