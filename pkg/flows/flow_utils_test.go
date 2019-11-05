@@ -16,6 +16,7 @@
 package flows
 
 import (
+	"bytes"
 	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	ofp "github.com/opencord/voltha-protos/v2/go/openflow_13"
 	"github.com/stretchr/testify/assert"
@@ -692,4 +693,18 @@ func TestFlowMatchesMod(t *testing.T) {
 	}
 	flowMod = MkSimpleFlowMod(ToOfpOxmField(fa.MatchFields), fa.Actions, fa.Command, fa.KV)
 	assert.True(t, FlowMatchesMod(flow, flowMod))
+}
+
+func TestIsMulticastIpAddress(t *testing.T) {
+	isMcastIp := IsMulticastIp(3776315393) //225.22.0.1
+	assert.True(t, isMcastIp)
+	isMcastIp = IsMulticastIp(3232243777) //192.168.32.65
+	assert.True(t, !isMcastIp)
+}
+
+func TestConvertToMulticastMac(t *testing.T) {
+	mcastIp := uint32(4001431809) //238.129.1.1
+	expectedMacInBytes := []byte{1, 0, 94, 1, 1, 1} //01:00:5e:01:01:01
+	macInBytes := ConvertToMulticastMacBytes(mcastIp)
+	assert.True(t, bytes.Compare(macInBytes, expectedMacInBytes) == 0)
 }
