@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "911cb8ec_ab3f2b47",
+        "filename": "pkg/grpc/server.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-11-05T00:56:52Z",
+      "side": 1,
+      "message": "will do",
+      "parentUuid": "f789cd38_397e430c",
+      "revId": "3c4921bc4a291ab528de84b8610758dc41b71688",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c416dc3c_fe543b3f",
         "filename": "pkg/kafka/kafka_inter_container_library.go",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2019-11-04T15:00:44Z",
       "side": 1,
       "message": "Isn\u0027t this method redundant? It is not defined in Client interface and previous one SendLiveness() can be used instead, ignoring the return value",
+      "revId": "3c4921bc4a291ab528de84b8610758dc41b71688",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b64b8eb_ddda7bab",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-11-05T00:56:52Z",
+      "side": 1,
+      "message": "I think it was an unintentional leftover. Will remove.",
+      "parentUuid": "c416dc3c_fe543b3f",
       "revId": "3c4921bc4a291ab528de84b8610758dc41b71688",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
