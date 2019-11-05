@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c83cc989_67e3e28d",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2019-11-05T09:45:29Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this condition instead be (sc.alive !\u003d alive)?\n\nWe should update the alive status and push to liveness channel only when alive status has changed",
+      "revId": "26139e2eb059995ec07a1075d6a539bfee08e911",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
