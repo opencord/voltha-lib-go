@@ -22,6 +22,30 @@
       "revId": "3bb95aa2aec3f1e353d71253dd95ee878b1ad240",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5425dc2b_94f051c7",
+        "filename": "VERSION",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000436
+      },
+      "writtenOn": "2019-11-05T21:28:22Z",
+      "side": 1,
+      "message": "assuming your ready to release 2.2.10",
+      "parentUuid": "0841326a_2aebdc9c",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 6
+      },
+      "revId": "3bb95aa2aec3f1e353d71253dd95ee878b1ad240",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
