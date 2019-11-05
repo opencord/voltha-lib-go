@@ -46,6 +46,30 @@
       "revId": "89567d582f175628bf9cc009b3770644f2b56824",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "874db98c_ad08bc49",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-11-05T21:03:06Z",
+      "side": 0,
+      "message": "It might be a good idea to also update the etcdclient right away.  To limit the headaches of updating voltha-lib-go",
+      "parentUuid": "22aef7f6_ae0a1be6",
+      "range": {
+        "startLine": 96,
+        "startChar": 34,
+        "endLine": 96,
+        "endChar": 46
+      },
+      "revId": "89567d582f175628bf9cc009b3770644f2b56824",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
