@@ -21,6 +21,7 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"regexp"
 
 	"github.com/opencord/voltha-lib-go/v2/pkg/db"
 	"github.com/opencord/voltha-lib-go/v2/pkg/db/kvstore"
@@ -95,6 +96,9 @@ var DiscardPolicy_name = map[DiscardPolicy]string{
 	2: "Red",
 	3: "WRed",
 }
+
+// Required uniPortName format
+var uniPortNameFormat = regexp.MustCompile(`^pon-{[0-9]+}/onu-{[0-9]+}/uni-{[0-9]+}$`)
 
 /*
 type InferredAdditionBWIndication int32
@@ -218,7 +222,6 @@ type TechProfile struct {
 	ProfileType                    string              `json:"profile_type"`
 	Version                        int                 `json:"version"`
 	NumGemPorts                    uint32              `json:"num_gem_ports"`
-	NumTconts                      uint32              `json:"num_of_tconts"`
 	InstanceCtrl                   InstanceControl     `json:"instance_control"`
 	UsScheduler                    iScheduler          `json:"us_scheduler"`
 	DsScheduler                    iScheduler          `json:"ds_scheduler"`
@@ -287,14 +290,44 @@ func (t *TechProfileMgr) GetTPInstanceFromKVStore(techProfiletblID uint32, path 
 	var KvTpIns TechProfile
 	var resPtr *TechProfile = &KvTpIns
 	var err error
-	/*path := t.GetTechProfileInstanceKVPath(techProfiletblID, uniPortName)*/
-	log.Infow("Getting tech profile instance from KV store", log.Fields{"path": path})
-	kvresult, err := t.config.KVBackend.Get(path)
+	var tp *DefaultTechProfile = nil
+	var kvResult *kvstore.KVPair
+	if tp = t.getTPFromKVStore(techProfiletblID); tp != nil {
+		if err := t.validateInstanceControlAttr(tp.InstanceCtrl); err != nil {
+			return nil, errors.New("invalid-instance-ctl-attr")
+		}
+	} else {
+		return nil, errors.New("tp-not-found-on-kv-store")
+	}
+	if tp.InstanceCtrl.Onu == "multi-instance" {
+		// When InstanceCtrl.Onu is "multi-instance" there can be multiple instance of the same
+		// TP across different UNIs. We either find a pre-existing TP Instance on that UNI or
+		// create a new one.
+		log.Infow("Getting tech profile instance from KV store", log.Fields{"path": path})
+		kvResult, err = t.config.KVBackend.Get(path)
+	} else { // "single-instance"
+		// When InstanceCtrl.Onu is "single-instance" there can be only one instance of the
+		// TP across all UNIs. The TP instances for the given TP ID will have the same alloc_id,
+		// but different gemport-ids (per UNI).
+		// We do the following
+		// 1. Find a pre-existing TP Instance for the given TP ID and on the given UNI.
+		//    If exists, return, else step 2.
+		// 2. Find TP instance or the given TP ID and on any other UNI on that ONU.
+		//    If exists, make a copy of the TP instance, replace the gem-port IDs, place it
+		//    in the the current UNIs TP instance path.
+		//    If no other UNI have TP instance too, then return nil (a new TP instance will
+		//    get created for the given TP ID).
+		kvResult, err = t.config.KVBackend.Get(path)
+		if kvResult == nil {
+			kvResult, err = t.findAndAssignTpInstance(path)
+		}
+	}
+
 	if err != nil {
 		log.Errorw("Error while fetching tech-profile instance  from KV backend", log.Fields{"key": path})
 		return nil, err
 	}
-	if kvresult == nil {
+	if kvResult == nil {
 		log.Infow("Tech profile does not exist in KV store", log.Fields{"key": path})
 		resPtr = nil
 	} else {
@@ -343,6 +376,13 @@ func (t *TechProfileMgr) getTPFromKVStore(techProfiletblID uint32) *DefaultTechP
 func (t *TechProfileMgr) CreateTechProfInstance(techProfiletblID uint32, uniPortName string, intfId uint32) *TechProfile {
 	var tpInstance *TechProfile
 	log.Infow("Creating tech profile instance ", log.Fields{"tableid": techProfiletblID, "uni": uniPortName, "intId": intfId})
+
+	// Make sure the uniPortName is as per format pon-{[0-9]+}/onu-{[0-9]+}/uni-{[0-9]+}
+	if ! uniPortNameFormat.Match([]byte(uniPortName)) {
+		log.Errorw("uni-port-name-not-confirming-to-format", log.Fields{"uniPortName": uniPortName})
+		return nil
+	}
+
 	tp := t.getTPFromKVStore(techProfiletblID)
 	if tp != nil {
 		log.Infow("Creating tech profile instance with profile from KV store", log.Fields{"tpid": techProfiletblID})
@@ -350,7 +390,7 @@ func (t *TechProfileMgr) CreateTechProfInstance(techProfiletblID uint32, uniPort
 		tp = t.getDefaultTechProfile()
 		log.Infow("Creating tech profile instance with default values", log.Fields{"tpid": techProfiletblID})
 	}
-	tpInstance = t.allocateTPInstance(uniPortName, tp, intfId, t.config.DefaultNumTconts)
+	tpInstance = t.allocateTPInstance(uniPortName, tp, intfId)
 	if err := t.addTechProfInstanceToKVStore(techProfiletblID, uniPortName, tpInstance); err != nil {
 		log.Errorw("Error in adding tech profile instance to KV ", log.Fields{"tableid": techProfiletblID, "uni": uniPortName})
 		return nil
@@ -365,7 +405,26 @@ func (t *TechProfileMgr) DeleteTechProfileInstance(techProfiletblID uint32, uniP
 	return t.config.KVBackend.Delete(path)
 }
 
-func (t *TechProfileMgr) allocateTPInstance(uniPortName string, tp *DefaultTechProfile, intfId uint32, numOfTconts uint32) *TechProfile {
+func (t *TechProfileMgr) validateInstanceControlAttr(instCtl InstanceControl) error {
+	if instCtl.Onu != "single-instance" && instCtl.Onu != "multi-instance" {
+		log.Errorw("invalid-onu-instance-control-attribute", log.Fields{"onu-inst": instCtl.Onu})
+		return errors.New("invalid-onu-instance-ctl-attr")
+	}
+
+	if instCtl.Uni != "single-instance" && instCtl.Uni != "multi-instance" {
+		log.Errorw("invalid-uni-instance-control-attribute", log.Fields{"uni-inst": instCtl.Uni})
+		return errors.New("invalid-uni-instance-ctl-attr")
+	}
+
+	if instCtl.Uni == "multi-instance" {
+		log.Error("uni-multi-instance-tp-not-supported")
+		return errors.New("uni-multi-instance-tp-not-supported")
+	}
+
+	return nil
+}
+
+func (t *TechProfileMgr) allocateTPInstance(uniPortName string, tp *DefaultTechProfile, intfId uint32) *TechProfile {
 
 	var usGemPortAttributeList []iGemPortAttribute
 	var dsGemPortAttributeList []iGemPortAttribute
@@ -373,13 +432,16 @@ func (t *TechProfileMgr) allocateTPInstance(uniPortName string, tp *DefaultTechP
 	var gemPorts []uint32
 	var err error
 
-	log.Infow("Allocating TechProfileMgr instance from techprofile template", log.Fields{"uniPortName": uniPortName, "intfId": intfId, "numOfTconts": numOfTconts, "numGem": tp.NumGemPorts})
-	if numOfTconts > 1 {
-		log.Errorw("Multiple Tconts not supported currently", log.Fields{"uniPortName": uniPortName, "intfId": intfId})
+	log.Infow("Allocating TechProfileMgr instance from techprofile template", log.Fields{"uniPortName": uniPortName, "intfId": intfId, "numGem": tp.NumGemPorts})
+
+	err = t.validateInstanceControlAttr(tp.InstanceCtrl)
+	if err != nil {
+		log.Error("invalid-tp-instance-control-attributes")
 		return nil
 	}
-	if tcontIDs, err = t.resourceMgr.GetResourceID(intfId, t.resourceMgr.GetResourceTypeAllocID(), numOfTconts); err != nil {
-		log.Errorw("Error getting alloc id from rsrcrMgr", log.Fields{"intfId": intfId, "numTconts": numOfTconts})
+
+	if tcontIDs, err = t.resourceMgr.GetResourceID(intfId, t.resourceMgr.GetResourceTypeAllocID(), 1); err != nil {
+		log.Errorw("Error getting alloc id from rsrcrMgr", log.Fields{"intfId": intfId})
 		return nil
 	}
 	log.Debugw("Num GEM ports in TP:", log.Fields{"NumGemPorts": tp.NumGemPorts})
@@ -416,7 +478,6 @@ func (t *TechProfileMgr) allocateTPInstance(uniPortName string, tp *DefaultTechP
 		ProfileType:          tp.ProfileType,
 		Version:              tp.Version,
 		NumGemPorts:          tp.NumGemPorts,
-		NumTconts:            numOfTconts,
 		InstanceCtrl:         tp.InstanceCtrl,
 		UsScheduler: iScheduler{
 			AllocID:      tcontIDs[0],
@@ -434,6 +495,11 @@ func (t *TechProfileMgr) allocateTPInstance(uniPortName string, tp *DefaultTechP
 			QSchedPolicy: tp.DsScheduler.QSchedPolicy},
 		UpstreamGemPortAttributeList:   usGemPortAttributeList,
 		DownstreamGemPortAttributeList: dsGemPortAttributeList}
+}
+
+func (t *TechProfileMgr) findAndAssignTpInstance(tpPath string) *kvstore.KVPair, error {
+
+	return nil, nil
 }
 
 func (t *TechProfileMgr) getDefaultTechProfile() *DefaultTechProfile {
