@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff5c4c6a_24eb57aa",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-11-06T21:27:48Z",
+      "side": 1,
+      "message": "This call will wait for the updateLiveness() to complete before another message is sent out to kafka.   It may be just be negligible.  Another option would be to run updateLiveness() in a separate routine and communicate to it over an internal channel which would be faster.  Is it worth it?",
+      "revId": "b1dc2786d639c5c2a3d26e7cdd3a5fb6322247a9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
