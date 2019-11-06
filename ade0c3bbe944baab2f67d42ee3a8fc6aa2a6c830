@@ -16,6 +16,24 @@
       "revId": "ade0c3bbe944baab2f67d42ee3a8fc6aa2a6c830",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4db0963c_812e61df",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-11-06T17:24:57Z",
+      "side": 1,
+      "message": "The probe status update ends up a no-op if the probe status hasn\u0027t changed, whereas producing a forced liveness message is going to lead to processing across multiple components and consumption of resources for the message itself. Let\u0027s take this discussion up in the voltha-stabilization group and get some opinions. I\u0027m not opposed to your suggestions, I can see advantages and disadvantages either way.",
+      "parentUuid": "03b7ffa9_958efde9",
+      "revId": "ade0c3bbe944baab2f67d42ee3a8fc6aa2a6c830",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
