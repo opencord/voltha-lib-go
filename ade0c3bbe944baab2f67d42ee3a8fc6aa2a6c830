@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03b7ffa9_958efde9",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2019-11-06T14:05:00Z",
+      "side": 1,
+      "message": "I have got a doubt on this approach. For each liveness state pushed to channel and processed by rw_core, processing is performed to update probe status and then timeout is re-calculated thus causing reset of Timer in case statement.\n\nI guess, in a typical vOLTHA deployment serving some OLTs, this constant flood of liveness state would consume more CPU cycle than probably performing One forced liveness check after every 60 seconds (Live Probe Interval)",
+      "revId": "ade0c3bbe944baab2f67d42ee3a8fc6aa2a6c830",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
