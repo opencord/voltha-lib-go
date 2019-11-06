@@ -34,6 +34,24 @@
       "revId": "ade0c3bbe944baab2f67d42ee3a8fc6aa2a6c830",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a27194d_0cd31d61",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-11-06T20:29:47Z",
+      "side": 1,
+      "message": "Modified to rate-limit liveness channel updates to one per 30 seconds.",
+      "parentUuid": "4db0963c_812e61df",
+      "revId": "ade0c3bbe944baab2f67d42ee3a8fc6aa2a6c830",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
