@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e20eb229_88a50185",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000436
+      },
+      "writtenOn": "2019-11-08T15:42:28Z",
+      "side": 1,
+      "message": "seems this function now is only used to get one alloc id.  would it make sense to just change the function signature and the tcontIDs[0] below to just be a single value?",
+      "range": {
+        "startLine": 444,
+        "startChar": 95,
+        "endLine": 444,
+        "endChar": 97
+      },
+      "revId": "fece3786d1d893fff68c8feafb515b2017463bbe",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
