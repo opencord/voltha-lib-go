@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ebe024a_e699ad52",
+        "filename": "pkg/techprofile/config.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-11-08T11:03:13Z",
+      "side": 0,
+      "message": "NumTconts should always be 1 and nothing else for TP. It is implied, no need to specify this.",
+      "revId": "8d057de54cc62fe4d1b0b1a9d59547f9635a427e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "772002c8_7c804015",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-11-08T11:03:13Z",
+      "side": 0,
+      "message": "I do not think we need this ever. Let me know, I can re-add this.",
+      "revId": "8d057de54cc62fe4d1b0b1a9d59547f9635a427e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
