@@ -79,12 +79,14 @@ func NewGrpcServer(
 	port int,
 	certs *GrpcSecurity,
 	secure bool,
+	probe ReadyProbe,
 ) *GrpcServer {
 	server := &GrpcServer{
 		address:      address,
 		port:         port,
 		secure:       secure,
 		GrpcSecurity: certs,
+		probe:        probe,
 	}
 	return server
 }
@@ -122,12 +124,6 @@ func (s *GrpcServer) Start(ctx context.Context) {
 	if err := s.gs.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v\n", err)
 	}
-}
-
-// Attach a readiness probe to the server.
-// If the probe returns NotReady, the server will return UNAVAILABLE
-func (s *GrpcServer) AttachReadyProbe(p ReadyProbe) {
-	s.probe = p
 }
 
 func withServerUnaryInterceptor(s *GrpcServer) grpc.ServerOption {
