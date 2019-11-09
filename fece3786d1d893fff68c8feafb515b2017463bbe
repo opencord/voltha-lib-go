@@ -22,6 +22,30 @@
       "revId": "fece3786d1d893fff68c8feafb515b2017463bbe",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38a1774d_6232e6ca",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-11-09T15:04:35Z",
+      "side": 1,
+      "message": "GetResourceID is a generic function that is used for gem-port ids, flow_id, onu-id. Since gem-port ids can be requested in bulk its return type is a slice of uint32.",
+      "parentUuid": "e20eb229_88a50185",
+      "range": {
+        "startLine": 444,
+        "startChar": 95,
+        "endLine": 444,
+        "endChar": 97
+      },
+      "revId": "fece3786d1d893fff68c8feafb515b2017463bbe",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
