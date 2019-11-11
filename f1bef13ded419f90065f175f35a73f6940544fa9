@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b27f632c_c51f1714",
+        "filename": "pkg/mocks/etcd_server_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-11-11T20:46:14Z",
+      "side": 1,
+      "message": "2019?",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "f1bef13ded419f90065f175f35a73f6940544fa9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44a3414d_67a87c26",
+        "filename": "pkg/mocks/etcd_server_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-11-11T20:46:14Z",
+      "side": 1,
+      "message": "Just wondering if there is a risk that the Close operation generates an error since the server is no longer active at this point.  If so, just flipping the closing order would prevent this.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 2
+      },
+      "revId": "f1bef13ded419f90065f175f35a73f6940544fa9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98b49160_a7613c16",
+        "filename": "pkg/mocks/kafka_client_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-11-11T20:46:14Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "f1bef13ded419f90065f175f35a73f6940544fa9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "437a5773_9d442c84",
+        "filename": "pkg/mocks/kafka_client_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000119
+      },
+      "writtenOn": "2019-11-11T20:46:14Z",
+      "side": 1,
+      "message": "There is no real value to this test unless you do an assert check on the client itself? the channel map maybe?",
+      "revId": "f1bef13ded419f90065f175f35a73f6940544fa9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
