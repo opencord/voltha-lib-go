@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "fda6d459_b6c92323",
+        "filename": "pkg/mocks/etcd_server_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-11-11T20:56:31Z",
+      "side": 1,
+      "message": "Run it locally a number of times, including on jenkins and did not find an issue.",
+      "parentUuid": "44a3414d_67a87c26",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 2
+      },
+      "revId": "f1bef13ded419f90065f175f35a73f6940544fa9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98b49160_a7613c16",
         "filename": "pkg/mocks/kafka_client_test.go",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "c6088890_50ab80f1",
+        "filename": "pkg/mocks/kafka_client_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-11-11T20:56:31Z",
+      "side": 1,
+      "message": "ok, will change",
+      "parentUuid": "98b49160_a7613c16",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "f1bef13ded419f90065f175f35a73f6940544fa9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "437a5773_9d442c84",
         "filename": "pkg/mocks/kafka_client_test.go",
         "patchSetId": 1
@@ -82,6 +130,24 @@
       "writtenOn": "2019-11-11T20:46:14Z",
       "side": 1,
       "message": "There is no real value to this test unless you do an assert check on the client itself? the channel map maybe?",
+      "revId": "f1bef13ded419f90065f175f35a73f6940544fa9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "beabf8dd_cd9ba469",
+        "filename": "pkg/mocks/kafka_client_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-11-11T20:56:31Z",
+      "side": 1,
+      "message": "It\u0027s only value is for Stop() not to panic because of trying to close already closed channel.",
+      "parentUuid": "437a5773_9d442c84",
       "revId": "f1bef13ded419f90065f175f35a73f6940544fa9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
