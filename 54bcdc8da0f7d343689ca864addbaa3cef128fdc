@@ -22,6 +22,30 @@
       "revId": "54bcdc8da0f7d343689ca864addbaa3cef128fdc",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22839611_8d922da9",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2019-11-13T18:50:26Z",
+      "side": 1,
+      "message": "As for the non-existent key, I did check that Liveness is reported correctly. Also, have put these tests in UT. So, Get operation only gives error if there is connection or some other issue. Else, err is nil; even if the key was not present. Delete also silently ignores non-existent key. Didn\u0027t check for List though",
+      "parentUuid": "933b65cd_15d946cd",
+      "range": {
+        "startLine": 173,
+        "startChar": 1,
+        "endLine": 173,
+        "endChar": 29
+      },
+      "revId": "54bcdc8da0f7d343689ca864addbaa3cef128fdc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
