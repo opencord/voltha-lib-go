@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "933b65cd_15d946cd",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-11-13T18:12:56Z",
+      "side": 1,
+      "message": "Could this be catching errors that are not liveness related? For example, attempting to fetch a key that doesn\u0027t exist.",
+      "range": {
+        "startLine": 173,
+        "startChar": 1,
+        "endLine": 173,
+        "endChar": 29
+      },
+      "revId": "54bcdc8da0f7d343689ca864addbaa3cef128fdc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
