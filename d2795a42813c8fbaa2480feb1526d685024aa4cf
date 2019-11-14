@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "182f5f4c_92683553",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-11-14T13:43:38Z",
+      "side": 1,
+      "message": "Should these become Suppress_event and Unsuppress_event now ?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 51
+      },
+      "revId": "d2795a42813c8fbaa2480feb1526d685024aa4cf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
