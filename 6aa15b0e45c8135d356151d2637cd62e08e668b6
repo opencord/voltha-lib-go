@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6794aef2_46e1431e",
+        "filename": "VERSION",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000436
+      },
+      "writtenOn": "2019-11-15T12:53:20Z",
+      "side": 1,
+      "message": "2.2.15 is already released so this needs to be 2.2.16-dev",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 10
+      },
+      "revId": "6aa15b0e45c8135d356151d2637cd62e08e668b6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
