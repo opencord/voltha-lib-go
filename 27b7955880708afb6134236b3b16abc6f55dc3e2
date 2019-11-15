@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10a8f88d_aeee977a",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-11-15T18:58:18Z",
+      "side": 1,
+      "message": "this is assuming that any err causes liveness to go dark. can/should we limit this to transport errors?",
+      "range": {
+        "startLine": 158,
+        "startChar": 18,
+        "endLine": 158,
+        "endChar": 21
+      },
+      "revId": "27b7955880708afb6134236b3b16abc6f55dc3e2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c66c70be_56195211",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-11-15T18:58:18Z",
+      "side": 1,
+      "message": "this is assuming that any err causes liveness to go dark. can/should we limit this to transport errors?",
+      "range": {
+        "startLine": 173,
+        "startChar": 18,
+        "endLine": 173,
+        "endChar": 21
+      },
+      "revId": "27b7955880708afb6134236b3b16abc6f55dc3e2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34df65d6_6e714da1",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-11-15T18:58:18Z",
+      "side": 1,
+      "message": "this is assuming that any err causes liveness to go dark. can/should we limit this to transport errors?",
+      "range": {
+        "startLine": 188,
+        "startChar": 18,
+        "endLine": 188,
+        "endChar": 21
+      },
+      "revId": "27b7955880708afb6134236b3b16abc6f55dc3e2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb2b6164_1be9672f",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-11-15T18:58:18Z",
+      "side": 1,
+      "message": "this is assuming that any err causes liveness to go dark. can/should we limit this to transport errors?",
+      "range": {
+        "startLine": 203,
+        "startChar": 18,
+        "endLine": 203,
+        "endChar": 21
+      },
+      "revId": "27b7955880708afb6134236b3b16abc6f55dc3e2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8988501_e20f4b44",
+        "filename": "pkg/db/backend_test.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-11-15T18:58:18Z",
+      "side": 1,
+      "message": "white space at end",
+      "range": {
+        "startLine": 333,
+        "startChar": 55,
+        "endLine": 333,
+        "endChar": 56
+      },
+      "revId": "27b7955880708afb6134236b3b16abc6f55dc3e2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
