@@ -26,6 +26,7 @@ require (
 	github.com/jcmturner/gofork v1.0.0 // indirect
 	github.com/onsi/gomega v1.4.2 // indirect
 	github.com/opencord/voltha-protos/v2 v2.0.1
+	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
 	github.com/pierrec/lz4 v2.3.0+incompatible // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20190826022208-cac0b30c2563 // indirect
 	github.com/spf13/pflag v1.0.3 // indirect

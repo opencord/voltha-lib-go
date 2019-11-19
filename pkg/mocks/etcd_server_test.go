@@ -17,7 +17,9 @@
 package mocks
 
 import (
+	"fmt"
 	"github.com/opencord/voltha-lib-go/v2/pkg/db/kvstore"
+	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
 	"log"
 	"os"
@@ -28,12 +30,20 @@ var etcdServer *EtcdServer
 var client *kvstore.EtcdClient
 
 func setup() {
-	etcdServer = StartEtcdServer(nil)
+	clientPort, err := freeport.GetFreePort()
+	if err != nil {
+		log.Fatal(err)
+	}
+	peerPort, err := freeport.GetFreePort()
+	if err != nil {
+		log.Fatal(err)
+	}
+	etcdServer = StartEtcdServer(MKConfig("voltha.mock.test", clientPort, peerPort, "voltha.lib.mocks.etcd", "error"))
 	if etcdServer == nil {
 		log.Fatal("Embedded server failed to start")
 	}
-	var err error
-	client, err = kvstore.NewEtcdClient("localhost:2379", 10)
+	clientAddr := fmt.Sprintf("localhost:%d", clientPort)
+	client, err = kvstore.NewEtcdClient(clientAddr, 10)
 	if err != nil || client == nil {
 		etcdServer.Stop()
 		log.Fatal("Failed to create an Etcd client")
