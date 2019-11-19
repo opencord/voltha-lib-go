@@ -16,6 +16,7 @@
 package kafka
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"github.com/Shopify/sarama"
@@ -482,6 +483,41 @@ func (sc *SaramaClient) updateLiveness(alive bool) {
 	}
 }
 
+func (sc *SaramaClient) isLivenessError(err error) bool {
+	if err == context.DeadlineExceeded {
+		log.Info("smbaker is-liveness-error-not-live-because-timeout")
+		return true
+	}
+
+	// Sarama encapsulates these errors inside of a string
+	errStr := err.Error()
+	if strings.Contains(errStr, "circuit breaker is open") {
+		log.Info("smbaker is-liveness-error-circuit-breaker-open")
+		return true
+	}
+	if strings.Contains(errStr, sarama.ErrOutOfBrokers.Error()) { // "client has run out of available brokers"
+		log.Info("smbaker is-liveness-error-no-brokers")
+		return true
+	}
+	if strings.Contains(errStr, sarama.ErrShuttingDown.Error()) { // "message received by producer in process of shutting down"
+		log.Info("smbaker is-liveness-error-shutting-down")
+		return true
+	}
+	if strings.Contains(errStr, sarama.ErrControllerNotAvailable.Error()) { // "controller is not available"
+		log.Info("smbaker is-liveness-error-not-available")
+		return true
+	}
+
+	if strings.Contains(errStr, "connection refused") {
+		log.Info("smbaker is-liveness-error-connection-refused")
+		return true
+	}
+
+	log.Info("smbaker is-liveness-error-unhandled", log.Fields{"err": errStr})
+
+	return false
+}
+
 // send formats and sends the request onto the kafka messaging bus.
 func (sc *SaramaClient) Send(msg interface{}, topic *Topic, keys ...string) error {
 
@@ -521,7 +557,7 @@ func (sc *SaramaClient) Send(msg interface{}, topic *Topic, keys ...string) erro
 		sc.updateLiveness(true)
 	case notOk := <-sc.producer.Errors():
 		log.Debugw("error-sending", log.Fields{"status": notOk})
-		if strings.Contains(notOk.Error(), "Failed to produce") {
+		if sc.isLivenessError(notOk) {
 			sc.updateLiveness(false)
 		}
 		return notOk
@@ -577,7 +613,7 @@ func (sc *SaramaClient) SendLiveness() error {
 		sc.updateLiveness(true)
 	case notOk := <-sc.producer.Errors():
 		log.Debugw("liveness-error-sending", log.Fields{"status": notOk})
-		if strings.Contains(notOk.Error(), "Failed to produce") {
+		if sc.isLivenessError(notOk) {
 			sc.updateLiveness(false)
 		}
 		return notOk
@@ -896,7 +932,9 @@ startloop:
 		select {
 		case err, ok := <-consumer.Errors():
 			if ok {
-				sc.updateLiveness(false)
+				if sc.isLivenessError(err) {
+					sc.updateLiveness(false)
+				}
 				log.Warnw("group-consumers-error", log.Fields{"topic": topic.Name, "error": err})
 			} else {
 				log.Warnw("group-consumers-closed-err", log.Fields{"topic": topic.Name})
