@@ -20,6 +20,7 @@ import (
 	"context"
 	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"github.com/opencord/voltha-lib-go/v2/pkg/mocks"
+	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -34,15 +35,30 @@ func init() {
 
 const (
 	embedEtcdServerHost = "localhost"
-	embedEtcdServerPort = 2379
-	dummyEtcdServerPort = 12379
 	defaultTimeout      = 1
 	defaultPathPrefix   = "Prefix"
 )
 
-func TestMain(m *testing.M) {
-	etcdServer := mocks.StartEtcdServer(nil)
+var (
+	embedEtcdServerPort int
+	dummyEtcdServerPort int
+)
 
+func TestMain(m *testing.M) {
+	var err error
+	embedEtcdServerPort, err = freeport.GetFreePort()
+	if err != nil {
+		log.Fatal(err)
+	}
+	dummyEtcdServerPort, err = freeport.GetFreePort()
+	if err != nil {
+		log.Fatal(err)
+	}
+	peerPort, err := freeport.GetFreePort()
+	if err != nil {
+		log.Fatal(err)
+	}
+	etcdServer := mocks.StartEtcdServer(mocks.MKConfig("voltha.db.test", embedEtcdServerPort, peerPort, "voltha.lib.db", "error"))
 	res := m.Run()
 
 	etcdServer.Stop()
