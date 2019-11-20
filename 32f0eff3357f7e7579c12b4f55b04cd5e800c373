@@ -52,6 +52,24 @@
       "revId": "32f0eff3357f7e7579c12b4f55b04cd5e800c373",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b65f3f6d_06de2b04",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000548
+      },
+      "writtenOn": "2019-11-20T16:17:37Z",
+      "side": 1,
+      "message": "Girish , i meant we can use macro/constants rather than using string manually",
+      "parentUuid": "6f217122_5ea8fc25",
+      "revId": "32f0eff3357f7e7579c12b4f55b04cd5e800c373",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
