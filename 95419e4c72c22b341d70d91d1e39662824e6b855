@@ -16,6 +16,24 @@
       "revId": "95419e4c72c22b341d70d91d1e39662824e6b855",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8894705d_2ff3bb9c",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-11-21T17:49:50Z",
+      "side": 1,
+      "message": "That\u0027s what I had originally written, and then I changed it to this. My concern was that we would erroneously set it to True. Consider for example if liveness is set False due to a connectivity error, then some other \"unimportant\" or unanticipated error comes along, we wouldn\u0027t want that to toggle the state back to live.",
+      "parentUuid": "d902c9f5_fa4601b5",
+      "revId": "95419e4c72c22b341d70d91d1e39662824e6b855",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
