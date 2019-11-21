@@ -34,6 +34,24 @@
       "revId": "95419e4c72c22b341d70d91d1e39662824e6b855",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a59059cd_56aa3e25",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-11-21T17:51:48Z",
+      "side": 1,
+      "message": "ah, good point.",
+      "parentUuid": "8894705d_2ff3bb9c",
+      "revId": "95419e4c72c22b341d70d91d1e39662824e6b855",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
