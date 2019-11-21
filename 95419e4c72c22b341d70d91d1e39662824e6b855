@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d902c9f5_fa4601b5",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-11-21T17:41:30Z",
+      "side": 1,
+      "message": "could this be just `sc.updateLiveness(sc.isLivenessError(notOk))`? it may mean setting True and the value is already True, but that should sort of be short circuited in the `updateLiveness` function i would think.",
+      "revId": "95419e4c72c22b341d70d91d1e39662824e6b855",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
