@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d924726_7e3ef38a",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-11-25T23:46:14Z",
+      "side": 1,
+      "message": "is there a convention we\u0027re applying to separating these import paths from the others?",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 7
+      },
+      "revId": "76fcc189e05160f3747c1bc8f32002657b4bc7c7",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
