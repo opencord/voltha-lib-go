@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e66be919_eb075c19",
+        "filename": "VERSION",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-11-27T19:21:32Z",
+      "side": 1,
+      "message": "Do we use -dev versions in libraries?",
+      "revId": "a36b498551cf60c4827f0557621ba75b7369fc73",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
