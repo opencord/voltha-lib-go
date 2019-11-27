@@ -16,6 +16,24 @@
       "revId": "a36b498551cf60c4827f0557621ba75b7369fc73",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38f72602_a555f157",
+        "filename": "VERSION",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-11-27T20:14:04Z",
+      "side": 1,
+      "message": "I think our policy is to only release when some dependent component requires the library. I\u0027m open to changing that, it seems like often when you\u0027re checking in a change to a library you expect to use that change immediately (this patch is unusual in that it\u0027s primarily a Makefile-related change).",
+      "parentUuid": "e66be919_eb075c19",
+      "revId": "a36b498551cf60c4827f0557621ba75b7369fc73",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
