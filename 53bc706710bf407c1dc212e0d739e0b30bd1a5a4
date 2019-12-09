@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "665de3da_d58abb34",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-09T15:38:22Z",
+      "side": 1,
+      "message": "By convention, check for err!\u003dnil first, and avoid unnecessary indentation.\n\nhttps://github.com/golang/go/wiki/CodeReviewComments#indent-error-flow",
+      "revId": "53bc706710bf407c1dc212e0d739e0b30bd1a5a4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a93d60c_013e4b05",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-09T15:38:22Z",
+      "side": 1,
+      "message": "By convention, shouldn\u0027t capitalize error messages.\n(more like this, but I won\u0027t repeat on every line.)\n\nhttps://github.com/golang/go/wiki/CodeReviewComments#error-strings",
+      "revId": "53bc706710bf407c1dc212e0d739e0b30bd1a5a4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
