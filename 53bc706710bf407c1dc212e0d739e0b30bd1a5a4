@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "27cb51d9_6e097290",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2019-12-11T10:08:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "665de3da_d58abb34",
+      "revId": "53bc706710bf407c1dc212e0d739e0b30bd1a5a4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a93d60c_013e4b05",
         "filename": "pkg/techprofile/tech_profile.go",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "side": 1,
       "message": "Whoops, ignore this one.  (\"does not apply to logging\")",
       "parentUuid": "4a93d60c_013e4b05",
+      "revId": "53bc706710bf407c1dc212e0d739e0b30bd1a5a4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7ee677_33a70e8c",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2019-12-11T10:08:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00d3a576_99d98098",
       "revId": "53bc706710bf407c1dc212e0d739e0b30bd1a5a4",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
