@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e014a95_aede5cb8",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-12-11T15:46:43Z",
+      "side": 1,
+      "message": "Seems to me we are overloading the nil return value here. We are logging an error, but returning nil. Shouldn\u0027t we be returning an error if this is an error?",
+      "range": {
+        "startLine": 686,
+        "startChar": 0,
+        "endLine": 697,
+        "endChar": 4
+      },
+      "revId": "c3f9bdf8ac748d2f4df7d16f23dff2239c2b49aa",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7916d821_40ef721a",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-12-11T15:46:43Z",
+      "side": 1,
+      "message": "Seems to me we are overloading the nil return value here. We are logging an error, but returning nil. Shouldn\u0027t we be returning an error if this is an error?",
+      "range": {
+        "startLine": 722,
+        "startChar": 0,
+        "endLine": 733,
+        "endChar": 4
+      },
+      "revId": "c3f9bdf8ac748d2f4df7d16f23dff2239c2b49aa",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
