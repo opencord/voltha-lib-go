@@ -81,6 +81,8 @@ type SaramaClient struct {
 	livenessChannelInterval       time.Duration
 	lastLivenessTime              time.Time
 	started                       bool
+	healthy                       bool
+	healthiness                   chan bool
 }
 
 type SaramaClientOption func(*SaramaClient)
@@ -231,8 +233,9 @@ func NewSaramaClient(opts ...SaramaClientOption) *SaramaClient {
 	client.lockOfTopicLockMap = sync.RWMutex{}
 	client.lockOfGroupConsumers = sync.RWMutex{}
 
-	// alive until proven otherwise
+	// healthy and alive until proven otherwise
 	client.alive = true
+	client.healthy = true
 
 	return client
 }
@@ -484,6 +487,14 @@ func (sc *SaramaClient) updateLiveness(alive bool) {
 	}
 }
 
+// Once unhealthy, we never go back
+func (sc *SaramaClient) setUnhealthy() {
+	sc.healthy = false
+	if sc.healthiness != nil {
+		sc.healthiness <- false
+	}
+}
+
 func (sc *SaramaClient) isLivenessError(err error) bool {
 	// Sarama producers and consumers encapsulate the error inside
 	// a ProducerError or ConsumerError struct.
@@ -598,6 +609,27 @@ func (sc *SaramaClient) EnableLivenessChannel(enable bool) chan bool {
 		panic("Turning off liveness reporting is not supported")
 	}
 	return sc.liveness
+}
+
+func (sc *SaramaClient) EnableHealthinessChannel(enable bool) chan bool {
+	log.Infow("kafka-enable-healthiness-channel", log.Fields{"enable": enable})
+	if enable {
+		if sc.healthiness == nil {
+			log.Info("kafka-create-healthiness-channel")
+			// At least 1, so we can immediately post to it without blocking
+			// Setting a bigger number (10) allows the monitor to fall behind
+			// without blocking others. The monitor shouldn't really fall
+			// behind...
+			sc.healthiness = make(chan bool, 10)
+			// post intial state to the channel
+			sc.healthiness <- sc.healthy
+		}
+	} else {
+		// TODO: Think about whether we need the ability to turn off
+		// liveness monitoring
+		panic("Turning off healthiness reporting is not supported")
+	}
+	return sc.healthiness
 }
 
 // send an empty message on the liveness channel to check whether connectivity has
@@ -936,6 +968,7 @@ startloop:
 		}
 	}
 	log.Infow("partition-consumer-stopped", log.Fields{"topic": topic.Name})
+	sc.setUnhealthy()
 }
 
 func (sc *SaramaClient) consumeGroupMessages(topic *Topic, consumer *scc.Consumer, consumerChnls *consumerChannels) {
@@ -979,6 +1012,7 @@ startloop:
 		}
 	}
 	log.Infow("group-consumer-stopped", log.Fields{"topic": topic.Name})
+	sc.setUnhealthy()
 }
 
 func (sc *SaramaClient) startConsumers(topic *Topic) error {
