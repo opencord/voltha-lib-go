@@ -16,6 +16,24 @@
       "revId": "4139b19adecccb934a02aff35317927f5072bf4a",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55c2b0b0_5866a8cd",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-12-12T22:53:23Z",
+      "side": 1,
+      "message": "Partition consumer is used in the openolt-adapter. Once the partition consumer thread dies in the adapter, nothing ever restarts it. David and I discussed this briefly a couple weeks ago and concluded this it\u0027s sufficiently rare occurrence that restarting the adapter would not be overly burdensome.\n(Note that this doesn\u0027t happen on a network partition or other temporary connectivity issue; it\u0027s when kafka is scaled down and then scaled back up that the sarama library realizes it\u0027s talking to a new Kafka instance and closes the consumer)",
+      "parentUuid": "82a3d77a_692cad10",
+      "revId": "4139b19adecccb934a02aff35317927f5072bf4a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
