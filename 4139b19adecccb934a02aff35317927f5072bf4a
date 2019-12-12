@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82a3d77a_692cad10",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-12-12T22:33:15Z",
+      "side": 1,
+      "message": "For partition consumer it is expected for the client to retry In this scenario kafka itself may have become healthy.  It may be ok for now to set it as unhealthy as we are using mostly group consumers and if anywhere partition consumer is used (not the core) I am pretty sure there are no retry in that code.",
+      "revId": "4139b19adecccb934a02aff35317927f5072bf4a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
