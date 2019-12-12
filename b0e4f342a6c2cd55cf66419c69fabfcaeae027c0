@@ -16,6 +16,24 @@
       "revId": "b0e4f342a6c2cd55cf66419c69fabfcaeae027c0",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aabccb36_fe5cb4e0",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2019-12-12T16:31:54Z",
+      "side": 1,
+      "message": "Changed to use fmt.Errorf(). Missed on the error string convention; fixed that",
+      "parentUuid": "44e06062_9797cc0a",
+      "revId": "b0e4f342a6c2cd55cf66419c69fabfcaeae027c0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
