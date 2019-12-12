@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mocks
+package db
 
 import (
 	"github.com/opencord/voltha-lib-go/v2/pkg/log"
@@ -27,7 +27,7 @@ const (
 // the current directory.
 func init() {
 	// Setup this package so that it's log level can be modified at run time
-	_, err := log.AddPackage(log.JSON, logLevel, log.Fields{"instanceId": "mocks"})
+	_, err := log.AddPackage(log.JSON, logLevel, log.Fields{"pkg": "db"})
 	if err != nil {
 		panic(err)
 	}
