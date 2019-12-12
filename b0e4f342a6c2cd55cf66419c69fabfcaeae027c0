@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44e06062_9797cc0a",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-12T14:56:10Z",
+      "side": 1,
+      "message": "Consider using fmt.Errorf to include erroneous variables in the message.\n\nAlso: errors should be lowercase\nhttps://github.com/golang/go/wiki/CodeReviewComments#error-strings\n\n(More like this, I won\u0027t repeat for each one.)",
+      "revId": "b0e4f342a6c2cd55cf66419c69fabfcaeae027c0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
