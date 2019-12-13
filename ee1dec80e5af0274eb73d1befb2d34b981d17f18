@@ -46,6 +46,30 @@
       "revId": "ee1dec80e5af0274eb73d1befb2d34b981d17f18",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afb3e238_1b856232",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2019-12-13T06:18:24Z",
+      "side": 1,
+      "message": "This is fine. The Direction is a String member of Scheduler struct decoded from JSON. So, it has String value as was present in Tech Profile json stored in etcd\n\nGot following log while testing with invalid value of Direction:\n\n{\"level\":\"error\",\"ts\":\"2019-12-06T12:31:13.153Z\",\"msg\":\"Error in getting Proto Id for direction UPSTREAM_NEW for upstream scheduler\",\"instanceId\":\"adapter-open-olt-7f94cdc788-q8bpx\",\"caller\":\"tech_profile.GetUsScheduler:611\",\"stacktrace\":......",
+      "parentUuid": "2fca3b05_1221a76a",
+      "range": {
+        "startLine": 614,
+        "startChar": 13,
+        "endLine": 614,
+        "endChar": 114
+      },
+      "revId": "ee1dec80e5af0274eb73d1befb2d34b981d17f18",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
