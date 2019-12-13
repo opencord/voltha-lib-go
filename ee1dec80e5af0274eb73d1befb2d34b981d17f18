@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fca3b05_1221a76a",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-12-13T06:01:07Z",
+      "side": 1,
+      "message": "Are these printf format strings correct? For example, isn\u0027t direction an integer?",
+      "range": {
+        "startLine": 614,
+        "startChar": 13,
+        "endLine": 614,
+        "endChar": 114
+      },
+      "revId": "ee1dec80e5af0274eb73d1befb2d34b981d17f18",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
