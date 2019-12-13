@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3e079e2_89a17ad6",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-12-13T08:03:00Z",
+      "side": 1,
+      "message": "Is this another function thats should be returning an error value as you are logging an error, but returning a non-error value?",
+      "range": {
+        "startLine": 611,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 89
+      },
+      "revId": "3505a66e8c1952bdc33f2a42b983e509d8b72ef9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6905708_3774faa7",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-12-13T08:03:00Z",
+      "side": 1,
+      "message": "error return value?",
+      "range": {
+        "startLine": 635,
+        "startChar": 0,
+        "endLine": 635,
+        "endChar": 89
+      },
+      "revId": "3505a66e8c1952bdc33f2a42b983e509d8b72ef9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
