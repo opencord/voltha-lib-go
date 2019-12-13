@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab767ce5_3c101d1d",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-12-13T18:56:09Z",
+      "side": 1,
+      "message": "Logging and returning the error seems redundant to me, if the caller also logs any errors it receives (which it should if it\u0027s a well-behaved caller). Regardless, not enough to block patch, adding my +1.",
+      "range": {
+        "startLine": 644,
+        "startChar": 2,
+        "endLine": 644,
+        "endChar": 126
+      },
+      "revId": "b3c52d5d11e567f51bd1c0b71083631b1bec1e37",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
