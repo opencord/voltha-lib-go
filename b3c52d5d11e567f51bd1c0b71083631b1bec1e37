@@ -22,6 +22,30 @@
       "revId": "b3c52d5d11e567f51bd1c0b71083631b1bec1e37",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb3f187f_1e2a2a6f",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2019-12-14T05:31:07Z",
+      "side": 1,
+      "message": "I agree. A redundant log may get generated in this approach. But this is a approach followed at many places; probably to shield against a ill-behaving caller which may consume the error. Anyway, better to log twice than not at all",
+      "parentUuid": "ab767ce5_3c101d1d",
+      "range": {
+        "startLine": 644,
+        "startChar": 2,
+        "endLine": 644,
+        "endChar": 126
+      },
+      "revId": "b3c52d5d11e567f51bd1c0b71083631b1bec1e37",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
