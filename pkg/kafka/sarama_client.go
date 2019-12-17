@@ -45,6 +45,9 @@ type consumerChannels struct {
 	channels  []chan *ic.InterContainerMessage
 }
 
+// static check to ensure SaramaClient implements Client
+var _ Client = &SaramaClient{}
+
 // SaramaClient represents the messaging proxy
 type SaramaClient struct {
 	cAdmin                        sarama.ClusterAdmin
@@ -71,6 +74,7 @@ type SaramaClient struct {
 	numReplicas                   int
 	autoCreateTopic               bool
 	doneCh                        chan int
+	metadataCallback              func(fromTopic string, timestamp int64)
 	topicToConsumerChannelMap     map[string]*consumerChannels
 	lockTopicToConsumerChannelMap sync.RWMutex
 	topicLockMap                  map[string]*sync.RWMutex
@@ -461,6 +465,10 @@ func (sc *SaramaClient) UnSubscribe(topic *Topic, ch <-chan *ic.InterContainerMe
 		log.Errorw("failed-deleting-group-consumer", log.Fields{"error": err})
 	}
 	return err
+}
+
+func (sc *SaramaClient) SubscribeForMetadata(callback func(fromTopic string, timestamp int64)) {
+	sc.metadataCallback = callback
 }
 
 func (sc *SaramaClient) updateLiveness(alive bool) {
@@ -926,6 +934,9 @@ func (sc *SaramaClient) createGroupConsumer(topic *Topic, groupId string, initia
 // dispatchToConsumers sends the intercontainermessage received on a given topic to all subscribers for that
 // topic via the unique channel each subscriber received during subscription
 func (sc *SaramaClient) dispatchToConsumers(consumerCh *consumerChannels, protoMessage *ic.InterContainerMessage) {
+	if callback := sc.metadataCallback; callback != nil {
+		callback(protoMessage.Header.FromTopic, protoMessage.Header.Timestamp)
+	}
 	// Need to go over all channels and publish messages to them - do we need to copy msg?
 	sc.lockTopicToConsumerChannelMap.RLock()
 	defer sc.lockTopicToConsumerChannelMap.RUnlock()

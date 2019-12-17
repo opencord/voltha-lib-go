@@ -25,6 +25,9 @@ import (
 	"sync"
 )
 
+// static check to ensure KafkaClient implements kafka.Client
+var _ kafka.Client = &KafkaClient{}
+
 type KafkaClient struct {
 	topicsChannelMap map[string][]chan *ic.InterContainerMessage
 	lock             sync.RWMutex
@@ -105,6 +108,10 @@ func (kc *KafkaClient) UnSubscribe(topic *kafka.Topic, ch <-chan *ic.InterContai
 		}
 	}
 	return nil
+}
+
+func (kc *KafkaClient) SubscribeForMetadata(_ func(fromTopic string, timestamp int64)) {
+	panic("unimplemented")
 }
 
 func (kc *KafkaClient) Send(msg interface{}, topic *kafka.Topic, keys ...string) error {

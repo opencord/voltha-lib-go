@@ -24,14 +24,6 @@ import (
 	"time"
 )
 
-func TestKafkaClientImplementsKafkaClientIf(t *testing.T) {
-	client := NewKafkaClient()
-
-	if _, ok := interface{}(client).(kafka.Client); !ok {
-		t.Error("mock kafka client does not implement voltha-lib-go/v2/pkg/kafka/Client interface")
-	}
-}
-
 func TestKafkaClientCreateTopic(t *testing.T) {
 	cTkc := NewKafkaClient()
 	topic := kafka.Topic{Name: "myTopic"}
