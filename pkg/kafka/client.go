@@ -66,6 +66,7 @@ type Client interface {
 	DeleteTopic(topic *Topic) error
 	Subscribe(topic *Topic, kvArgs ...*KVArg) (<-chan *ca.InterContainerMessage, error)
 	UnSubscribe(topic *Topic, ch <-chan *ca.InterContainerMessage) error
+	SubscribeForMetadata(func(*ca.Header))
 	Send(msg interface{}, topic *Topic, keys ...string) error
 	SendLiveness() error
 	EnableLivenessChannel(enable bool) chan bool
