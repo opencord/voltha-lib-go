@@ -188,6 +188,7 @@ github.com/onsi/ginkgo v1.6.0 h1:Ix8l273rp3QzYgXSR+c8d1fTG7UPgYkOSELPhiY/YGw=
 github.com/onsi/ginkgo v1.6.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/gomega v1.4.2 h1:3mYCb7aPxS/RU7TI1y4rkEn1oKmPRjNJLNEXgw7MH2I=
 github.com/onsi/gomega v1.4.2/go.mod h1:ex+gbHU/CVuBBDIJjb2X0qEXbFg53c61hWP/1CpauHY=
+github.com/opencord/voltha-lib-go/v2 v2.2.28 h1:gmMYqqpsSSbFqd4jYD33TF4K03Fjx7fpIE/cgJ2UdKA=
 github.com/opencord/voltha-protos/v3 v3.0.0 h1:Hp6rT/zZq+xq4wtPF8kaMOYj27DKcqT9nNB0F0ZPW3c=
 github.com/opencord/voltha-protos/v3 v3.0.0/go.mod h1:n60tmoNSjgDGxEH7YGqDhIeiCpQETpnF5wOcNepHvWU=
 github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
