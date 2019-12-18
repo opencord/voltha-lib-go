@@ -17,15 +17,16 @@
 package adapterif
 
 import (
+	ef "github.com/opencord/voltha-lib-go/v2/pkg/eventfilter"
 	"github.com/opencord/voltha-protos/v2/go/voltha"
 )
 
 // EventProxy interface for eventproxy
 type EventProxy interface {
 	SendDeviceEvent(deviceEvent *voltha.DeviceEvent, category EventCategory,
-		subCategory EventSubCategory, raisedTs int64) error
+		subCategory EventSubCategory, raisedTs int64, filter *ef.EventFilter) error
 	SendKpiEvent(id string, deviceEvent *voltha.KpiEvent2, category EventCategory,
-		subCategory EventSubCategory, raisedTs int64) error
+		subCategory EventSubCategory, raisedTs int64, filter *ef.EventFilter) error
 }
 
 const (
