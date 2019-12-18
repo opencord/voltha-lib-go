@@ -32,6 +32,7 @@ import (
 type EventProxy struct {
 	kafkaClient kafka.Client
 	eventTopic  kafka.Topic
+	eventFilter *EventFilter
 }
 
 func NewEventProxy(opts ...EventProxyOption) *EventProxy {
@@ -89,17 +90,19 @@ func (ep *EventProxy) SendDeviceEvent(deviceEvent *voltha.DeviceEvent, category 
 	de.DeviceEvent = deviceEvent
 	event.Header = ep.getEventHeader(deviceEvent.DeviceEventName, category, subCategory, voltha.EventType_DEVICE_EVENT, raisedTs)
 	event.EventType = &de
-	if err := ep.sendEvent(&event); err != nil {
-		log.Errorw("Failed to send device event to KAFKA bus", log.Fields{"device-event": deviceEvent})
-		return err
+	if ep.eventFilter.FilterEvent(&event) {
+		if err := ep.sendEvent(&event); err != nil {
+			log.Errorw("Failed to send device event to KAFKA bus", log.Fields{"device-event": deviceEvent})
+			return err
+		}
+		log.Infow("Successfully sent device event KAFKA", log.Fields{"Id": event.Header.Id, "Category": event.Header.Category,
+			"SubCategory": event.Header.SubCategory, "Type": event.Header.Type, "TypeVersion": event.Header.TypeVersion,
+			"ReportedTs": event.Header.ReportedTs, "ResourceId": deviceEvent.ResourceId, "Context": deviceEvent.Context,
+			"DeviceEventName": deviceEvent.DeviceEventName})
+	} else {
+		log.Infow("Device event filtered out", log.Fields{"event": event})
 	}
-	log.Infow("Successfully sent device event KAFKA", log.Fields{"Id": event.Header.Id, "Category": event.Header.Category,
-		"SubCategory": event.Header.SubCategory, "Type": event.Header.Type, "TypeVersion": event.Header.TypeVersion,
-		"ReportedTs": event.Header.ReportedTs, "ResourceId": deviceEvent.ResourceId, "Context": deviceEvent.Context,
-		"DeviceEventName": deviceEvent.DeviceEventName})
-
 	return nil
-
 }
 
 // SendKpiEvent is to send kpi events to voltha.event topic
@@ -113,14 +116,17 @@ func (ep *EventProxy) SendKpiEvent(id string, kpiEvent *voltha.KpiEvent2, catego
 	de.KpiEvent2 = kpiEvent
 	event.Header = ep.getEventHeader(id, category, subCategory, voltha.EventType_KPI_EVENT2, raisedTs)
 	event.EventType = &de
-	if err := ep.sendEvent(&event); err != nil {
-		log.Errorw("Failed to send kpi event to KAFKA bus", log.Fields{"device-event": kpiEvent})
-		return err
+	if ep.eventFilter.FilterEvent(&event) {
+		if err := ep.sendEvent(&event); err != nil {
+			log.Errorw("Failed to send kpi event to KAFKA bus", log.Fields{"device-event": kpiEvent})
+			return err
+		}
+		log.Infow("Successfully sent kpi event to KAFKA", log.Fields{"Id": event.Header.Id, "Category": event.Header.Category,
+			"SubCategory": event.Header.SubCategory, "Type": event.Header.Type, "TypeVersion": event.Header.TypeVersion,
+			"ReportedTs": event.Header.ReportedTs, "KpiEventName": "STATS_EVENT"})
+	} else {
+		log.Infow("KPI event filtered out", log.Fields{"event": event})
 	}
-	log.Infow("Successfully sent kpi event to KAFKA", log.Fields{"Id": event.Header.Id, "Category": event.Header.Category,
-		"SubCategory": event.Header.SubCategory, "Type": event.Header.Type, "TypeVersion": event.Header.TypeVersion,
-		"ReportedTs": event.Header.ReportedTs, "KpiEventName": "STATS_EVENT"})
-
 	return nil
 
 }
