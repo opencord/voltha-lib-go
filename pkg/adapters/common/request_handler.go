@@ -489,6 +489,82 @@ func (rhp *RequestHandlerProxy) Unsuppress_alarm(args []*ic.Argument) (*empty.Em
 	return new(empty.Empty), nil
 }
 
+func (rhp *RequestHandlerProxy) Suppress_event(args []*ic.Argument) (*empty.Empty, error) {
+	if len(args) < 3 {
+		log.Warn("invalid-number-of-args", log.Fields{"args": args})
+		err := errors.New("invalid-number-of-args")
+		return nil, err
+	}
+
+	filter := &voltha.EventFilter{}
+	transactionID := &ic.StrType{}
+	fromTopic := &ic.StrType{}
+	for _, arg := range args {
+		switch arg.Key {
+		case "filter":
+			if err := ptypes.UnmarshalAny(arg.Value, filter); err != nil {
+				log.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				return nil, err
+			}
+		case kafka.TransactionKey:
+			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
+				log.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				return nil, err
+			}
+		case kafka.FromTopic:
+			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
+				log.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				return nil, err
+			}
+		}
+	}
+	//Update the core reference for that device
+	rhp.coreProxy.UpdateCoreReference(filter.DeviceId, fromTopic.Val)
+	//Invoke the delete_device API on the adapter
+	if err := rhp.adapter.Suppress_event(filter); err != nil {
+		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
+	}
+	return new(empty.Empty), nil
+}
+
+func (rhp *RequestHandlerProxy) Unsuppress_event(args []*ic.Argument) (*empty.Empty, error) {
+	if len(args) < 3 {
+		log.Warn("invalid-number-of-args", log.Fields{"args": args})
+		err := errors.New("invalid-number-of-args")
+		return nil, err
+	}
+
+	filter := &voltha.EventFilter{}
+	transactionID := &ic.StrType{}
+	fromTopic := &ic.StrType{}
+	for _, arg := range args {
+		switch arg.Key {
+		case "filter":
+			if err := ptypes.UnmarshalAny(arg.Value, filter); err != nil {
+				log.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				return nil, err
+			}
+		case kafka.TransactionKey:
+			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
+				log.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				return nil, err
+			}
+		case kafka.FromTopic:
+			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
+				log.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				return nil, err
+			}
+		}
+	}
+	//Update the core reference for that device
+	rhp.coreProxy.UpdateCoreReference(filter.DeviceId, fromTopic.Val)
+	//Invoke the delete_device API on the adapter
+	if err := rhp.adapter.Unsuppress_event(filter); err != nil {
+		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
+	}
+	return new(empty.Empty), nil
+}
+
 func (rhp *RequestHandlerProxy) Get_ofp_device_info(args []*ic.Argument) (*ic.SwitchCapability, error) {
 	if len(args) < 2 {
 		log.Warn("invalid-number-of-args", log.Fields{"args": args})
