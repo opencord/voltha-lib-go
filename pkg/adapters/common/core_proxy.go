@@ -558,3 +558,19 @@ func (ap *CoreProxy) ReconcileChildDevices(ctx context.Context, parentDeviceId s
 	log.Debugw("ReconcileChildDevices-response", log.Fields{"pDeviceId": parentDeviceId, "success": success})
 	return unPackResponse(rpc, parentDeviceId, success, result)
 }
+
+func (ap *CoreProxy) ReconcileEventFilters(ctx context.Context, deviceID string) error {
+	log.Debugw("ReconcileEventFilters", log.Fields{"devioe-id": deviceID})
+	rpc := "ReconcileEventFilters"
+	toTopic := ap.getCoreTopic(deviceID)
+	replyToTopic := ap.getAdapterTopic()
+
+	args := []*kafka.KVArg{
+		{Key: "device_id", Value: &voltha.ID{Id: deviceID}},
+	}
+
+	success, result := ap.kafkaICProxy.InvokeRPC(nil, rpc, &toTopic, &replyToTopic, true, deviceID, args...)
+	log.Debugw("ReconcileEventFilters-response", log.Fields{"deviceId": deviceID, "success": success})
+	return unPackResponse(rpc, deviceID, success, result)
+
+}
