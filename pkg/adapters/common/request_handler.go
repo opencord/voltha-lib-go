@@ -108,6 +108,7 @@ func (rhp *RequestHandlerProxy) Reconcile_device(args []*ic.Argument) (*empty.Em
 	}
 
 	device := &voltha.Device{}
+	filters := &voltha.EventFilters{}
 	transactionID := &ic.StrType{}
 	fromTopic := &ic.StrType{}
 	for _, arg := range args {
@@ -115,6 +116,11 @@ func (rhp *RequestHandlerProxy) Reconcile_device(args []*ic.Argument) (*empty.Em
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
 				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				return nil, err
+			}
+		case "filters":
+			if err := ptypes.UnmarshalAny(arg.Value, filters); err != nil {
+				log.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
@@ -133,7 +139,7 @@ func (rhp *RequestHandlerProxy) Reconcile_device(args []*ic.Argument) (*empty.Em
 	rhp.coreProxy.UpdateCoreReference(device.Id, fromTopic.Val)
 
 	//Invoke the reconcile device API on the adapter
-	if err := rhp.adapter.Reconcile_device(device); err != nil {
+	if err := rhp.adapter.Reconcile_device(device, filters); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return new(empty.Empty), nil
@@ -482,11 +488,79 @@ func (rhp *RequestHandlerProxy) Receive_packet_out(args []*ic.Argument) (*empty.
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Suppress_alarm(args []*ic.Argument) (*empty.Empty, error) {
+func (rhp *RequestHandlerProxy) Suppress_event(args []*ic.Argument) (*empty.Empty, error) {
+	if len(args) < 3 {
+		log.Warn("invalid-number-of-args", log.Fields{"args": args})
+		err := errors.New("invalid-number-of-args")
+		return nil, err
+	}
+
+	filter := &voltha.EventFilter{}
+	transactionID := &ic.StrType{}
+	fromTopic := &ic.StrType{}
+	for _, arg := range args {
+		switch arg.Key {
+		case "filter":
+			if err := ptypes.UnmarshalAny(arg.Value, filter); err != nil {
+				log.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				return nil, err
+			}
+		case kafka.TransactionKey:
+			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
+				log.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				return nil, err
+			}
+		case kafka.FromTopic:
+			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
+				log.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				return nil, err
+			}
+		}
+	}
+	//Update the core reference for that device
+	rhp.coreProxy.UpdateCoreReference(filter.DeviceId, fromTopic.Val)
+	//Invoke the delete_device API on the adapter
+	if err := rhp.adapter.Suppress_event(filter); err != nil {
+		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
+	}
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Unsuppress_alarm(args []*ic.Argument) (*empty.Empty, error) {
+func (rhp *RequestHandlerProxy) Unsuppress_event(args []*ic.Argument) (*empty.Empty, error) {
+	if len(args) < 3 {
+		log.Warn("invalid-number-of-args", log.Fields{"args": args})
+		err := errors.New("invalid-number-of-args")
+		return nil, err
+	}
+
+	filter := &voltha.EventFilter{}
+	transactionID := &ic.StrType{}
+	fromTopic := &ic.StrType{}
+	for _, arg := range args {
+		switch arg.Key {
+		case "filter":
+			if err := ptypes.UnmarshalAny(arg.Value, filter); err != nil {
+				log.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				return nil, err
+			}
+		case kafka.TransactionKey:
+			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
+				log.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				return nil, err
+			}
+		case kafka.FromTopic:
+			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
+				log.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				return nil, err
+			}
+		}
+	}
+	//Update the core reference for that device
+	rhp.coreProxy.UpdateCoreReference(filter.DeviceId, fromTopic.Val)
+	//Invoke the delete_device API on the adapter
+	if err := rhp.adapter.Unsuppress_event(filter); err != nil {
+		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
+	}
 	return new(empty.Empty), nil
 }
 

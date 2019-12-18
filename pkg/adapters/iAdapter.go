@@ -27,7 +27,7 @@ type IAdapter interface {
 	Device_types() (*voltha.DeviceTypes, error)
 	Health() (*voltha.HealthStatus, error)
 	Adopt_device(device *voltha.Device) error
-	Reconcile_device(device *voltha.Device) error
+	Reconcile_device(device *voltha.Device, filters *voltha.EventFilters) error
 	Abandon_device(device *voltha.Device) error
 	Disable_device(device *voltha.Device) error
 	Reenable_device(device *voltha.Device) error
