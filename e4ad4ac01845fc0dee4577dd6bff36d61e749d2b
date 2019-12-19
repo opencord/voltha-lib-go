@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4956e69_9904aecd",
+        "filename": "pkg/adapters/common/event_filter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-19T22:03:54Z",
+      "side": 1,
+      "message": "These constants are already defined in the voltha package.\n\nvoltha.ConfigEventType_add, etc.\n\nNo need to re-declare them.",
+      "revId": "e4ad4ac01845fc0dee4577dd6bff36d61e749d2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb1154c9_9cd55d0a",
+        "filename": "pkg/adapters/common/event_filter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-19T22:03:54Z",
+      "side": 1,
+      "message": "Already defined in voltha package.",
+      "revId": "e4ad4ac01845fc0dee4577dd6bff36d61e749d2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7340b804_9a80a2b8",
+        "filename": "pkg/adapters/common/event_filter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-19T22:03:54Z",
+      "side": 1,
+      "message": "Can do this in one line like:\nreturn \u0026EventFilter{Filters: make(map[string]*voltha.EventFilter)}",
+      "revId": "e4ad4ac01845fc0dee4577dd6bff36d61e749d2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6112234e_45e72b95",
+        "filename": "pkg/adapters/common/event_filter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-19T22:03:54Z",
+      "side": 1,
+      "message": "if remove \u003d\u003d false, this will add then immediately delete the map entry.",
+      "revId": "e4ad4ac01845fc0dee4577dd6bff36d61e749d2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "954715cf_bca17c84",
+        "filename": "pkg/adapters/common/event_filter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-19T22:03:54Z",
+      "side": 1,
+      "message": "The use of exclude is confusing.  Consider just returning true/false directly.",
+      "revId": "e4ad4ac01845fc0dee4577dd6bff36d61e749d2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10fbf63b_46dd3cc2",
+        "filename": "pkg/adapters/common/event_filter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-19T22:03:54Z",
+      "side": 1,
+      "message": "The use of exclude is confusing.  Consider just returning true/false directly.",
+      "revId": "e4ad4ac01845fc0dee4577dd6bff36d61e749d2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "993992ad_0f01528b",
+        "filename": "pkg/adapters/common/event_filter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-19T22:03:54Z",
+      "side": 1,
+      "message": "The use of exclude is confusing.  Consider just returning true/false directly.",
+      "revId": "e4ad4ac01845fc0dee4577dd6bff36d61e749d2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4230fc1_ba228ebc",
+        "filename": "pkg/adapters/common/event_filter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-19T22:03:54Z",
+      "side": 1,
+      "message": "The use of exclude is confusing.  Consider just returning true/false directly.",
+      "revId": "e4ad4ac01845fc0dee4577dd6bff36d61e749d2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16e26a2e_b9ad2730",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-19T22:03:54Z",
+      "side": 1,
+      "message": "Don\u0027t need a separate line to declare err, just `return nil, \u003cerrors.New...\u003e`",
+      "revId": "e4ad4ac01845fc0dee4577dd6bff36d61e749d2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f6fd2d9_45e6c6fa",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2019-12-19T22:03:54Z",
+      "side": 1,
+      "message": "Should a constant be added for \"filter\"?",
+      "revId": "e4ad4ac01845fc0dee4577dd6bff36d61e749d2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
