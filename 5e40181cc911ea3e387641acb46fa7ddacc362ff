@@ -34,6 +34,24 @@
       "revId": "5e40181cc911ea3e387641acb46fa7ddacc362ff",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "831e3efc_2e3817ce",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2019-12-23T11:09:55Z",
+      "side": 1,
+      "message": "Event proxy is per adapter, and the same will be passed for all devices. you may have to move the eventfilter structure out of eventproxy.",
+      "parentUuid": "38732817_0a5d022a",
+      "revId": "5e40181cc911ea3e387641acb46fa7ddacc362ff",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
