@@ -16,6 +16,24 @@
       "revId": "5e40181cc911ea3e387641acb46fa7ddacc362ff",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38732817_0a5d022a",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000564
+      },
+      "writtenOn": "2019-12-23T10:37:20Z",
+      "side": 1,
+      "message": "yes, each device has an event proxy instance and event proxy has event filter as a member. So, when a device sends out its events through the event proxy the events will be checked by the event filter to see which events to forward and which one to discard.",
+      "parentUuid": "9a1e2c3c_180090b1",
+      "revId": "5e40181cc911ea3e387641acb46fa7ddacc362ff",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
