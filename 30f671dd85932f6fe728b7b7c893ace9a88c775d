@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5393f6b0_4ed9810a",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-12-23T06:11:34Z",
+      "side": 1,
+      "message": "Shouldn\u0027t you parse the multicast-gem port here ?",
+      "revId": "30f671dd85932f6fe728b7b7c893ace9a88c775d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23e47971_0e96542c",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-12-23T06:11:34Z",
+      "side": 1,
+      "message": "This does not include multicast gem ports, correct?",
+      "range": {
+        "startLine": 502,
+        "startChar": 29,
+        "endLine": 502,
+        "endChar": 43
+      },
+      "revId": "30f671dd85932f6fe728b7b7c893ace9a88c775d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c4a92ea_765f3458",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2019-12-23T06:11:34Z",
+      "side": 1,
+      "message": "name this to mcastTrafficQueues ?",
+      "range": {
+        "startLine": 830,
+        "startChar": 1,
+        "endLine": 830,
+        "endChar": 9
+      },
+      "revId": "30f671dd85932f6fe728b7b7c893ace9a88c775d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
