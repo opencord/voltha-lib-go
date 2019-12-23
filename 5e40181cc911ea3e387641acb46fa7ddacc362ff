@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a1e2c3c_180090b1",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2019-12-23T10:32:56Z",
+      "side": 1,
+      "message": "shouldnt the filter be per device ?",
+      "revId": "5e40181cc911ea3e387641acb46fa7ddacc362ff",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
