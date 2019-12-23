@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "017c4881_28e01b15",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2019-12-23T11:25:02Z",
+      "side": 1,
+      "message": "McastGemID is parsed in the line 476",
+      "parentUuid": "5393f6b0_4ed9810a",
+      "revId": "30f671dd85932f6fe728b7b7c893ace9a88c775d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23e47971_0e96542c",
         "filename": "pkg/techprofile/tech_profile.go",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "6af35b32_3d9b88be",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2019-12-23T11:25:02Z",
+      "side": 1,
+      "message": "we add multicast ports right after adding unicast gems. At the end, the first NumGemPorts ports will be unicast downstream gem ports, and the rest will be multicast.",
+      "parentUuid": "23e47971_0e96542c",
+      "range": {
+        "startLine": 502,
+        "startChar": 29,
+        "endLine": 502,
+        "endChar": 43
+      },
+      "revId": "30f671dd85932f6fe728b7b7c893ace9a88c775d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c4a92ea_765f3458",
         "filename": "pkg/techprofile/tech_profile.go",
         "patchSetId": 4
@@ -53,6 +95,30 @@
       "writtenOn": "2019-12-23T06:11:34Z",
       "side": 1,
       "message": "name this to mcastTrafficQueues ?",
+      "range": {
+        "startLine": 830,
+        "startChar": 1,
+        "endLine": 830,
+        "endChar": 9
+      },
+      "revId": "30f671dd85932f6fe728b7b7c893ace9a88c775d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43c2f543_d41ee85c",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2019-12-23T11:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c4a92ea_765f3458",
       "range": {
         "startLine": 830,
         "startChar": 1,
