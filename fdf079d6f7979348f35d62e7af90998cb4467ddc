@@ -34,6 +34,24 @@
       "revId": "fdf079d6f7979348f35d62e7af90998cb4467ddc",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43897d17_b593d34e",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-06T18:52:42Z",
+      "side": 1,
+      "message": "My only worry is if callback(...) takes time then the actual dispatching of messages will be slowed down.  You may want to move the callback(..) code to the end of this function.",
+      "parentUuid": "a62ae15f_89092a99",
+      "revId": "fdf079d6f7979348f35d62e7af90998cb4467ddc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
