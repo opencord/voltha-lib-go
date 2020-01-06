@@ -16,6 +16,24 @@
       "revId": "fdf079d6f7979348f35d62e7af90998cb4467ddc",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a62ae15f_89092a99",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-06T16:29:55Z",
+      "side": 1,
+      "message": "Each dispatchToConsumers() is already called in its own go routine.  I thought it would be a lot of overhead to call this in its own go routine as well.",
+      "parentUuid": "d5b610fc_4fbe7864",
+      "revId": "fdf079d6f7979348f35d62e7af90998cb4467ddc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
