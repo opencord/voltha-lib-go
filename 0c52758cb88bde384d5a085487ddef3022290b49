@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "200045b7_615b2cec",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-06T22:03:38Z",
+      "side": 1,
+      "message": "Since this is part of a library code then if the callback() takes time then it will hold back the code that dispatches the message.   It would be preferable if it gets moved to the end of this function.",
+      "revId": "0c52758cb88bde384d5a085487ddef3022290b49",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
