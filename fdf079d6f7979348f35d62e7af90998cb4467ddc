@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5b610fc_4fbe7864",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-06T15:27:37Z",
+      "side": 1,
+      "message": "Would it be better to run this into its own go routine?",
+      "revId": "fdf079d6f7979348f35d62e7af90998cb4467ddc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
