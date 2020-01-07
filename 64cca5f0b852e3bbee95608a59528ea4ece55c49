@@ -16,6 +16,24 @@
       "revId": "64cca5f0b852e3bbee95608a59528ea4ece55c49",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0357508a_3055824d",
+        "filename": "VERSION",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-01-07T18:49:17Z",
+      "side": 1,
+      "message": "I received a tag collision on 2.2.25 -- let me see what\u0027s happened.",
+      "parentUuid": "0c1a75d2_b52ca308",
+      "revId": "64cca5f0b852e3bbee95608a59528ea4ece55c49",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
