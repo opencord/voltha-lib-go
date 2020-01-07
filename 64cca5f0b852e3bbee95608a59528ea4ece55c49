@@ -34,6 +34,24 @@
       "revId": "64cca5f0b852e3bbee95608a59528ea4ece55c49",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "214396f2_e904b8e9",
+        "filename": "VERSION",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-01-07T18:51:26Z",
+      "side": 1,
+      "message": "Whoops, I guess I hadn\u0027t added the VERSION file before and it was a collision on 2.2.24 not 2.2.25. Fixing now.",
+      "parentUuid": "0357508a_3055824d",
+      "revId": "64cca5f0b852e3bbee95608a59528ea4ece55c49",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
