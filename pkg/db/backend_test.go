@@ -30,7 +30,7 @@ import (
 )
 
 func init() {
-	log.AddPackage(log.JSON, log.PanicLevel, nil)
+	log.AddPackage(log.JSON, log.FatalLevel, nil)
 }
 
 const (
