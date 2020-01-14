@@ -37,7 +37,7 @@ func TestInit(t *testing.T) {
 func verifyLogLevel(t *testing.T, minimumLevel int) {
 	SetAllLogLevel(minimumLevel)
 	var success bool
-	for i := 0; i < 6; i++ {
+	for i := 0; i < 5; i++ {
 		success = testLogger.V(i)
 		if i == 1 && minimumLevel == 2 {
 			// TODO: Update the test when a new version of Zap logger is available.  It has a bug with that
@@ -53,7 +53,7 @@ func verifyLogLevel(t *testing.T, minimumLevel int) {
 }
 
 func TestLogLevelDebug(t *testing.T) {
-	for i := 0; i < 6; i++ {
+	for i := 0; i < 5; i++ {
 		verifyLogLevel(t, i)
 	}
 }
@@ -84,7 +84,7 @@ func TestUpdateLogLevel(t *testing.T) {
 		myLoggers[name], _ = AddPackage(JSON, ErrorLevel, nil, []string{name}...)
 	}
 	//Test updates to log levels
-	levels := []int{0, 1, 2, 3, 4, 5}
+	levels := []int{0, 1, 2, 3, 4}
 	for _, expectedLevel := range levels {
 		for _, name := range pkgNames {
 			SetPackageLogLevel(name, expectedLevel)
