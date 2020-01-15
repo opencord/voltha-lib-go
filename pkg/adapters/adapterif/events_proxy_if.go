@@ -17,7 +17,7 @@
 package adapterif
 
 import (
-	"github.com/opencord/voltha-protos/v2/go/voltha"
+	"github.com/opencord/voltha-protos/v3/go/voltha"
 )
 
 // EventProxy interface for eventproxy
@@ -33,7 +33,7 @@ const (
 )
 
 type (
-	EventType        = voltha.EventType_EventType
-	EventCategory    = voltha.EventCategory_EventCategory
-	EventSubCategory = voltha.EventSubCategory_EventSubCategory
+	EventType        = voltha.EventType_Types
+	EventCategory    = voltha.EventCategory_Types
+	EventSubCategory = voltha.EventSubCategory_Types
 )

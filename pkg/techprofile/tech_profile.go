@@ -26,7 +26,7 @@ import (
 	"github.com/opencord/voltha-lib-go/v2/pkg/db"
 	"github.com/opencord/voltha-lib-go/v2/pkg/db/kvstore"
 	"github.com/opencord/voltha-lib-go/v2/pkg/log"
-	tp_pb "github.com/opencord/voltha-protos/v2/go/tech_profile"
+	tp_pb "github.com/opencord/voltha-protos/v3/go/tech_profile"
 )
 
 // Interface to pon resource manager APIs
