@@ -19,7 +19,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	log "github.com/opencord/voltha-lib-go/v2/pkg/log"
+	l "github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"sync"
 	"time"
 	//log "ciena.com/coordinator/common"
@@ -160,7 +160,7 @@ func (c *ConsulClient) deleteSession() {
 		session := c.consul.Session()
 		_, err := session.Destroy(c.sessionID, nil)
 		if err != nil {
-			log.Errorw("error-cleaning-session", log.Fields{"session": c.sessionID, "error": err})
+			log.Errorw("error-cleaning-session", l.Fields{"session": c.sessionID, "error": err})
 		}
 	}
 	c.sessionID = ""
@@ -177,12 +177,12 @@ func (c *ConsulClient) createSession(ttl int64, retries int) (*consulapi.Session
 	for {
 		id, meta, err := session.Create(entry, nil)
 		if err != nil {
-			log.Errorw("create-session-error", log.Fields{"error": err})
+			log.Errorw("create-session-error", l.Fields{"error": err})
 			if retries == 0 {
 				return nil, "", err
 			}
 		} else if meta.RequestTime == 0 {
-			log.Errorw("create-session-bad-meta-data", log.Fields{"meta-data": meta})
+			log.Errorw("create-session-bad-meta-data", l.Fields{"meta-data": meta})
 			if retries == 0 {
 				return nil, "", errors.New("bad-meta-data")
 			}
@@ -245,10 +245,10 @@ func (c *ConsulClient) Reserve(key string, value interface{}, ttl int64) (interf
 
 	session, sessionID, err := c.createSession(ttl, -1)
 	if err != nil {
-		log.Errorw("no-session-created", log.Fields{"error": err})
+		log.Errorw("no-session-created", l.Fields{"error": err})
 		return "", errors.New("no-session-created")
 	}
-	log.Debugw("session-created", log.Fields{"session-id": sessionID})
+	log.Debugw("session-created", l.Fields{"session-id": sessionID})
 	c.sessionID = sessionID
 	c.session = session
 
@@ -257,11 +257,11 @@ func (c *ConsulClient) Reserve(key string, value interface{}, ttl int64) (interf
 	kvp := consulapi.KVPair{Key: key, Value: val, Session: c.sessionID}
 	result, _, err := kv.Acquire(&kvp, nil)
 	if err != nil {
-		log.Errorw("error-acquiring-keys", log.Fields{"error": err})
+		log.Errorw("error-acquiring-keys", l.Fields{"error": err})
 		return nil, err
 	}
 
-	log.Debugw("key-acquired", log.Fields{"key": key, "status": result})
+	log.Debugw("key-acquired", l.Fields{"key": key, "status": result})
 
 	// Irrespective whether we were successful in acquiring the key, let's read it back and see if it's us.
 	m, err := c.Get(key, defaultKVGetTimeout)
@@ -269,7 +269,7 @@ func (c *ConsulClient) Reserve(key string, value interface{}, ttl int64) (interf
 		return nil, err
 	}
 	if m != nil {
-		log.Debugw("response-received", log.Fields{"key": m.Key, "m.value": string(m.Value.([]byte)), "value": value})
+		log.Debugw("response-received", l.Fields{"key": m.Key, "m.value": string(m.Value.([]byte)), "value": value})
 		if m.Key == key && isEqual(m.Value, value) {
 			// My reservation is successful - register it.  For now, support is only for 1 reservation per key
 			// per session.
@@ -299,11 +299,11 @@ func (c *ConsulClient) ReleaseAllReservations() error {
 		kvp = consulapi.KVPair{Key: key, Value: value.([]byte), Session: c.sessionID}
 		result, _, err = kv.Release(&kvp, nil)
 		if err != nil {
-			log.Errorw("cannot-release-reservation", log.Fields{"key": key, "error": err})
+			log.Errorw("cannot-release-reservation", l.Fields{"key": key, "error": err})
 			return err
 		}
 		if !result {
-			log.Errorw("cannot-release-reservation", log.Fields{"key": key})
+			log.Errorw("cannot-release-reservation", l.Fields{"key": key})
 		}
 		delete(c.keyReservations, key)
 	}
@@ -390,7 +390,7 @@ func (c *ConsulClient) CloseWatch(key string, ch chan *Event) {
 	c.writeLock.Lock()
 	defer c.writeLock.Unlock()
 	if watchedChannelsContexts, ok = c.watchedChannelsContext[key]; !ok {
-		log.Errorw("key-has-no-watched-context-or-channel", log.Fields{"key": key})
+		log.Errorw("key-has-no-watched-context-or-channel", l.Fields{"key": key})
 		return
 	}
 	// Look for the channels
@@ -409,7 +409,7 @@ func (c *ConsulClient) CloseWatch(key string, ch chan *Event) {
 	if pos >= 0 {
 		c.watchedChannelsContext[key] = append(c.watchedChannelsContext[key][:pos], c.watchedChannelsContext[key][pos+1:]...)
 	}
-	log.Debugw("watched-channel-exiting", log.Fields{"key": key, "channel": c.watchedChannelsContext[key]})
+	log.Debugw("watched-channel-exiting", l.Fields{"key": key, "channel": c.watchedChannelsContext[key]})
 }
 
 func (c *ConsulClient) isKVEqual(kv1 *consulapi.KVPair, kv2 *consulapi.KVPair) bool {
@@ -430,7 +430,7 @@ func (c *ConsulClient) isKVEqual(kv1 *consulapi.KVPair, kv2 *consulapi.KVPair) b
 }
 
 func (c *ConsulClient) listenForKeyChange(watchContext context.Context, key string, ch chan *Event) {
-	log.Debugw("start-watching-channel", log.Fields{"key": key, "channel": ch})
+	log.Debugw("start-watching-channel", l.Fields{"key": key, "channel": ch})
 
 	defer c.CloseWatch(key, ch)
 	duration := GetDuration(defaultKVGetTimeout)
@@ -460,10 +460,10 @@ func (c *ConsulClient) listenForKeyChange(watchContext context.Context, key stri
 			return
 		default:
 			if err != nil {
-				log.Warnw("error-from-watch", log.Fields{"error": err})
+				log.Warnw("error-from-watch", l.Fields{"error": err})
 				ch <- NewEvent(CONNECTIONDOWN, key, []byte(""), -1)
 			} else {
-				log.Debugw("index-state", log.Fields{"lastindex": lastIndex, "newindex": meta.LastIndex, "key": key})
+				log.Debugw("index-state", l.Fields{"lastindex": lastIndex, "newindex": meta.LastIndex, "key": key})
 			}
 		}
 		if err != nil {
@@ -473,13 +473,13 @@ func (c *ConsulClient) listenForKeyChange(watchContext context.Context, key stri
 		} else if meta.LastIndex <= lastIndex {
 			log.Info("no-index-change-or-negative")
 		} else {
-			log.Debugw("update-received", log.Fields{"pair": pair})
+			log.Debugw("update-received", l.Fields{"pair": pair})
 			if pair == nil {
 				ch <- NewEvent(DELETE, key, []byte(""), -1)
 			} else if !c.isKVEqual(pair, previousKVPair) {
 				// Push the change onto the channel if the data has changed
 				// For now just assume it's a PUT change
-				log.Debugw("pair-details", log.Fields{"session": pair.Session, "key": pair.Key, "value": pair.Value})
+				log.Debugw("pair-details", l.Fields{"session": pair.Session, "key": pair.Key, "value": pair.Value})
 				ch <- NewEvent(PUT, pair.Key, pair.Value, -1)
 			}
 			previousKVPair = pair
@@ -500,7 +500,7 @@ func (c *ConsulClient) Close() {
 
 	// Clear the sessionID
 	if _, err := c.consul.Session().Destroy(c.sessionID, &writeOptions); err != nil {
-		log.Errorw("error-closing-client", log.Fields{"error": err})
+		log.Errorw("error-closing-client", l.Fields{"error": err})
 	}
 }
 

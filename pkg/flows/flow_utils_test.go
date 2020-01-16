@@ -17,7 +17,6 @@ package flows
 
 import (
 	"bytes"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	ofp "github.com/opencord/voltha-protos/v2/go/openflow_13"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
@@ -32,7 +31,6 @@ var (
 )
 
 func init() {
-	log.AddPackage(log.JSON, log.WarnLevel, nil)
 	timeoutError = status.Errorf(codes.Aborted, "timeout")
 	taskFailureError = status.Error(codes.Internal, "test failure task")
 	timeoutError = status.Errorf(codes.Aborted, "timeout")

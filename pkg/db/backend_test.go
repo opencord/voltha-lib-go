@@ -18,7 +18,6 @@ package db
 
 import (
 	"context"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"github.com/opencord/voltha-lib-go/v2/pkg/mocks"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
@@ -28,10 +27,6 @@ import (
 	"testing"
 	"time"
 )
-
-func init() {
-	log.AddPackage(log.JSON, log.FatalLevel, nil)
-}
 
 const (
 	embedEtcdServerHost = "localhost"

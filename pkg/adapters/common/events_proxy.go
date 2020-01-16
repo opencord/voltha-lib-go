@@ -25,7 +25,7 @@ import (
 
 	"github.com/opencord/voltha-lib-go/v2/pkg/adapters/adapterif"
 	"github.com/opencord/voltha-lib-go/v2/pkg/kafka"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
+	l "github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"github.com/opencord/voltha-protos/v2/go/voltha"
 )
 
@@ -90,10 +90,10 @@ func (ep *EventProxy) SendDeviceEvent(deviceEvent *voltha.DeviceEvent, category 
 	event.Header = ep.getEventHeader(deviceEvent.DeviceEventName, category, subCategory, voltha.EventType_DEVICE_EVENT, raisedTs)
 	event.EventType = &de
 	if err := ep.sendEvent(&event); err != nil {
-		log.Errorw("Failed to send device event to KAFKA bus", log.Fields{"device-event": deviceEvent})
+		log.Errorw("Failed to send device event to KAFKA bus", l.Fields{"device-event": deviceEvent})
 		return err
 	}
-	log.Infow("Successfully sent device event KAFKA", log.Fields{"Id": event.Header.Id, "Category": event.Header.Category,
+	log.Infow("Successfully sent device event KAFKA", l.Fields{"Id": event.Header.Id, "Category": event.Header.Category,
 		"SubCategory": event.Header.SubCategory, "Type": event.Header.Type, "TypeVersion": event.Header.TypeVersion,
 		"ReportedTs": event.Header.ReportedTs, "ResourceId": deviceEvent.ResourceId, "Context": deviceEvent.Context,
 		"DeviceEventName": deviceEvent.DeviceEventName})
@@ -114,10 +114,10 @@ func (ep *EventProxy) SendKpiEvent(id string, kpiEvent *voltha.KpiEvent2, catego
 	event.Header = ep.getEventHeader(id, category, subCategory, voltha.EventType_KPI_EVENT2, raisedTs)
 	event.EventType = &de
 	if err := ep.sendEvent(&event); err != nil {
-		log.Errorw("Failed to send kpi event to KAFKA bus", log.Fields{"device-event": kpiEvent})
+		log.Errorw("Failed to send kpi event to KAFKA bus", l.Fields{"device-event": kpiEvent})
 		return err
 	}
-	log.Infow("Successfully sent kpi event to KAFKA", log.Fields{"Id": event.Header.Id, "Category": event.Header.Category,
+	log.Infow("Successfully sent kpi event to KAFKA", l.Fields{"Id": event.Header.Id, "Category": event.Header.Category,
 		"SubCategory": event.Header.SubCategory, "Type": event.Header.Type, "TypeVersion": event.Header.TypeVersion,
 		"ReportedTs": event.Header.ReportedTs, "KpiEventName": "STATS_EVENT"})
 
@@ -131,7 +131,7 @@ func (ep *EventProxy) sendEvent(event *voltha.Event) error {
 	if err := ep.kafkaClient.Send(event, &ep.eventTopic); err != nil {
 		return err
 	}
-	log.Debugw("Sent event to kafka", log.Fields{"event": event})
+	log.Debugw("Sent event to kafka", l.Fields{"event": event})
 
 	return nil
 }

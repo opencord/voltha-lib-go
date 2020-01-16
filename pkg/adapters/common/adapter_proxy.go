@@ -22,7 +22,7 @@ import (
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/google/uuid"
 	"github.com/opencord/voltha-lib-go/v2/pkg/kafka"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
+	l "github.com/opencord/voltha-lib-go/v2/pkg/log"
 	ic "github.com/opencord/voltha-protos/v2/go/inter_container"
 	"time"
 )
@@ -38,7 +38,7 @@ func NewAdapterProxy(kafkaProxy *kafka.InterContainerProxy, adapterTopic string,
 	proxy.kafkaICProxy = kafkaProxy
 	proxy.adapterTopic = adapterTopic
 	proxy.coreTopic = coreTopic
-	log.Debugw("TOPICS", log.Fields{"core": proxy.coreTopic, "adapter": proxy.adapterTopic})
+	log.Debugw("TOPICS", l.Fields{"core": proxy.coreTopic, "adapter": proxy.adapterTopic})
 	return &proxy
 }
 
@@ -50,14 +50,14 @@ func (ap *AdapterProxy) SendInterAdapterMessage(ctx context.Context,
 	toDeviceId string,
 	proxyDeviceId string,
 	messageId string) error {
-	log.Debugw("sending-inter-adapter-message", log.Fields{"type": msgType, "from": fromAdapter,
+	log.Debugw("sending-inter-adapter-message", l.Fields{"type": msgType, "from": fromAdapter,
 		"to": toAdapter, "toDevice": toDeviceId, "proxyDevice": proxyDeviceId})
 
 	//Marshal the message
 	var marshalledMsg *any.Any
 	var err error
 	if marshalledMsg, err = ptypes.MarshalAny(msg); err != nil {
-		log.Warnw("cannot-marshal-msg", log.Fields{"error": err})
+		log.Warnw("cannot-marshal-msg", l.Fields{"error": err})
 		return err
 	}
 
@@ -91,6 +91,6 @@ func (ap *AdapterProxy) SendInterAdapterMessage(ctx context.Context,
 	rpc := "process_inter_adapter_message"
 
 	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &topic, &replyToTopic, true, proxyDeviceId, args...)
-	log.Debugw("inter-adapter-msg-response", log.Fields{"replyTopic": replyToTopic, "success": success})
+	log.Debugw("inter-adapter-msg-response", l.Fields{"replyTopic": replyToTopic, "success": success})
 	return unPackResponse(rpc, "", success, result)
 }
