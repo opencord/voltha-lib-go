@@ -21,7 +21,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/opencord/voltha-lib-go/v2/pkg/db/kvstore"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
+	l "github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"strconv"
@@ -66,7 +66,7 @@ func NewBackend(storeType string, host string, port int, timeout int, pathPrefix
 	address := host + ":" + strconv.Itoa(port)
 	if b.Client, err = b.newClient(address, timeout); err != nil {
 		log.Errorw("failed-to-create-kv-client",
-			log.Fields{
+			l.Fields{
 				"type": storeType, "host": host, "port": port,
 				"timeout": timeout, "prefix": pathPrefix,
 				"error": err.Error(),
@@ -111,7 +111,7 @@ func (b *Backend) updateLiveness(alive bool) {
 
 	// Emit log message only for alive state change
 	if b.alive != alive {
-		log.Debugw("change-kvstore-alive-status", log.Fields{"alive": alive})
+		log.Debugw("change-kvstore-alive-status", l.Fields{"alive": alive})
 		b.alive = alive
 	}
 }
@@ -120,7 +120,7 @@ func (b *Backend) updateLiveness(alive bool) {
 // post on Liveness channel
 func (b *Backend) PerformLivenessCheck(timeout int) bool {
 	alive := b.Client.IsConnectionUp(timeout)
-	log.Debugw("kvstore-liveness-check-result", log.Fields{"alive": alive})
+	log.Debugw("kvstore-liveness-check-result", l.Fields{"alive": alive})
 
 	b.updateLiveness(alive)
 	return alive
@@ -191,7 +191,7 @@ func (b *Backend) List(key string) (map[string]*kvstore.KVPair, error) {
 	defer b.Unlock()
 
 	formattedPath := b.makePath(key)
-	log.Debugw("listing-key", log.Fields{"key": key, "path": formattedPath})
+	log.Debugw("listing-key", l.Fields{"key": key, "path": formattedPath})
 
 	pair, err := b.Client.List(formattedPath, b.Timeout)
 
@@ -206,7 +206,7 @@ func (b *Backend) Get(key string) (*kvstore.KVPair, error) {
 	defer b.Unlock()
 
 	formattedPath := b.makePath(key)
-	log.Debugw("getting-key", log.Fields{"key": key, "path": formattedPath})
+	log.Debugw("getting-key", l.Fields{"key": key, "path": formattedPath})
 
 	pair, err := b.Client.Get(formattedPath, b.Timeout)
 
@@ -221,7 +221,7 @@ func (b *Backend) Put(key string, value interface{}) error {
 	defer b.Unlock()
 
 	formattedPath := b.makePath(key)
-	log.Debugw("putting-key", log.Fields{"key": key, "value": string(value.([]byte)), "path": formattedPath})
+	log.Debugw("putting-key", l.Fields{"key": key, "value": string(value.([]byte)), "path": formattedPath})
 
 	err := b.Client.Put(formattedPath, value, b.Timeout)
 
@@ -236,7 +236,7 @@ func (b *Backend) Delete(key string) error {
 	defer b.Unlock()
 
 	formattedPath := b.makePath(key)
-	log.Debugw("deleting-key", log.Fields{"key": key, "path": formattedPath})
+	log.Debugw("deleting-key", l.Fields{"key": key, "path": formattedPath})
 
 	err := b.Client.Delete(formattedPath, b.Timeout)
 
@@ -251,7 +251,7 @@ func (b *Backend) CreateWatch(key string) chan *kvstore.Event {
 	defer b.Unlock()
 
 	formattedPath := b.makePath(key)
-	log.Debugw("creating-key-watch", log.Fields{"key": key, "path": formattedPath})
+	log.Debugw("creating-key-watch", l.Fields{"key": key, "path": formattedPath})
 
 	return b.Client.Watch(formattedPath)
 }
@@ -262,7 +262,7 @@ func (b *Backend) DeleteWatch(key string, ch chan *kvstore.Event) {
 	defer b.Unlock()
 
 	formattedPath := b.makePath(key)
-	log.Debugw("deleting-key-watch", log.Fields{"key": key, "path": formattedPath})
+	log.Debugw("deleting-key-watch", l.Fields{"key": key, "path": formattedPath})
 
 	b.Client.CloseWatch(formattedPath, ch)
 }

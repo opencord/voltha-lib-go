@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"github.com/cevaris/ordered_map"
 	"github.com/gogo/protobuf/proto"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
+	l "github.com/opencord/voltha-lib-go/v2/pkg/log"
 	ofp "github.com/opencord/voltha-protos/v2/go/openflow_13"
 	"math/big"
 	"strings"
@@ -538,7 +538,7 @@ func GetMetadataFromWriteMetadataAction(flow *ofp.OfpFlowStats) uint64 {
 			}
 		}
 	}
-	log.Debugw("No-write-metadata-present", log.Fields{"flow": flow})
+	log.Debugw("No-write-metadata-present", l.Fields{"flow": flow})
 	return 0
 }
 
@@ -552,10 +552,10 @@ func GetTechProfileIDFromWriteMetaData(metadata uint64) uint16 {
 	   This is set in the ONOS OltPipeline as a write metadata instruction
 	*/
 	var tpId uint16 = 0
-	log.Debugw("Write metadata value for Techprofile ID", log.Fields{"metadata": metadata})
+	log.Debugw("Write metadata value for Techprofile ID", l.Fields{"metadata": metadata})
 	if metadata != 0 {
 		tpId = uint16((metadata >> 32) & 0xFFFF)
-		log.Debugw("Found techprofile ID from write metadata action", log.Fields{"tpid": tpId})
+		log.Debugw("Found techprofile ID from write metadata action", l.Fields{"tpid": tpId})
 	}
 	return tpId
 }
@@ -570,10 +570,10 @@ func GetEgressPortNumberFromWriteMetadata(flow *ofp.OfpFlowStats) uint32 {
 	*/
 	var uniPort uint32 = 0
 	md := GetMetadataFromWriteMetadataAction(flow)
-	log.Debugw("Metadata found for egress/uni port ", log.Fields{"metadata": md})
+	log.Debugw("Metadata found for egress/uni port ", l.Fields{"metadata": md})
 	if md != 0 {
 		uniPort = uint32(md & 0xFFFFFFFF)
-		log.Debugw("Found EgressPort from write metadata action", log.Fields{"egress_port": uniPort})
+		log.Debugw("Found EgressPort from write metadata action", l.Fields{"egress_port": uniPort})
 	}
 	return uniPort
 
@@ -591,7 +591,7 @@ func GetInnerTagFromMetaData(flow *ofp.OfpFlowStats) uint16 {
 	md := GetMetadataFromWriteMetadataAction(flow)
 	if md != 0 {
 		innerTag = uint16((md >> 48) & 0xFFFF)
-		log.Debugw("Found  CVLAN from write metadate action", log.Fields{"c_vlan": innerTag})
+		log.Debugw("Found  CVLAN from write metadate action", l.Fields{"c_vlan": innerTag})
 	}
 	return innerTag
 }
@@ -752,7 +752,7 @@ func MeterEntryFromMeterMod(meterMod *ofp.OfpMeterMod) *ofp.OfpMeterEntry {
 		bandStats = append(bandStats, band)
 	}
 	meter.Stats.BandStats = bandStats
-	log.Debugw("Allocated meter entry", log.Fields{"meter": *meter})
+	log.Debugw("Allocated meter entry", l.Fields{"meter": *meter})
 	return meter
 
 }

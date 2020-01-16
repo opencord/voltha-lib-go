@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-present Open Networking Foundation
+ * Copyright 2020-present Open Networking Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mocks
+package flows
 
 import (
 	l "github.com/opencord/voltha-lib-go/v2/pkg/log"
@@ -28,7 +28,7 @@ var log l.Logger
 func init() {
 	// Setup this package so that it's log level can be modified at run time
 	var err error
-	log, err = l.AddPackage(l.JSON, logLevel, l.Fields{"pkg": "mocks"})
+	log, err = l.AddPackage(l.JSON, logLevel, l.Fields{"pkg": "flowsUtils"})
 	if err != nil {
 		panic(err)
 	}
