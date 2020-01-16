@@ -107,6 +107,9 @@ type Logger interface {
 
 	// V reports whether verbosity level l is at least the requested verbose level.
 	V(l int) bool
+
+	//Returns the log level of this specific logger
+	GetLogLevel() int
 }
 
 // Fields is used as key-value pairs for structured logging
@@ -119,8 +122,9 @@ var loggers map[string]*logger
 var cfgs map[string]zp.Config
 
 type logger struct {
-	log    *zp.SugaredLogger
-	parent *zp.Logger
+	log         *zp.SugaredLogger
+	parent      *zp.Logger
+	packageName string
 }
 
 func intToAtomicLevel(l int) zp.AtomicLevel {
@@ -266,8 +270,9 @@ func AddPackage(outputType string, level int, defaultFields Fields, pkgNames ...
 	}
 
 	loggers[pkgName] = &logger{
-		log:    l.Sugar(),
-		parent: l,
+		log:         l.Sugar(),
+		parent:      l,
+		packageName: pkgName,
 	}
 	return loggers[pkgName], nil
 }
@@ -287,8 +292,9 @@ func UpdateAllLoggers(defaultFields Fields) error {
 		}
 
 		loggers[pkgName] = &logger{
-			log:    l.Sugar(),
-			parent: l,
+			log:         l.Sugar(),
+			parent:      l,
+			packageName: pkgName,
 		}
 	}
 	return nil
@@ -334,8 +340,9 @@ func UpdateLogger(defaultFields Fields) (Logger, error) {
 
 	// Set the logger
 	loggers[pkgName] = &logger{
-		log:    l.Sugar(),
-		parent: l,
+		log:         l.Sugar(),
+		parent:      l,
+		packageName: pkgName,
 	}
 	return loggers[pkgName], nil
 }
@@ -638,6 +645,11 @@ func (l logger) V(level int) bool {
 	return l.parent.Core().Enabled(intToLevel(level))
 }
 
+// GetLogLevel returns the current level of the logger
+func (l logger) GetLogLevel() int {
+	return levelToInt(cfgs[l.packageName].Level.Level())
+}
+
 // With returns a logger initialized with the key-value pairs
 func With(keysAndValues Fields) Logger {
 	return logger{log: getPackageLevelSugaredLogger().With(serializeMap(keysAndValues)...), parent: defaultLogger.parent}
@@ -766,4 +778,9 @@ func Warningf(format string, args ...interface{}) {
 // V reports whether verbosity level l is at least the requested verbose level.
 func V(level int) bool {
 	return getPackageLevelLogger().V(level)
+}
+
+//GetLogLevel returns the log level of the invoking package
+func GetLogLevel() int {
+	return getPackageLevelLogger().GetLogLevel()
 }

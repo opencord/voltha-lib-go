@@ -18,7 +18,6 @@ package db
 
 import (
 	"context"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"github.com/opencord/voltha-lib-go/v2/pkg/mocks"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
@@ -28,10 +27,6 @@ import (
 	"testing"
 	"time"
 )
-
-func init() {
-	log.AddPackage(log.JSON, log.FatalLevel, nil)
-}
 
 const (
 	embedEtcdServerHost = "localhost"
@@ -48,15 +43,15 @@ func TestMain(m *testing.M) {
 	var err error
 	embedEtcdServerPort, err = freeport.GetFreePort()
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err)
 	}
 	dummyEtcdServerPort, err = freeport.GetFreePort()
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err)
 	}
 	peerPort, err := freeport.GetFreePort()
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err)
 	}
 	etcdServer := mocks.StartEtcdServer(mocks.MKConfig("voltha.db.test", embedEtcdServerPort, peerPort, "voltha.lib.db", "error"))
 	res := m.Run()
