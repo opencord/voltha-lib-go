@@ -18,12 +18,14 @@ package probe
 import (
 	"context"
 	"encoding/json"
-	"github.com/opencord/voltha-lib-go/v3/pkg/log"
-	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
+
+	"github.com/opencord/voltha-lib-go/v3/pkg/log"
+	"github.com/stretchr/testify/assert"
 )
 
 func init() {
@@ -343,7 +345,8 @@ func TestGetProbeFromContext(t *testing.T) {
 }
 
 func TestGetProbeFromContextMssing(t *testing.T) {
-	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	defer cancel()
 	pc := GetProbeFromContext(ctx)
 	assert.Nil(t, pc, "Context had a non-nil probe when it should have been nil")
 }
@@ -375,7 +378,8 @@ func TestUpdateStatusFromNilContext(t *testing.T) {
 func TestUpdateStatusFromContextWithoutProbe(t *testing.T) {
 	p := &Probe{}
 	p.RegisterService("one")
-	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	defer cancel()
 	UpdateStatusFromContext(ctx, "one", ServiceStatusRunning)
 
 	assert.Equal(t, 1, len(p.status), "wrong number of services")
