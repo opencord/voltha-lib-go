@@ -119,14 +119,18 @@ func TestMakePath(t *testing.T) {
 // Liveness Check against Embedded Etcd Server should return alive state
 func TestPerformLivenessCheck_EmbeddedEtcdServer(t *testing.T) {
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	alive := backend.PerformLivenessCheck(defaultTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
+	defer cancel()
+	alive := backend.PerformLivenessCheck(ctx)
 	assert.True(t, alive)
 }
 
 // Liveness Check against Dummy Etcd Server should return not-alive state
 func TestPerformLivenessCheck_DummyEtcdServer(t *testing.T) {
 	backend := provisionBackendWithDummyEtcdServer(t)
-	alive := backend.PerformLivenessCheck(defaultTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
+	defer cancel()
+	alive := backend.PerformLivenessCheck(ctx)
 	assert.False(t, alive)
 }
 
@@ -144,7 +148,9 @@ func TestEnableLivenessChannel_EmbeddedEtcdServer_BeforeLivenessCheck(t *testing
 // Enabling Liveness Channel after First Liveness Check
 func TestEnableLivenessChannel_EmbeddedEtcdServer_AfterLivenessCheck(t *testing.T) {
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	backend.PerformLivenessCheck(defaultTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
+	defer cancel()
+	backend.PerformLivenessCheck(ctx)
 
 	alive := backend.EnableLivenessChannel()
 	assert.NotNil(t, alive)
@@ -225,23 +231,25 @@ func TestIsErrorIndicatingAliveKvstore(t *testing.T) {
 }
 
 func TestPut_EmbeddedEtcdServer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	err := backend.Put("key1", []uint8("value1"))
+	err := backend.Put(ctx, "key1", []uint8("value1"))
 	assert.Nil(t, err)
 
 	// Assert alive state has become true
 	assert.True(t, backend.alive)
 
 	// Assert that kvstore has this value stored
-	kvpair, err := backend.Get("key1")
+	kvpair, err := backend.Get(ctx, "key1")
 	assert.NotNil(t, kvpair)
 	assert.Equal(t, defaultPathPrefix+"/key1", kvpair.Key)
 	assert.Equal(t, []uint8("value1"), kvpair.Value)
 
 	// Assert that Put overrides the Value
-	err = backend.Put("key1", []uint8("value11"))
+	err = backend.Put(ctx, "key1", []uint8("value11"))
 	assert.Nil(t, err)
-	kvpair, err = backend.Get("key1")
+	kvpair, err = backend.Get(ctx, "key1")
 	assert.NotNil(t, kvpair)
 	assert.Equal(t, defaultPathPrefix+"/key1", kvpair.Key)
 	assert.Equal(t, []uint8("value11"), kvpair.Value)
@@ -249,8 +257,10 @@ func TestPut_EmbeddedEtcdServer(t *testing.T) {
 
 // Put operation should fail against Dummy Non-existent Etcd Server
 func TestPut_DummyEtcdServer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 	backend := provisionBackendWithDummyEtcdServer(t)
-	err := backend.Put("key1", []uint8("value1"))
+	err := backend.Put(ctx, "key1", []uint8("value1"))
 	assert.NotNil(t, err)
 
 	// Assert alive state is still false
@@ -259,29 +269,33 @@ func TestPut_DummyEtcdServer(t *testing.T) {
 
 // Test Get for existing and non-existing key
 func TestGet_EmbeddedEtcdServer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	err := backend.Put("key2", []uint8("value2"))
+	err := backend.Put(ctx, "key2", []uint8("value2"))
 
 	// Assert alive state has become true
 	assert.True(t, backend.alive)
 
 	// Assert that kvstore has this key stored
-	kvpair, err := backend.Get("key2")
+	kvpair, err := backend.Get(ctx, "key2")
 	assert.NotNil(t, kvpair)
 	assert.Nil(t, err)
 	assert.Equal(t, defaultPathPrefix+"/key2", kvpair.Key)
 	assert.Equal(t, []uint8("value2"), kvpair.Value)
 
 	// Assert that Get works fine for absent key3
-	kvpair, err = backend.Get("key3")
+	kvpair, err = backend.Get(ctx, "key3")
 	assert.Nil(t, kvpair)
 	assert.Nil(t, err) // no error as lookup is successful
 }
 
 // Get operation should fail against Dummy Non-existent Etcd Server
 func TestGet_DummyEtcdServer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 	backend := provisionBackendWithDummyEtcdServer(t)
-	kvpair, err := backend.Get("key2")
+	kvpair, err := backend.Get(ctx, "key2")
 	assert.NotNil(t, err)
 	assert.Nil(t, kvpair)
 
@@ -291,31 +305,35 @@ func TestGet_DummyEtcdServer(t *testing.T) {
 
 // Test Delete for existing and non-existing key
 func TestDelete_EmbeddedEtcdServer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	err := backend.Put("key3", []uint8("value3"))
+	err := backend.Put(ctx, "key3", []uint8("value3"))
 
 	// Assert alive state has become true
 	assert.True(t, backend.alive)
 
 	// Assert that kvstore has this key stored
-	kvpair, err := backend.Get("key3")
+	kvpair, err := backend.Get(ctx, "key3")
 	assert.NotNil(t, kvpair)
 
 	// Delete and Assert that key has been removed
-	err = backend.Delete("key3")
+	err = backend.Delete(ctx, "key3")
 	assert.Nil(t, err)
-	kvpair, err = backend.Get("key3")
+	kvpair, err = backend.Get(ctx, "key3")
 	assert.Nil(t, kvpair)
 
 	// Assert that Delete silently ignores absent key3
-	err = backend.Delete("key3")
+	err = backend.Delete(ctx, "key3")
 	assert.Nil(t, err)
 }
 
 // Delete operation should fail against Dummy Non-existent Etcd Server
 func TestDelete_DummyEtcdServer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 	backend := provisionBackendWithDummyEtcdServer(t)
-	err := backend.Delete("key3")
+	err := backend.Delete(ctx, "key3")
 	assert.NotNil(t, err)
 
 	// Assert alive state is still false
@@ -324,23 +342,27 @@ func TestDelete_DummyEtcdServer(t *testing.T) {
 
 // Test List for series of values under a key path
 func TestList_EmbeddedEtcdServer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 	key41 := "key4/subkey1"
 	key42 := "key4/subkey2"
 
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	backend.Put(key41, []uint8("value4-1"))
-	backend.Put(key42, []uint8("value4-2"))
+	err := backend.Put(ctx, key41, []uint8("value4-1"))
+	assert.Nil(t, err)
+	err = backend.Put(ctx, key42, []uint8("value4-2"))
+	assert.Nil(t, err)
 
 	// Assert alive state has become true
 	assert.True(t, backend.alive)
 
 	// Assert that Get does not retrieve these Subkeys
-	kvpair, err := backend.Get("key4")
+	kvpair, err := backend.Get(ctx, "key4")
 	assert.Nil(t, kvpair)
 	assert.Nil(t, err)
 
 	// Assert that List operation retrieves these Child Keys
-	kvmap, err := backend.List("key4")
+	kvmap, err := backend.List(ctx, "key4")
 	assert.NotNil(t, kvmap)
 	assert.Nil(t, err)
 	assert.Equal(t, 2, len(kvmap))
@@ -354,8 +376,10 @@ func TestList_EmbeddedEtcdServer(t *testing.T) {
 
 // List operation should fail against Dummy Non-existent Etcd Server
 func TestList_DummyEtcdServer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 	backend := provisionBackendWithDummyEtcdServer(t)
-	kvmap, err := backend.List("key4")
+	kvmap, err := backend.List(ctx, "key4")
 	assert.Nil(t, kvmap)
 	assert.NotNil(t, err)
 
@@ -365,8 +389,10 @@ func TestList_DummyEtcdServer(t *testing.T) {
 
 // Test Create and Delete Watch for Embedded Etcd Server
 func TestCreateWatch_EmbeddedEtcdServer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	eventChan := backend.CreateWatch("key5")
+	eventChan := backend.CreateWatch(ctx, "key5")
 	assert.NotNil(t, eventChan)
 	assert.Equal(t, 0, len(eventChan))
 
@@ -374,7 +400,7 @@ func TestCreateWatch_EmbeddedEtcdServer(t *testing.T) {
 	assert.False(t, backend.alive)
 
 	// Put a value for watched key and event should appear
-	err := backend.Put("key5", []uint8("value5"))
+	err := backend.Put(ctx, "key5", []uint8("value5"))
 	assert.Nil(t, err)
 	time.Sleep(time.Millisecond * 100)
 	assert.Equal(t, 1, len(eventChan))
