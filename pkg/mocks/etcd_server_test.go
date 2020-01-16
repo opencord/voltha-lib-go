@@ -17,6 +17,7 @@
 package mocks
 
 import (
+	"context"
 	"fmt"
 	"github.com/opencord/voltha-lib-go/v2/pkg/db/kvstore"
 	"github.com/phayes/freeport"
@@ -52,9 +53,9 @@ func setup() {
 func TestEtcdServerRW(t *testing.T) {
 	key := "myKey-1"
 	value := "myVal-1"
-	err := client.Put(key, value, 10)
+	err := client.Put(context.Background(), key, value)
 	assert.Nil(t, err)
-	kvp, err := client.Get(key, 10)
+	kvp, err := client.Get(context.Background(), key)
 	assert.Nil(t, err)
 	assert.NotNil(t, kvp)
 	assert.Equal(t, kvp.Key, key)
@@ -66,7 +67,7 @@ func TestEtcdServerRW(t *testing.T) {
 func TestEtcdServerReserve(t *testing.T) {
 	assert.NotNil(t, client)
 	txId := "tnxId-1"
-	val, err := client.Reserve("transactions", txId, 10)
+	val, err := client.Reserve(context.Background(), "transactions", txId, 10)
 	assert.Nil(t, err)
 	assert.NotNil(t, val)
 	assert.Equal(t, val, txId)

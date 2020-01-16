@@ -18,6 +18,7 @@ package probe
 import (
 	"context"
 	"encoding/json"
+	"github.com/opencord/voltha-lib-go/v2/pkg/db/kvstore"
 	"github.com/opencord/voltha-lib-go/v2/pkg/log"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
@@ -343,7 +344,8 @@ func TestGetProbeFromContext(t *testing.T) {
 }
 
 func TestGetProbeFromContextMssing(t *testing.T) {
-	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(context.Background(), kvstore.GetDuration(1))
+	defer cancel()
 	pc := GetProbeFromContext(ctx)
 	assert.Nil(t, pc, "Context had a non-nil probe when it should have been nil")
 }
@@ -375,7 +377,8 @@ func TestUpdateStatusFromNilContext(t *testing.T) {
 func TestUpdateStatusFromContextWithoutProbe(t *testing.T) {
 	p := &Probe{}
 	p.RegisterService("one")
-	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(context.Background(), kvstore.GetDuration(1))
+	defer cancel()
 	UpdateStatusFromContext(ctx, "one", ServiceStatusRunning)
 
 	assert.Equal(t, 1, len(p.status), "wrong number of services")
