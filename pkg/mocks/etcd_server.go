@@ -18,7 +18,6 @@ package mocks
 import (
 	"fmt"
 	"go.etcd.io/etcd/embed"
-	"log"
 	"net/url"
 	"os"
 	"time"
@@ -108,7 +107,7 @@ func StartEtcdServer(cfg *embed.Config) *EtcdServer {
 	}
 	select {
 	case <-e.Server.ReadyNotify():
-		log.Printf("Embedded Etcd server is ready!")
+		log.Debug("Embedded Etcd server is ready!")
 	case <-time.After(serverStartUpTimeout):
 		e.Server.HardStop() // trigger a shutdown
 		e.Close()

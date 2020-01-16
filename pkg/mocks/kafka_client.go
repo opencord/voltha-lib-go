@@ -18,7 +18,7 @@ package mocks
 import (
 	"fmt"
 	"github.com/opencord/voltha-lib-go/v2/pkg/kafka"
-	"github.com/opencord/voltha-lib-go/v2/pkg/log"
+	l "github.com/opencord/voltha-lib-go/v2/pkg/log"
 	ic "github.com/opencord/voltha-protos/v2/go/inter_container"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -55,7 +55,7 @@ func (kc *KafkaClient) Stop() {
 }
 
 func (kc *KafkaClient) CreateTopic(topic *kafka.Topic, numPartition int, repFactor int) error {
-	log.Debugw("CreatingTopic", log.Fields{"topic": topic.Name, "numPartition": numPartition, "replicationFactor": repFactor})
+	log.Debugw("CreatingTopic", l.Fields{"topic": topic.Name, "numPartition": numPartition, "replicationFactor": repFactor})
 	kc.lock.Lock()
 	defer kc.lock.Unlock()
 	if _, ok := kc.topicsChannelMap[topic.Name]; ok {
@@ -67,7 +67,7 @@ func (kc *KafkaClient) CreateTopic(topic *kafka.Topic, numPartition int, repFact
 }
 
 func (kc *KafkaClient) DeleteTopic(topic *kafka.Topic) error {
-	log.Debugw("DeleteTopic", log.Fields{"topic": topic.Name})
+	log.Debugw("DeleteTopic", l.Fields{"topic": topic.Name})
 	kc.lock.Lock()
 	defer kc.lock.Unlock()
 	delete(kc.topicsChannelMap, topic.Name)
@@ -75,7 +75,7 @@ func (kc *KafkaClient) DeleteTopic(topic *kafka.Topic) error {
 }
 
 func (kc *KafkaClient) Subscribe(topic *kafka.Topic, kvArgs ...*kafka.KVArg) (<-chan *ic.InterContainerMessage, error) {
-	log.Debugw("Subscribe", log.Fields{"topic": topic.Name, "args": kvArgs})
+	log.Debugw("Subscribe", l.Fields{"topic": topic.Name, "args": kvArgs})
 	kc.lock.Lock()
 	defer kc.lock.Unlock()
 	ch := make(chan *ic.InterContainerMessage)
@@ -89,7 +89,7 @@ func removeChannel(s []chan *ic.InterContainerMessage, i int) []chan *ic.InterCo
 }
 
 func (kc *KafkaClient) UnSubscribe(topic *kafka.Topic, ch <-chan *ic.InterContainerMessage) error {
-	log.Debugw("UnSubscribe", log.Fields{"topic": topic.Name})
+	log.Debugw("UnSubscribe", l.Fields{"topic": topic.Name})
 	kc.lock.Lock()
 	defer kc.lock.Unlock()
 	if chnls, ok := kc.topicsChannelMap[topic.Name]; ok {
@@ -118,7 +118,7 @@ func (kc *KafkaClient) Send(msg interface{}, topic *kafka.Topic, keys ...string)
 	kc.lock.RLock()
 	defer kc.lock.RUnlock()
 	for _, ch := range kc.topicsChannelMap[topic.Name] {
-		log.Debugw("Publishing", log.Fields{"fromTopic": req.Header.FromTopic, "toTopic": topic.Name, "id": req.Header.Id})
+		log.Debugw("Publishing", l.Fields{"fromTopic": req.Header.FromTopic, "toTopic": topic.Name, "id": req.Header.Id})
 		ch <- req
 	}
 	return nil

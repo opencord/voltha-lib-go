@@ -21,7 +21,6 @@ import (
 	"github.com/opencord/voltha-lib-go/v2/pkg/db/kvstore"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
-	"log"
 	"os"
 	"testing"
 )

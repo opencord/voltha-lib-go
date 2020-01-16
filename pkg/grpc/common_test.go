@@ -21,7 +21,7 @@ import (
 
 const (
 	/*
-	 * This sets the LogLevel of the Voltha logger. It's pinned to FatalLevel here, as we
+	 * This sets the GetLogLevel of the Voltha logger. It's pinned to FatalLevel here, as we
 	 * generally don't want to see logger output, even when running go test in verbose
 	 * mode. Even "Error" level messages are expected to be output by some unit tests.
 	 *
