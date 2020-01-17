@@ -16,9 +16,16 @@
 package common
 
 import (
-	"testing"
-
+	"context"
 	adapterIf "github.com/opencord/voltha-lib-go/v3/pkg/adapters/adapterif"
+	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
+	"github.com/opencord/voltha-lib-go/v3/pkg/mocks"
+	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
+	"github.com/opencord/voltha-protos/v3/go/voltha"
+	"github.com/stretchr/testify/assert"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+	"testing"
 )
 
 func TestCoreProxyImplementsAdapterIfCoreProxy(t *testing.T) {
@@ -28,4 +35,111 @@ func TestCoreProxyImplementsAdapterIfCoreProxy(t *testing.T) {
 		t.Error("common CoreProxy does not implement adapterif.CoreProxy interface")
 	}
 
+}
+
+func TestCoreProxy_GetChildDevice_sn(t *testing.T) {
+
+	var mockKafkaIcProxy = mocks.MockKafkaIcProxy{
+		InvokeRpcSpy: mocks.InvokeRpcSpy{
+			Calls: make(map[int]mocks.InvokeRpcArgs),
+		},
+	}
+
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+
+	kwargs := make(map[string]interface{})
+	kwargs["serial_number"] = "TEST00000000001"
+
+	parentDeviceId := "aabbcc"
+	device, error := proxy.GetChildDevice(context.TODO(), parentDeviceId, kwargs)
+
+	assert.Equal(t, mockKafkaIcProxy.InvokeRpcSpy.CallCount, 1)
+	call := mockKafkaIcProxy.InvokeRpcSpy.Calls[1]
+	assert.Equal(t, call.Rpc, "GetChildDevice")
+	assert.Equal(t, call.ToTopic, &kafka.Topic{Name: "testCoreTopic"})
+	assert.Equal(t, call.ReplyToTopic, &kafka.Topic{Name: "testAdapterTopic"})
+	assert.Equal(t, call.WaitForResponse, true)
+	assert.Equal(t, call.Key, parentDeviceId)
+	assert.Equal(t, call.KvArgs[0], &kafka.KVArg{Key: "device_id", Value: &voltha.ID{Id: parentDeviceId}})
+	assert.Equal(t, call.KvArgs[1], &kafka.KVArg{Key: "serial_number", Value: &ic.StrType{Val: kwargs["serial_number"].(string)}})
+
+	assert.Equal(t, "testDevice", device.Id)
+	assert.Equal(t, nil, error)
+}
+
+func TestCoreProxy_GetChildDevice_id(t *testing.T) {
+
+	var mockKafkaIcProxy = mocks.MockKafkaIcProxy{
+		InvokeRpcSpy: mocks.InvokeRpcSpy{
+			Calls: make(map[int]mocks.InvokeRpcArgs),
+		},
+	}
+
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+
+	kwargs := make(map[string]interface{})
+	kwargs["onu_id"] = uint32(1234)
+
+	parentDeviceId := "aabbcc"
+	device, error := proxy.GetChildDevice(context.TODO(), parentDeviceId, kwargs)
+
+	assert.Equal(t, mockKafkaIcProxy.InvokeRpcSpy.CallCount, 1)
+	call := mockKafkaIcProxy.InvokeRpcSpy.Calls[1]
+	assert.Equal(t, call.Rpc, "GetChildDevice")
+	assert.Equal(t, call.ToTopic, &kafka.Topic{Name: "testCoreTopic"})
+	assert.Equal(t, call.ReplyToTopic, &kafka.Topic{Name: "testAdapterTopic"})
+	assert.Equal(t, call.WaitForResponse, true)
+	assert.Equal(t, call.Key, parentDeviceId)
+	assert.Equal(t, call.KvArgs[0], &kafka.KVArg{Key: "device_id", Value: &voltha.ID{Id: parentDeviceId}})
+	assert.Equal(t, call.KvArgs[1], &kafka.KVArg{Key: "onu_id", Value: &ic.IntType{Val: int64(kwargs["onu_id"].(uint32))}})
+
+	assert.Equal(t, "testDevice", device.Id)
+	assert.Equal(t, nil, error)
+}
+
+func TestCoreProxy_GetChildDevice_fail_timeout(t *testing.T) {
+
+	var mockKafkaIcProxy = mocks.MockKafkaIcProxy{
+		InvokeRpcSpy: mocks.InvokeRpcSpy{
+			Calls: make(map[int]mocks.InvokeRpcArgs),
+			Fail: mocks.Timeout,
+		},
+	}
+
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+
+	kwargs := make(map[string]interface{})
+	kwargs["onu_id"] = uint32(1234)
+
+	parentDeviceId := "aabbcc"
+	device, error := proxy.GetChildDevice(context.TODO(), parentDeviceId, kwargs)
+
+	assert.Nil(t, device)
+	parsedErr, _ := status.FromError(error)
+
+	// TODO assert that the Code is not Internal but DeadlineExceeded
+	assert.Equal(t, parsedErr.Code(), codes.Internal)
+}
+
+func TestCoreProxy_GetChildDevice_fail_unmarhsal(t *testing.T) {
+
+	var mockKafkaIcProxy = mocks.MockKafkaIcProxy{
+		InvokeRpcSpy: mocks.InvokeRpcSpy{
+			Calls: make(map[int]mocks.InvokeRpcArgs),
+			Fail: mocks.UnmarshalError,
+		},
+	}
+
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+
+	kwargs := make(map[string]interface{})
+	kwargs["onu_id"] = uint32(1234)
+
+	parentDeviceId := "aabbcc"
+	device, error := proxy.GetChildDevice(context.TODO(), parentDeviceId, kwargs)
+
+	assert.Nil(t, device)
+
+	parsedErr, _ := status.FromError(error)
+	assert.Equal(t, parsedErr.Code(), codes.InvalidArgument)
 }
