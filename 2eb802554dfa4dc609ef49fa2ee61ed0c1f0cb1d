@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4cc7651_f7d4dcc3",
+        "filename": "pkg/db/backend_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-17T17:33:44Z",
+      "side": 1,
+      "message": "This will require all requests to complete within the timeout, is 1 second enough?\n\nAlso, just use 1 * time.Second instead of kvstore.GetDuration().\n\n(more like this)",
+      "revId": "2eb802554dfa4dc609ef49fa2ee61ed0c1f0cb1d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab780a39_139d396e",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-17T17:33:44Z",
+      "side": 1,
+      "message": "Should this not also accept a ctx instead of a timeout?",
+      "revId": "2eb802554dfa4dc609ef49fa2ee61ed0c1f0cb1d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6a6cdc9_668f4bf4",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-17T17:33:44Z",
+      "side": 1,
+      "message": "This is in a separate thread.  May want to use context.Background(), or a new context with sane defaults.\n\n(This release-reservation probably should not be cancelable by the caller.)",
+      "revId": "2eb802554dfa4dc609ef49fa2ee61ed0c1f0cb1d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bbd7c6f1_66ba2d6b",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-17T17:33:44Z",
+      "side": 1,
+      "message": "Pointless cancel creation. Just use ctx directly.",
+      "revId": "2eb802554dfa4dc609ef49fa2ee61ed0c1f0cb1d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
