@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b94922b3_02abf6b5",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-17T19:19:35Z",
+      "side": 1,
+      "message": "If this interface is added, it would make sense to make the existing InterContainerProxy private (rename to lowercase: interContainerProxy).\n\nIf this is the case, should InterContainerProxyIf be named just InterContainerProxy instead?  (This would likely require less changes in dependent libraries).",
+      "revId": "1994b591bf2708ca08b104db9231c3542a4673e6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
