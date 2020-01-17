@@ -118,7 +118,7 @@ func (kc *KafkaClient) Send(msg interface{}, topic *kafka.Topic, keys ...string)
 	kc.lock.RLock()
 	defer kc.lock.RUnlock()
 	for _, ch := range kc.topicsChannelMap[topic.Name] {
-		logger.Debugw("Publishing", log.Fields{"fromTopic": req.Header.FromTopic, "toTopic": topic.Name, "id": req.Header.Id})
+		logger.Debugw("Publishing", log.Fields{"fromTopic": req.Header.FromTopic, "ToTopic": topic.Name, "id": req.Header.Id})
 		ch <- req
 	}
 	return nil
