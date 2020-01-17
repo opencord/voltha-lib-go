@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e1fb323_cc0f184a",
+        "filename": "pkg/mocks/kafka_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2020-01-17T18:30:23Z",
+      "side": 1,
+      "message": "Should the from/to have same capitalization?",
+      "range": {
+        "startLine": 121,
+        "startChar": 42,
+        "endLine": 121,
+        "endChar": 84
+      },
+      "revId": "fedb68a673af8e3c091dd56c76b370cb247ec16a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
