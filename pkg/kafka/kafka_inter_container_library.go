@@ -60,6 +60,17 @@ type transactionChannel struct {
 	ch    chan *ic.InterContainerMessage
 }
 
+type InterContainerProxyIf interface {
+	Start() error
+	Stop()
+	DeviceDiscovered(deviceId string, deviceType string, parentId string, publisher string) error
+	InvokeRPC(ctx context.Context, rpc string, toTopic *Topic, replyToTopic *Topic, waitForResponse bool, key string, kvArgs ...*KVArg) (bool, *any.Any)
+	SubscribeWithRequestHandlerInterface(topic Topic, handler interface{}) error
+	SubscribeWithDefaultRequestHandler(topic Topic, initialOffset int64) error
+	UnSubscribeFromRequestHandler(topic Topic) error
+	DeleteTopic(topic Topic) error
+}
+
 // InterContainerProxy represents the messaging proxy
 type InterContainerProxy struct {
 	kafkaHost                      string

@@ -30,14 +30,14 @@ import (
 )
 
 type CoreProxy struct {
-	kafkaICProxy        *kafka.InterContainerProxy
+	kafkaICProxy        kafka.InterContainerProxyIf
 	adapterTopic        string
 	coreTopic           string
 	deviceIdCoreMap     map[string]string
 	lockDeviceIdCoreMap sync.RWMutex
 }
 
-func NewCoreProxy(kafkaProxy *kafka.InterContainerProxy, adapterTopic string, coreTopic string) *CoreProxy {
+func NewCoreProxy(kafkaProxy kafka.InterContainerProxyIf, adapterTopic string, coreTopic string) *CoreProxy {
 	var proxy CoreProxy
 	proxy.kafkaICProxy = kafkaProxy
 	proxy.adapterTopic = adapterTopic
