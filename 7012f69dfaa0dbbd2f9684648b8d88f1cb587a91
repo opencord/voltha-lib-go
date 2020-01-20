@@ -22,6 +22,30 @@
       "revId": "7012f69dfaa0dbbd2f9684648b8d88f1cb587a91",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb44f2f_c19c1478",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2020-01-20T14:03:00Z",
+      "side": 1,
+      "message": "This api can be used to enable/disable both NNI and pon \"interfaces\" although currently we don\u0027t support NNI disable as of now ,so used the term network_if, please let me know your comment on this.",
+      "parentUuid": "a7bcda54_25f8e4cd",
+      "range": {
+        "startLine": 617,
+        "startChar": 39,
+        "endLine": 617,
+        "endChar": 49
+      },
+      "revId": "7012f69dfaa0dbbd2f9684648b8d88f1cb587a91",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
