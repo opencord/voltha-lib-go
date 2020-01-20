@@ -46,6 +46,30 @@
       "revId": "7012f69dfaa0dbbd2f9684648b8d88f1cb587a91",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b0eadb8_ee288ac4",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000436
+      },
+      "writtenOn": "2020-01-20T22:45:25Z",
+      "side": 1,
+      "message": "All of NNI, PON and UNI are interfaces and ports.  But when interacting with the core the \"Port\" name is a pattern already in place.  \n\nOther functions called from the adapter to the core regarding ports (all types):\n\nPortCreated\nPortStateUpdate\nPortsStateUpdate\n\nTo me it makes sense to refer to them consistently north and southbound.",
+      "parentUuid": "9cb44f2f_c19c1478",
+      "range": {
+        "startLine": 617,
+        "startChar": 39,
+        "endLine": 617,
+        "endChar": 49
+      },
+      "revId": "7012f69dfaa0dbbd2f9684648b8d88f1cb587a91",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
