@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7bcda54_25f8e4cd",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000436
+      },
+      "writtenOn": "2020-01-20T13:37:06Z",
+      "side": 1,
+      "message": "I think a more consistent name would be \"Enable_port\" and \"Disable_port\" given they are referred to as \"Port\" in the proto and many other places.",
+      "range": {
+        "startLine": 617,
+        "startChar": 39,
+        "endLine": 617,
+        "endChar": 49
+      },
+      "revId": "7012f69dfaa0dbbd2f9684648b8d88f1cb587a91",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
