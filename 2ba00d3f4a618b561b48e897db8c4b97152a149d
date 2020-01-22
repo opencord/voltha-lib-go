@@ -16,6 +16,24 @@
       "revId": "2ba00d3f4a618b561b48e897db8c4b97152a149d",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7e0a9c8_9beeb648",
+        "filename": "VERSION",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-01-22T19:58:53Z",
+      "side": 1,
+      "message": "yeah it\u0027s intended, it\u0027s not adding features or anything so I felt there was not the need to release a tagged image\n\nit will be soon followed by https://gerrit.opencord.org/#/c/17118/and it may be worthy to release that one as it\u0027s returning an error code if the InvokeRPC times out",
+      "parentUuid": "3d4e7937_f981c925",
+      "revId": "2ba00d3f4a618b561b48e897db8c4b97152a149d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
