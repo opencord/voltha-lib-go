@@ -41,7 +41,8 @@ func TestCoreProxy_GetChildDevice_sn(t *testing.T) {
 
 	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
 		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls: make(map[int]mocks.InvokeRpcArgs),
+			Calls:    make(map[int]mocks.InvokeRpcArgs),
+			Response: &voltha.Device{Id: "testDevice"},
 		},
 	}
 
@@ -71,7 +72,8 @@ func TestCoreProxy_GetChildDevice_id(t *testing.T) {
 
 	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
 		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls: make(map[int]mocks.InvokeRpcArgs),
+			Calls:    make(map[int]mocks.InvokeRpcArgs),
+			Response: &voltha.Device{Id: "testDevice"},
 		},
 	}
 
@@ -101,8 +103,8 @@ func TestCoreProxy_GetChildDevice_fail_timeout(t *testing.T) {
 
 	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
 		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls: make(map[int]mocks.InvokeRpcArgs),
-			Fail:  mocks.Timeout,
+			Calls:   make(map[int]mocks.InvokeRpcArgs),
+			Timeout: true,
 		},
 	}
 
@@ -117,16 +119,15 @@ func TestCoreProxy_GetChildDevice_fail_timeout(t *testing.T) {
 	assert.Nil(t, device)
 	parsedErr, _ := status.FromError(error)
 
-	// TODO assert that the Code is not Internal but DeadlineExceeded
-	assert.Equal(t, parsedErr.Code(), codes.Internal)
+	assert.Equal(t, parsedErr.Code(), codes.DeadlineExceeded)
 }
 
 func TestCoreProxy_GetChildDevice_fail_unmarhsal(t *testing.T) {
 
 	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
 		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls: make(map[int]mocks.InvokeRpcArgs),
-			Fail:  mocks.UnmarshalError,
+			Calls:    make(map[int]mocks.InvokeRpcArgs),
+			Response: &voltha.LogicalDevice{Id: "testDevice"},
 		},
 	}
 
@@ -142,4 +143,76 @@ func TestCoreProxy_GetChildDevice_fail_unmarhsal(t *testing.T) {
 
 	parsedErr, _ := status.FromError(error)
 	assert.Equal(t, parsedErr.Code(), codes.InvalidArgument)
+}
+
+func TestCoreProxy_GetChildDevices_success(t *testing.T) {
+
+	devicesResponse := &voltha.Devices{}
+
+	devicesResponse.Items = append(devicesResponse.Items, &voltha.Device{Id: "testDevice1"})
+	devicesResponse.Items = append(devicesResponse.Items, &voltha.Device{Id: "testDevice2"})
+
+	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
+		InvokeRpcSpy: mocks.InvokeRpcSpy{
+			Calls:    make(map[int]mocks.InvokeRpcArgs),
+			Response: devicesResponse,
+		},
+	}
+
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+
+	parentDeviceId := "aabbcc"
+	devices, error := proxy.GetChildDevices(context.TODO(), parentDeviceId)
+
+	assert.Equal(t, mockKafkaIcProxy.InvokeRpcSpy.CallCount, 1)
+	call := mockKafkaIcProxy.InvokeRpcSpy.Calls[1]
+	assert.Equal(t, call.Rpc, "GetChildDevices")
+	assert.Equal(t, call.ToTopic, &kafka.Topic{Name: "testCoreTopic"})
+	assert.Equal(t, call.ReplyToTopic, &kafka.Topic{Name: "testAdapterTopic"})
+	assert.Equal(t, call.WaitForResponse, true)
+	assert.Equal(t, call.Key, parentDeviceId)
+	assert.Equal(t, call.KvArgs[0], &kafka.KVArg{Key: "device_id", Value: &voltha.ID{Id: parentDeviceId}})
+
+	assert.Equal(t, nil, error)
+	assert.Equal(t, 2, len(devices.Items))
+}
+
+func TestCoreProxy_GetChildDevices_fail_unmarhsal(t *testing.T) {
+
+	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
+		InvokeRpcSpy: mocks.InvokeRpcSpy{
+			Calls:    make(map[int]mocks.InvokeRpcArgs),
+			Response: &voltha.LogicalDevice{Id: "testDevice"},
+		},
+	}
+
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+
+	parentDeviceId := "aabbcc"
+	devices, error := proxy.GetChildDevices(context.TODO(), parentDeviceId)
+
+	assert.Nil(t, devices)
+
+	parsedErr, _ := status.FromError(error)
+	assert.Equal(t, parsedErr.Code(), codes.InvalidArgument)
+}
+
+func TestCoreProxy_GetChildDevices_fail_timeout(t *testing.T) {
+
+	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
+		InvokeRpcSpy: mocks.InvokeRpcSpy{
+			Calls:   make(map[int]mocks.InvokeRpcArgs),
+			Timeout: true,
+		},
+	}
+
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+
+	parentDeviceId := "aabbcc"
+	devices, error := proxy.GetChildDevices(context.TODO(), parentDeviceId)
+
+	assert.Nil(t, devices)
+
+	parsedErr, _ := status.FromError(error)
+	assert.Equal(t, parsedErr.Code(), codes.DeadlineExceeded)
 }
