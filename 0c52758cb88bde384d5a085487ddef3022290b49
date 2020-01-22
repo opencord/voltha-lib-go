@@ -16,6 +16,24 @@
       "revId": "0c52758cb88bde384d5a085487ddef3022290b49",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd9c343f_c9faf6f2",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-22T17:11:12Z",
+      "side": 1,
+      "message": "Done.\n(Thought there might be an issue with the callback being delayed, but the message is forwarded in a separate thread, so this function executes without waiting for completion.)",
+      "parentUuid": "200045b7_615b2cec",
+      "revId": "0c52758cb88bde384d5a085487ddef3022290b49",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
