@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d4e7937_f981c925",
+        "filename": "VERSION",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-22T19:54:30Z",
+      "side": 1,
+      "message": "-dev version?  Is this intended?",
+      "revId": "2ba00d3f4a618b561b48e897db8c4b97152a149d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
