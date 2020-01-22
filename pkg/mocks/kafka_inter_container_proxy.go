@@ -18,10 +18,10 @@ package mocks
 
 import (
 	"context"
+	"github.com/gogo/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
-	"github.com/opencord/voltha-protos/v3/go/voltha"
 	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
 )
 
@@ -35,21 +35,11 @@ type InvokeRpcArgs struct {
 	KvArgs          map[int]interface{}
 }
 
-type FailReason int
-
-const (
-	Timeout FailReason = iota + 1
-	UnmarshalError
-)
-
-func (r FailReason) String() string {
-	return [...]string{"Timeout", "UnmarshalError"}[r]
-}
-
 type InvokeRpcSpy struct {
 	CallCount int
 	Calls     map[int]InvokeRpcArgs
-	Fail      FailReason // timeout, error
+	Timeout   bool
+	Response  proto.Message
 }
 
 type MockKafkaIcProxy struct {
@@ -81,27 +71,20 @@ func (s *MockKafkaIcProxy) InvokeRPC(ctx context.Context, rpc string, toTopic *k
 		KvArgs:          args,
 	}
 
-	device := &voltha.Device{
-		Id: "testDevice",
-	}
-	response, _ := ptypes.MarshalAny(device)
-
-
-	if s.InvokeRpcSpy.Fail == Timeout {
+	var response any.Any
+	if s.InvokeRpcSpy.Timeout {
 
 		success = false
 
-		// TODO once InvokeRPC is fixed to return an error code, add it here
-		err := &ic.Error{Reason: "context deadline exceeded"}
-		response, _ = ptypes.MarshalAny(err)
-	} else if s.InvokeRpcSpy.Fail == UnmarshalError {
-		res := &voltha.LogicalDevice{
-			Id: "testLogicalDevice",
-		}
-		response, _ = ptypes.MarshalAny(res)
+		err := &ic.Error{Reason: "context deadline exceeded", Code: ic.ErrorCode_DEADLINE_EXCEDEED}
+		res, _ := ptypes.MarshalAny(err)
+		response = *res
+	} else {
+		res, _ := ptypes.MarshalAny(s.InvokeRpcSpy.Response)
+		response = *res
 	}
 
-	return success, response
+	return success, &response
 }
 func (s *MockKafkaIcProxy) SubscribeWithRequestHandlerInterface(topic kafka.Topic, handler interface{}) error {
 	return nil
