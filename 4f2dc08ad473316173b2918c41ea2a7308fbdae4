@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "102ad099_d430535a",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-01-22T10:21:38Z",
+      "side": 1,
+      "message": "To be consistent how other RPCs are logged, please change it to Enable_port",
+      "range": {
+        "startLine": 618,
+        "startChar": 12,
+        "endLine": 618,
+        "endChar": 23
+      },
+      "revId": "4f2dc08ad473316173b2918c41ea2a7308fbdae4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee867827_ca309203",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-01-22T10:21:38Z",
+      "side": 1,
+      "message": "To be consistent how other RPCs are logged, please change it to Disable_port",
+      "range": {
+        "startLine": 623,
+        "startChar": 12,
+        "endLine": 623,
+        "endChar": 24
+      },
+      "revId": "4f2dc08ad473316173b2918c41ea2a7308fbdae4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16008c99_8201e5fe",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-01-22T10:21:38Z",
+      "side": 1,
+      "message": "enablePort would be better.",
+      "range": {
+        "startLine": 627,
+        "startChar": 79,
+        "endLine": 627,
+        "endChar": 86
+      },
+      "revId": "4f2dc08ad473316173b2918c41ea2a7308fbdae4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af2d5ef3_f9e4ffec",
         "filename": "pkg/adapters/common/request_handler.go",
         "patchSetId": 3
