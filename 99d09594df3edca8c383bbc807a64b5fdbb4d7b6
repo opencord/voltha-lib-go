@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2eebe5f6_c985539b",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-22T14:48:24Z",
+      "side": 1,
+      "message": "Would make sense to return the interface instead.",
+      "revId": "99d09594df3edca8c383bbc807a64b5fdbb4d7b6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
