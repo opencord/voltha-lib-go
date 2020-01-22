@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7ec168a6_3664abf8",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-01-22T18:21:34Z",
+      "side": 1,
+      "message": "I don\u0027t think we can do that as you can\u0027t define field in interfaces, thus \"TestDefaultKafkaProxy\" won\u0027t compile as it\u0027s checking the internal implementation of \"interContainerProxy\".",
+      "parentUuid": "2eebe5f6_c985539b",
+      "revId": "99d09594df3edca8c383bbc807a64b5fdbb4d7b6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6859157d_cc8309fb",
         "filename": "pkg/mocks/kafka_inter_container_proxy.go",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "6d76fc71_a6e994f2",
+        "filename": "pkg/mocks/kafka_inter_container_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-01-22T18:21:34Z",
+      "side": 1,
+      "message": "That is redundant, the test will fail with \" *mocks.MockKafkaICProxy does not implement kafka.InterContainerProxy (missing Start method)\" if the interface is not implemented correctly",
+      "parentUuid": "6859157d_cc8309fb",
+      "revId": "99d09594df3edca8c383bbc807a64b5fdbb4d7b6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fcaae6c_fb0da732",
         "filename": "pkg/mocks/kafka_inter_container_proxy.go",
         "patchSetId": 8
@@ -47,6 +83,24 @@
       "writtenOn": "2020-01-22T16:02:12Z",
       "side": 1,
       "message": "Ic should be uppercase, like: `MockKafkaICProxy`",
+      "revId": "99d09594df3edca8c383bbc807a64b5fdbb4d7b6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e279dc7_bab24949",
+        "filename": "pkg/mocks/kafka_inter_container_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-01-22T18:21:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fcaae6c_fb0da732",
       "revId": "99d09594df3edca8c383bbc807a64b5fdbb4d7b6",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
