@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3f0ae9d6_58b92ff7",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-22T18:40:53Z",
+      "side": 1,
+      "message": "It may make sense for TestDefaultKafkaProxy to create its own interContainerProxy, or to have a function NewInterContainerProx() that calls an internal function newInterContainerProxy().",
+      "parentUuid": "7ec168a6_3664abf8",
+      "revId": "99d09594df3edca8c383bbc807a64b5fdbb4d7b6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6859157d_cc8309fb",
         "filename": "pkg/mocks/kafka_inter_container_proxy.go",
         "patchSetId": 8
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "That is redundant, the test will fail with \" *mocks.MockKafkaICProxy does not implement kafka.InterContainerProxy (missing Start method)\" if the interface is not implemented correctly",
       "parentUuid": "6859157d_cc8309fb",
+      "revId": "99d09594df3edca8c383bbc807a64b5fdbb4d7b6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ce62bac_cc5bc710",
+        "filename": "pkg/mocks/kafka_inter_container_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-22T18:40:53Z",
+      "side": 1,
+      "message": "OK, Makes sense.",
+      "parentUuid": "6d76fc71_a6e994f2",
       "revId": "99d09594df3edca8c383bbc807a64b5fdbb4d7b6",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
