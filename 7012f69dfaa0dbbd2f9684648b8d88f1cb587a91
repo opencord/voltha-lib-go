@@ -70,6 +70,30 @@
       "revId": "7012f69dfaa0dbbd2f9684648b8d88f1cb587a91",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab19b4a0_a7dae92d",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2020-01-22T06:59:31Z",
+      "side": 1,
+      "message": "Thank you Matt, Addressed the comments and changed them as suggested.",
+      "parentUuid": "8b0eadb8_ee288ac4",
+      "range": {
+        "startLine": 617,
+        "startChar": 39,
+        "endLine": 617,
+        "endChar": 49
+      },
+      "revId": "7012f69dfaa0dbbd2f9684648b8d88f1cb587a91",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
