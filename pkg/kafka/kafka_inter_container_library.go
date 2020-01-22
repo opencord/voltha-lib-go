@@ -305,10 +305,8 @@ func (kp *interContainerProxy) InvokeRPC(ctx context.Context, rpc string, toTopi
 		case <-ctx.Done():
 			logger.Debugw("context-cancelled", log.Fields{"rpc": rpc, "ctx": ctx.Err()})
 			//	 pack the error as proto any type
-			protoError := &ic.Error{Reason: ctx.Err().Error()}
+			protoError := &ic.Error{Reason: ctx.Err().Error(), Code: ic.ErrorCode_DEADLINE_EXCEDEED}
 
-			// FIXME we need to return a Code together with the reason
-			//protoError := &ic.Error{Reason: childCtx.Err().Error(), Code: codes.DeadlineExceeded}
 			var marshalledArg *any.Any
 			if marshalledArg, err = ptypes.MarshalAny(protoError); err != nil {
 				return false, nil // Should never happen
@@ -317,10 +315,8 @@ func (kp *interContainerProxy) InvokeRPC(ctx context.Context, rpc string, toTopi
 		case <-childCtx.Done():
 			logger.Debugw("context-cancelled", log.Fields{"rpc": rpc, "ctx": childCtx.Err()})
 			//	 pack the error as proto any type
-			protoError := &ic.Error{Reason: childCtx.Err().Error()}
+			protoError := &ic.Error{Reason: childCtx.Err().Error(), Code: ic.ErrorCode_DEADLINE_EXCEDEED}
 
-			// FIXME we need to return a Code together with the reason
-			//protoError := &ic.Error{Reason: childCtx.Err().Error(), Code: codes.DeadlineExceeded}
 			var marshalledArg *any.Any
 			if marshalledArg, err = ptypes.MarshalAny(protoError); err != nil {
 				return false, nil // Should never happen

@@ -91,8 +91,7 @@ func (s *MockKafkaIcProxy) InvokeRPC(ctx context.Context, rpc string, toTopic *k
 
 		success = false
 
-		// TODO once InvokeRPC is fixed to return an error code, add it here
-		err := &ic.Error{Reason: "context deadline exceeded"}
+		err := &ic.Error{Reason: "context deadline exceeded", Code: ic.ErrorCode_DEADLINE_EXCEDEED}
 		response, _ = ptypes.MarshalAny(err)
 	} else if s.InvokeRpcSpy.Fail == UnmarshalError {
 		res := &voltha.LogicalDevice{

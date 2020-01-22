@@ -117,8 +117,7 @@ func TestCoreProxy_GetChildDevice_fail_timeout(t *testing.T) {
 	assert.Nil(t, device)
 	parsedErr, _ := status.FromError(error)
 
-	// TODO assert that the Code is not Internal but DeadlineExceeded
-	assert.Equal(t, parsedErr.Code(), codes.Internal)
+	assert.Equal(t, parsedErr.Code(), codes.DeadlineExceeded)
 }
 
 func TestCoreProxy_GetChildDevice_fail_unmarhsal(t *testing.T) {
