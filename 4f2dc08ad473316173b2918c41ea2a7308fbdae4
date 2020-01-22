@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af2d5ef3_f9e4ffec",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1000544
+      },
+      "writtenOn": "2020-01-22T07:07:34Z",
+      "side": 1,
+      "message": "As I mentioned in the related patch set think of the single execution path since it has common attributes to send across kafka.",
+      "revId": "4f2dc08ad473316173b2918c41ea2a7308fbdae4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
