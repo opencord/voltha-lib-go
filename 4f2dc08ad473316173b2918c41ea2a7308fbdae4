@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "668e35a8_1dd52257",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2020-01-23T16:53:10Z",
+      "side": 1,
+      "message": "Hi Girish, changed the log as suggested.",
+      "parentUuid": "102ad099_d430535a",
+      "range": {
+        "startLine": 618,
+        "startChar": 12,
+        "endLine": 618,
+        "endChar": 23
+      },
+      "revId": "4f2dc08ad473316173b2918c41ea2a7308fbdae4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee867827_ca309203",
         "filename": "pkg/adapters/common/request_handler.go",
         "patchSetId": 3
@@ -82,6 +106,24 @@
       "writtenOn": "2020-01-22T07:07:34Z",
       "side": 1,
       "message": "As I mentioned in the related patch set think of the single execution path since it has common attributes to send across kafka.",
+      "revId": "4f2dc08ad473316173b2918c41ea2a7308fbdae4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f17d56_05f30b8b",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2020-01-23T16:53:10Z",
+      "side": 1,
+      "message": "Hi Chaitra, As suggested updated the patch.",
+      "parentUuid": "af2d5ef3_f9e4ffec",
       "revId": "4f2dc08ad473316173b2918c41ea2a7308fbdae4",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
