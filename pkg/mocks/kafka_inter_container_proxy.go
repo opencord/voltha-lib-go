@@ -93,3 +93,5 @@ func (s *MockKafkaICProxy) SubscribeWithDefaultRequestHandler(topic kafka.Topic,
 	return nil
 }
 func (s *MockKafkaICProxy) UnSubscribeFromRequestHandler(topic kafka.Topic) error { return nil }
+func (s *MockKafkaICProxy) EnableLivenessChannel(enable bool) chan bool { return nil }
+func (s *MockKafkaICProxy) SendLiveness() error { return nil }
