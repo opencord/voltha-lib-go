@@ -33,6 +33,24 @@
       "revId": "567243869efa76cacbc1c4e22757b24ac7a78a51",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba9e70aa_fce548e9",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-01-24T23:06:03Z",
+      "side": 1,
+      "message": "I\u0027m moving this back to the way it was before https://gerrit.opencord.org/#/c/17064/ as in all the components we are accessing properties defined in this struct (see discussion in the #voltha channel on slack)",
+      "parentUuid": "463f6733_ec5f0504",
+      "revId": "567243869efa76cacbc1c4e22757b24ac7a78a51",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
