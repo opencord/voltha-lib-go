@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23450511_c32bcc6b",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-01-24T06:07:33Z",
+      "side": 1,
+      "message": "I do not want to sound naggy, but please stick to previous function naming  conventions in this file.\n\nUpdate_port_oper_status.",
+      "range": {
+        "startLine": 617,
+        "startChar": 32,
+        "endLine": 617,
+        "endChar": 54
+      },
+      "revId": "29046494b7b61c9a15ece797034420d477e72946",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8aa8aad_4713c2a9",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-01-24T06:07:33Z",
+      "side": 1,
+      "message": "Update_port_oper_status",
+      "range": {
+        "startLine": 618,
+        "startChar": 12,
+        "endLine": 618,
+        "endChar": 34
+      },
+      "revId": "29046494b7b61c9a15ece797034420d477e72946",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
