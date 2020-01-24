@@ -63,12 +63,15 @@ type transactionChannel struct {
 type InterContainerProxy interface {
 	Start() error
 	Stop()
+	GetDefaultTopic() *Topic
 	DeviceDiscovered(deviceId string, deviceType string, parentId string, publisher string) error
 	InvokeRPC(ctx context.Context, rpc string, toTopic *Topic, replyToTopic *Topic, waitForResponse bool, key string, kvArgs ...*KVArg) (bool, *any.Any)
 	SubscribeWithRequestHandlerInterface(topic Topic, handler interface{}) error
 	SubscribeWithDefaultRequestHandler(topic Topic, initialOffset int64) error
 	UnSubscribeFromRequestHandler(topic Topic) error
 	DeleteTopic(topic Topic) error
+	EnableLivenessChannel(enable bool) chan bool
+	SendLiveness() error
 }
 
 // interContainerProxy represents the messaging proxy
@@ -154,7 +157,7 @@ func newInterContainerProxy(opts ...InterContainerProxyOption) (*interContainerP
 	return proxy, nil
 }
 
-func NewInterContainerProxy(opts ...InterContainerProxyOption) (InterContainerProxy, error) {
+func NewInterContainerProxy(opts ...InterContainerProxyOption) (*interContainerProxy, error) {
 	return newInterContainerProxy(opts...)
 }
 
@@ -195,6 +198,10 @@ func (kp *interContainerProxy) Stop() {
 	//kp.deleteAllTopicRequestHandlerChannelMap()
 	//kp.deleteAllTopicResponseChannelMap()
 	//kp.deleteAllTransactionIdToChannelMap()
+}
+
+func (kp *interContainerProxy) GetDefaultTopic() *Topic {
+	return kp.DefaultTopic
 }
 
 // DeviceDiscovered publish the discovered device onto the kafka messaging bus

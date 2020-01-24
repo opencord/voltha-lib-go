@@ -46,7 +46,13 @@ type MockKafkaICProxy struct {
 	InvokeRpcSpy InvokeRpcSpy
 }
 
-func (s *MockKafkaICProxy) Start() error                        { return nil }
+func (s *MockKafkaICProxy) Start() error { return nil }
+func (s *MockKafkaICProxy) GetDefaultTopic() *kafka.Topic {
+	t := kafka.Topic{
+		Name: "test-topic",
+	}
+	return &t
+}
 func (s *MockKafkaICProxy) DeleteTopic(topic kafka.Topic) error { return nil }
 func (s *MockKafkaICProxy) DeviceDiscovered(deviceId string, deviceType string, parentId string, publisher string) error {
 	return nil
@@ -93,3 +99,5 @@ func (s *MockKafkaICProxy) SubscribeWithDefaultRequestHandler(topic kafka.Topic,
 	return nil
 }
 func (s *MockKafkaICProxy) UnSubscribeFromRequestHandler(topic kafka.Topic) error { return nil }
+func (s *MockKafkaICProxy) EnableLivenessChannel(enable bool) chan bool           { return nil }
+func (s *MockKafkaICProxy) SendLiveness() error                                   { return nil }
