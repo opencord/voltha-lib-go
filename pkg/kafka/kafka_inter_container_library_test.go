@@ -50,7 +50,7 @@ func TestKafkaProxyOptionTopic(t *testing.T) {
 	assert.Equal(t, actualResult.kafkaHost, DefaultKafkaHost)
 	assert.Equal(t, actualResult.kafkaPort, DefaultKafkaPort)
 	assert.Equal(t, actualResult.defaultRequestHandlerInterface, interface{}(nil))
-	assert.Equal(t, actualResult.DefaultTopic.Name, "Adapter")
+	assert.Equal(t, actualResult.defaultTopic.Name, "Adapter")
 }
 
 type myInterface struct {
@@ -79,7 +79,7 @@ func TestKafkaProxyChangeAllOptions(t *testing.T) {
 	assert.Equal(t, actualResult.kafkaHost, "10.20.30.40")
 	assert.Equal(t, actualResult.kafkaPort, 1020)
 	assert.Equal(t, actualResult.defaultRequestHandlerInterface, m)
-	assert.Equal(t, actualResult.DefaultTopic.Name, "Adapter")
+	assert.Equal(t, actualResult.defaultTopic.Name, "Adapter")
 }
 
 func TestKafkaProxyEnableLivenessChannel(t *testing.T) {
