@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "0457372e_d31e4051",
+        "filename": "pkg/eventfilter/event_filter.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-24T14:53:31Z",
+      "side": 1,
+      "message": "Didn\u0027t realize that event is defined outside the package.  Changes look good.",
+      "parentUuid": "928f0562_122b7365",
+      "revId": "11bfb058d5e2b4eee7d80bc1d2c3639ed012114c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df87b154_995cd5f4",
         "filename": "pkg/eventfilter/event_filter.go",
         "patchSetId": 9
