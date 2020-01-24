@@ -63,19 +63,22 @@ type transactionChannel struct {
 type InterContainerProxy interface {
 	Start() error
 	Stop()
+	GetDefaultTopic() *Topic
 	DeviceDiscovered(deviceId string, deviceType string, parentId string, publisher string) error
 	InvokeRPC(ctx context.Context, rpc string, toTopic *Topic, replyToTopic *Topic, waitForResponse bool, key string, kvArgs ...*KVArg) (bool, *any.Any)
 	SubscribeWithRequestHandlerInterface(topic Topic, handler interface{}) error
 	SubscribeWithDefaultRequestHandler(topic Topic, initialOffset int64) error
 	UnSubscribeFromRequestHandler(topic Topic) error
 	DeleteTopic(topic Topic) error
+	EnableLivenessChannel(enable bool) chan bool
+	SendLiveness() error
 }
 
 // interContainerProxy represents the messaging proxy
 type interContainerProxy struct {
 	kafkaHost                      string
 	kafkaPort                      int
-	DefaultTopic                   *Topic
+	defaultTopic                   *Topic
 	defaultRequestHandlerInterface interface{}
 	deviceDiscoveryTopic           *Topic
 	kafkaClient                    Client
@@ -114,7 +117,7 @@ func InterContainerPort(port int) InterContainerProxyOption {
 
 func DefaultTopic(topic *Topic) InterContainerProxyOption {
 	return func(args *interContainerProxy) {
-		args.DefaultTopic = topic
+		args.defaultTopic = topic
 	}
 }
 
@@ -197,6 +200,10 @@ func (kp *interContainerProxy) Stop() {
 	//kp.deleteAllTransactionIdToChannelMap()
 }
 
+func (kp *interContainerProxy) GetDefaultTopic() *Topic {
+	return kp.defaultTopic
+}
+
 // DeviceDiscovered publish the discovered device onto the kafka messaging bus
 func (kp *interContainerProxy) DeviceDiscovered(deviceId string, deviceType string, parentId string, publisher string) error {
 	logger.Debugw("sending-device-discovery-msg", log.Fields{"deviceId": deviceId})
@@ -209,7 +216,7 @@ func (kp *interContainerProxy) DeviceDiscovered(deviceId string, deviceType stri
 	header := &ic.Header{
 		Id:        uuid.New().String(),
 		Type:      ic.MessageType_DEVICE_DISCOVERED,
-		FromTopic: kp.DefaultTopic.Name,
+		FromTopic: kp.defaultTopic.Name,
 		ToTopic:   kp.deviceDiscoveryTopic.Name,
 		Timestamp: time.Now().UnixNano(),
 	}
@@ -247,7 +254,7 @@ func (kp *interContainerProxy) InvokeRPC(ctx context.Context, rpc string, toTopi
 	// typically the device ID.
 	responseTopic := replyToTopic
 	if responseTopic == nil {
-		responseTopic = kp.DefaultTopic
+		responseTopic = kp.defaultTopic
 	}
 
 	// Encode the request
