@@ -16,6 +16,24 @@
       "revId": "ccc91858b23c43f51f6eaf301c9bd70bf5a28fa8",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b891d431_b560d315",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1000564
+      },
+      "writtenOn": "2020-01-24T07:56:36Z",
+      "side": 1,
+      "message": "yes it should be removed",
+      "parentUuid": "b1d11145_40306bb5",
+      "revId": "ccc91858b23c43f51f6eaf301c9bd70bf5a28fa8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
