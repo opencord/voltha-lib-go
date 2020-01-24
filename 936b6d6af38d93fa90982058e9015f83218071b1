@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b124c267_8f349fc2",
+        "filename": "pkg/eventfilter/event_filter.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-01-24T14:53:31Z",
+      "side": 1,
+      "message": "CheckEvent(event) is still redundant, consider just Check(event)",
+      "revId": "936b6d6af38d93fa90982058e9015f83218071b1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
