@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "205f6d00_07c8567d",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-24T22:03:28Z",
+      "side": 1,
+      "message": "You will need to add the following APIs to this interface:\n\n\tEnableLivenessChannel(bool) chan bool\n\tSendLiveness() error",
+      "revId": "567243869efa76cacbc1c4e22757b24ac7a78a51",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "463f6733_ec5f0504",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-24T22:03:28Z",
+      "side": 1,
+      "message": "Why do you need to change the interface?",
+      "revId": "567243869efa76cacbc1c4e22757b24ac7a78a51",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
