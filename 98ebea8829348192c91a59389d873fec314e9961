@@ -22,6 +22,29 @@
       "revId": "98ebea8829348192c91a59389d873fec314e9961",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2270f9a_4c3156cb",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000436
+      },
+      "writtenOn": "2020-01-24T15:15:56Z",
+      "side": 1,
+      "message": "this seems confusing to me as well. if it were a private function maybe, but for adapter api implementation this nomenclature seems a bit clumsy.  Id rather the Disable_ and Enable_ calls be separate, even it it means a bit of code duplication.\n\nDevice enable and disable are separate in the same way.",
+      "range": {
+        "startLine": 52,
+        "startChar": 1,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "98ebea8829348192c91a59389d873fec314e9961",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
