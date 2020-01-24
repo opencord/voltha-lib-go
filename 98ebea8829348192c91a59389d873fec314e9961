@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e19309a6_3e21916d",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000564
+      },
+      "writtenOn": "2020-01-24T11:02:30Z",
+      "side": 1,
+      "message": "Is it ok to have a single function to do 2 different operations.",
+      "range": {
+        "startLine": 52,
+        "startChar": 1,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "98ebea8829348192c91a59389d873fec314e9961",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
