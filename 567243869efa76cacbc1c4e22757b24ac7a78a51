@@ -51,6 +51,24 @@
       "revId": "567243869efa76cacbc1c4e22757b24ac7a78a51",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55694ac0_45f71d4d",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-25T02:51:13Z",
+      "side": 1,
+      "message": "Ok, read through the voltha discussion (not sure why it did not show on my slack until later in the day).   I understand some of the points made.\n\nHowever, the only element that is exposed is DefaultTopic which should really have been defaultTopic.   I don\u0027t see why openolt will actually use it.  The code that creates OpenOLT already knows the defaultTopic.   My preference would have been for openolt to remove that reference and then have an interface that can be used for testing.  There are lot of values in being able to test this interface, especially when it comes to track performance issues.  In the Core, other that removing the pointer reference to the proxy no other changes was required.\n\nThat said, since a consensus was to remove the interface then I am ok with that.",
+      "parentUuid": "ba9e70aa_fce548e9",
+      "revId": "567243869efa76cacbc1c4e22757b24ac7a78a51",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
