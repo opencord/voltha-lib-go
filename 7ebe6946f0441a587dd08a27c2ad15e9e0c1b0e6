@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a651ce0_89f77f7c",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-27T23:35:44Z",
+      "side": 1,
+      "message": "With this change, components in production will be using the struct definition of intercontainerproxy while unit tests will be using the interface InterContainerProxy, yes?\n\nMy concern is that we are exposing a package private member (lower case i) using the NewInterContainerProxy().   Ideally, if we change \"DefaultTopic\" in interContainerProxy to \"defaultTopic\" and just use the interface in all components (openOLT as well) that would be better.  Since openOLT will be using the V3 of the library then I would think the changes to not reference defaultTopic in openOLT should be minimal.  If for some reason we can\u0027t change openOLT then I will remove the interface altogether as it will make it look more confusing down the road.",
+      "revId": "7ebe6946f0441a587dd08a27c2ad15e9e0c1b0e6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
