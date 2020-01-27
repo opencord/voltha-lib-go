@@ -45,6 +45,30 @@
       "revId": "98ebea8829348192c91a59389d873fec314e9961",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f331e69e_ace6ebe4",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2020-01-27T10:49:51Z",
+      "side": 1,
+      "message": "Thank you, Matt and Dev. Changes are done as suggested.",
+      "parentUuid": "d2270f9a_4c3156cb",
+      "range": {
+        "startLine": 52,
+        "startChar": 1,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "98ebea8829348192c91a59389d873fec314e9961",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
