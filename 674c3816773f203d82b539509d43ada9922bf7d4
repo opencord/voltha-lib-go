@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e450b36_ece0f67c",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-29T14:46:54Z",
+      "side": 1,
+      "message": "These should be debug, not info.  Same applies throughout",
+      "revId": "674c3816773f203d82b539509d43ada9922bf7d4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe9a5bc1_29eed2c3",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-29T14:46:54Z",
+      "side": 1,
+      "message": "Don\u0027t need to create the variable err here.  You can just return errors.New(...)",
+      "revId": "674c3816773f203d82b539509d43ada9922bf7d4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be7ad847_5cf6f3a5",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-29T14:46:54Z",
+      "side": 1,
+      "message": "This is deviceID, not device.",
+      "revId": "674c3816773f203d82b539509d43ada9922bf7d4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f32d58ef_aae6812f",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-29T14:46:54Z",
+      "side": 1,
+      "message": "After receiving such a request, will the adapter make a request to the Core to retrieve the latest device data?  If yes, then it\u0027s better to use device instead of deviceID",
+      "revId": "674c3816773f203d82b539509d43ada9922bf7d4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
