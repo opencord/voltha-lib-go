@@ -294,8 +294,8 @@ func (ap *CoreProxy) ChildDeviceDetected(ctx context.Context, parentDeviceId str
 			logger.Warnw("cannot-unmarshal-response", log.Fields{"error": err})
 		}
 		logger.Debugw("ChildDeviceDetected-return", log.Fields{"deviceid": parentDeviceId, "success": success, "error": err})
-		// TODO: Need to get the real error code
-		return nil, status.Errorf(codes.Internal, "%s", unpackResult.Reason)
+
+		return nil, status.Errorf(ICProxyErrorCodeToGrpcErrorCode(unpackResult.Code), "%s", unpackResult.Reason)
 	}
 
 }
@@ -432,13 +432,7 @@ func (ap *CoreProxy) GetChildDevice(ctx context.Context, parentDeviceId string, 
 		}
 		logger.Debugw("GetChildDevice-return", log.Fields{"deviceid": parentDeviceId, "success": success, "error": err})
 
-		code := codes.Internal
-
-		if unpackResult.Code == ic.ErrorCode_DEADLINE_EXCEEDED {
-			code = codes.DeadlineExceeded
-		}
-
-		return nil, status.Errorf(code, "%s", unpackResult.Reason)
+		return nil, status.Errorf(ICProxyErrorCodeToGrpcErrorCode(unpackResult.Code), "%s", unpackResult.Reason)
 	}
 }
 
