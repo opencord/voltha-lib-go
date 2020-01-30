@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d66a9b94_2ffdd024",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2020-01-30T06:37:44Z",
+      "side": 1,
+      "message": "Changes done.",
+      "parentUuid": "9e450b36_ece0f67c",
+      "revId": "674c3816773f203d82b539509d43ada9922bf7d4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe9a5bc1_29eed2c3",
         "filename": "pkg/adapters/common/request_handler.go",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2020-01-29T14:46:54Z",
       "side": 1,
       "message": "Don\u0027t need to create the variable err here.  You can just return errors.New(...)",
+      "revId": "674c3816773f203d82b539509d43ada9922bf7d4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d2091c0_bdfb4104",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2020-01-30T06:37:44Z",
+      "side": 1,
+      "message": "Thank you, Changes are done in the new patch.",
+      "parentUuid": "fe9a5bc1_29eed2c3",
       "revId": "674c3816773f203d82b539509d43ada9922bf7d4",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "99653cd1_a3fd4a14",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2020-01-30T06:37:44Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "be7ad847_5cf6f3a5",
+      "revId": "674c3816773f203d82b539509d43ada9922bf7d4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f32d58ef_aae6812f",
         "filename": "pkg/adapters/iAdapter.go",
         "patchSetId": 11
@@ -64,6 +118,24 @@
       "writtenOn": "2020-01-29T14:46:54Z",
       "side": 1,
       "message": "After receiving such a request, will the adapter make a request to the Core to retrieve the latest device data?  If yes, then it\u0027s better to use device instead of deviceID",
+      "revId": "674c3816773f203d82b539509d43ada9922bf7d4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "305f2cf0_28a3cb55",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2020-01-30T06:37:44Z",
+      "side": 1,
+      "message": "In the openolt adapter, DeviceId is sufficient to fetch the device handler object. the adapter is not making the request to get Device information for Disable or Enable Ports.",
+      "parentUuid": "f32d58ef_aae6812f",
       "revId": "674c3816773f203d82b539509d43ada9922bf7d4",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
