@@ -294,8 +294,14 @@ func (ap *CoreProxy) ChildDeviceDetected(ctx context.Context, parentDeviceId str
 			logger.Warnw("cannot-unmarshal-response", log.Fields{"error": err})
 		}
 		logger.Debugw("ChildDeviceDetected-return", log.Fields{"deviceid": parentDeviceId, "success": success, "error": err})
-		// TODO: Need to get the real error code
-		return nil, status.Errorf(codes.Internal, "%s", unpackResult.Reason)
+
+		code := codes.Internal
+
+		if unpackResult.Code == ic.ErrorCode_DEADLINE_EXCEEDED {
+			code = codes.DeadlineExceeded
+		}
+
+		return nil, status.Errorf(code, "%s", unpackResult.Reason)
 	}
 
 }
