@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbde5f3a_7f5c258e",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-31T20:13:53Z",
+      "side": 1,
+      "message": "camelCase",
+      "revId": "9e88b787007b3429e13a30985fb8ce5414093627",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d21ef55e_08f464ae",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-01-31T20:13:53Z",
+      "side": 1,
+      "message": "While this change is needed, it will require changes in all components using it.  I guess it\u0027s ok.",
+      "revId": "9e88b787007b3429e13a30985fb8ce5414093627",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
