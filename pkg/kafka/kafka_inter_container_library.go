@@ -154,6 +154,9 @@ func newInterContainerProxy(opts ...InterContainerProxyOption) (*interContainerP
 	proxy.lockTransactionIdToChannelMap = sync.RWMutex{}
 	proxy.lockTopicResponseChannelMap = sync.RWMutex{}
 
+	// Create the Done channel
+	proxy.doneCh = make(chan int, 1)
+
 	return proxy, nil
 }
 
@@ -168,9 +171,6 @@ func (kp *interContainerProxy) Start() error {
 	if kp.kafkaClient == nil {
 		logger.Fatal("kafka-client-not-set")
 	}
-
-	// Create the Done channel
-	kp.doneCh = make(chan int, 1)
 
 	// Start the kafka client
 	if err := kp.kafkaClient.Start(); err != nil {
