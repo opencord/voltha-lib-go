@@ -82,7 +82,8 @@ type interContainerProxy struct {
 	defaultRequestHandlerInterface interface{}
 	deviceDiscoveryTopic           *Topic
 	kafkaClient                    Client
-	doneCh                         chan int
+	doneCh                         chan struct{}
+	doneOnce                       sync.Once
 
 	// This map is used to map a topic to an interface and channel.   When a request is received
 	// on that channel (registered to the topic) then that interface is invoked.
@@ -139,25 +140,21 @@ func MsgClient(client Client) InterContainerProxyOption {
 	}
 }
 
-func newInterContainerProxy(opts ...InterContainerProxyOption) (*interContainerProxy, error) {
+func newInterContainerProxy(opts ...InterContainerProxyOption) *interContainerProxy {
 	proxy := &interContainerProxy{
 		kafkaHost: DefaultKafkaHost,
 		kafkaPort: DefaultKafkaPort,
+		doneCh:    make(chan struct{}),
 	}
 
 	for _, option := range opts {
 		option(proxy)
 	}
 
-	// Create the locks for all the maps
-	proxy.lockTopicRequestHandlerChannelMap = sync.RWMutex{}
-	proxy.lockTransactionIdToChannelMap = sync.RWMutex{}
-	proxy.lockTopicResponseChannelMap = sync.RWMutex{}
-
-	return proxy, nil
+	return proxy
 }
 
-func NewInterContainerProxy(opts ...InterContainerProxyOption) (InterContainerProxy, error) {
+func NewInterContainerProxy(opts ...InterContainerProxyOption) InterContainerProxy {
 	return newInterContainerProxy(opts...)
 }
 
@@ -168,9 +165,6 @@ func (kp *interContainerProxy) Start() error {
 	if kp.kafkaClient == nil {
 		logger.Fatal("kafka-client-not-set")
 	}
-
-	// Create the Done channel
-	kp.doneCh = make(chan int, 1)
 
 	// Start the kafka client
 	if err := kp.kafkaClient.Start(); err != nil {
@@ -192,7 +186,7 @@ func (kp *interContainerProxy) Start() error {
 
 func (kp *interContainerProxy) Stop() {
 	logger.Info("stopping-intercontainer-proxy")
-	kp.doneCh <- 1
+	kp.doneOnce.Do(func() { close(kp.doneCh) })
 	// TODO : Perform cleanup
 	kp.kafkaClient.Stop()
 	//kp.deleteAllTopicRequestHandlerChannelMap()
