@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9d16a84_1268ce42",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-02-03T19:40:06Z",
+      "side": 1,
+      "message": "package logger should be used from common.go",
+      "range": {
+        "startLine": 618,
+        "startChar": 1,
+        "endLine": 618,
+        "endChar": 4
+      },
+      "revId": "6f697db037351c7fc48b1c8b0d8d6fb04cdf8ce0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "727e3fec_194367f1",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-02-03T19:40:06Z",
+      "side": 1,
+      "message": "Enable_port --\u003e enable_port for log uniformity.",
+      "range": {
+        "startLine": 621,
+        "startChar": 13,
+        "endLine": 621,
+        "endChar": 24
+      },
+      "revId": "6f697db037351c7fc48b1c8b0d8d6fb04cdf8ce0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78d6125f_662a5e14",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-02-03T19:40:06Z",
+      "side": 1,
+      "message": "Disable_port --\u003e disable_port for log uniformity.",
+      "range": {
+        "startLine": 631,
+        "startChar": 13,
+        "endLine": 631,
+        "endChar": 25
+      },
+      "revId": "6f697db037351c7fc48b1c8b0d8d6fb04cdf8ce0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
