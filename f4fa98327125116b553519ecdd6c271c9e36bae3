@@ -33,6 +33,24 @@
       "revId": "f4fa98327125116b553519ecdd6c271c9e36bae3",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20216df3_eb3acb70",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 14
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2020-02-03T18:15:09Z",
+      "side": 1,
+      "message": "Thank you, Kent. Changes are done as suggested.",
+      "parentUuid": "548eb23b_965ad794",
+      "revId": "f4fa98327125116b553519ecdd6c271c9e36bae3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
