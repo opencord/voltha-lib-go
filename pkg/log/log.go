@@ -188,7 +188,7 @@ func StringToInt(l string) int {
 	case "FATAL":
 		return FatalLevel
 	}
-	return ErrorLevel
+	return -1
 }
 
 func getDefaultConfig(outputType string, level int, defaultFields Fields) zp.Config {
