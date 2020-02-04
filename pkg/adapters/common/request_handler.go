@@ -658,3 +658,47 @@ func (rhp *RequestHandlerProxy) getEnableDisableParams(args []*ic.Argument) (str
 	}
 	return deviceId.Val, port, nil
 }
+
+func (rhp *RequestHandlerProxy) Delete_child_device(args []*ic.Argument) (*empty.Empty, error) {
+	if len(args) < 1 {
+		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		err := errors.New("invalid-number-of-args")
+		return nil, err
+	}
+
+	device := &voltha.Device{}
+	pDeviceId := &ic.StrType{}
+	transactionID := &ic.StrType{}
+	fromTopic := &ic.StrType{}
+	for _, arg := range args {
+		switch arg.Key {
+		case "pDeviceId":
+			if err := ptypes.UnmarshalAny(arg.Value, pDeviceId); err != nil {
+				logger.Warnw("cannot-unmarshal-parent-deviceId", log.Fields{"error": err})
+				return nil, err
+			}
+		case "device":
+			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
+				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				return nil, err
+			}
+		case kafka.TransactionKey:
+			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
+				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				return nil, err
+			}
+		case kafka.FromTopic:
+			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
+				logger.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				return nil, err
+			}
+		}
+	}
+	//Update the core reference for that device
+	rhp.coreProxy.UpdateCoreReference(device.Id, fromTopic.Val)
+	//Invoke the Disable_device API on the adapter
+	if err := rhp.adapter.Delete_child_device(pDeviceId.Val, device); err != nil {
+		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
+	}
+	return new(empty.Empty), nil
+}
