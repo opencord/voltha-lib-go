@@ -658,3 +658,40 @@ func (rhp *RequestHandlerProxy) getEnableDisableParams(args []*ic.Argument) (str
 	}
 	return deviceId.Val, port, nil
 }
+
+func (rhp *RequestHandlerProxy) Child_device_lost(args []*ic.Argument) (*empty.Empty, error) {
+	if len(args) < 3 {
+		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		return nil, errors.New("invalid-number-of-args")
+	}
+
+	device := &voltha.Device{}
+	pDeviceId := &ic.StrType{}
+	fromTopic := &ic.StrType{}
+	for _, arg := range args {
+		switch arg.Key {
+		case "pDeviceId":
+			if err := ptypes.UnmarshalAny(arg.Value, pDeviceId); err != nil {
+				logger.Warnw("cannot-unmarshal-parent-deviceId", log.Fields{"error": err})
+				return nil, err
+			}
+		case "device":
+			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
+				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				return nil, err
+			}
+		case kafka.FromTopic:
+			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
+				logger.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				return nil, err
+			}
+		}
+	}
+	//Update the core reference for that device
+	rhp.coreProxy.UpdateCoreReference(device.Id, fromTopic.Val)
+	//Invoke the Child_device_lost API on the adapter
+	if err := rhp.adapter.Child_device_lost(pDeviceId.Val, device); err != nil {
+		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
+	}
+	return new(empty.Empty), nil
+}
