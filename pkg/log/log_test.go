@@ -35,7 +35,7 @@ func TestInit(t *testing.T) {
 }
 
 func verifyLogLevel(t *testing.T, minimumLevel int) {
-	SetAllLogLevel(minimumLevel)
+	SetAllLogLevel(LogLevel(minimumLevel))
 	var success bool
 	for i := 0; i < 5; i++ {
 		success = testLogger.V(i)
@@ -87,14 +87,14 @@ func TestUpdateLogLevel(t *testing.T) {
 	levels := []int{0, 1, 2, 3, 4}
 	for _, expectedLevel := range levels {
 		for _, name := range pkgNames {
-			SetPackageLogLevel(name, expectedLevel)
+			SetPackageLogLevel(name, LogLevel(expectedLevel))
 			l, err := GetPackageLogLevel(name)
 			assert.Nil(t, err)
-			assert.Equal(t, l, expectedLevel)
+			assert.Equal(t, l, LogLevel(expectedLevel))
 			// Get the package log level by invoking the specific logger created for this package
 			// This is a less expensive operation that the GetPackageLogLevel() request
 			level := myLoggers[name].GetLogLevel()
-			assert.Equal(t, level, expectedLevel)
+			assert.Equal(t, level, LogLevel(expectedLevel))
 			// Check the verbosity level
 			for _, level := range levels {
 				toDisplay := myLoggers[name].V(level)
@@ -108,13 +108,13 @@ func TestUpdateLogLevel(t *testing.T) {
 	}
 	//Test set all package level
 	for _, expectedLevel := range levels {
-		SetAllLogLevel(expectedLevel)
+		SetAllLogLevel(LogLevel(expectedLevel))
 		for _, name := range pkgNames {
 			l, err := GetPackageLogLevel(name)
 			assert.Nil(t, err)
-			assert.Equal(t, l, expectedLevel)
+			assert.Equal(t, l, LogLevel(expectedLevel))
 			level := myLoggers[name].GetLogLevel()
-			assert.Equal(t, level, expectedLevel)
+			assert.Equal(t, level, LogLevel(expectedLevel))
 			// Check the verbosity level
 			for _, level := range levels {
 				toDisplay := myLoggers[name].V(level)
