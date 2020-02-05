@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b9c1ee8_6eaeacbc",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2020-02-05T16:39:46Z",
+      "side": 1,
+      "message": "If someone doesn\u0027t check the error value that is returned, what happens when they configure the logger with -1 as the level?",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 11
+      },
+      "revId": "1ea13314f7b1702599b39fde019fc666a9d688c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
