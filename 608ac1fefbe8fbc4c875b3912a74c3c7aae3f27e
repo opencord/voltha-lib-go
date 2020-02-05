@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9513aa4e_a63681a4",
+        "filename": "pkg/mocks/kafka_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-05T05:13:15Z",
+      "side": 1,
+      "message": "how about some log message to at least indicate an unimplemented method is called?",
+      "revId": "608ac1fefbe8fbc4c875b3912a74c3c7aae3f27e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
