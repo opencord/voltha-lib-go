@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfecc839_5d1f4eec",
+        "filename": "VERSION",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-06T17:47:21Z",
+      "side": 1,
+      "message": "General consensus for voltha-lib-go seems to be to use point releases for every change.  (unless you don\u0027t plan to use this change for a while.)",
+      "revId": "2192f8b42b944bdf8dd36a191b621d6a0626c7cc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22619805_35ab4ba1",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-06T17:47:21Z",
+      "side": 1,
+      "message": "Is there a known mapping between the code types?\nWould it be worth having a helper function that maps between them?",
+      "revId": "2192f8b42b944bdf8dd36a191b621d6a0626c7cc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
