@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d06efb2_740ee0f0",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-02-06T20:28:51Z",
+      "side": 1,
+      "message": "do we want to consider \"debug\" a valid entry?",
+      "range": {
+        "startLine": 180,
+        "startChar": 6,
+        "endLine": 180,
+        "endChar": 13
+      },
+      "revId": "4fd1661715410ec15f2cc238992e8ed25c531eb2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
