@@ -93,6 +93,30 @@
       "revId": "4fd1661715410ec15f2cc238992e8ed25c531eb2",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5272c9dd_6d42fd41",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-07T04:44:28Z",
+      "side": 1,
+      "message": "i suspect that the check should ignore case.",
+      "parentUuid": "d382f48d_64aaab93",
+      "range": {
+        "startLine": 180,
+        "startChar": 6,
+        "endLine": 180,
+        "endChar": 13
+      },
+      "revId": "4fd1661715410ec15f2cc238992e8ed25c531eb2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
