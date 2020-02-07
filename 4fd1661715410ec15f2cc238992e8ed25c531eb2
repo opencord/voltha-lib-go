@@ -69,6 +69,30 @@
       "revId": "4fd1661715410ec15f2cc238992e8ed25c531eb2",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d382f48d_64aaab93",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-02-07T01:33:58Z",
+      "side": 1,
+      "message": "Is Teo proposing lower case \"debug\" ? We could make all the level names case insensitive if we want to...",
+      "parentUuid": "7b758cd3_14b9641d",
+      "range": {
+        "startLine": 180,
+        "startChar": 6,
+        "endLine": 180,
+        "endChar": 13
+      },
+      "revId": "4fd1661715410ec15f2cc238992e8ed25c531eb2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
