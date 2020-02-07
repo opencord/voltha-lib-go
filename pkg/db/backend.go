@@ -257,6 +257,17 @@ func (b *Backend) CreateWatch(ctx context.Context, key string) chan *kvstore.Eve
 	return b.Client.Watch(ctx, formattedPath)
 }
 
+// Starts watching events for the specified key and all its subkeys
+func (b *Backend) CreateWatchForSubKeys(ctx context.Context, key string) chan *kvstore.Event {
+	b.Lock()
+	defer b.Unlock()
+
+	formattedPath := b.makePath(key)
+	logger.Debugw("creating-subkey-watch", log.Fields{"key": key, "path": formattedPath})
+
+	return b.Client.WatchForSubKeys(ctx, formattedPath)
+}
+
 // DeleteWatch stops watching events for the specified key
 func (b *Backend) DeleteWatch(key string, ch chan *kvstore.Event) {
 	b.Lock()
