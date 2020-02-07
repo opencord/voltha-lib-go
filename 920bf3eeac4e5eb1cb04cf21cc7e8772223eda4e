@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63eeb671_2df2836c",
+        "filename": "pkg/adapters/common/utils_test.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-07T18:59:18Z",
+      "side": 1,
+      "message": "I\u0027m not convinced this test is necessary for such a simple mapping function.",
+      "revId": "920bf3eeac4e5eb1cb04cf21cc7e8772223eda4e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
