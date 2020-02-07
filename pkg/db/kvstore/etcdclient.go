@@ -322,6 +322,32 @@ func (c *EtcdClient) Watch(ctx context.Context, key string) chan *Event {
 
 }
 
+// Watch provides the watch capability on all the sub-keys of a given key.  It returns a channel onto which the callee needs to
+// listen to receive Events.
+func (c *EtcdClient) WatchForSubKeys(ctx context.Context, key string) chan *Event {
+	w := v3Client.NewWatcher(c.ectdAPI)
+	ctx, cancel := context.WithCancel(ctx)
+	channel := w.Watch(ctx, key, v3Client.WithPrefix())
+
+	// Create a new channel
+	ch := make(chan *Event, maxClientChannelBufferSize)
+
+	// Keep track of the created channels so they can be closed when required
+	channelMap := make(map[chan *Event]v3Client.Watcher)
+	channelMap[ch] = w
+
+	channelMaps := c.addChannelMap(key, channelMap)
+
+	// Changing the log field (from channelMaps) as the underlying logger cannot format the map of channels into a
+	// json format.
+	logger.Debugw("watched-channels", log.Fields{"len": len(channelMaps)})
+	// Launch a go routine to listen for updates
+	go c.listenForKeyChange(channel, ch, cancel)
+
+	return ch
+
+}
+
 func (c *EtcdClient) addChannelMap(key string, channelMap map[chan *Event]v3Client.Watcher) []map[chan *Event]v3Client.Watcher {
 	var channels interface{}
 	var exists bool
