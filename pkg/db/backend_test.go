@@ -398,7 +398,7 @@ func TestCreateWatch_EmbeddedEtcdServer(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	eventChan := backend.CreateWatch(ctx, "key5")
+	eventChan := backend.CreateWatch(ctx, "key5", false)
 	assert.NotNil(t, eventChan)
 	assert.Equal(t, 0, len(eventChan))
 
