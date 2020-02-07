@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "239d6391_b6fff671",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-07T01:16:45Z",
+      "side": 1,
+      "message": "is it critical that we change the public signature for this or can we leave the signature as is for the current release and create a jira to change it after the release?\n\nAs this is a public API change this needs to bounce to the G5.",
+      "range": {
+        "startLine": 178,
+        "startChar": 33,
+        "endLine": 178,
+        "endChar": 38
+      },
+      "revId": "4fd1661715410ec15f2cc238992e8ed25c531eb2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d06efb2_740ee0f0",
         "filename": "pkg/log/log.go",
         "patchSetId": 4
@@ -13,6 +36,30 @@
       "writtenOn": "2020-02-06T20:28:51Z",
       "side": 1,
       "message": "do we want to consider \"debug\" a valid entry?",
+      "range": {
+        "startLine": 180,
+        "startChar": 6,
+        "endLine": 180,
+        "endChar": 13
+      },
+      "revId": "4fd1661715410ec15f2cc238992e8ed25c531eb2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b758cd3_14b9641d",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-07T01:16:45Z",
+      "side": 1,
+      "message": "i don\u0027t understand the question? why wouldn\u0027t debug be valid?",
+      "parentUuid": "1d06efb2_740ee0f0",
       "range": {
         "startLine": 180,
         "startChar": 6,
