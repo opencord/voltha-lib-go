@@ -16,6 +16,24 @@
       "revId": "920bf3eeac4e5eb1cb04cf21cc7e8772223eda4e",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd5bf5c9_7b65e60e",
+        "filename": "pkg/adapters/common/utils_test.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-02-07T19:05:08Z",
+      "side": 1,
+      "message": "Not necessary, but won\u0027t harm",
+      "parentUuid": "63eeb671_2df2836c",
+      "revId": "920bf3eeac4e5eb1cb04cf21cc7e8772223eda4e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
