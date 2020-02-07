@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fce4abd3_1c92eba1",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-02-07T10:18:31Z",
+      "side": 1,
+      "message": "Will need a change to Child_device_lost?",
+      "range": {
+        "startLine": 662,
+        "startChar": 32,
+        "endLine": 662,
+        "endChar": 50
+      },
+      "revId": "feff80c110a0ee940d121e9562a991fdec2c10ce",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b39a6ed_6781b822",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-02-07T10:18:31Z",
+      "side": 1,
+      "message": "I don\u0027t this this check is right. We have even more args.",
+      "range": {
+        "startLine": 663,
+        "startChar": 4,
+        "endLine": 663,
+        "endChar": 17
+      },
+      "revId": "feff80c110a0ee940d121e9562a991fdec2c10ce",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9dc9ef6_060d21ff",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-02-07T10:18:31Z",
+      "side": 1,
+      "message": "Does openolt adapter need the whole device structure? If passing this whole device structure avoids too many back and forth transactions with the core, I am all for it. But, the openolt adapter cares only about ONU device id, we may need to think about this.",
+      "range": {
+        "startLine": 680,
+        "startChar": 8,
+        "endLine": 680,
+        "endChar": 14
+      },
+      "revId": "feff80c110a0ee940d121e9562a991fdec2c10ce",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57b81261_43b7b6f4",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-02-07T10:18:31Z",
+      "side": 1,
+      "message": "Needs correction.\nAnyway, the whole API name itself will need a change to Child_device_lost.",
+      "range": {
+        "startLine": 699,
+        "startChar": 14,
+        "endLine": 699,
+        "endChar": 28
+      },
+      "revId": "feff80c110a0ee940d121e9562a991fdec2c10ce",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3964c99c_9f8f9c14",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-02-07T10:18:31Z",
+      "side": 1,
+      "message": "As discussed this should be Child_device_lost",
+      "revId": "feff80c110a0ee940d121e9562a991fdec2c10ce",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
