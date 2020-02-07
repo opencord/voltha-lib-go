@@ -16,6 +16,24 @@
       "revId": "1b25edfeb3ed38ef17210891c846bfe5064dac16",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f3aa301_20447228",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-02-07T18:56:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "649eed67_fc4e5e3b",
+      "revId": "1b25edfeb3ed38ef17210891c846bfe5064dac16",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
