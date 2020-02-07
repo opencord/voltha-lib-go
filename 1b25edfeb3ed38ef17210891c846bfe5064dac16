@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "649eed67_fc4e5e3b",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-02-07T04:15:13Z",
+      "side": 1,
+      "message": "This mapping is happening in multiple functions in this class. Would be better to create a mapping function to convert from 3 defined errors of IC proxy to its Grpc equivalents and reuse.",
+      "revId": "1b25edfeb3ed38ef17210891c846bfe5064dac16",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
