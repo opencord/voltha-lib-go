@@ -191,6 +191,22 @@ func StringToInt(l string) int {
 	return ErrorLevel
 }
 
+func IntToString(l int) string {
+        switch l {
+        case DebugLevel:
+                return "DEBUG"
+                case InfoLevel:
+                return "INFO"
+                case WarnLevel:
+                return "WARN"
+                case ErrorLevel:
+                return "ERROR"
+                case FatalLevel:
+                return "FATAL"
+                }
+        return "ERROR"
+}
+
 func getDefaultConfig(outputType string, level int, defaultFields Fields) zp.Config {
 	return zp.Config{
 		Level:            intToAtomicLevel(level),
