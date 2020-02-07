@@ -380,6 +380,12 @@ func (c *ConsulClient) Watch(ctx context.Context, key string) chan *Event {
 	return ch
 }
 
+// This methos should be implemented if we intend to use Consul KVstore anytime in future
+func (c *ConsulClient) WatchForSubKeys(ctx context.Context, key string) chan *Event {
+	panic("This method is not implemented")
+	return nil
+}
+
 // CloseWatch closes a specific watch. Both the key and the channel are required when closing a watch as there
 // may be multiple listeners on the same key.  The previously created channel serves as a key
 func (c *ConsulClient) CloseWatch(key string, ch chan *Event) {
