@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "61e9d2c3_56e2f851",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-02-08T08:37:10Z",
+      "side": 1,
+      "message": "Can use ICProxyErrorCodeToGrpcErrorCode method here",
+      "revId": "920bf3eeac4e5eb1cb04cf21cc7e8772223eda4e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edbc852d_e1cacee2",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-02-08T08:37:10Z",
+      "side": 1,
+      "message": "ICProxyErrorCodeToGrpcErrorCode can be used here",
+      "revId": "920bf3eeac4e5eb1cb04cf21cc7e8772223eda4e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63eeb671_2df2836c",
         "filename": "pkg/adapters/common/utils_test.go",
         "patchSetId": 6
