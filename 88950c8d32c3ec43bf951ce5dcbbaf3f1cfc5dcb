@@ -16,6 +16,24 @@
       "revId": "88950c8d32c3ec43bf951ce5dcbbaf3f1cfc5dcb",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07f9df70_30eff577",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-02-10T22:45:07Z",
+      "side": 1,
+      "message": "Why doesn\u0027t the string change?\nWhenever the \"unpackResult.Reason\" change then the string changes. If the \"Reason\" does not change then it\u0027s an issue somewhere else in the code and needs to be addressed in a different patch",
+      "parentUuid": "bfbd0bac_0ec7440b",
+      "revId": "88950c8d32c3ec43bf951ce5dcbbaf3f1cfc5dcb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
