@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "334d142d_278123ea",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-10T17:07:56Z",
+      "side": 1,
+      "message": "Can do this in one line with `return nil, errors.new(...)`",
+      "revId": "48e127648879d92e7c4ae3ebe287e1c894d6a8b2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1be9d092_278fab30",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-10T17:07:56Z",
+      "side": 1,
+      "message": "transactionID is not used.",
+      "revId": "48e127648879d92e7c4ae3ebe287e1c894d6a8b2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
