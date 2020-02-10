@@ -68,6 +68,30 @@
       "revId": "5d84c4cc0d4661ede5ba6bbb03bb5909e0d7bff5",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e007b198_6f9d0175",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-02-10T15:50:13Z",
+      "side": 1,
+      "message": "Agree with David, returning the zero value is fine here instead of returning `InvalidLevel`. The assumption is that any caller will check the `error` return to determine validity, and if error!\u003dnil, then the integer return is undefined and by convention we return the zero value.",
+      "parentUuid": "fcc540cb_a406fc9a",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 20
+      },
+      "revId": "5d84c4cc0d4661ede5ba6bbb03bb5909e0d7bff5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
