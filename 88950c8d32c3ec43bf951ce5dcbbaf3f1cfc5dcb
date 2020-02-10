@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfbd0bac_0ec7440b",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-10T22:27:48Z",
+      "side": 1,
+      "message": "Consider status.Error() instead of status.Errorf() since the string doesn\u0027t change.",
+      "revId": "88950c8d32c3ec43bf951ce5dcbbaf3f1cfc5dcb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
