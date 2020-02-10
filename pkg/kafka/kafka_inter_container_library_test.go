@@ -99,3 +99,30 @@ func TestKafkaProxyEnableLivenessChannel(t *testing.T) {
 		t.Error("Failed to read from the channel")
 	}
 }
+
+//func TestInvokeRpc(t *testing.T)  {
+//
+//	var m *myInterface
+//
+//	topic := Topic{Name: "test-topic"}
+//
+//	// Note: This doesn't actually start the client
+//	client := mocks.NewKafkaClient()
+//
+//	proxy := newInterContainerProxy(
+//		InterContainerHost("10.20.30.40"),
+//		InterContainerPort(1020),
+//		DefaultTopic(&Topic{Name: "Adapter"}),
+//		RequestHandlerInterface(m),
+//		MsgClient(client),
+//	)
+//
+//	if err := proxy.Start(); err != nil {
+//		t.Fail()
+//	}
+//
+//	success, result := proxy.InvokeRPC(context.TODO(), "test-rpc", &topic, &topic, true, "foo", nil)
+//
+//	assert.True(t, success)
+//	t.Log(result)
+//}
