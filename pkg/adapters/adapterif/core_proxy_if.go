@@ -18,6 +18,7 @@ package adapterif
 
 import (
 	"context"
+	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
 
 	"github.com/opencord/voltha-protos/v3/go/voltha"
 )

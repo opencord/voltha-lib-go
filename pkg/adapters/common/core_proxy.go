@@ -64,6 +64,23 @@ func unPackResponse(rpc string, deviceId string, success bool, response *a.Any) 
 	}
 }
 
+// sendAsyncRpc uses InvokeAsyncRPC to send an RPC call to the core and
+// returns an error if the message is not published on kafka or
+// a channel that will receive the response
+func (ap *CoreProxy) sendAsyncRpc(ctx context.Context, rpc string, toTopic *kafka.Topic, replyToTopic *kafka.Topic, waitForResponse bool, key string, kvArgs ...*kafka.KVArg) (error, chan *kafka.RpcResponse) {
+	// Send the request to kafka
+	respChnl := ap.kafkaICProxy.InvokeAsyncRPC(ctx, rpc, toTopic, replyToTopic, waitForResponse, key, kvArgs...)
+
+	// Wait for first response which would indicate whether the request was successfully sent to kafka.
+	firstResponse, ok := <-respChnl
+	if !ok || firstResponse.MType != kafka.RpcSent {
+		log.Errorw("send-async-rpc-error", log.Fields{"rpc": rpc, "key": key, "error": firstResponse.Err})
+		return firstResponse.Err, nil
+	}
+	// return the kafka channel for the caller to wait for the response of the RPC call
+	return nil, respChnl
+}
+
 // UpdateCoreReference adds or update a core reference (really the topic name) for a given device Id
 func (ap *CoreProxy) UpdateCoreReference(deviceId string, coreReference string) {
 	ap.lockDeviceIdCoreMap.Lock()
@@ -414,27 +431,122 @@ func (ap *CoreProxy) GetChildDevice(ctx context.Context, parentDeviceId string, 
 		}
 	}
 
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
-	logger.Debugw("GetChildDevice-response", log.Fields{"pDeviceId": parentDeviceId, "success": success})
+	err, respCh := ap.sendAsyncRpc(ctx, rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
 
-	if success {
-		volthaDevice := &voltha.Device{}
-		if err := ptypes.UnmarshalAny(result, volthaDevice); err != nil {
-			logger.Warnw("cannot-unmarshal-response", log.Fields{"error": err})
-			return nil, status.Error(codes.InvalidArgument, err.Error())
-		}
-		return volthaDevice, nil
-	} else {
-		unpackResult := &ic.Error{}
-		var err error
-		if err = ptypes.UnmarshalAny(result, unpackResult); err != nil {
-			logger.Warnw("cannot-unmarshal-response", log.Fields{"error": err})
-		}
-		logger.Debugw("GetChildDevice-return", log.Fields{"deviceid": parentDeviceId, "success": success, "error": err})
-
-		return nil, status.Error(ICProxyErrorCodeToGrpcErrorCode(unpackResult.Code), unpackResult.Reason)
+	if err != nil {
+		return nil, err
 	}
+
+	select {
+	case rpcResponse, ok := <-respCh:
+		if !ok {
+			return nil, status.Error(codes.Aborted, "GetChildDevice-channel-closed")
+		} else {
+			switch rpcResponse.MType {
+			case kafka.RpcTimeout:
+				return nil, status.Error(codes.DeadlineExceeded, "GetChildDevice-timeout")
+			case kafka.RpcFormattingError:
+				return nil, status.Error(codes.InvalidArgument, "GetChildDevice-invalid-argument")
+			case kafka.RpcTransportError:
+			case kafka.RpcSystemClosing:
+				return nil, status.Error(codes.Internal, "GetChildDevice-internal")
+			case kafka.RpcReply:
+				volthaDevice := &voltha.Device{}
+				if err := ptypes.UnmarshalAny(rpcResponse.Reply, volthaDevice); err != nil {
+					logger.Warnw("GetChildDevice-cannot-unmarshal-response", log.Fields{"error": err})
+					return nil, status.Error(codes.InvalidArgument, err.Error())
+				}
+				return volthaDevice, nil
+			}
+		}
+	case <-ctx.Done():
+		return nil, status.Error(codes.DeadlineExceeded, "GetChildDevice-timeout")
+	}
+	return nil, status.Error(codes.Internal, "GetChildDevice-internal")
 }
+
+// deprecated
+func (ap *CoreProxy) GetChildDeviceAsync(ctx context.Context, parentDeviceId string, kwargs map[string]interface{}) (chan *kafka.RpcResponse, error) {
+	logger.Debugw("GetChildDevice", log.Fields{"parentDeviceId": parentDeviceId, "kwargs": kwargs})
+	rpc := "GetChildDevice"
+
+	toTopic := ap.getCoreTopic(parentDeviceId)
+	replyToTopic := ap.getAdapterTopic()
+
+	args := make([]*kafka.KVArg, 4)
+	id := &voltha.ID{Id: parentDeviceId}
+	args[0] = &kafka.KVArg{
+		Key:   "device_id",
+		Value: id,
+	}
+
+	var cnt uint8 = 0
+	for k, v := range kwargs {
+		cnt += 1
+		if k == "serial_number" {
+			val := &ic.StrType{Val: v.(string)}
+			args[cnt] = &kafka.KVArg{
+				Key:   k,
+				Value: val,
+			}
+		} else if k == "onu_id" {
+			val := &ic.IntType{Val: int64(v.(uint32))}
+			args[cnt] = &kafka.KVArg{
+				Key:   k,
+				Value: val,
+			}
+		} else if k == "parent_port_no" {
+			val := &ic.IntType{Val: int64(v.(uint32))}
+			args[cnt] = &kafka.KVArg{
+				Key:   k,
+				Value: val,
+			}
+		}
+	}
+
+	// TODO move this in an helper method (sendRPC) so it can be shared
+	// Sent the request to kafka
+	respChnl := ap.kafkaICProxy.InvokeAsyncRPC(ctx, rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
+
+	// Wait for first response which would indicate whether the request was successfully sent to kafka.
+	firstResponse, ok := <-respChnl
+	if !ok || firstResponse.MType != kafka.RpcSent {
+		log.Errorw("failure to request to kafka", log.Fields{"rpc": rpc, "parentDeviceId": parentDeviceId, "error": firstResponse.Err})
+		return nil, firstResponse.Err
+	}
+	// return the kafka channel for the caller to wait for the response of the RPC call
+	return respChnl, nil
+	// END TODO
+}
+
+//func (ap *CoreProxy) GetChildDevices(ctx context.Context, parentDeviceId string) (chan *kafka.RpcResponse, error) {
+//	logger.Debugw("GetChildDevices", log.Fields{"parentDeviceId": parentDeviceId})
+//	rpc := "GetChildDevices"
+//
+//	toTopic := ap.getCoreTopic(parentDeviceId)
+//	replyToTopic := ap.getAdapterTopic()
+//
+//	args := make([]*kafka.KVArg, 1)
+//	id := &voltha.ID{Id: parentDeviceId}
+//	args[0] = &kafka.KVArg{
+//		Key:   "device_id",
+//		Value: id,
+//	}
+//
+//	// TODO move this in an helper method (sendRPC) so it can be shared
+//	// Sent the request to kafka
+//	respChnl := ap.kafkaICProxy.InvokeAsyncRPC(ctx, rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
+//
+//	// Wait for first response which would indicate whether the request was successfully sent to kafka.
+//	firstResponse, ok := <-respChnl
+//	if !ok || firstResponse.MType != kafka.RpcSent {
+//		log.Errorw("failure to request to kafka", log.Fields{"rpc": rpc, "parentDeviceId": parentDeviceId, "error": firstResponse.Err})
+//		return nil, firstResponse.Err
+//	}
+//	// return the kafka channel for the caller to wait for the response of the RPC call
+//	return respChnl, nil
+//	// END TODO
+//}
 
 func (ap *CoreProxy) GetChildDevices(ctx context.Context, parentDeviceId string) (*voltha.Devices, error) {
 	logger.Debugw("GetChildDevices", log.Fields{"parentDeviceId": parentDeviceId})

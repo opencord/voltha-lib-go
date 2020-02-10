@@ -115,14 +115,15 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 	}
 
 	c.writeLock.Lock()
-	defer c.writeLock.Unlock()
 
 	var err error
 	// Check if there is already a lease for this key - if there is then use it, otherwise a PUT will make
 	// that KV key permanent instead of automatically removing it after a lease expiration
 	if leaseID, ok := c.keyReservations[key]; ok {
+		c.writeLock.Unlock()
 		_, err = c.ectdAPI.Put(ctx, key, val, v3Client.WithLease(*leaseID))
 	} else {
+		c.writeLock.Unlock()
 		_, err = c.ectdAPI.Put(ctx, key, val)
 	}
 
@@ -146,8 +147,8 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 // wait for a response
 func (c *EtcdClient) Delete(ctx context.Context, key string) error {
 
-	c.writeLock.Lock()
-	defer c.writeLock.Unlock()
+	//c.writeLock.Lock()
+	//defer c.writeLock.Unlock()
 
 	// delete the key
 	if _, err := c.ectdAPI.Delete(ctx, key); err != nil {
@@ -279,10 +280,10 @@ func (c *EtcdClient) RenewReservation(ctx context.Context, key string) error {
 	var ok bool
 	var leaseID *v3Client.LeaseID
 	c.writeLock.Lock()
-	defer c.writeLock.Unlock()
 	if leaseID, ok = c.keyReservations[key]; !ok {
 		return errors.New("key-not-reserved")
 	}
+	c.writeLock.Unlock()
 
 	if leaseID != nil {
 		_, err := c.ectdAPI.KeepAliveOnce(ctx, *leaseID)
