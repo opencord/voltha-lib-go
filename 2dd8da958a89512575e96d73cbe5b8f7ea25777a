@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7731269a_7ca50d8d",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-02-10T10:01:44Z",
+      "side": 1,
+      "message": "To be consistent please stick to deviceId",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 28
+      },
+      "revId": "2dd8da958a89512575e96d73cbe5b8f7ea25777a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
