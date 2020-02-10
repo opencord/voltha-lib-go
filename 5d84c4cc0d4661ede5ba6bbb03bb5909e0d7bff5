@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b77a6f22_ea88cc30",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2020-02-10T14:49:21Z",
+      "side": 1,
+      "message": "is?",
+      "range": {
+        "startLine": 194,
+        "startChar": 49,
+        "endLine": 194,
+        "endChar": 51
+      },
+      "revId": "5d84c4cc0d4661ede5ba6bbb03bb5909e0d7bff5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
