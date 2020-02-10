@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0de5bdb_90afcaba",
+        "filename": "VERSION",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2020-02-10T11:04:50Z",
+      "side": 1,
+      "message": "I think this should be 3.0.8-dev until this gets released",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 5
+      },
+      "revId": "ddd49df0df0f7cd34d3b87d01f384d6d155b7278",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f07172b_9c707c12",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2020-02-10T11:04:50Z",
+      "side": 1,
+      "message": "please add the str here asa parameter to immediately recognise what the erroneous log is.",
+      "range": {
+        "startLine": 194,
+        "startChar": 22,
+        "endLine": 194,
+        "endChar": 61
+      },
+      "revId": "ddd49df0df0f7cd34d3b87d01f384d6d155b7278",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
