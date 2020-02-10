@@ -2,6 +2,10 @@ module github.com/opencord/voltha-lib-go/v3
 
 go 1.12
 
+replace github.com/opencord/voltha-lib-go/v3 => /Users/teone/Sites/go/src/github.com/opencord/voltha-lib-go
+
+replace github.com/opencord/voltha-protos/v3 => /Users/teone/Sites/go/src/github.com/opencord/voltha-protos
+
 require (
 	github.com/DataDog/zstd v1.4.1 // indirect
 	github.com/Shopify/sarama v1.23.1
@@ -39,7 +43,6 @@ require (
 	golang.org/x/net v0.0.0-20190930134127-c5a3c61f89f3 // indirect
 	golang.org/x/sys v0.0.0-20191001151750-bb3f8db39f24 // indirect
 	golang.org/x/text v0.3.2 // indirect
-	google.golang.org/appengine v1.4.0 // indirect
 	google.golang.org/genproto v0.0.0-20190927181202-20e1ac93f88c // indirect
 	google.golang.org/grpc v1.24.0
 	gopkg.in/jcmturner/goidentity.v3 v3.0.0 // indirect
