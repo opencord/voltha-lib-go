@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e116d44f_d2b1239c",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-10T15:12:08Z",
+      "side": 1,
+      "message": "Not sure we need the InvalidLevel now that the StringToInt returns an error?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "5d84c4cc0d4661ede5ba6bbb03bb5909e0d7bff5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b77a6f22_ea88cc30",
         "filename": "pkg/log/log.go",
         "patchSetId": 7
@@ -22,6 +45,29 @@
       "revId": "5d84c4cc0d4661ede5ba6bbb03bb5909e0d7bff5",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcc540cb_a406fc9a",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-10T15:12:08Z",
+      "side": 1,
+      "message": "Because we are returning an error the value should be the zero value of the type, i.e. 0. no need to use InvalidLevel.",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 20
+      },
+      "revId": "5d84c4cc0d4661ede5ba6bbb03bb5909e0d7bff5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
