@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0c495aee_53d6a1cc",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-02-11T23:48:45Z",
+      "side": 1,
+      "message": "If the behavior is to use these events as signals and then re-read the data from etcd anyway, perhaps the `Value` is not important and could be dropped?",
+      "parentUuid": "c2b7f192_7a8a0fa9",
+      "range": {
+        "startLine": 58,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 28
+      },
+      "revId": "d0536ba384cbb6af497d7c0e2e02656f2874d194",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc00ef23_0c4c2142",
         "filename": "pkg/config/configmanager.go",
         "patchSetId": 4
@@ -41,6 +65,52 @@
         "startChar": 1,
         "endLine": 136,
         "endChar": 50
+      },
+      "revId": "d0536ba384cbb6af497d7c0e2e02656f2874d194",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a1ce79e_01425aa6",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-02-11T23:48:45Z",
+      "side": 1,
+      "message": "rather than a linear search, since updateLogLevels is a map, can you check the map for existence? Something like:\n\n_, exist :\u003d updateLogLevels[activeKey]",
+      "range": {
+        "startLine": 236,
+        "startChar": 2,
+        "endLine": 236,
+        "endChar": 54
+      },
+      "revId": "d0536ba384cbb6af497d7c0e2e02656f2874d194",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f823920_d490e447",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-02-11T23:48:45Z",
+      "side": 1,
+      "message": "I am curious if a library for hashing structures might be more appropriate. For example, https://github.com/mitchellh/hashstructure (I have not evaluated this library, just found it with a quick search)",
+      "range": {
+        "startLine": 276,
+        "startChar": 1,
+        "endLine": 276,
+        "endChar": 31
       },
       "revId": "d0536ba384cbb6af497d7c0e2e02656f2874d194",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
