@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "507ca4ca_9aface3d",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-02-11T14:27:29Z",
+      "side": 1,
+      "message": "Is there a need to return *empty.Empty?  Why not just error?",
+      "revId": "b13f395adb7e9ddd5d941aba67d860ebeeff8626",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d15dc2e4_ff5baa4c",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-02-11T14:27:29Z",
+      "side": 1,
+      "message": "It would be clearer to have \"parentDeviceId\" instead of \"deviceId\" and \"childDevice\" instead of device.",
+      "revId": "b13f395adb7e9ddd5d941aba67d860ebeeff8626",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
