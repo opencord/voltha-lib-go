@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2b7f192_7a8a0fa9",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-11T18:41:25Z",
+      "side": 1,
+      "message": "Is it possible to make this a typed value instead of an interface{}? Golang is really meant to be strongly typed and interface{} sort of breaks that.",
+      "range": {
+        "startLine": 58,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 28
+      },
+      "revId": "d0536ba384cbb6af497d7c0e2e02656f2874d194",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc00ef23_0c4c2142",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-11T18:41:25Z",
+      "side": 1,
+      "message": "These are unbuffered channels which means that they block on send until someone is ready and waiting to read. Do we want them buffered instead?",
+      "range": {
+        "startLine": 135,
+        "startChar": 1,
+        "endLine": 136,
+        "endChar": 50
+      },
+      "revId": "d0536ba384cbb6af497d7c0e2e02656f2874d194",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea2fe311_7c1be289",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-11T18:41:25Z",
+      "side": 1,
+      "message": "Should there be a type LogLevel as opposed to just int",
+      "range": {
+        "startLine": 178,
+        "startChar": 28,
+        "endLine": 178,
+        "endChar": 31
+      },
+      "revId": "d0536ba384cbb6af497d7c0e2e02656f2874d194",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dc0c28e_df55673c",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-11T18:41:25Z",
+      "side": 1,
+      "message": "should be case insensitive",
+      "range": {
+        "startLine": 179,
+        "startChar": 8,
+        "endLine": 179,
+        "endChar": 9
+      },
+      "revId": "d0536ba384cbb6af497d7c0e2e02656f2874d194",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa8774c2_c27b19c5",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-11T18:41:25Z",
+      "side": 1,
+      "message": "Should there be a type LogLevel as opposed to just int",
+      "range": {
+        "startLine": 194,
+        "startChar": 19,
+        "endLine": 194,
+        "endChar": 22
+      },
+      "revId": "d0536ba384cbb6af497d7c0e2e02656f2874d194",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
