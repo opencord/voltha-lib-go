@@ -34,6 +34,24 @@
       "revId": "88950c8d32c3ec43bf951ce5dcbbaf3f1cfc5dcb",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7e634db_a5d17055",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-11T15:17:25Z",
+      "side": 1,
+      "message": "Formatting with \"%s\" invokes the performance penalty of string formatting, but creates an identical output string.  \n\nIf just status.Error() is used instead, the unpackResult.Reason string can be passed as-is, without reformatting.\n\nThis is a nitpick, it\u0027s probably fine as-is.",
+      "parentUuid": "07f9df70_30eff577",
+      "revId": "88950c8d32c3ec43bf951ce5dcbbaf3f1cfc5dcb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
