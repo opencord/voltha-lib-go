@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ac5d85fb_6af06f55",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-02-11T23:48:45Z",
+      "side": 1,
+      "message": "Thanks for the explanation, this sounds reasonable to me.",
+      "parentUuid": "b4857cfb_d1f238be",
+      "range": {
+        "startLine": 96,
+        "startChar": 2,
+        "endLine": 96,
+        "endChar": 45
+      },
+      "revId": "a7bea9cf2838190d14b7e2f6fe8806da7ca5c96f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcdc87d7_bf57f85a",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 3
