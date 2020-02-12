@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "862f48ea_1c489e2f",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-12T14:27:24Z",
+      "side": 1,
+      "message": "Device is never read from the args, but is used here anyway.  Is this intended?",
+      "range": {
+        "startLine": 698,
+        "startChar": 35,
+        "endLine": 698,
+        "endChar": 41
+      },
+      "revId": "6248222326685c6a52323debab314b9544c93fcd",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
