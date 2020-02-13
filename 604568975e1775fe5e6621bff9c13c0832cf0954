@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bb35d2f_bbf04e0c",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-13T17:12:18Z",
+      "side": 1,
+      "message": "Should raisedTs be a time.Time?",
+      "revId": "604568975e1775fe5e6621bff9c13c0832cf0954",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21c4ec41_a517dee4",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-13T17:12:18Z",
+      "side": 1,
+      "message": "Can be checked inline.",
+      "revId": "604568975e1775fe5e6621bff9c13c0832cf0954",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cfdd7fe7_a1b42fb2",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-13T17:12:18Z",
+      "side": 1,
+      "message": "Can be checked inline.",
+      "revId": "604568975e1775fe5e6621bff9c13c0832cf0954",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
