@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "d31a7105_56b79cfa",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-13T05:57:33Z",
+      "side": 1,
+      "message": "updating the in-memory would make loading and applying of config changes sequential.In case of re-reading can handle multiple events at the same time.with in-memory processing would be little complex.thought of going with simple approach.",
+      "parentUuid": "84a874b6_d9828fab",
+      "range": {
+        "startLine": 96,
+        "startChar": 2,
+        "endLine": 96,
+        "endChar": 45
+      },
+      "revId": "a7bea9cf2838190d14b7e2f6fe8806da7ca5c96f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcdc87d7_bf57f85a",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 3
@@ -84,6 +108,30 @@
       "writtenOn": "2020-02-11T05:14:49Z",
       "side": 1,
       "message": "I think Rohan is working on changing this function to return an error. I think this would be better than checking -1.",
+      "range": {
+        "startLine": 162,
+        "startChar": 5,
+        "endLine": 162,
+        "endChar": 43
+      },
+      "revId": "a7bea9cf2838190d14b7e2f6fe8806da7ca5c96f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09191c89_fd081098",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-13T05:57:33Z",
+      "side": 1,
+      "message": "Yes.I am waiting for his changes to get merged.After that I will update the code.",
+      "parentUuid": "dcdc87d7_bf57f85a",
       "range": {
         "startLine": 162,
         "startChar": 5,
