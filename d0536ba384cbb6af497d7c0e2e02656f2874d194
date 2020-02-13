@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e2dbd36a_533c2064",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-13T05:57:33Z",
+      "side": 1,
+      "message": "Yes the behavior is to use these events as signals.Value can be dropped anyway it is not used.",
+      "parentUuid": "0c495aee_53d6a1cc",
+      "range": {
+        "startLine": 58,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 28
+      },
+      "revId": "d0536ba384cbb6af497d7c0e2e02656f2874d194",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc00ef23_0c4c2142",
         "filename": "pkg/config/configmanager.go",
         "patchSetId": 4
