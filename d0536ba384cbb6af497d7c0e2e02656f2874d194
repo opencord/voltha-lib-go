@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "6d78a0f5_7229484b",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-13T07:19:11Z",
+      "side": 1,
+      "message": "Will make buffered channel with capacity 1.",
+      "parentUuid": "fc00ef23_0c4c2142",
+      "range": {
+        "startLine": 135,
+        "startChar": 1,
+        "endLine": 136,
+        "endChar": 50
+      },
+      "revId": "d0536ba384cbb6af497d7c0e2e02656f2874d194",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a1ce79e_01425aa6",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 4
