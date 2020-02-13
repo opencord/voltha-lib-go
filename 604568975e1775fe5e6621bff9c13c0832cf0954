@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "6efad972_341fe9a6",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-02-13T22:49:23Z",
+      "side": 1,
+      "message": "This particular method is, but following up the call chain will be a call from voltha-openolt-adapter to event_proxy.SendDeviceEvent() that passes a `uint64`. So our options are:\n1) Leave the whole thing alone\n2) Fix it up to SendDeviceEvent() but leave SendDeviceEvent\u0027s interface unchanged, convert the `uint64` to `time.Time` there.\n3) Fix the whole thing, including SendDeviceEvent, and the call stack up through voltha-openolt-adapter\u0027s DeviceHandler.handleIndication() where raised_ts originates as a `uint64`",
+      "parentUuid": "093bd275_7c4ced3c",
+      "revId": "604568975e1775fe5e6621bff9c13c0832cf0954",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21c4ec41_a517dee4",
         "filename": "pkg/adapters/common/events_proxy.go",
         "patchSetId": 5
