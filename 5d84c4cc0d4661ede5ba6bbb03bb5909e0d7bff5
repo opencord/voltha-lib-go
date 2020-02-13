@@ -139,6 +139,54 @@
       "revId": "5d84c4cc0d4661ede5ba6bbb03bb5909e0d7bff5",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d713bc3_3ec7aa8a",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-02-13T11:58:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e007b198_6f9d0175",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 20
+      },
+      "revId": "5d84c4cc0d4661ede5ba6bbb03bb5909e0d7bff5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "acadc15b_ed28969a",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-02-13T11:58:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcc540cb_a406fc9a",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 20
+      },
+      "revId": "5d84c4cc0d4661ede5ba6bbb03bb5909e0d7bff5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
