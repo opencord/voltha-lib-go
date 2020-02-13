@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "accb1335_350a82db",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-02-13T11:55:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e116d44f_d2b1239c",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "5d84c4cc0d4661ede5ba6bbb03bb5909e0d7bff5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b77a6f22_ea88cc30",
         "filename": "pkg/log/log.go",
         "patchSetId": 7
