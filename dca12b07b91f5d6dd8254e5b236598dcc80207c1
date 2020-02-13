@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8384a4c_75e9d007",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000514
+      },
+      "writtenOn": "2020-02-13T12:21:26Z",
+      "side": 1,
+      "message": "I suggest to return \"nil\" with error, as per the usual Go convention.",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 9
+      },
+      "revId": "dca12b07b91f5d6dd8254e5b236598dcc80207c1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
