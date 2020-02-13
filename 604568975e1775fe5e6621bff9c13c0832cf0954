@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "093bd275_7c4ced3c",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-13T22:23:14Z",
+      "side": 1,
+      "message": "This is a package private method correct? I would agree that it would be correct to change to time.Time, but what is the impact.",
+      "parentUuid": "8726e31f_8b119fe5",
+      "revId": "604568975e1775fe5e6621bff9c13c0832cf0954",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21c4ec41_a517dee4",
         "filename": "pkg/adapters/common/events_proxy.go",
         "patchSetId": 5
