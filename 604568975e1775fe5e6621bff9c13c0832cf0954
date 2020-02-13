@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "824c00f3_a9e3265d",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-13T22:52:32Z",
+      "side": 1,
+      "message": "given that this at some point filters up and cross repos, i guess i would favor leave it alone, create a jira for the next release. while i agree that the correct thing would be 3, backlogging this now and making sure what is have is rock solid and scales is a higher priority.",
+      "parentUuid": "6efad972_341fe9a6",
+      "revId": "604568975e1775fe5e6621bff9c13c0832cf0954",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21c4ec41_a517dee4",
         "filename": "pkg/adapters/common/events_proxy.go",
         "patchSetId": 5
