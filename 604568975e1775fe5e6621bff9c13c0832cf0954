@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "6c9fb5a3_2d083fd9",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-02-14T17:28:54Z",
+      "side": 1,
+      "message": "Can address it in this patch or a future patch. My first preference is to keep it in a future patch as it is technically a separable concern and requires G5 approval.",
+      "parentUuid": "55a02e55_f2db9633",
+      "revId": "604568975e1775fe5e6621bff9c13c0832cf0954",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21c4ec41_a517dee4",
         "filename": "pkg/adapters/common/events_proxy.go",
         "patchSetId": 5
