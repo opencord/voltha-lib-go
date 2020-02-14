@@ -1,0 +1,458 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7cdd453_8b3cc736",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "godoc comment",
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38f5aef6_37bc003a",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "Should be camel case, i.e. \"Put\"",
+      "range": {
+        "startLine": 47,
+        "startChar": 1,
+        "endLine": 47,
+        "endChar": 4
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7936678_1d5986b3",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "Should be camel case, i.e. \"Delete\"",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 1
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a859c051_cbe67652",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "godoc comment",
+      "range": {
+        "startLine": 51,
+        "startChar": 25,
+        "endLine": 51,
+        "endChar": 36
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6211d3a4_929a4632",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "needs a godoc comment",
+      "range": {
+        "startLine": 55,
+        "startChar": 5,
+        "endLine": 55,
+        "endChar": 22
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51f7ffd1_1b425a63",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "if this method can never return an error then there is no point in having the error return value",
+      "range": {
+        "startLine": 129,
+        "startChar": 77,
+        "endLine": 129,
+        "endChar": 82
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75434653_ef7b4208",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "how about just \"key-prefix\"",
+      "range": {
+        "startLine": 149,
+        "startChar": 59,
+        "endLine": 149,
+        "endChar": 70
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3a5c7c7_4617c12f",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "why are errors ignored?",
+      "range": {
+        "startLine": 88,
+        "startChar": 27,
+        "endLine": 88,
+        "endChar": 28
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3af4d53_dc2389a4",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "why are errors ignored. if not error can be returned, then remove the error value. if an error can be returned then it should be handled.",
+      "range": {
+        "startLine": 90,
+        "startChar": 24,
+        "endLine": 90,
+        "endChar": 25
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83c59985_33f25891",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "on any event the same code is run, i.e. read everything? i think there was a chat between @smbaker and yourself on this.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 47
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4192c944_baac315b",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "package-name",
+      "range": {
+        "startLine": 121,
+        "startChar": 80,
+        "endLine": 121,
+        "endChar": 91
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3f489e0_644b10cf",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "global-log-config",
+      "range": {
+        "startLine": 148,
+        "startChar": 55,
+        "endLine": 148,
+        "endChar": 70
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91a27e20_b82ae3b4",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "package-name",
+      "range": {
+        "startLine": 166,
+        "startChar": 85,
+        "endLine": 166,
+        "endChar": 96
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "922a5a25_17e87f08",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "if c.getGlobalLogconfig returned an error then this value is not valid and should not be referenced.",
+      "range": {
+        "startLine": 192,
+        "startChar": 52,
+        "endLine": 192,
+        "endChar": 66
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad2a88a5_20f0ace5",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "if c.getComponentLogConfig returns an error then this value is not valid and should not be referenced.",
+      "range": {
+        "startLine": 196,
+        "startChar": 81,
+        "endLine": 196,
+        "endChar": 99
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3b89cd5_755fe6bd",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "log-config",
+      "range": {
+        "startLine": 207,
+        "startChar": 59,
+        "endLine": 207,
+        "endChar": 68
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5070387_2181348f",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "please don\u0027t ignore errors",
+      "range": {
+        "startLine": 267,
+        "startChar": 12,
+        "endLine": 267,
+        "endChar": 13
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb12edb_cc939136",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "what is being protected by this lock?",
+      "range": {
+        "startLine": 262,
+        "startChar": 1,
+        "endLine": 263,
+        "endChar": 17
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3fadc40_4da49b9a",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "switch strings.ToUpper(l) {",
+      "range": {
+        "startLine": 181,
+        "startChar": 1,
+        "endLine": 182,
+        "endChar": 15
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "778c7b5b_c571ea03",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T05:41:32Z",
+      "side": 1,
+      "message": "any uint8 can be passed into this method, so you could get a log level that is not one of the defined constants. as writen if i pass uint8(99) to this method it would return \"ERROR\" even though this is not correct. Does this method need an error return value as well.",
+      "range": {
+        "startLine": 210,
+        "startChar": 1,
+        "endLine": 210,
+        "endChar": 14
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
