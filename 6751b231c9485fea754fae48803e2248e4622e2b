@@ -549,6 +549,30 @@
       "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f12560d_d8f78aa2",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-14T07:57:05Z",
+      "side": 1,
+      "message": "or Set it back to DEBUG if the given LogLevel is not valid.",
+      "parentUuid": "303c4362_06b7e7b4",
+      "range": {
+        "startLine": 210,
+        "startChar": 1,
+        "endLine": 210,
+        "endChar": 14
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
