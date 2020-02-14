@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48a57691_97f9436a",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000436
+      },
+      "writtenOn": "2020-02-14T12:34:51Z",
+      "side": 1,
+      "message": "seems this should be cannot-unmarshal-port",
+      "range": {
+        "startLine": 681,
+        "startChar": 18,
+        "endLine": 681,
+        "endChar": 41
+      },
+      "revId": "513aa4ac9f7bcd74342f91cbb96530caaac996c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
