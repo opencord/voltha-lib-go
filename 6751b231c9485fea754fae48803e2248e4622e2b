@@ -525,6 +525,30 @@
       "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "303c4362_06b7e7b4",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-14T07:53:22Z",
+      "side": 1,
+      "message": "It doesn\u0027t need an error return value.Can I return \"\" string if it doesn\u0027t match.",
+      "parentUuid": "778c7b5b_c571ea03",
+      "range": {
+        "startLine": 210,
+        "startChar": 1,
+        "endLine": 210,
+        "endChar": 14
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
