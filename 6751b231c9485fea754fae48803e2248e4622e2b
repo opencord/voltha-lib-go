@@ -274,6 +274,30 @@
     },
     {
       "key": {
+        "uuid": "eab59b5b_f8863a39",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-14T07:47:27Z",
+      "side": 1,
+      "message": "Yes.The contents of the configEvent aren\u0027t evaluated. It\u0027s just used as a trigger to cause a full reload of all config from etcd.We are not using any value so not reading.The above explanation is given by Girish for considering this approach.",
+      "parentUuid": "1cda86ef_396af0ee",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 47
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4192c944_baac315b",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 5
