@@ -115,6 +115,9 @@ const (
 	NUM_OF_PON_INTF = 16
 
 	KVSTORE_RETRY_TIMEOUT = 5
+	//Path on the KV store for storing reserved gem ports
+	//Format: reserved_gemport_ids
+	RESERVED_GEMPORT_IDS_PATH = "reserved_gemport_ids"
 )
 
 //type ResourceTypeIndex string
@@ -493,7 +496,15 @@ func (PONRMgr *PONResourceManager) InitResourceIDPool(ctx context.Context, Intf 
 		log.Debugf("Resource %s already present in store ", Path)
 		return nil
 	} else {
-		FormatResult, err := PONRMgr.FormatResource(Intf, StartID, EndID)
+		var excluded []uint32
+		if ResourceType == GEMPORT_ID {
+			//get gem port ids defined in the KV store, if any, and exclude them from the gem port id pool
+			if reservedGemPortIds, defined := PONRMgr.getReservedGemPortIdFromKVStore(ctx); defined {
+				excluded = reservedGemPortIds
+				log.Debugw("Excluding some ports from GEM port id pool", log.Fields{"excluded gem ports": excluded})
+			}
+		}
+		FormatResult, err := PONRMgr.FormatResource(Intf, StartID, EndID, excluded)
 		if err != nil {
 			log.Errorf("Failed to format resource")
 			return err
@@ -511,12 +522,38 @@ func (PONRMgr *PONResourceManager) InitResourceIDPool(ctx context.Context, Intf 
 	return err
 }
 
-func (PONRMgr *PONResourceManager) FormatResource(IntfID uint32, StartIDx uint32, EndIDx uint32) ([]byte, error) {
+func (PONRMgr *PONResourceManager) getReservedGemPortIdFromKVStore(ctx context.Context) ([]uint32, bool) {
+	var reservedGemPortIds []uint32
+
+	KvPair, err := PONRMgr.KVStore.Get(ctx, RESERVED_GEMPORT_IDS_PATH)
+	if err != nil {
+		log.Errorw("Unable to exclude reserved GEM port id from the pool", log.Fields{"err": err})
+		return reservedGemPortIds, false
+	}
+	if KvPair == nil || KvPair.Value == nil {
+		//no reserved gem port defined in the store
+		return reservedGemPortIds, false
+	}
+	Val, err := kvstore.ToByte(KvPair.Value)
+	if err != nil {
+		log.Errorw("Failed to convert reserved gem port id into byte array", log.Fields{"err": err})
+		return reservedGemPortIds, false
+	}
+	if err = json.Unmarshal(Val, &reservedGemPortIds); err != nil {
+		log.Errorw("Failed to unmarshal reservedGemPortId", log.Fields{"err": err})
+		return reservedGemPortIds, false
+	}
+	return reservedGemPortIds, true
+}
+
+func (PONRMgr *PONResourceManager) FormatResource(IntfID uint32, StartIDx uint32, EndIDx uint32,
+	Excluded []uint32) ([]byte, error) {
 	/*
 	   Format resource as json.
 	   :param pon_intf_id: OLT PON interface id
 	   :param start_idx: start index for id pool
 	   :param end_idx: end index for id pool
+	   :Id values to be excluded from the pool
 	   :return dictionary: resource formatted as map
 	*/
 	// Format resource as json to be stored in backend store
@@ -533,6 +570,14 @@ func (PONRMgr *PONResourceManager) FormatResource(IntfID uint32, StartIDx uint32
 	if TSData = bitmap.NewTS(int(EndIDx)); TSData == nil {
 		log.Error("Failed to create a bitmap")
 		return nil, errors.New("Failed to create bitmap")
+	}
+	for _, excludedID := range Excluded {
+		if excludedID < StartIDx || excludedID > EndIDx {
+			log.Warnf("Cannot reserve %d. It must be in the range of [%d, %d]", excludedID,
+				StartIDx, EndIDx)
+			continue
+		}
+		PONRMgr.reserveID(TSData, StartIDx, excludedID)
 	}
 	Resource[POOL] = TSData.Data(false) //we pass false so as the TSData lib api does not do a copy of the data and return
 
@@ -1143,6 +1188,22 @@ func (PONRMgr *PONResourceManager) ReleaseID(Resource map[string]interface{}, Id
 	Data.Set(int(Idx), false)
 	Resource[POOL] = Data.Data(false)
 
+	return true
+}
+
+/* Reserves a unique id in the specified resource pool.
+:param Resource: resource used to reserve ID
+:param Id: ID to be released
+*/
+func (PONRMgr *PONResourceManager) reserveID(TSData *bitmap.Threadsafe, StartIndex uint32, Id uint32) bool {
+	Data := bitmap.TSFromData(TSData.Data(false), false)
+	if Data == nil {
+		log.Error("Failed to get resource pool")
+		return false
+	}
+	var Idx uint32
+	Idx = Id - StartIndex
+	Data.Set(int(Idx), true)
 	return true
 }
 
