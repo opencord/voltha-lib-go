@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "55a02e55_f2db9633",
+        "filename": "pkg/adapters/common/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-14T00:03:34Z",
+      "side": 1,
+      "message": "ok, now i am a bit confused and perhaps waffling. so the overall patchsets are changing many repos anyway as the timestamp in the protos are changing. this being the case, maybe option 3 is best. i.e. as we are changing everything might as well change this too.",
+      "parentUuid": "6efad972_341fe9a6",
+      "revId": "604568975e1775fe5e6621bff9c13c0832cf0954",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21c4ec41_a517dee4",
         "filename": "pkg/adapters/common/events_proxy.go",
         "patchSetId": 5
