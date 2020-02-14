@@ -250,6 +250,30 @@
     },
     {
       "key": {
+        "uuid": "1cda86ef_396af0ee",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-14T07:29:35Z",
+      "side": 1,
+      "message": "Yes.We are reading the full config on change event. Actually, we finalized on this approach considering how the loglevel config will be done in a production like system. It will usually happen through a script or API calls from upstream OSS system. Let us say 15-20 loglevel configs are pushed to etcd with api calls within a span of 5-10ms.\n\nIf we maintain the config in memory and process delta in change event, we will have to process 15 change events and each one of them will pass the active hash check and zap loglevels will get updated.\nWith the approach taken now, we will perform complete lookup for each change event but most of them will fail the active hash check and less calls to zap loglevel update.\n\nYes, there are more etcd lookup with this approach. But we have now less code to be written. But, yes it can be definitely argued that keeping loglevel config in memory is equally efficient.",
+      "parentUuid": "83c59985_33f25891",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 47
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4192c944_baac315b",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 5
