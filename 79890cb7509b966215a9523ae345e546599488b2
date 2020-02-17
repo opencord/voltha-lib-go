@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5816745d_48305ed1",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-02-17T08:05:20Z",
+      "side": 1,
+      "message": "change to Excluded",
+      "revId": "79890cb7509b966215a9523ae345e546599488b2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
