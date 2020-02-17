@@ -486,6 +486,30 @@
     },
     {
       "key": {
+        "uuid": "1169cbaf_56aeb8cb",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-17T16:19:38Z",
+      "side": 1,
+      "message": "You shouldn\u0027t just log an continue. The error needs to be addressed. you cannot assume that componentLogConfig is set to \"\" if error is !\u003d nil.",
+      "parentUuid": "b3840d74_8dd3e093",
+      "range": {
+        "startLine": 192,
+        "startChar": 52,
+        "endLine": 192,
+        "endChar": 66
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad2a88a5_20f0ace5",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 5
@@ -569,6 +593,30 @@
       "side": 1,
       "message": "what default value?",
       "parentUuid": "231abd19_793c74a0",
+      "range": {
+        "startLine": 196,
+        "startChar": 81,
+        "endLine": 196,
+        "endChar": 99
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9149ce62_361ccfab",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-17T16:19:38Z",
+      "side": 1,
+      "message": "There are two choices. If `c.getComponentLogConfig(globalLogLevel)` returns an error this code can handle the error and set componentLogConfig to some default value or this function can return the error and have the calling function handle the error.",
+      "parentUuid": "28d2bffc_f0b2e00e",
       "range": {
         "startLine": 196,
         "startChar": 81,
