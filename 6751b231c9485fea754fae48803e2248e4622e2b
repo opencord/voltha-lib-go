@@ -390,6 +390,30 @@
     },
     {
       "key": {
+        "uuid": "fec23316_45ede0f7",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-17T04:15:03Z",
+      "side": 1,
+      "message": "c.getGlobalLogConfig return\u0027s an error and empty string in case of error.We just logging the error and continue.Passing empty string to c.getComponentLogConfig in case of error from c.getGlobalLogConfig.",
+      "parentUuid": "922a5a25_17e87f08",
+      "range": {
+        "startLine": 192,
+        "startChar": 52,
+        "endLine": 192,
+        "endChar": 66
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad2a88a5_20f0ace5",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 5
@@ -401,6 +425,30 @@
       "writtenOn": "2020-02-14T05:41:32Z",
       "side": 1,
       "message": "if c.getComponentLogConfig returns an error then this value is not valid and should not be referenced.",
+      "range": {
+        "startLine": 196,
+        "startChar": 81,
+        "endLine": 196,
+        "endChar": 99
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4c2ce6a_06187afa",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-17T04:15:03Z",
+      "side": 1,
+      "message": "Should I remove this debug log?",
+      "parentUuid": "ad2a88a5_20f0ace5",
       "range": {
         "startLine": 196,
         "startChar": 81,
