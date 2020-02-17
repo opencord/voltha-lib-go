@@ -462,6 +462,30 @@
     },
     {
       "key": {
+        "uuid": "b3840d74_8dd3e093",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-17T12:33:27Z",
+      "side": 1,
+      "message": "In case of error we just want to log and continue.",
+      "parentUuid": "fe3fdf82_4a4bba55",
+      "range": {
+        "startLine": 192,
+        "startChar": 52,
+        "endLine": 192,
+        "endChar": 66
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad2a88a5_20f0ace5",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 5
@@ -521,6 +545,30 @@
       "side": 1,
       "message": "It is a little more complicated than that. At this point in the code componentLogConfig is not a valid value, you can\u0027t simply return it. I think the best approach would be when err !\u003d nil from the getfomponentLogConfig call to log the error (as you do today) and then set componentLogConfig to a default value.",
       "parentUuid": "f4c2ce6a_06187afa",
+      "range": {
+        "startLine": 196,
+        "startChar": 81,
+        "endLine": 196,
+        "endChar": 99
+      },
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28d2bffc_f0b2e00e",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-17T12:33:27Z",
+      "side": 1,
+      "message": "what default value?",
+      "parentUuid": "231abd19_793c74a0",
       "range": {
         "startLine": 196,
         "startChar": 81,
