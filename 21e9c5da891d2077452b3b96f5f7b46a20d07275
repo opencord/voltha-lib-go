@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "701f4318_e2d65e7a",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-02-19T17:10:15Z",
+      "side": 1,
+      "message": "Should this cause a panic or other error return? What happens if the consumers cannot be started?",
+      "revId": "21e9c5da891d2077452b3b96f5f7b46a20d07275",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bf02a1d_91d7d9f4",
+        "filename": "pkg/probe/probe_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-02-19T17:10:15Z",
+      "side": 1,
+      "message": "no error check?",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 52
+      },
+      "revId": "21e9c5da891d2077452b3b96f5f7b46a20d07275",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
