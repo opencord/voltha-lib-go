@@ -52,9 +52,6 @@ func TestKafkaProxyOptionTopic(t *testing.T) {
 type myInterface struct {
 }
 
-func (m *myInterface) doSomething() {
-}
-
 func TestKafkaProxyOptionTargetInterface(t *testing.T) {
 	var m *myInterface
 	actualResult := newInterContainerProxy(RequestHandlerInterface(m))
