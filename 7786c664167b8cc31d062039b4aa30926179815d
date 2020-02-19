@@ -1,0 +1,379 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8d1be45_2f33ef58",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "consider nesting the declaration, and passing directly to return, like:\n\nreturn \u0026ConfigManager{\n  KvStoreConfigPrefix: defaultkvStoreConfigPath,\n  backend: \u0026db.Backend{\n    Client:     kvClient,\n    ...\n  },\n}",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0a3b1f4_f80ca0e3",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Consider returning directly.\n\nreturn \u0026ComponentConfig{\n  ...\n}",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02250b21_d06ea4e4",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "kvStoreEventChan is created here then overwritten on line 139.",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44ba6615_8fe03dc6",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "If a string type is expected for watchResp.Key, assert string (`ky :\u003d var.(string)`) instead of printing.",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c27a303_92d582fe",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "consider constructing and passing in one block, like:\n\nc.changeEventChan \u003c- \u0026ConfigCHangeEvent{\n  ChangeType:      ChangeEventType(watchResp.EventType),\n  ConfigAttribute: strings.TrimPrefix(ky, ccPathPrefix),\n}",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb68e2cb_590a6203",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Function should accept a context to pass instead of context.Background().",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4eafc9f8_53990115",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Since the caller could handle the error, log at debug, or not at all.",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1be1f68b_51eb4897",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Should accept \u0026 pass a context",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a80ddbae_dee2aae1",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Since the caller could handle the error, log at debug, or not at all.",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b4f92b8_fb2c3bf8",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Should accept \u0026 pass a context.",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05201b4d_62076db3",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Can use `if err:\u003dfunc(); err!\u003dnil {` form.",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7233d970_1dca854d",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Since the caller could handle the error, log at debug, or not at all.\n\n(Consider just returning the result of Delete() directly.)",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8cd9ad8d_d15693b2",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Can return directly:\n\nreturn \u0026ComponentLogController{\n  ...\n}, nil",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4325797e_66ab03ac",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "logHash is an empty (zero\u0027d) array by default, this can be omitted.",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 27
+      },
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b00593c_67970839",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Error should be returned?\nIf returned, don\u0027t log at ERROR level.",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35ec859c_5db3e4ac",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Consider moving just before the select.",
+      "range": {
+        "startLine": 86,
+        "startChar": 5,
+        "endLine": 86,
+        "endChar": 16
+      },
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "756176d5_92dec9d6",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Can use `if err:\u003dfunc(); err!\u003dnil {` form.",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8973aef_94d8cde5",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "by convention, err!\u003dnil should be checked and handled first, is that feasible here?",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "496f56b6_6dcd8c1a",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "by convention, err!\u003dnil should be checked and handled first.",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19338c07_72610f2b",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "If the error is returned, it should be handled by the caller.  Consider reducing log level, or removing altogether.\n\n(More like this, I won\u0027t comment on each one.)",
+      "range": {
+        "startLine": 200,
+        "startChar": 2,
+        "endLine": 201,
+        "endChar": 17
+      },
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d513e7c4_b60d6065",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Can be declared inline:\n\nreturn [16]byte{}, err",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
