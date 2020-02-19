@@ -2,6 +2,91 @@
   "comments": [
     {
       "key": {
+        "uuid": "246eb2b2_9e6819a9",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-02-19T17:32:30Z",
+      "side": 1,
+      "message": "Better pass context received in first argument ctx",
+      "revId": "21e9c5da891d2077452b3b96f5f7b46a20d07275",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69dc7ed8_7652ab62",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-02-19T17:32:30Z",
+      "side": 1,
+      "message": "Better pass context received in first argument ctx",
+      "revId": "21e9c5da891d2077452b3b96f5f7b46a20d07275",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0f61229_576f306e",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-02-19T17:32:30Z",
+      "side": 1,
+      "message": "Better pass context received in first argument ctx",
+      "revId": "21e9c5da891d2077452b3b96f5f7b46a20d07275",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f9de971_07af3bde",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-02-19T17:32:30Z",
+      "side": 1,
+      "message": "Better pass context received in first argument ctx",
+      "revId": "21e9c5da891d2077452b3b96f5f7b46a20d07275",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7bee84a7_45c39167",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-02-19T17:32:30Z",
+      "side": 1,
+      "message": "I guess we should not return here; capture the err in a variable and return after call to delete for removal of topic from kp.topicToRequestHandlerChannelMap",
+      "revId": "21e9c5da891d2077452b3b96f5f7b46a20d07275",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "701f4318_e2d65e7a",
         "filename": "pkg/kafka/sarama_client.go",
         "patchSetId": 1
