@@ -45,8 +45,7 @@ func TestFlowsAndGroups_AddFlow(t *testing.T) {
 	allFlows = fg.ListFlows()
 	assert.Equal(t, 0, len(allFlows))
 
-	var fa *FlowArgs
-	fa = &FlowArgs{
+	fa := &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 500},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(1),
@@ -322,8 +321,7 @@ func TestDeviceRules_AddFlow(t *testing.T) {
 	assert.Equal(t, 0, len(val.ListFlows()))
 	assert.Equal(t, 0, len(val.ListGroups()))
 
-	var fa *FlowArgs
-	fa = &FlowArgs{
+	fa := &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 500},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
@@ -705,5 +703,5 @@ func TestConvertToMulticastMac(t *testing.T) {
 	mcastIp := uint32(4001431809)                   //238.129.1.1
 	expectedMacInBytes := []byte{1, 0, 94, 1, 1, 1} //01:00:5e:01:01:01
 	macInBytes := ConvertToMulticastMacBytes(mcastIp)
-	assert.True(t, bytes.Compare(macInBytes, expectedMacInBytes) == 0)
+	assert.True(t, bytes.Equal(macInBytes, expectedMacInBytes))
 }
