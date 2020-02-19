@@ -320,12 +320,12 @@ func GetPackageNames() []string {
 func UpdateLogger(defaultFields Fields) (Logger, error) {
 	pkgName, _, _, _ := getCallerInfo()
 	if _, exist := loggers[pkgName]; !exist {
-		return nil, errors.New(fmt.Sprintf("package-%s-not-registered", pkgName))
+		return nil, fmt.Errorf("package-%s-not-registered", pkgName)
 	}
 
 	// Build a new logger
 	if _, exist := cfgs[pkgName]; !exist {
-		return nil, errors.New(fmt.Sprintf("config-%s-not-registered", pkgName))
+		return nil, fmt.Errorf("config-%s-not-registered", pkgName)
 	}
 
 	cfg := cfgs[pkgName]
@@ -394,7 +394,7 @@ func GetPackageLogLevel(packageName ...string) (LogLevel, error) {
 	if cfg, ok := cfgs[name]; ok {
 		return levelToLogLevel(cfg.Level.Level()), nil
 	}
-	return 0, errors.New(fmt.Sprintf("unknown-package-%s", name))
+	return 0, fmt.Errorf("unknown-package-%s", name)
 }
 
 //GetDefaultLogLevel gets the log level used for packages that don't have specific loggers
@@ -406,7 +406,7 @@ func GetDefaultLogLevel() LogLevel {
 func SetLogLevel(level LogLevel) error {
 	pkgName, _, _, _ := getCallerInfo()
 	if _, exist := cfgs[pkgName]; !exist {
-		return errors.New(fmt.Sprintf("unregistered-package-%s", pkgName))
+		return fmt.Errorf("unregistered-package-%s", pkgName)
 	}
 	cfg := cfgs[pkgName]
 	setLevel(cfg, level)
