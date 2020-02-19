@@ -242,6 +242,7 @@ func TestPut_EmbeddedEtcdServer(t *testing.T) {
 
 	// Assert that kvstore has this value stored
 	kvpair, err := backend.Get(ctx, "key1")
+	assert.Nil(t, err)
 	assert.NotNil(t, kvpair)
 	assert.Equal(t, defaultPathPrefix+"/key1", kvpair.Key)
 	assert.Equal(t, []uint8("value1"), kvpair.Value)
@@ -250,6 +251,7 @@ func TestPut_EmbeddedEtcdServer(t *testing.T) {
 	err = backend.Put(ctx, "key1", []uint8("value11"))
 	assert.Nil(t, err)
 	kvpair, err = backend.Get(ctx, "key1")
+	assert.Nil(t, err)
 	assert.NotNil(t, kvpair)
 	assert.Equal(t, defaultPathPrefix+"/key1", kvpair.Key)
 	assert.Equal(t, []uint8("value11"), kvpair.Value)
@@ -273,6 +275,7 @@ func TestGet_EmbeddedEtcdServer(t *testing.T) {
 	defer cancel()
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
 	err := backend.Put(ctx, "key2", []uint8("value2"))
+	assert.Nil(t, err)
 
 	// Assert alive state has become true
 	assert.True(t, backend.alive)
@@ -286,8 +289,8 @@ func TestGet_EmbeddedEtcdServer(t *testing.T) {
 
 	// Assert that Get works fine for absent key3
 	kvpair, err = backend.Get(ctx, "key3")
-	assert.Nil(t, kvpair)
 	assert.Nil(t, err) // no error as lookup is successful
+	assert.Nil(t, kvpair)
 }
 
 // Get operation should fail against Dummy Non-existent Etcd Server
@@ -309,18 +312,21 @@ func TestDelete_EmbeddedEtcdServer(t *testing.T) {
 	defer cancel()
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
 	err := backend.Put(ctx, "key3", []uint8("value3"))
+	assert.Nil(t, err)
 
 	// Assert alive state has become true
 	assert.True(t, backend.alive)
 
 	// Assert that kvstore has this key stored
 	kvpair, err := backend.Get(ctx, "key3")
+	assert.Nil(t, err)
 	assert.NotNil(t, kvpair)
 
 	// Delete and Assert that key has been removed
 	err = backend.Delete(ctx, "key3")
 	assert.Nil(t, err)
 	kvpair, err = backend.Get(ctx, "key3")
+	assert.Nil(t, err)
 	assert.Nil(t, kvpair)
 
 	// Assert that Delete silently ignores absent key3
