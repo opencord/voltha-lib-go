@@ -411,7 +411,7 @@ func (PONRMgr *PONResourceManager) ClearDeviceResourcePool(ctx context.Context) 
 		if SharedPoolID != 0 {
 			Intf = SharedPoolID
 		}
-		if status := PONRMgr.ClearResourceIDPool(ctx, Intf, ONU_ID); status != true {
+		if status := PONRMgr.ClearResourceIDPool(ctx, Intf, ONU_ID); !status {
 			log.Error("Failed to clear ONU ID resource pool")
 			return errors.New("Failed to clear ONU ID resource pool")
 		}
@@ -425,7 +425,7 @@ func (PONRMgr *PONResourceManager) ClearDeviceResourcePool(ctx context.Context) 
 		if SharedPoolID != 0 {
 			Intf = SharedPoolID
 		}
-		if status := PONRMgr.ClearResourceIDPool(ctx, Intf, ALLOC_ID); status != true {
+		if status := PONRMgr.ClearResourceIDPool(ctx, Intf, ALLOC_ID); !status {
 			log.Error("Failed to clear ALLOC ID resource pool ")
 			return errors.New("Failed to clear ALLOC ID resource pool")
 		}
@@ -438,7 +438,7 @@ func (PONRMgr *PONResourceManager) ClearDeviceResourcePool(ctx context.Context) 
 		if SharedPoolID != 0 {
 			Intf = SharedPoolID
 		}
-		if status := PONRMgr.ClearResourceIDPool(ctx, Intf, GEMPORT_ID); status != true {
+		if status := PONRMgr.ClearResourceIDPool(ctx, Intf, GEMPORT_ID); !status {
 			log.Error("Failed to clear GEMPORT ID resource pool")
 			return errors.New("Failed to clear GEMPORT ID resource pool")
 		}
@@ -452,7 +452,7 @@ func (PONRMgr *PONResourceManager) ClearDeviceResourcePool(ctx context.Context) 
 		if SharedPoolID != 0 {
 			Intf = SharedPoolID
 		}
-		if status := PONRMgr.ClearResourceIDPool(ctx, Intf, FLOW_ID); status != true {
+		if status := PONRMgr.ClearResourceIDPool(ctx, Intf, FLOW_ID); !status {
 			log.Error("Failed to clear FLOW ID resource pool")
 			return errors.New("Failed to clear FLOW ID resource pool")
 		}
@@ -563,6 +563,9 @@ func (PONRMgr *PONResourceManager) GetResource(ctx context.Context, Path string)
 	}
 
 	Value, err = ToByte(Resource.Value)
+	if err != nil {
+		return nil, err
+	}
 
 	// decode resource fetched from backend store to dictionary
 	err = json.Unmarshal(Value, &Result)
@@ -1042,13 +1045,13 @@ func (PONRMgr *PONResourceManager) UpdateFlowIDForOnu(ctx context.Context, IntfO
 	FlowIDs := PONRMgr.GetCurrentFlowIDsForOnu(ctx, IntfONUID)
 
 	if Add {
-		if RetVal, IDx = checkForFlowIDInList(FlowIDs, FlowID); RetVal == true {
-			return err
+		if RetVal, IDx = checkForFlowIDInList(FlowIDs, FlowID); RetVal {
+			return nil
 		}
 		FlowIDs = append(FlowIDs, FlowID)
 	} else {
-		if RetVal, IDx = checkForFlowIDInList(FlowIDs, FlowID); RetVal == false {
-			return err
+		if RetVal, IDx = checkForFlowIDInList(FlowIDs, FlowID); !RetVal {
+			return nil
 		}
 		// delete the index and shift
 		FlowIDs = append(FlowIDs[:IDx], FlowIDs[IDx+1:]...)

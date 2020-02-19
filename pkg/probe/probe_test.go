@@ -29,7 +29,7 @@ import (
 )
 
 func init() {
-	log.AddPackage(log.JSON, log.WarnLevel, nil)
+	_, _ = log.AddPackage(log.JSON, log.WarnLevel, nil)
 }
 
 func TestServiceStatusString(t *testing.T) {
@@ -366,6 +366,7 @@ func TestUpdateStatusFromContext(t *testing.T) {
 func TestUpdateStatusFromNilContext(t *testing.T) {
 	p := &Probe{}
 	p.RegisterService("one")
+	// nolint: staticcheck
 	UpdateStatusFromContext(nil, "one", ServiceStatusRunning)
 
 	assert.Equal(t, 1, len(p.status), "wrong number of services")

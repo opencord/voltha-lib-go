@@ -32,8 +32,6 @@ import (
 	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
 )
 
-type returnErrorFunction func() error
-
 // consumerChannels represents one or more consumers listening on a kafka topic.  Once a message is received on that
 // topic, the consumer(s) broadcasts the message to all the listening channels.   The consumer can be a partition
 //consumer or a group consumer
@@ -478,7 +476,7 @@ func (sc *SaramaClient) updateLiveness(alive bool) {
 			logger.Info("update-liveness-channel-because-change")
 			sc.liveness <- alive
 			sc.lastLivenessTime = time.Now()
-		} else if time.Now().Sub(sc.lastLivenessTime) > sc.livenessChannelInterval {
+		} else if time.Since(sc.lastLivenessTime) > sc.livenessChannelInterval {
 			logger.Info("update-liveness-channel-because-interval")
 			sc.liveness <- alive
 			sc.lastLivenessTime = time.Now()
@@ -558,7 +556,7 @@ func (sc *SaramaClient) Send(msg interface{}, topic *Topic, keys ...string) erro
 	// ascertain the value interface type is a proto.Message
 	if protoMsg, ok = msg.(proto.Message); !ok {
 		logger.Warnw("message-not-proto-message", log.Fields{"msg": msg})
-		return errors.New(fmt.Sprintf("not-a-proto-msg-%s", msg))
+		return fmt.Errorf("not-a-proto-msg-%s", msg)
 	}
 
 	var marshalled []byte
@@ -1082,7 +1080,13 @@ func (sc *SaramaClient) setupPartitionConsumerChannel(topic *Topic, initialOffse
 	sc.addTopicToConsumerChannelMap(topic.Name, cc)
 
 	//Start a consumers to listen on that specific topic
-	go sc.startConsumers(topic)
+	go func() {
+		if err := sc.startConsumers(topic); err != nil {
+			logger.Errorw("start-consumers-failed", log.Fields{
+				"topic": topic,
+				"error": err})
+		}
+	}()
 
 	return consumerListeningChannel, nil
 }
@@ -1109,7 +1113,13 @@ func (sc *SaramaClient) setupGroupConsumerChannel(topic *Topic, groupId string, 
 	sc.addTopicToConsumerChannelMap(topic.Name, cc)
 
 	//Start a consumers to listen on that specific topic
-	go sc.startConsumers(topic)
+	go func() {
+		if err := sc.startConsumers(topic); err != nil {
+			logger.Errorw("start-consumers-failed", log.Fields{
+				"topic": topic,
+				"error": err})
+		}
+	}()
 
 	return consumerListeningChannel, nil
 }
