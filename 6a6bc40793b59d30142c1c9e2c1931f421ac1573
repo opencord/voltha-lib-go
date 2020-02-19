@@ -16,6 +16,24 @@
       "revId": "6a6bc40793b59d30142c1c9e2c1931f421ac1573",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7affd9bc_b6020216",
+        "filename": "pkg/probe/probe.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-19T21:06:04Z",
+      "side": 1,
+      "message": "2/3 isn\u0027t bad",
+      "parentUuid": "ddeb0ad1_27753d84",
+      "revId": "6a6bc40793b59d30142c1c9e2c1931f421ac1573",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
