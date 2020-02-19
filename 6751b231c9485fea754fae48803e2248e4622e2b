@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "60fe24b6_ec4db2e3",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-19T16:34:59Z",
+      "side": 1,
+      "message": "Consider just `ChangeEvent` instead of `ChangeEventType`",
+      "revId": "6751b231c9485fea754fae48803e2248e4622e2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38f5aef6_37bc003a",
         "filename": "pkg/config/configmanager.go",
         "patchSetId": 5
