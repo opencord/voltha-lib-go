@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "79d7ccc0_0b3c8d03",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-19T20:48:33Z",
+      "side": 1,
+      "message": "While I agree, can\u0027t do it. Can\u0027t change the public interface. Went down that path for a while and ended up in the core code. So attempting to to maintain current overall behavior of code. will open a JIRA to correctly propagate errors.",
+      "parentUuid": "bbd5e2c6_a419b173",
+      "revId": "8b2bd1c3cd53bed62ca8ad4bdc30a10c92a84b8b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a372726_38b09410",
         "filename": "pkg/probe/probe.go",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "164fed89_fa97f4cc",
+        "filename": "pkg/probe/probe.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-19T20:48:33Z",
+      "side": 1,
+      "message": "will write an error header, same below",
+      "parentUuid": "9a372726_38b09410",
+      "revId": "8b2bd1c3cd53bed62ca8ad4bdc30a10c92a84b8b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa1006d3_9b682249",
         "filename": "pkg/probe/probe_test.go",
         "patchSetId": 4
@@ -47,6 +83,24 @@
       "writtenOn": "2020-02-19T20:25:08Z",
       "side": 1,
       "message": "Could Fatalf on error?",
+      "revId": "8b2bd1c3cd53bed62ca8ad4bdc30a10c92a84b8b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa8f6a53_447c81ba",
+        "filename": "pkg/probe/probe_test.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-02-19T20:48:33Z",
+      "side": 1,
+      "message": "ok, will fmt.Fatalf",
+      "parentUuid": "fa1006d3_9b682249",
       "revId": "8b2bd1c3cd53bed62ca8ad4bdc30a10c92a84b8b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
