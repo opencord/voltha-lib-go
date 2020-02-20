@@ -88,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "ccbf3e71_08c184b3",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-20T14:27:46Z",
+      "side": 1,
+      "message": "var.(string) is a type assertion, not a type cast.  This lets you get the underlying string.  \n\n(Type assertions are used to getting the underlying type back from an interface.)",
+      "parentUuid": "95d37332_8181aec9",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c27a303_92d582fe",
         "filename": "pkg/config/configmanager.go",
         "patchSetId": 7
