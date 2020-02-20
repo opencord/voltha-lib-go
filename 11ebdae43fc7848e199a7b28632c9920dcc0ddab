@@ -171,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "56fa4ab8_5c434a43",
+        "filename": "pkg/db/kvstore/client.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-02-20T19:31:19Z",
+      "side": 1,
+      "message": "We\u0027ve concluded a discussion in #voltha-stabilization and have decided that Khen\u0027s suggestion of combining the two functions and adding a single bool argument `withPrefix` (not a variadic) is how we should go. This will necessitate a patch to voltha-go. Please have the voltha-go patch ready for review at the same time the voltha-lib-go patch is to be merged.",
+      "parentUuid": "d1d2f2e9_425a4b43",
+      "revId": "11ebdae43fc7848e199a7b28632c9920dcc0ddab",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7c906a7_32e1f0ce",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 9
