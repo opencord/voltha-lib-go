@@ -153,6 +153,24 @@
     },
     {
       "key": {
+        "uuid": "d1d2f2e9_425a4b43",
+        "filename": "pkg/db/kvstore/client.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-02-20T18:47:53Z",
+      "side": 1,
+      "message": "Looking at the rw-core code + voltha-lib-go, there are only 2 places where the Watch API is invoked.  It therefore makes sense to just change the Watch API and add a \"withPrefix\" bool argument.",
+      "parentUuid": "9f01c83d_e923f5dd",
+      "revId": "11ebdae43fc7848e199a7b28632c9920dcc0ddab",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7c906a7_32e1f0ce",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 9
