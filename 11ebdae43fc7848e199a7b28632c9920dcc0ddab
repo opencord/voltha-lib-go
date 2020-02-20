@@ -2,6 +2,80 @@
   "comments": [
     {
       "key": {
+        "uuid": "32dc138f_95b48dad",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-20T14:27:46Z",
+      "side": 1,
+      "message": "Please remove, no sense setting here if it\u0027s overwritten on line 139.",
+      "range": {
+        "startLine": 136,
+        "startChar": 1,
+        "endLine": 136,
+        "endChar": 50
+      },
+      "revId": "11ebdae43fc7848e199a7b28632c9920dcc0ddab",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b19f947_8aa216a0",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-20T14:27:46Z",
+      "side": 1,
+      "message": "Return error?  If returning, don\u0027t need to log?\n\nPlease comment with explanation if error should not be returned.",
+      "revId": "11ebdae43fc7848e199a7b28632c9920dcc0ddab",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04d5fe8c_9959095b",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-20T14:27:46Z",
+      "side": 1,
+      "message": "Rather than looping through all option, can use \n\nlevel, have :\u003d globalLogConfig[\"default\"]\n\nto check \u0026 get \"default\" level in one line.",
+      "revId": "11ebdae43fc7848e199a7b28632c9920dcc0ddab",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ff83e7d_d9a749e5",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-20T14:27:46Z",
+      "side": 1,
+      "message": "Rather than looping through all option, can use \n\nlevel, have :\u003d globalLogConfig[\"default\"]\n\nto check \u0026 get \"default\" level in one line.",
+      "revId": "11ebdae43fc7848e199a7b28632c9920dcc0ddab",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ac4e117_9cfd90a1",
         "filename": "pkg/db/kvstore/client.go",
         "patchSetId": 9
