@@ -70,6 +70,24 @@
     },
     {
       "key": {
+        "uuid": "95d37332_8181aec9",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-20T10:29:38Z",
+      "side": 1,
+      "message": "watchResp.Key is interface type.So var.(string) will not work.so using fmt.Sprintf to get value.",
+      "parentUuid": "44ba6615_8fe03dc6",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c27a303_92d582fe",
         "filename": "pkg/config/configmanager.go",
         "patchSetId": 7
