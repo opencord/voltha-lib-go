@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ac4e117_9cfd90a1",
+        "filename": "pkg/db/kvstore/client.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-02-20T14:15:33Z",
+      "side": 1,
+      "message": "The only difference between this API and the Watch API is that this one uses the key as a prefix.  You could augment the Watch() API with a variadic param, eg. Watch(ctx context.Context, key string, withprefix ...bool).    This way existing API do not change and if anyone needs a prefix then they can set the withprefix value.    In the Watch() implementation use the clientv3.WithPrefix only when withPrefix param is present and set to true,",
+      "revId": "11ebdae43fc7848e199a7b28632c9920dcc0ddab",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7c906a7_32e1f0ce",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-02-20T14:15:33Z",
+      "side": 1,
+      "message": "See my comments on the interface.",
+      "revId": "11ebdae43fc7848e199a7b28632c9920dcc0ddab",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
