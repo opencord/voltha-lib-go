@@ -136,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "a4ba5009_c6eadd1d",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-21T06:56:25Z",
+      "side": 1,
+      "message": "Here checking not only default loglevel, any unsupported loglevel or component names also and then deleting those from componentLogConfig.",
+      "parentUuid": "3ff83e7d_d9a749e5",
+      "revId": "11ebdae43fc7848e199a7b28632c9920dcc0ddab",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ac4e117_9cfd90a1",
         "filename": "pkg/db/kvstore/client.go",
         "patchSetId": 9
