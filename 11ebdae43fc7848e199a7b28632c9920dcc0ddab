@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "c349b225_827cd655",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-21T05:22:01Z",
+      "side": 1,
+      "message": "Yes this function is goroutine. If it fails it just logs the error and the component will continue.",
+      "parentUuid": "bf61cdc3_3a5e68e7",
+      "revId": "11ebdae43fc7848e199a7b28632c9920dcc0ddab",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04d5fe8c_9959095b",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 9
