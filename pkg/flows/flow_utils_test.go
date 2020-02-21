@@ -37,6 +37,11 @@ func init() {
 	timeoutError = status.Errorf(codes.Aborted, "timeout")
 }
 
+func TestHashFlowStatsNil(t *testing.T) {
+	_, err := HashFlowStats(nil)
+	assert.EqualError(t, err, "hash-flow-stats-nil-flow")
+}
+
 func TestFlowsAndGroups_AddFlow(t *testing.T) {
 	fg := NewFlowsAndGroups()
 	allFlows := fg.ListFlows()
@@ -63,7 +68,8 @@ func TestFlowsAndGroups_AddFlow(t *testing.T) {
 			Output(uint32(ofp.OfpPortNo_OFPP_CONTROLLER)),
 		},
 	}
-	flow := MkFlowStat(fa)
+	flow, err := MkFlowStat(fa)
+	assert.Nil(t, err)
 	fg.AddFlow(flow)
 
 	allFlows = fg.ListFlows()
@@ -115,7 +121,8 @@ func TestFlowsAndGroups_Copy(t *testing.T) {
 			Output(1),
 		},
 	}
-	flow := MkFlowStat(fa)
+	flow, err := MkFlowStat(fa)
+	assert.Nil(t, err)
 	fg.AddFlow(flow)
 
 	ga = &GroupArgs{
@@ -166,7 +173,8 @@ func TestFlowsAndGroups_GetFlow(t *testing.T) {
 			PopVlan(),
 		},
 	}
-	flow1 := MkFlowStat(fa1)
+	flow1, err := MkFlowStat(fa1)
+	assert.Nil(t, err)
 
 	fa2 = &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 1500},
@@ -181,7 +189,8 @@ func TestFlowsAndGroups_GetFlow(t *testing.T) {
 			Output(2),
 		},
 	}
-	flow2 := MkFlowStat(fa2)
+	flow2, err := MkFlowStat(fa2)
+	assert.Nil(t, err)
 
 	fg.AddFlow(flow1)
 	fg.AddFlow(flow2)
@@ -234,7 +243,8 @@ func TestFlowsAndGroups_String(t *testing.T) {
 			Group(10),
 		},
 	}
-	flow := MkFlowStat(fa)
+	flow, err := MkFlowStat(fa)
+	assert.Nil(t, err)
 	fg.AddFlow(flow)
 
 	ga = &GroupArgs{
@@ -281,7 +291,8 @@ func TestFlowsAndGroups_AddFrom(t *testing.T) {
 			Output(1),
 		},
 	}
-	flow := MkFlowStat(fa)
+	flow, err := MkFlowStat(fa)
+	assert.Nil(t, err)
 	fg.AddFlow(flow)
 
 	ga = &GroupArgs{
@@ -335,7 +346,8 @@ func TestDeviceRules_AddFlow(t *testing.T) {
 			Output(1),
 		},
 	}
-	flow := MkFlowStat(fa)
+	flow, err := MkFlowStat(fa)
+	assert.Nil(t, err)
 	dr.AddFlow("123456", flow)
 	rules = dr.GetRules()
 	assert.True(t, len(rules) == 1)
@@ -368,7 +380,8 @@ func TestDeviceRules_AddFlowsAndGroup(t *testing.T) {
 			Output(1),
 		},
 	}
-	flow := MkFlowStat(fa)
+	flow, err := MkFlowStat(fa)
+	assert.Nil(t, err)
 	fg.AddFlow(flow)
 
 	ga = &GroupArgs{
@@ -414,7 +427,8 @@ func TestFlowHasOutPort(t *testing.T) {
 			Output(1),
 		},
 	}
-	flow = MkFlowStat(fa)
+	flow, err := MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.True(t, FlowHasOutPort(flow, 1))
 	assert.False(t, FlowHasOutPort(flow, 2))
 
@@ -425,7 +439,8 @@ func TestFlowHasOutPort(t *testing.T) {
 			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
 		},
 	}
-	flow = MkFlowStat(fa)
+	flow, err = MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.False(t, FlowHasOutPort(flow, 1))
 }
 
@@ -446,7 +461,8 @@ func TestFlowHasOutGroup(t *testing.T) {
 			Group(10),
 		},
 	}
-	flow = MkFlowStat(fa)
+	flow, err := MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.True(t, FlowHasOutGroup(flow, 10))
 	assert.False(t, FlowHasOutGroup(flow, 11))
 
@@ -463,7 +479,8 @@ func TestFlowHasOutGroup(t *testing.T) {
 			Output(1),
 		},
 	}
-	flow = MkFlowStat(fa)
+	flow, err = MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.False(t, FlowHasOutGroup(flow, 1))
 }
 
@@ -482,7 +499,8 @@ func TestMatchFlow(t *testing.T) {
 			Group(10),
 		},
 	}
-	flow1 := MkFlowStat(fa)
+	flow1, err := MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, nil))
 
 	fa = &FlowArgs{
@@ -498,7 +516,8 @@ func TestMatchFlow(t *testing.T) {
 			Group(10),
 		},
 	}
-	flow2 := MkFlowStat(fa)
+	flow2, err := MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, flow2))
 	assert.False(t, FlowMatch(nil, flow2))
 
@@ -512,7 +531,8 @@ func TestMatchFlow(t *testing.T) {
 			Ipv4Dst(0xe00a0a0a),
 		},
 	}
-	flow2 = MkFlowStat(fa)
+	flow2, err = MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.True(t, FlowMatch(flow1, flow2))
 
 	fa = &FlowArgs{
@@ -528,7 +548,8 @@ func TestMatchFlow(t *testing.T) {
 			Group(10),
 		},
 	}
-	flow2 = MkFlowStat(fa)
+	flow2, err = MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, flow2))
 
 	fa = &FlowArgs{
@@ -541,7 +562,8 @@ func TestMatchFlow(t *testing.T) {
 			Ipv4Dst(0xe00a0a0a),
 		},
 	}
-	flow2 = MkFlowStat(fa)
+	flow2, err = MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, flow2))
 
 	fa = &FlowArgs{
@@ -554,7 +576,8 @@ func TestMatchFlow(t *testing.T) {
 			Ipv4Dst(0xe00a0a0a),
 		},
 	}
-	flow2 = MkFlowStat(fa)
+	flow2, err = MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, flow2))
 
 	fa = &FlowArgs{
@@ -567,7 +590,8 @@ func TestMatchFlow(t *testing.T) {
 			Ipv4Dst(0xe00a0a0a),
 		},
 	}
-	flow2 = MkFlowStat(fa)
+	flow2, err = MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, flow2))
 
 	fa = &FlowArgs{
@@ -580,7 +604,8 @@ func TestMatchFlow(t *testing.T) {
 			Ipv4Dst(0xe00a0a0a),
 		},
 	}
-	flow2 = MkFlowStat(fa)
+	flow2, err = MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, flow2))
 
 	fa = &FlowArgs{
@@ -592,7 +617,8 @@ func TestMatchFlow(t *testing.T) {
 			EthType(0x800),
 		},
 	}
-	flow2 = MkFlowStat(fa)
+	flow2, err = MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, flow2))
 
 	fa = &FlowArgs{
@@ -609,7 +635,8 @@ func TestMatchFlow(t *testing.T) {
 			Output(1),
 		},
 	}
-	flow2 = MkFlowStat(fa)
+	flow2, err = MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.True(t, FlowMatch(flow1, flow2))
 }
 
@@ -629,7 +656,8 @@ func TestFlowMatchesMod(t *testing.T) {
 			Group(10),
 		},
 	}
-	flow := MkFlowStat(fa)
+	flow, err := MkFlowStat(fa)
+	assert.Nil(t, err)
 	assert.False(t, FlowMatchesMod(flow, nil))
 
 	fa = &FlowArgs{
@@ -649,7 +677,9 @@ func TestFlowMatchesMod(t *testing.T) {
 	flowMod := MkSimpleFlowMod(ToOfpOxmField(fa.MatchFields), fa.Actions, fa.Command, fa.KV)
 	assert.False(t, FlowMatchesMod(nil, flowMod))
 	assert.False(t, FlowMatchesMod(flow, flowMod))
-	assert.True(t, FlowMatch(flow, FlowStatsEntryFromFlowModMessage(flowMod)))
+	entry, err := FlowStatsEntryFromFlowModMessage(flowMod)
+	assert.Nil(t, err)
+	assert.True(t, FlowMatch(flow, entry))
 
 	fa = &FlowArgs{
 		KV: OfpFlowModArgs{"table_id": uint64(ofp.OfpTable_OFPTT_ALL),
