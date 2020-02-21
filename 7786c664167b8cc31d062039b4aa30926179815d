@@ -106,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "d90082d3_ddc863c8",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000627
+      },
+      "writtenOn": "2020-02-21T06:27:15Z",
+      "side": 1,
+      "message": "watchResp.Key is recieved as type interface but it underlying value is byte .So need to do type cast, using assertion  var.(string) panics the code.",
+      "parentUuid": "ccbf3e71_08c184b3",
+      "revId": "7786c664167b8cc31d062039b4aa30926179815d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c27a303_92d582fe",
         "filename": "pkg/config/configmanager.go",
         "patchSetId": 7
