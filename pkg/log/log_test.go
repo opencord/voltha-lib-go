@@ -17,7 +17,6 @@ package log
 
 import (
 	"github.com/stretchr/testify/assert"
-	"google.golang.org/grpc/grpclog"
 	"testing"
 )
 
@@ -38,7 +37,7 @@ func verifyLogLevel(t *testing.T, minimumLevel int) {
 	SetAllLogLevel(LogLevel(minimumLevel))
 	var success bool
 	for i := 0; i < 5; i++ {
-		success = testLogger.V(i)
+		success = testLogger.V(LogLevel(i))
 		if i == 1 && minimumLevel == 2 {
 			// TODO: Update the test when a new version of Zap logger is available.  It has a bug with that
 			// specific combination
@@ -69,13 +68,6 @@ func TestUpdateLoggers(t *testing.T) {
 	assert.NotNil(t, testLogger)
 }
 
-func TestUseAsGrpcLoggerV2(t *testing.T) {
-	var grpcLogger grpclog.LoggerV2
-	thisLogger, _ := AddPackage(JSON, ErrorLevel, nil)
-	grpcLogger = thisLogger
-	assert.NotNil(t, grpcLogger)
-}
-
 func TestUpdateLogLevel(t *testing.T) {
 	//	Let's create a bunch of logger each with a separate package
 	myLoggers := make(map[string]Logger)
@@ -84,17 +76,17 @@ func TestUpdateLogLevel(t *testing.T) {
 		myLoggers[name], _ = AddPackage(JSON, ErrorLevel, nil, []string{name}...)
 	}
 	//Test updates to log levels
-	levels := []int{0, 1, 2, 3, 4}
+	levels := []LogLevel{DebugLevel, InfoLevel, WarnLevel, ErrorLevel, FatalLevel}
 	for _, expectedLevel := range levels {
 		for _, name := range pkgNames {
-			SetPackageLogLevel(name, LogLevel(expectedLevel))
+			SetPackageLogLevel(name, expectedLevel)
 			l, err := GetPackageLogLevel(name)
 			assert.Nil(t, err)
-			assert.Equal(t, l, LogLevel(expectedLevel))
+			assert.Equal(t, l, expectedLevel)
 			// Get the package log level by invoking the specific logger created for this package
 			// This is a less expensive operation that the GetPackageLogLevel() request
 			level := myLoggers[name].GetLogLevel()
-			assert.Equal(t, level, LogLevel(expectedLevel))
+			assert.Equal(t, level, expectedLevel)
 			// Check the verbosity level
 			for _, level := range levels {
 				toDisplay := myLoggers[name].V(level)
