@@ -108,7 +108,7 @@ type Logger interface {
 	Warningf(string, ...interface{})
 
 	// V reports whether verbosity level l is at least the requested verbose level.
-	V(l int) bool
+	V(l LogLevel) bool
 
 	//Returns the log level of this specific logger
 	GetLogLevel() LogLevel
@@ -643,8 +643,8 @@ func (l logger) Warningf(format string, args ...interface{}) {
 }
 
 // V reports whether verbosity level l is at least the requested verbose level.
-func (l logger) V(level int) bool {
-	return l.parent.Core().Enabled(logLevelToLevel(LogLevel(level)))
+func (l logger) V(level LogLevel) bool {
+	return l.parent.Core().Enabled(logLevelToLevel(level))
 }
 
 // GetLogLevel returns the current level of the logger
@@ -778,7 +778,7 @@ func Warningf(format string, args ...interface{}) {
 }
 
 // V reports whether verbosity level l is at least the requested verbose level.
-func V(level int) bool {
+func V(level LogLevel) bool {
 	return getPackageLevelLogger().V(level)
 }
 
