@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd47ebfe_0cdb36a3",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager_test.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-02-24T18:31:13Z",
+      "side": 1,
+      "message": "Sorry Esin, I believe this should be \u003c\u003d",
+      "range": {
+        "startLine": 173,
+        "startChar": 24,
+        "endLine": 173,
+        "endChar": 26
+      },
+      "revId": "03f1db459f3da6c985c258c2467257e45de94a32",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
