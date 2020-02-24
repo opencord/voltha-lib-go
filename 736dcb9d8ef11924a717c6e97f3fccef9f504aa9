@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c309b1d8_8afc2487",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager_test.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2020-02-24T09:00:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34435c02_c41f931c",
+      "range": {
+        "startLine": 33,
+        "startChar": 24,
+        "endLine": 33,
+        "endChar": 25
+      },
+      "revId": "736dcb9d8ef11924a717c6e97f3fccef9f504aa9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4679d5ef_d2d1f121",
         "filename": "pkg/ponresourcemanager/ponresourcemanager_test.go",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2020-02-21T22:21:28Z",
       "side": 1,
       "message": "i \u003c\u003d endIndex - len(reservedgemportids)",
+      "range": {
+        "startLine": 173,
+        "startChar": 27,
+        "endLine": 173,
+        "endChar": 35
+      },
+      "revId": "736dcb9d8ef11924a717c6e97f3fccef9f504aa9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c73cd2c_190a8aba",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager_test.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2020-02-24T09:00:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4679d5ef_d2d1f121",
       "range": {
         "startLine": 173,
         "startChar": 27,
