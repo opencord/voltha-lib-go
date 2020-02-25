@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "8e7a27b0_0c57753a",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2020-02-25T09:54:53Z",
+      "side": 1,
+      "message": "who will be populating the kvstore with the multicast gem port id ?",
+      "revId": "79890cb7509b966215a9523ae345e546599488b2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e96072e9_f809b275",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2020-02-25T09:54:53Z",
+      "side": 1,
+      "message": "you will have the clear the gemport id from the kv store once the device is deleted",
+      "revId": "79890cb7509b966215a9523ae345e546599488b2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5816745d_48305ed1",
         "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
         "patchSetId": 4
