@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9024acb_0494cf58",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2020-02-25T12:54:40Z",
+      "side": 1,
+      "message": "can we allocate gem port during creating tech profile instance as the gem port id will anyway be available in tech profile.",
+      "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
