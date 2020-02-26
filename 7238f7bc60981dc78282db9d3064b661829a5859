@@ -106,6 +106,24 @@
       "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b70d053_b3958fa2",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2020-02-26T13:31:40Z",
+      "side": 1,
+      "message": "definitely, that is my primary concern. An application can write to the second path I indicated above without needing technology info. If we choose this I need to add one more kvclient to ponresourcemanager. Both decisions have tradeoffs. At this point, I would rather create a second kvclient and using the second path. This can make northbound applications technology agnostic.",
+      "parentUuid": "3aac283f_d5244517",
+      "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
