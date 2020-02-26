@@ -88,6 +88,24 @@
       "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3aac283f_d5244517",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2020-02-26T13:25:40Z",
+      "side": 1,
+      "message": "whichever app is writing to the path should be aware of the technology and it will be a problem with this path.",
+      "parentUuid": "ad289728_8924bda9",
+      "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
