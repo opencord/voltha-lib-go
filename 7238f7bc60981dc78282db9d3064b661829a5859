@@ -34,6 +34,24 @@
       "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26e97705_2063895f",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2020-02-26T13:12:01Z",
+      "side": 1,
+      "message": "According to my approach, reserved gem ports shall be written under the ponresourcemanager\u0027s path on kv store. The exact path is as follows.\n\n\nservice/voltha/resource_manager/{%technology%}/reserved_gemport_ids\n\n\nMy only concern in my approach is that the configuration path should not contain any variable (I mean %technology%). It should look like the following because it is just a configuration and regardless of underlined technology. However, ponresourcemanager\u0027s kvclient can only read from the path above. To make ponresourcemanager to read from the below path, I need to create a new kvclient and it means a new connection for just reading config data. I could not sure whether it is worthy or not.\n\n\nservice/voltha/resource_manager/config/reserved_gemport_ids",
+      "parentUuid": "7320c67a_edbe917b",
+      "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
