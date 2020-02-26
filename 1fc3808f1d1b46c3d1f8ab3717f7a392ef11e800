@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4dbb370e_4337202b",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-26T22:43:59Z",
+      "side": 1,
+      "message": "Can use `if flow.Id, err \u003d HashFlowStats(flow); err !\u003d nil {`",
+      "revId": "1fc3808f1d1b46c3d1f8ab3717f7a392ef11e800",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da800de0_17322918",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-02-26T22:43:59Z",
+      "side": 1,
+      "message": "Can return directly.",
+      "revId": "1fc3808f1d1b46c3d1f8ab3717f7a392ef11e800",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
