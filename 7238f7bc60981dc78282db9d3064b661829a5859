@@ -124,6 +124,24 @@
       "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f1e7aa2_3ec2a9a3",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2020-02-26T13:38:00Z",
+      "side": 1,
+      "message": "It is a trade off as you said, till we come up with a better approach, using a technology agnostic path would be better choice.",
+      "parentUuid": "1b70d053_b3958fa2",
+      "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
