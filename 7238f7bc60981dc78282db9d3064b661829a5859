@@ -52,6 +52,42 @@
       "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad289728_8924bda9",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2020-02-26T13:22:50Z",
+      "side": 1,
+      "message": "some application from the north bound should take responsibility to  write the multicast gemportid to the path ?",
+      "parentUuid": "26e97705_2063895f",
+      "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0c456d3_066371d5",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2020-02-26T13:22:50Z",
+      "side": 1,
+      "message": "correct.",
+      "parentUuid": "7320c67a_edbe917b",
+      "revId": "7238f7bc60981dc78282db9d3064b661829a5859",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
