@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99e13018_7e0a4677",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-02-27T18:51:58Z",
+      "side": 1,
+      "message": "By using Zap\u0027s builtin function (not sure when it was introduced), i presume it would be faster than the custom \"getCallerInfo\".   Can you run a profile on 10M log requests (say log.Debug... with log level set to higher than debug, i.e. no log output) and compare it with using the logger instance returned when we use addPackage....\n\nThis will determine if we can leave the log usage as is or should we migrate to use the logger returned from addPackage.",
+      "revId": "a4ac0b877671466ab16edcfe465232f0d98d4aa9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
