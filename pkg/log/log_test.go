@@ -63,9 +63,8 @@ func TestUpdateAllLoggers(t *testing.T) {
 }
 
 func TestUpdateLoggers(t *testing.T) {
-	testLogger, err := UpdateLogger(Fields{"update": "update"})
+	err := UpdateLogger(Fields{"update": "update"})
 	assert.Nil(t, err)
-	assert.NotNil(t, testLogger)
 }
 
 func TestUpdateLogLevel(t *testing.T) {
