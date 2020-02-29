@@ -52,4 +52,5 @@ type IAdapter interface {
 	Enable_port(deviceId string, port *voltha.Port) error
 	Disable_port(deviceId string, port *voltha.Port) error
 	Child_device_lost(parentDeviceId string, parentPortNo uint32, onuID uint32) error
+	Get_value(deviceId string, device *voltha.Device,onuid *voltha.ID, valueflag *voltha.ValueType) (*voltha.ReturnValues, error)
 }
