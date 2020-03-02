@@ -16,6 +16,24 @@
       "revId": "a4ac0b877671466ab16edcfe465232f0d98d4aa9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8ca135a_3f89f3da",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-03-02T09:31:47Z",
+      "side": 1,
+      "message": "Tested as suggested. Using per package logger is much better; took 7s for 10M calls as compared to 44s taken by using public methods of log package.\n\nSee the details of profile test added in https://jira.opencord.org/browse/VOL-2674",
+      "parentUuid": "99e13018_7e0a4677",
+      "revId": "a4ac0b877671466ab16edcfe465232f0d98d4aa9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
