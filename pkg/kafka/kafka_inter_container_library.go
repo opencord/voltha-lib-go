@@ -30,6 +30,9 @@ import (
 	"github.com/google/uuid"
 	"github.com/opencord/voltha-lib-go/v3/pkg/log"
 	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
+
+	"github.com/opentracing/opentracing-go"
+	"github.com/uber/jaeger-client-go"
 )
 
 const (
@@ -250,6 +253,29 @@ func (kp *interContainerProxy) DeviceDiscovered(deviceId string, deviceType stri
 func (kp *interContainerProxy) InvokeRPC(ctx context.Context, rpc string, toTopic *Topic, replyToTopic *Topic,
 	waitForResponse bool, key string, kvArgs ...*KVArg) (bool, *any.Any) {
 
+	span := opentracing.SpanFromContext(ctx)
+
+	var sp opentracing.Span
+	var parentSpan jaeger.SpanContext
+	if span != nil && rpc == "adopt_device" {
+		parentSpan = span.Context().(jaeger.SpanContext)
+		//Create span based on parent's CTX
+		sp, _ = opentracing.StartSpanFromContext(ctx, rpc+" InvokeRPC-send")
+		sp.SetTag("RPC", rpc)
+		sp.SetTag("Phase", "Send")
+		sp.SetTag("toTopic", toTopic.Name)
+		sp.SetTag("replyToTopic", replyToTopic.Name)
+		// Inject the context information into kvArgs, so the comsumer can create span based on the same parent.
+		spanArgs := make([]*KVArg, 1)
+		protoArg0 := &ic.StrType{Val: parentSpan.String()}
+		spanArgs[0] = &KVArg{
+			Key:   "SpanContext",
+			Value: protoArg0,
+		}
+
+		kvArgs = append(kvArgs, spanArgs...)
+	}
+
 	//	If a replyToTopic is provided then we use it, otherwise just use the  default toTopic.  The replyToTopic is
 	// typically the device ID.
 	responseTopic := replyToTopic
@@ -287,7 +313,19 @@ func (kp *interContainerProxy) InvokeRPC(ctx context.Context, rpc string, toTopi
 		}
 	}()
 
+	if span != nil && rpc == "adopt_device" {
+		sp.Finish()
+	}
 	if waitForResponse {
+		// Create an opentracing span for waiting response
+		if span != nil && rpc == "adopt_device" {
+			sp, _ = opentracing.StartSpanFromContext(ctx, rpc+" InvokeRPC-waitForReply")
+			sp.SetTag("RPC", rpc)
+			sp.SetTag("Phase", "-WaitForResponse")
+			sp.SetTag("toTopic", toTopic.Name)
+			sp.SetTag("replyToTopic", replyToTopic.Name)
+			defer sp.Finish()
+		}
 		// Create a child context based on the parent context, if any
 		var cancel context.CancelFunc
 		childCtx := context.Background()
@@ -358,6 +396,7 @@ func (kp *interContainerProxy) InvokeRPC(ctx context.Context, rpc string, toTopi
 // when a message is received on a given topic
 func (kp *interContainerProxy) SubscribeWithRequestHandlerInterface(topic Topic, handler interface{}) error {
 
+	logger.Infof("hwchiu Register the subscribe", log.Fields{"topic": topic.Name})
 	// Subscribe to receive messages for that topic
 	var ch <-chan *ic.InterContainerMessage
 	var err error
@@ -638,6 +677,7 @@ func CallFuncByName(myClass interface{}, funcName string, params ...interface{})
 	for i, param := range params {
 		in[i] = reflect.ValueOf(param)
 	}
+	log.Infow("hwchiu-functioname", log.Fields{"name": funcName})
 	out = m.Call(in)
 	return
 }
@@ -661,6 +701,26 @@ func (kp *interContainerProxy) addTransactionId(transactionId string, currentArg
 	return append(currentArgs, protoArg)
 }
 
+func (kp *interContainerProxy) addSpan(parentSpan jaeger.SpanContext, currentArgs []*ic.Argument) []*ic.Argument {
+	protoArg0 := &ic.StrType{Val: parentSpan.String()}
+	arg := &KVArg{
+		Key:   "SpanContext",
+		Value: protoArg0,
+	}
+
+	var marshalledArg *any.Any
+	var err error
+	if marshalledArg, err = ptypes.MarshalAny(protoArg0); err != nil {
+		logger.Warnw("cannot-add-span", log.Fields{"error": err})
+		return currentArgs
+	}
+	protoArg := &ic.Argument{
+		Key:   arg.Key,
+		Value: marshalledArg,
+	}
+	return append(currentArgs, protoArg)
+}
+
 func (kp *interContainerProxy) addFromTopic(fromTopic string, currentArgs []*ic.Argument) []*ic.Argument {
 	var marshalledArg *any.Any
 	var err error
@@ -675,8 +735,24 @@ func (kp *interContainerProxy) addFromTopic(fromTopic string, currentArgs []*ic.
 	return append(currentArgs, protoArg)
 }
 
-func (kp *interContainerProxy) handleMessage(msg *ic.InterContainerMessage, targetInterface interface{}) {
+func extractSpanFromArgs(args []*ic.Argument) (jaeger.SpanContext, error) {
+	empty := jaeger.SpanContext{}
+	spanContext := &ic.StrType{}
 
+	for _, arg := range args {
+		switch arg.Key {
+		case "SpanContext":
+			if err := ptypes.UnmarshalAny(arg.Value, spanContext); err != nil {
+				return empty, err
+			}
+			return jaeger.ContextFromString(spanContext.Val)
+		}
+	}
+
+	return empty, fmt.Errorf("span-not-found \"%v\"", args)
+}
+
+func (kp *interContainerProxy) handleMessage(msg *ic.InterContainerMessage, targetInterface interface{}) {
 	// First extract the header to know whether this is a request - responses are handled by a different handler
 	if msg.Header.Type == ic.MessageType_REQUEST {
 		var out []reflect.Value
@@ -687,7 +763,7 @@ func (kp *interContainerProxy) handleMessage(msg *ic.InterContainerMessage, targ
 		if err = ptypes.UnmarshalAny(msg.Body, requestBody); err != nil {
 			logger.Warnw("cannot-unmarshal-request", log.Fields{"error": err})
 		} else {
-			logger.Debugw("received-request", log.Fields{"rpc": requestBody.Rpc, "header": msg.Header})
+			logger.Info("received-request", log.Fields{"rpc": requestBody.Rpc, "header": msg.Header})
 			// let the callee unpack the arguments as its the only one that knows the real proto type
 			// Augment the requestBody with the message Id as it will be used in scenarios where cores
 			// are set in pairs and competing
@@ -697,13 +773,43 @@ func (kp *interContainerProxy) handleMessage(msg *ic.InterContainerMessage, targ
 			// needs to send an unsollicited message to the currently requested container
 			requestBody.Args = kp.addFromTopic(msg.Header.FromTopic, requestBody.Args)
 
+			var span opentracing.Span
+			spCtx, spErr := extractSpanFromArgs(requestBody.Args)
+			if requestBody.Rpc == "adopt_device" {
+				if spErr == nil {
+					span = opentracing.GlobalTracer().StartSpan(requestBody.Rpc+" handleMessage-call", opentracing.ChildOf(spCtx))
+					span.SetTag("InvokeRPC", requestBody.Rpc)
+					span.SetTag("ToTopic", msg.Header.ToTopic)
+					span.SetTag("ReplyTopic", msg.Header.FromTopic)
+
+					// Inject the span to later function.
+					requestBody.Args = kp.addSpan(spCtx, requestBody.Args)
+				} else {
+					log.Infow("hwchiu - error", log.Fields{"err": spErr, "body": requestBody.Args})
+				}
+			}
 			out, err = CallFuncByName(targetInterface, requestBody.Rpc, requestBody.Args)
 			if err != nil {
 				logger.Warn(err)
 			}
+			if requestBody.Rpc == "adopt_device" {
+				if spErr == nil {
+					span.Finish()
+				}
+			}
 		}
 		// Response required?
 		if requestBody.ResponseRequired {
+			if requestBody.Rpc == "adopt_device" {
+
+				spCtx, spErr := extractSpanFromArgs(requestBody.Args)
+				var span opentracing.Span
+				if spErr == nil {
+					span = opentracing.GlobalTracer().StartSpan(requestBody.Rpc+" handleMessage-reployToTopic", opentracing.ChildOf(spCtx))
+					span.SetTag("InvokeRPC", requestBody.Rpc)
+					defer span.Finish()
+				}
+			}
 			// If we already have an error before then just return that
 			var returnError *ic.Error
 			var returnedValues []interface{}

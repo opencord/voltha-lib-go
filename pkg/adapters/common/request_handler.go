@@ -67,6 +67,7 @@ func (rhp *RequestHandlerProxy) Adopt_device(args []*ic.Argument) (*empty.Empty,
 	device := &voltha.Device{}
 	transactionID := &ic.StrType{}
 	fromTopic := &ic.StrType{}
+	tempSpan := &ic.StrType{}
 	for _, arg := range args {
 		switch arg.Key {
 		case "device":
@@ -84,6 +85,11 @@ func (rhp *RequestHandlerProxy) Adopt_device(args []*ic.Argument) (*empty.Empty,
 				logger.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
 				return nil, err
 			}
+		case "SpanContext":
+			if err := ptypes.UnmarshalAny(arg.Value, tempSpan); err != nil {
+				return nil, err
+			}
+			logger.Infow("hwchiu-demo", log.Fields{"span": tempSpan.Val})
 		}
 	}
 
@@ -91,7 +97,7 @@ func (rhp *RequestHandlerProxy) Adopt_device(args []*ic.Argument) (*empty.Empty,
 
 	//Update the core reference for that device
 	rhp.coreProxy.UpdateCoreReference(device.Id, fromTopic.Val)
-
+	device.ExtraArgs = tempSpan.Val
 	//Invoke the adopt device on the adapter
 	if err := rhp.adapter.Adopt_device(device); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
