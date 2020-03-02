@@ -25,6 +25,7 @@ import (
 	"github.com/opencord/voltha-lib-go/v3/pkg/log"
 	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
 	"github.com/opencord/voltha-protos/v3/go/voltha"
+	"github.com/opentracing/opentracing-go"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -108,6 +109,9 @@ func (ap *CoreProxy) RegisterAdapter(ctx context.Context, adapter *voltha.Adapte
 		Value: deviceTypes,
 	}
 
+	span, ctx := opentracing.StartSpanFromContext(ctx, "RegisterAdapter")
+	defer span.Finish()
+
 	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &topic, &replyToTopic, true, "", args...)
 	logger.Debugw("Register-Adapter-response", log.Fields{"replyTopic": replyToTopic, "success": success})
 	return unPackResponse(rpc, "", success, result)
@@ -122,9 +126,13 @@ func (ap *CoreProxy) DeviceUpdate(ctx context.Context, device *voltha.Device) er
 		Key:   "device",
 		Value: device,
 	}
+
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "DeviceUpdate")
+	defer span.Finish()
 	// Use a device specific topic as we are the only adaptercore handling requests for this device
 	replyToTopic := ap.getAdapterTopic()
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, device.Id, args...)
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, device.Id, args...)
 	logger.Debugw("DeviceUpdate-response", log.Fields{"deviceId": device.Id, "success": success})
 	return unPackResponse(rpc, device.Id, success, result)
 }
@@ -145,10 +153,12 @@ func (ap *CoreProxy) PortCreated(ctx context.Context, deviceId string, port *vol
 		Key:   "port",
 		Value: port,
 	}
-
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "PortCreated")
+	defer span.Finish()
 	// Use a device specific topic as we are the only adaptercore handling requests for this device
 	replyToTopic := ap.getAdapterTopic()
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, deviceId, args...)
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, deviceId, args...)
 	logger.Debugw("PortCreated-response", log.Fields{"deviceId": deviceId, "success": success})
 	return unPackResponse(rpc, deviceId, success, result)
 }
@@ -171,10 +181,12 @@ func (ap *CoreProxy) PortsStateUpdate(ctx context.Context, deviceId string, oper
 		Key:   "oper_status",
 		Value: oStatus,
 	}
-
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "PortsStateUpdate")
+	defer span.Finish()
 	// Use a device specific topic as we are the only adaptercore handling requests for this device
 	replyToTopic := ap.getAdapterTopic()
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, deviceId, args...)
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, deviceId, args...)
 	logger.Debugw("PortsStateUpdate-response", log.Fields{"deviceId": deviceId, "success": success})
 	return unPackResponse(rpc, deviceId, success, result)
 }
@@ -192,10 +204,12 @@ func (ap *CoreProxy) DeleteAllPorts(ctx context.Context, deviceId string) error 
 		Key:   "device_id",
 		Value: id,
 	}
-
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "DeleteAllPorts")
+	defer span.Finish()
 	// Use a device specific topic as we are the only adaptercore handling requests for this device
 	replyToTopic := ap.getAdapterTopic()
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, deviceId, args...)
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, deviceId, args...)
 	logger.Debugw("DeleteAllPorts-response", log.Fields{"deviceId": deviceId, "success": success})
 	return unPackResponse(rpc, deviceId, success, result)
 }
@@ -224,9 +238,13 @@ func (ap *CoreProxy) DeviceStateUpdate(ctx context.Context, deviceId string,
 		Key:   "connect_status",
 		Value: cStatus,
 	}
+
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "DeviceStateUpdate")
+	defer span.Finish()
 	// Use a device specific topic as we are the only adaptercore handling requests for this device
 	replyToTopic := ap.getAdapterTopic()
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, deviceId, args...)
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, deviceId, args...)
 	logger.Debugw("DeviceStateUpdate-response", log.Fields{"deviceId": deviceId, "success": success})
 	return unPackResponse(rpc, deviceId, success, result)
 }
@@ -276,8 +294,10 @@ func (ap *CoreProxy) ChildDeviceDetected(ctx context.Context, parentDeviceId str
 		Key:   "onu_id",
 		Value: oId,
 	}
-
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "ChildDeviceDetected")
+	defer span.Finish()
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
 	logger.Debugw("ChildDeviceDetected-response", log.Fields{"pDeviceId": parentDeviceId, "success": success})
 
 	if success {
@@ -314,8 +334,10 @@ func (ap *CoreProxy) ChildDevicesLost(ctx context.Context, parentDeviceId string
 		Key:   "parent_device_id",
 		Value: id,
 	}
-
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "ChildDevicesLost")
+	defer span.Finish()
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
 	logger.Debugw("ChildDevicesLost-response", log.Fields{"pDeviceId": parentDeviceId, "success": success})
 	return unPackResponse(rpc, parentDeviceId, success, result)
 }
@@ -334,8 +356,10 @@ func (ap *CoreProxy) ChildDevicesDetected(ctx context.Context, parentDeviceId st
 		Key:   "parent_device_id",
 		Value: id,
 	}
-
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "ChildDevicesDetected")
+	defer span.Finish()
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
 	logger.Debugw("ChildDevicesDetected-response", log.Fields{"pDeviceId": parentDeviceId, "success": success})
 	return unPackResponse(rpc, parentDeviceId, success, result)
 }
@@ -353,8 +377,10 @@ func (ap *CoreProxy) GetDevice(ctx context.Context, parentDeviceId string, devic
 		Key:   "device_id",
 		Value: id,
 	}
-
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "GetDevice")
+	defer span.Finish()
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
 	logger.Debugw("GetDevice-response", log.Fields{"pDeviceId": parentDeviceId, "success": success})
 
 	if success {
@@ -413,8 +439,10 @@ func (ap *CoreProxy) GetChildDevice(ctx context.Context, parentDeviceId string, 
 			}
 		}
 	}
-
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "GetChildDevice")
+	defer span.Finish()
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
 	logger.Debugw("GetChildDevice-response", log.Fields{"pDeviceId": parentDeviceId, "success": success})
 
 	if success {
@@ -449,8 +477,10 @@ func (ap *CoreProxy) GetChildDevices(ctx context.Context, parentDeviceId string)
 		Key:   "device_id",
 		Value: id,
 	}
-
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "GetChildDevices")
+	defer span.Finish()
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
 	logger.Debugw("GetChildDevices-response", log.Fields{"pDeviceId": parentDeviceId, "success": success})
 
 	if success {
@@ -496,7 +526,10 @@ func (ap *CoreProxy) SendPacketIn(ctx context.Context, deviceId string, port uin
 		Key:   "packet",
 		Value: pkt,
 	}
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, deviceId, args...)
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "SendPacketIn")
+	defer span.Finish()
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, deviceId, args...)
 	logger.Debugw("SendPacketIn-response", log.Fields{"pDeviceId": deviceId, "success": success})
 	return unPackResponse(rpc, deviceId, success, result)
 }
@@ -520,7 +553,12 @@ func (ap *CoreProxy) DeviceReasonUpdate(ctx context.Context, deviceId string, de
 		Key:   "device_reason",
 		Value: reason,
 	}
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, deviceId, args...)
+
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "DeviceReasonUpdate")
+	defer span.Finish()
+
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, deviceId, args...)
 	logger.Debugw("DeviceReason-response", log.Fields{"pDeviceId": deviceId, "success": success})
 	return unPackResponse(rpc, deviceId, success, result)
 }
@@ -538,7 +576,11 @@ func (ap *CoreProxy) DevicePMConfigUpdate(ctx context.Context, pmConfigs *voltha
 		Key:   "device_pm_config",
 		Value: pmConfigs,
 	}
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, pmConfigs.Id, args...)
+
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "DevicePMConfigUpdate")
+	defer span.Finish()
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, pmConfigs.Id, args...)
 	logger.Debugw("DevicePMConfigUpdate-response", log.Fields{"pDeviceId": pmConfigs.Id, "success": success})
 	return unPackResponse(rpc, pmConfigs.Id, success, result)
 }
@@ -554,8 +596,10 @@ func (ap *CoreProxy) ReconcileChildDevices(ctx context.Context, parentDeviceId s
 	args := []*kafka.KVArg{
 		{Key: "parent_device_id", Value: &voltha.ID{Id: parentDeviceId}},
 	}
-
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "ReconcileChildDevices")
+	defer span.Finish()
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, parentDeviceId, args...)
 	logger.Debugw("ReconcileChildDevices-response", log.Fields{"pDeviceId": parentDeviceId, "success": success})
 	return unPackResponse(rpc, parentDeviceId, success, result)
 }
@@ -589,10 +633,12 @@ func (ap *CoreProxy) PortStateUpdate(ctx context.Context, deviceId string, pType
 		Key:   "port_no",
 		Value: portNo,
 	}
-
+	ctx = context.Background()
+	span, ctx := opentracing.StartSpanFromContext(ctx, "PortStateUpdate")
+	defer span.Finish()
 	// Use a device specific topic as we are the only adaptercore handling requests for this device
 	replyToTopic := ap.getAdapterTopic()
-	success, result := ap.kafkaICProxy.InvokeRPC(context.Background(), rpc, &toTopic, &replyToTopic, true, deviceId, args...)
+	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &toTopic, &replyToTopic, true, deviceId, args...)
 	logger.Debugw("PortStateUpdate-response", log.Fields{"deviceId": deviceId, "success": success})
 	return unPackResponse(rpc, deviceId, success, result)
 }
