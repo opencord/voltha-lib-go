@@ -799,7 +799,7 @@ func (kp *interContainerProxy) subscribeForResponse(topic Topic, trnsId string) 
 
 	// Create a specific channel for this consumers.  We cannot use the channel from the kafkaclient as it will
 	// broadcast any message for this topic to all channels waiting on it.
-	ch := make(chan *ic.InterContainerMessage)
+	ch := make(chan *ic.InterContainerMessage, 1)
 	kp.addToTransactionIdToChannelMap(trnsId, &topic, ch)
 
 	return ch, nil
