@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff381090_78f422f3",
+        "filename": "VERSION",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-03-04T16:36:44Z",
+      "side": 1,
+      "message": "No need to bump version if it\u0027s staying as \"-dev\"",
+      "revId": "c280c292e2e98664cecd5670aa4193aca1c14d85",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "787352c2_50b8d38b",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-03-04T16:36:44Z",
+      "side": 1,
+      "message": "please handle error (check \u0026 panic is probably reasonable, but it shouldn\u0027t be ignored).",
+      "revId": "c280c292e2e98664cecd5670aa4193aca1c14d85",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa144751_28e40e23",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-03-04T16:36:44Z",
+      "side": 1,
+      "message": "no need to log if returning the error; can reduce to \"debug\" level",
+      "revId": "c280c292e2e98664cecd5670aa4193aca1c14d85",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
