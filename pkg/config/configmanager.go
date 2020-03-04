@@ -17,12 +17,17 @@ package config
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/opencord/voltha-lib-go/v3/pkg/db"
 	"github.com/opencord/voltha-lib-go/v3/pkg/db/kvstore"
 	"github.com/opencord/voltha-lib-go/v3/pkg/log"
 	"strings"
 )
+
+func init() {
+	_, _ = log.AddPackage(log.JSON, log.DebugLevel, nil)
+}
 
 const (
 	defaultkvStoreConfigPath = "config"
@@ -100,6 +105,36 @@ func NewConfigManager(kvClient kvstore.Client, kvStoreType, kvStoreHost string, 
 			PathPrefix: kvStoreDataPathPrefix,
 		},
 	}
+}
+
+// RetrieveComponentList list the component Names for which loglevel is stored in kvstore
+func (c *ConfigManager) RetrieveComponentList(ctx context.Context, configType ConfigType) ([]string, error) {
+	data, err := c.backend.List(ctx, c.KvStoreConfigPrefix)
+	if err != nil {
+		log.Errorw("unable-to-get-data-from-backend", log.Fields{"error": err})
+		return nil, err
+	}
+
+	// Looping through the data recieved from the backend for config
+	// Trimming and Splitting the required key and value from data and  storing as componentName,PackageName and Level
+	// For Example, recieved key would be <Backend Prefix Path>/<Config Prefix>/<Component Name>/<Config Type>/default and value \"DEBUG\"
+	// Then in default will be stored as PackageName,componentName as <Component Name> and DEBUG will be stored as value in List struct
+	ccPathPrefix := kvStorePathSeparator + configType.String() + kvStorePathSeparator
+	pathPrefix := kvStoreDataPathPrefix + kvStorePathSeparator + c.KvStoreConfigPrefix + kvStorePathSeparator
+	var list []string
+	keys := make(map[string]interface{})
+	for attr, _ := range data {
+		cname := strings.TrimPrefix(attr, pathPrefix)
+		cName := strings.SplitN(cname, ccPathPrefix, 2)
+		if len(cName) != 2 {
+			continue
+		}
+		if _, exist := keys[cName[0]]; !exist {
+			keys[cName[0]] = nil
+			list = append(list, cName[0])
+		}
+	}
+	return list, nil
 }
 
 // Initialize the component config
@@ -190,19 +225,24 @@ func (c *ComponentConfig) RetrieveAll(ctx context.Context) (map[string]string, e
 	return res, nil
 }
 
-func (c *ComponentConfig) Save(configKey string, configValue string, ctx context.Context) error {
+func (c *ComponentConfig) Save(ctx context.Context, configKey string, configValue string) error {
 	key := c.makeConfigPath() + "/" + configKey
 
 	log.Debugw("saving-key", log.Fields{"key": key, "value": configValue})
 
+	configVal, err := json.Marshal(configValue)
+	if err != nil {
+		return err
+	}
+
 	//save the data for update config
-	if err := c.cManager.backend.Put(ctx, key, configValue); err != nil {
+	if err := c.cManager.backend.Put(ctx, key, configVal); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *ComponentConfig) Delete(configKey string, ctx context.Context) error {
+func (c *ComponentConfig) Delete(ctx context.Context, configKey string) error {
 	//construct key using makeConfigPath
 	key := c.makeConfigPath() + "/" + configKey
 
