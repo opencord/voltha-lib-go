@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "96700f44_56782e30",
+        "filename": "pkg/adapters/adapterif/core_proxy_if.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-05T19:03:29Z",
+      "side": 1,
+      "message": "This came from running \"go fmt\" unnecessary but unharmful",
+      "parentUuid": "0a970a75_6a332733",
+      "revId": "4adf9d3eebb9de3366645e96dc595ce8585ea192",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc52e14a_d0aa522e",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2020-03-05T18:14:59Z",
       "side": 1,
       "message": "Consider moving this outside the if to avoid multiple unlocks.",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 41
+      },
+      "revId": "4adf9d3eebb9de3366645e96dc595ce8585ea192",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d643f3df_473ca615",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-05T19:03:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc52e14a_d0aa522e",
       "range": {
         "startLine": 122,
         "startChar": 4,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "5241f94b_806354e6",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-05T19:03:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e474d44_03e2cd78",
+      "range": {
+        "startLine": 283,
+        "startChar": 4,
+        "endLine": 283,
+        "endChar": 40
+      },
+      "revId": "4adf9d3eebb9de3366645e96dc595ce8585ea192",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cddf5bc_fe2f35a2",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 4
@@ -76,6 +142,24 @@
       "writtenOn": "2020-03-05T18:14:59Z",
       "side": 1,
       "message": "Need an unlock before returning.",
+      "revId": "4adf9d3eebb9de3366645e96dc595ce8585ea192",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9be526d2_6f53d13c",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-05T19:03:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cddf5bc_fe2f35a2",
       "revId": "4adf9d3eebb9de3366645e96dc595ce8585ea192",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "7c372242_2cb1497f",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-05T19:03:29Z",
+      "side": 1,
+      "message": "I\u0027m fine with refactoring this but I\u0027d like to have some unit tests covering it first",
+      "parentUuid": "b1f31a90_a865bf9c",
+      "revId": "4adf9d3eebb9de3366645e96dc595ce8585ea192",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "083e58cc_fab46aef",
         "filename": "pkg/kafka/utils.go",
         "patchSetId": 4
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "1a366cc2_39c420b3",
+        "filename": "pkg/kafka/utils.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-05T19:03:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "083e58cc_fab46aef",
+      "revId": "4adf9d3eebb9de3366645e96dc595ce8585ea192",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb31a4a4_20884f82",
         "filename": "pkg/kafka/utils.go",
         "patchSetId": 4
@@ -127,6 +247,24 @@
       "writtenOn": "2020-03-05T18:14:59Z",
       "side": 1,
       "message": "Consider defining a custom type for MType, rather than raw int.\n\n`type messageType int`",
+      "revId": "4adf9d3eebb9de3366645e96dc595ce8585ea192",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24c57334_a5b97184",
+        "filename": "pkg/kafka/utils.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-05T19:03:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb31a4a4_20884f82",
       "revId": "4adf9d3eebb9de3366645e96dc595ce8585ea192",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
