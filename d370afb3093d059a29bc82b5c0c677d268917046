@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1807ecf1_3efd89be",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-06T18:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4883a36d_4d569058",
+      "revId": "d370afb3093d059a29bc82b5c0c677d268917046",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "709d4340_3d8a5371",
         "filename": "pkg/kafka/kafka_inter_container_library.go",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2020-03-06T18:39:49Z",
       "side": 1,
       "message": "missing an error response over the chnl",
+      "revId": "d370afb3093d059a29bc82b5c0c677d268917046",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b03a00b_55c80383",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-06T18:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "709d4340_3d8a5371",
       "revId": "d370afb3093d059a29bc82b5c0c677d268917046",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
