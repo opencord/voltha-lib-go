@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "406a9edc_8a83db1d",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-06T13:38:01Z",
+      "side": 1,
+      "message": "Since this lock is now used to lock the keyReservations then in this scenario it\u0027s better to use the RLock().   Also may be more readable if the name is changed from writeLock to keyReservationsLock.",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "687a90a8_a201124f",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-06T13:38:01Z",
+      "side": 1,
+      "message": "Can remove commented code",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd9bdafd_496a9ef6",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-06T13:38:01Z",
+      "side": 1,
+      "message": "Same comment, use RLock",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b446f227_61088380",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-06T13:38:01Z",
+      "side": 1,
+      "message": "These are not needed here",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac50a702_fac5a8e4",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-06T13:38:01Z",
+      "side": 1,
+      "message": "No need to have the Lock here.",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "06f03587_fbef896b",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-06T13:38:01Z",
+      "side": 1,
+      "message": "I would set the default timeout to a minute (or higher).  If a caller does not specify a timeout in the context (in the older invokeRPC) then we will wait as long as we possibly can for a response.   This is mostly relevant in load condition.",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc1e4f2e_725f8ce1",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-06T13:38:01Z",
+      "side": 1,
+      "message": "missing a return",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c91ac418_857581c1",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-06T13:38:01Z",
+      "side": 1,
+      "message": "Can chnl be nil?",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fe3e636_f797af2e",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-06T13:38:01Z",
+      "side": 1,
+      "message": "Need to send a failed response and close the channel.",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e81c0e25_de1aa80c",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-06T13:38:01Z",
+      "side": 1,
+      "message": "Would be be helpful to have a defer at the beginning of this go routine that closes chnl and not having to close the chnl in many places?",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
