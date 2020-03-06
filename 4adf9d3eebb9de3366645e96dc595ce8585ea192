@@ -201,6 +201,24 @@
     },
     {
       "key": {
+        "uuid": "1c95f01e_b31ab4a7",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-03-06T01:00:00Z",
+      "side": 1,
+      "message": "Since this function is new, it could just internally call InvokeRPC(), could it not?",
+      "parentUuid": "7c372242_2cb1497f",
+      "revId": "4adf9d3eebb9de3366645e96dc595ce8585ea192",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "083e58cc_fab46aef",
         "filename": "pkg/kafka/utils.go",
         "patchSetId": 4
