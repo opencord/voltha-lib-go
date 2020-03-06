@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6bcf4003_ffbc4aa7",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-06T18:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "406a9edc_8a83db1d",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "687a90a8_a201124f",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2020-03-06T13:38:01Z",
       "side": 1,
       "message": "Can remove commented code",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c916337c_371e99bd",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-06T18:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "687a90a8_a201124f",
       "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a9dda063_7d0c3527",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-06T18:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd9bdafd_496a9ef6",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b446f227_61088380",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2020-03-06T13:38:01Z",
       "side": 1,
       "message": "These are not needed here",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e19f38a_a5a9ca2b",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-06T18:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b446f227_61088380",
       "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "27911e9f_41d64480",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-06T18:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac50a702_fac5a8e4",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06f03587_fbef896b",
         "filename": "pkg/kafka/kafka_inter_container_library.go",
         "patchSetId": 5
@@ -98,6 +188,24 @@
       "writtenOn": "2020-03-06T13:38:01Z",
       "side": 1,
       "message": "I would set the default timeout to a minute (or higher).  If a caller does not specify a timeout in the context (in the older invokeRPC) then we will wait as long as we possibly can for a response.   This is mostly relevant in load condition.",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "177106d9_8d898f70",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-06T18:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06f03587_fbef896b",
       "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "06fbac4d_e5aac2f9",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-06T18:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc1e4f2e_725f8ce1",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c91ac418_857581c1",
         "filename": "pkg/kafka/kafka_inter_container_library.go",
         "patchSetId": 5
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "51915777_921180ef",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-06T18:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c91ac418_857581c1",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fe3e636_f797af2e",
         "filename": "pkg/kafka/kafka_inter_container_library.go",
         "patchSetId": 5
@@ -149,6 +293,24 @@
       "writtenOn": "2020-03-06T13:38:01Z",
       "side": 1,
       "message": "Need to send a failed response and close the channel.",
+      "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cca147bd_4e1d39c0",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-06T18:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fe3e636_f797af2e",
       "revId": "5a8b4785c29beba7a97bf8bb63bdd5f273ef10b9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
