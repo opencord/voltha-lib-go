@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4985716b_f3dff366",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-03-07T00:05:56Z",
+      "side": 1,
+      "message": "This scream of a WAG for a timing issue. I.e we don\u0027t know how long, make it big and lets hope.\n\nAlso, it is listed as a default, can it be overridden? If not, it is not a default it is a defacto standard.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 86
+      },
+      "revId": "958ef42d4389d87dc0ee4df4772e6e48e6cc5da6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
