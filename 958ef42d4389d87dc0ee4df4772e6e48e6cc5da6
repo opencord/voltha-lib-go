@@ -22,6 +22,30 @@
       "revId": "958ef42d4389d87dc0ee4df4772e6e48e6cc5da6",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e41863f8_d98227d6",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-07T02:48:06Z",
+      "side": 1,
+      "message": "The async RPC does not use the timeout, it uses a context instead.   Only the non-async RPC uses  it.   I agree that we should remove it and forces the caller to provide a context with the timeout of their choice.  This will require some changes in the adapters as i don\u0027t think they are ready to move to the async API yet.",
+      "parentUuid": "4985716b_f3dff366",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 86
+      },
+      "revId": "958ef42d4389d87dc0ee4df4772e6e48e6cc5da6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
