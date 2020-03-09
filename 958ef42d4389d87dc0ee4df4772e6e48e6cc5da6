@@ -70,6 +70,30 @@
       "revId": "958ef42d4389d87dc0ee4df4772e6e48e6cc5da6",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1fee19f_9b9e7e39",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-03-09T17:03:30Z",
+      "side": 1,
+      "message": "I agree with Khen that ultimately the timeout should be passed from the caller, but that is an involved API change, on an API that we are looking at deprecating in favor of the async API anyway. I\u0027m not opposed to this increased timeout, as 10s does seem short given our current performance observations.",
+      "parentUuid": "d4841701_d56706b7",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 86
+      },
+      "revId": "958ef42d4389d87dc0ee4df4772e6e48e6cc5da6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
