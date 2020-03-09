@@ -46,6 +46,30 @@
       "revId": "958ef42d4389d87dc0ee4df4772e6e48e6cc5da6",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4841701_d56706b7",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-09T16:16:03Z",
+      "side": 1,
+      "message": "If we believe it\u0027s better to restore the original value of 10s I\u0027ll revert this change",
+      "parentUuid": "e41863f8_d98227d6",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 86
+      },
+      "revId": "958ef42d4389d87dc0ee4df4772e6e48e6cc5da6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
