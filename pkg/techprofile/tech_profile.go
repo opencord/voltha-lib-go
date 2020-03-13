@@ -241,6 +241,134 @@ type TechProfile struct {
 	DownstreamGemPortAttributeList []iGemPortAttribute `json:"downstream_gem_port_attribute_list"`
 }
 
+// struct for EPON
+type QThresholds struct {
+	QThreshold1 uint32 `json:"q_threshold1"`
+	QThreshold2 uint32 `json:"q_threshold2"`
+	QThreshold3 uint32 `json:"q_threshold3"`
+	QThreshold4 uint32 `json:"q_threshold4"`
+	QThreshold5 uint32 `json:"q_threshold5"`
+	QThreshold6 uint32 `json:"q_threshold6"`
+	QThreshold7 uint32 `json:"q_threshold7"`
+}
+
+// Struct for EPON
+type UpstreamQueueAttribute struct {
+	MaxQueueSize              string        `json:"max_q_size"`
+	PbitMap                   string        `json:"pbit_map"`
+	AesEncryption             string        `json:"aes_encryption"`
+	TrafficType               string        `json:"traffic_type"`
+	UnsolicitedGrantSize      uint32        `json:"unsolicited_grant_size"`
+	NominalInterval           uint32        `json:"nominal_interval"`
+	ToleratedPollJitter       uint32        `json:"tolerated_poll_jitter"`
+	RequestTransmissionPolicy uint32        `json:"request_transmission_policy"`
+	NumQueueSet               uint32        `json:"num_q_sets"`
+	QThresholds               QThresholds   `json:"q_thresholds"`
+	SchedulingPolicy          string        `json:"scheduling_policy"`
+	PriorityQueue             uint32        `json:"priority_q"`
+	Weight                    uint32        `json:"weight"`
+	DiscardPolicy             string        `json:"discard_policy"`
+	DiscardConfig             DiscardConfig `json:"discard_config"`
+}
+
+// Default EPON constants
+const (
+	defaultPakageType = "B"
+)
+const (
+	defaultTrafficType               = "BE"
+	defaultUnsolicitedGrantSize      = 0
+	defaultNominalInterval           = 0
+	defaultToleratedPollJitter       = 0
+	defaultRequestTransmissionPolicy = 0
+	defaultNumQueueSet               = 2
+)
+const (
+	defaultQThreshold1 = 5500
+	defaultQThreshold2 = 0
+	defaultQThreshold3 = 0
+	defaultQThreshold4 = 0
+	defaultQThreshold5 = 0
+	defaultQThreshold6 = 0
+	defaultQThreshold7 = 0
+)
+
+// Struct for EPON
+type DownstreamQueueAttribute struct {
+	MaxQueueSize     string        `json:"max_q_size"`
+	PbitMap          string        `json:"pbit_map"`
+	AesEncryption    string        `json:"aes_encryption"`
+	SchedulingPolicy string        `json:"scheduling_policy"`
+	PriorityQueue    uint32        `json:"priority_q"`
+	Weight           uint32        `json:"weight"`
+	DiscardPolicy    string        `json:"discard_policy"`
+	DiscardConfig    DiscardConfig `json:"discard_config"`
+}
+
+// Struct for EPON
+type iUpstreamQueueAttribute struct {
+	GemportID                 uint32        `json:"q_id"`
+	MaxQueueSize              string        `json:"max_q_size"`
+	PbitMap                   string        `json:"pbit_map"`
+	AesEncryption             string        `json:"aes_encryption"`
+	TrafficType               string        `json:"traffic_type"`
+	UnsolicitedGrantSize      uint32        `json:"unsolicited_grant_size"`
+	NominalInterval           uint32        `json:"nominal_interval"`
+	ToleratedPollJitter       uint32        `json:"tolerated_poll_jitter"`
+	RequestTransmissionPolicy uint32        `json:"request_transmission_policy"`
+	NumQueueSet               uint32        `json:"num_q_sets"`
+	QThresholds               QThresholds   `json:"q_thresholds"`
+	SchedulingPolicy          string        `json:"scheduling_policy"`
+	PriorityQueue             uint32        `json:"priority_q"`
+	Weight                    uint32        `json:"weight"`
+	DiscardPolicy             string        `json:"discard_policy"`
+	DiscardConfig             DiscardConfig `json:"discard_config"`
+}
+
+// Struct for EPON
+type iDownstreamQueueAttribute struct {
+	GemportID        uint32        `json:"q_id"`
+	MaxQueueSize     string        `json:"max_q_size"`
+	PbitMap          string        `json:"pbit_map"`
+	AesEncryption    string        `json:"aes_encryption"`
+	SchedulingPolicy string        `json:"scheduling_policy"`
+	PriorityQueue    uint32        `json:"priority_q"`
+	Weight           uint32        `json:"weight"`
+	DiscardPolicy    string        `json:"discard_policy"`
+	DiscardConfig    DiscardConfig `json:"discard_config"`
+}
+
+// Struct for EPON
+type EponAttribute struct {
+	PakageType string `json:"pakage_type"`
+}
+
+// Struct for EPON
+type DefaultEponProfile struct {
+	Name                         string                     `json:"name"`
+	ProfileType                  string                     `json:"profile_type"`
+	Version                      int                        `json:"version"`
+	NumGemPorts                  uint32                     `json:"num_gem_ports"`
+	InstanceCtrl                 InstanceControl            `json:"instance_control"`
+	EponAttribute                EponAttribute              `json:"epon_attribute"`
+	UpstreamQueueAttributeList   []UpstreamQueueAttribute   `json:"upstream_queue_attribute_list"`
+	DownstreamQueueAttributeList []DownstreamQueueAttribute `json:"downstream_queue_attribute_list"`
+}
+
+// Struct for EPON
+type EponProfile struct {
+	Name                         string                      `json:"name"`
+	SubscriberIdentifier         string                      `json:"subscriber_identifier"`
+	ProfileType                  string                      `json:"profile_type"`
+	Version                      int                         `json:"version"`
+	NumGemPorts                  uint32                      `json:"num_gem_ports"`
+	InstanceCtrl                 InstanceControl             `json:"instance_control"`
+	EponAttribute                EponAttribute               `json:"epon_attribute"`
+	AllocID                      uint32                      `json:"llid"`
+	UpstreamQueueAttributeList   []iUpstreamQueueAttribute   `json:"upstream_queue_attribute_list"`
+	DownstreamQueueAttributeList []iDownstreamQueueAttribute `json:"downstream_queue_attribute_list"`
+}
+
 func (t *TechProfileMgr) SetKVClient() *db.Backend {
 	addr := t.config.KVStoreHost + ":" + strconv.Itoa(t.config.KVStorePort)
 	kvClient, err := newKVClient(t.config.KVStoreType, addr, t.config.KVStoreTimeout)
@@ -321,6 +449,30 @@ func (t *TechProfileMgr) GetTPInstanceFromKVStore(ctx context.Context, techProfi
 	return nil, err
 }
 
+// Function for EPON
+func (t *TechProfileMgr) GetEponTPInstanceFromKVStore(ctx context.Context, techProfiletblID uint32, path string) (*EponProfile, error) {
+	var KvTpIns EponProfile
+	var resPtr *EponProfile = &KvTpIns
+	var err error
+	var kvResult *kvstore.KVPair
+
+	kvResult, _ = t.config.KVBackend.Get(ctx, path)
+	if kvResult == nil {
+		log.Infow("tp-instance-not-found-on-kv", log.Fields{"key": path})
+		return nil, nil
+	} else {
+		if value, err := kvstore.ToByte(kvResult.Value); err == nil {
+			if err = json.Unmarshal(value, resPtr); err != nil {
+				log.Errorw("error-unmarshal-kv-result", log.Fields{"key": path, "value": value})
+				return nil, errors.New("error-unmarshal-kv-result")
+			} else {
+				return resPtr, nil
+			}
+		}
+	}
+	return nil, err
+}
+
 func (t *TechProfileMgr) addTechProfInstanceToKVStore(ctx context.Context, techProfiletblID uint32, uniPortName string, tpInstance *TechProfile) error {
 	path := t.GetTechProfileInstanceKVPath(techProfiletblID, uniPortName)
 	log.Debugw("Adding techprof instance to kvstore", log.Fields{"key": path, "tpinstance": tpInstance})
@@ -334,8 +486,49 @@ func (t *TechProfileMgr) addTechProfInstanceToKVStore(ctx context.Context, techP
 	}
 	return err
 }
+
+// Function for EPON
+func (t *TechProfileMgr) addEponProfInstanceToKVStore(ctx context.Context, techProfiletblID uint32, uniPortName string, tpInstance *EponProfile) error {
+	path := t.GetTechProfileInstanceKVPath(techProfiletblID, uniPortName)
+	log.Debugw("Adding techprof instance to kvstore", log.Fields{"key": path, "tpinstance": tpInstance})
+	tpInstanceJson, err := json.Marshal(*tpInstance)
+	if err == nil {
+		// Backend will convert JSON byte array into string format
+		log.Debugw("Storing tech profile instance to KV Store", log.Fields{"key": path, "val": tpInstanceJson})
+		err = t.config.KVBackend.Put(ctx, path, tpInstanceJson)
+	} else {
+		log.Errorw("Error in marshaling into Json format", log.Fields{"key": path, "tpinstance": tpInstance})
+	}
+	return err
+}
+
 func (t *TechProfileMgr) getTPFromKVStore(ctx context.Context, techProfiletblID uint32) *DefaultTechProfile {
 	var kvtechprofile DefaultTechProfile
+	key := fmt.Sprintf(t.config.TPFileKVPath, t.resourceMgr.GetTechnology(), techProfiletblID)
+	log.Debugw("Getting techprofile from KV store", log.Fields{"techProfiletblID": techProfiletblID, "Key": key})
+	kvresult, err := t.config.KVBackend.Get(ctx, key)
+	if err != nil {
+		log.Errorw("Error while fetching value from KV store", log.Fields{"key": key})
+		return nil
+	}
+	if kvresult != nil {
+		/* Backend will return Value in string format,needs to be converted to []byte before unmarshal*/
+		if value, err := kvstore.ToByte(kvresult.Value); err == nil {
+			if err = json.Unmarshal(value, &kvtechprofile); err != nil {
+				log.Errorw("Error unmarshaling techprofile fetched from KV store", log.Fields{"techProfiletblID": techProfiletblID, "error": err, "techprofile_json": value})
+				return nil
+			}
+
+			log.Debugw("Success fetched techprofile from KV store", log.Fields{"techProfiletblID": techProfiletblID, "value": kvtechprofile})
+			return &kvtechprofile
+		}
+	}
+	return nil
+}
+
+// Function for EPON
+func (t *TechProfileMgr) getEponTPFromKVStore(ctx context.Context, techProfiletblID uint32) *DefaultEponProfile {
+	var kvtechprofile DefaultEponProfile
 	key := fmt.Sprintf(t.config.TPFileKVPath, t.resourceMgr.GetTechnology(), techProfiletblID)
 	log.Debugw("Getting techprofile from KV store", log.Fields{"techProfiletblID": techProfiletblID, "Key": key})
 	kvresult, err := t.config.KVBackend.Get(ctx, key)
@@ -386,6 +579,43 @@ func (t *TechProfileMgr) CreateTechProfInstance(ctx context.Context, techProfile
 		return nil, errors.New("tp-intance-allocation-failed")
 	}
 	if err := t.addTechProfInstanceToKVStore(ctx, techProfiletblID, uniPortName, tpInstance); err != nil {
+		log.Errorw("error-adding-tp-to-kv-store", log.Fields{"tableid": techProfiletblID, "uni": uniPortName})
+		return nil, errors.New("error-adding-tp-to-kv-store")
+	}
+	log.Infow("tp-added-to-kv-store-successfully",
+		log.Fields{"tpid": techProfiletblID, "uni": uniPortName, "intfId": intfId})
+	return tpInstance, nil
+}
+
+// Function for EPON
+func (t *TechProfileMgr) CreateEponProfInstance(ctx context.Context, techProfiletblID uint32, uniPortName string, intfId uint32) (*EponProfile, error) {
+	var tpInstance *EponProfile
+	log.Infow("creating-tp-instance", log.Fields{"tableid": techProfiletblID, "uni": uniPortName, "intId": intfId})
+
+	// Make sure the uniPortName is as per format pon-{[0-9]+}/onu-{[0-9]+}/uni-{[0-9]+}
+	if !uniPortNameFormat.Match([]byte(uniPortName)) {
+		log.Errorw("uni-port-name-not-confirming-to-format", log.Fields{"uniPortName": uniPortName})
+		return nil, errors.New("uni-port-name-not-confirming-to-format")
+	}
+
+	tp := t.getEponTPFromKVStore(ctx, techProfiletblID)
+	if tp != nil {
+		if err := t.validateInstanceControlAttr(tp.InstanceCtrl); err != nil {
+			log.Error("invalid-instance-ctrl-attr--using-default-tp")
+			tp = t.getDefaultEponProfile()
+		} else {
+			log.Infow("using-specified-tp-from-kv-store", log.Fields{"tpid": techProfiletblID})
+		}
+	} else {
+		log.Info("tp-not-found-on-kv--creating-default-tp")
+		tp = t.getDefaultEponProfile()
+	}
+	tpInstancePath := t.GetTechProfileInstanceKVPath(techProfiletblID, uniPortName)
+	if tpInstance = t.allocateEponTPInstance(ctx, uniPortName, tp, intfId, tpInstancePath); tpInstance == nil {
+		log.Error("tp-intance-allocation-failed")
+		return nil, errors.New("tp-intance-allocation-failed")
+	}
+	if err := t.addEponProfInstanceToKVStore(ctx, techProfiletblID, uniPortName, tpInstance); err != nil {
 		log.Errorw("error-adding-tp-to-kv-store", log.Fields{"tableid": techProfiletblID, "uni": uniPortName})
 		return nil, errors.New("error-adding-tp-to-kv-store")
 	}
@@ -544,10 +774,120 @@ func (t *TechProfileMgr) allocateTPInstance(ctx context.Context, uniPortName str
 		DownstreamGemPortAttributeList: dsGemPortAttributeList}
 }
 
+// Function for EPON
+func (t *TechProfileMgr) allocateEponTPInstance(ctx context.Context, uniPortName string, tp *DefaultEponProfile, intfId uint32, tpInstPath string) *EponProfile {
+
+	var usQueueAttributeList []iUpstreamQueueAttribute
+	var dsQueueAttributeList []iDownstreamQueueAttribute
+	//var dsMulticastGemAttributeList []iGemPortAttribute
+	//var dsUnicastGemAttributeList []iGemPortAttribute
+	var tcontIDs []uint32
+	var gemPorts []uint32
+	var err error
+
+	log.Infow("Allocating TechProfileMgr instance from techprofile template", log.Fields{"uniPortName": uniPortName, "intfId": intfId, "numGem": tp.NumGemPorts})
+
+	if tp.InstanceCtrl.Onu == "multi-instance" {
+		if tcontIDs, err = t.resourceMgr.GetResourceID(ctx, intfId, t.resourceMgr.GetResourceTypeAllocID(), 1); err != nil {
+			log.Errorw("Error getting alloc id from rsrcrMgr", log.Fields{"intfId": intfId})
+			return nil
+		}
+	} else { // "single-instance"
+		tpInst, err := t.getSingleInstanceEponTp(ctx, tpInstPath)
+		if tpInst == nil {
+			// No "single-instance" tp found on one any uni port for the given TP ID
+			// Allocate a new TcontID or AllocID
+			if tcontIDs, err = t.resourceMgr.GetResourceID(ctx, intfId, t.resourceMgr.GetResourceTypeAllocID(), 1); err != nil {
+				log.Errorw("Error getting alloc id from rsrcrMgr", log.Fields{"intfId": intfId})
+				return nil
+			}
+		} else {
+			// Use the alloc-id from the existing TpInstance
+			tcontIDs = append(tcontIDs, tpInst.AllocID)
+		}
+	}
+	log.Debugw("Num GEM ports in TP:", log.Fields{"NumGemPorts": tp.NumGemPorts})
+	if gemPorts, err = t.resourceMgr.GetResourceID(ctx, intfId, t.resourceMgr.GetResourceTypeGemPortID(), tp.NumGemPorts); err != nil {
+		log.Errorw("Error getting gemport ids from rsrcrMgr", log.Fields{"intfId": intfId, "numGemports": tp.NumGemPorts})
+		return nil
+	}
+	log.Infow("Allocated tconts and GEM ports successfully", log.Fields{"tconts": tcontIDs, "gemports": gemPorts})
+	for index := 0; index < int(tp.NumGemPorts); index++ {
+		usQueueAttributeList = append(usQueueAttributeList,
+			iUpstreamQueueAttribute{GemportID: gemPorts[index],
+				MaxQueueSize:              tp.UpstreamQueueAttributeList[index].MaxQueueSize,
+				PbitMap:                   tp.UpstreamQueueAttributeList[index].PbitMap,
+				AesEncryption:             tp.UpstreamQueueAttributeList[index].AesEncryption,
+				TrafficType:               tp.UpstreamQueueAttributeList[index].TrafficType,
+				UnsolicitedGrantSize:      tp.UpstreamQueueAttributeList[index].UnsolicitedGrantSize,
+				NominalInterval:           tp.UpstreamQueueAttributeList[index].NominalInterval,
+				ToleratedPollJitter:       tp.UpstreamQueueAttributeList[index].ToleratedPollJitter,
+				RequestTransmissionPolicy: tp.UpstreamQueueAttributeList[index].RequestTransmissionPolicy,
+				NumQueueSet:               tp.UpstreamQueueAttributeList[index].NumQueueSet,
+				QThresholds:               tp.UpstreamQueueAttributeList[index].QThresholds,
+				SchedulingPolicy:          tp.UpstreamQueueAttributeList[index].SchedulingPolicy,
+				PriorityQueue:             tp.UpstreamQueueAttributeList[index].PriorityQueue,
+				Weight:                    tp.UpstreamQueueAttributeList[index].Weight,
+				DiscardPolicy:             tp.UpstreamQueueAttributeList[index].DiscardPolicy,
+				DiscardConfig:             tp.UpstreamQueueAttributeList[index].DiscardConfig})
+	}
+
+	log.Info("length of DownstreamGemPortAttributeList", len(tp.DownstreamQueueAttributeList))
+	for index := 0; index < int(tp.NumGemPorts); index++ {
+		dsQueueAttributeList = append(dsQueueAttributeList,
+			iDownstreamQueueAttribute{GemportID: gemPorts[index],
+				MaxQueueSize:     tp.DownstreamQueueAttributeList[index].MaxQueueSize,
+				PbitMap:          tp.DownstreamQueueAttributeList[index].PbitMap,
+				AesEncryption:    tp.DownstreamQueueAttributeList[index].AesEncryption,
+				SchedulingPolicy: tp.DownstreamQueueAttributeList[index].SchedulingPolicy,
+				PriorityQueue:    tp.DownstreamQueueAttributeList[index].PriorityQueue,
+				Weight:           tp.DownstreamQueueAttributeList[index].Weight,
+				DiscardPolicy:    tp.DownstreamQueueAttributeList[index].DiscardPolicy,
+				DiscardConfig:    tp.DownstreamQueueAttributeList[index].DiscardConfig})
+	}
+
+	return &EponProfile{
+		SubscriberIdentifier:         uniPortName,
+		Name:                         tp.Name,
+		ProfileType:                  tp.ProfileType,
+		Version:                      tp.Version,
+		NumGemPorts:                  tp.NumGemPorts,
+		InstanceCtrl:                 tp.InstanceCtrl,
+		EponAttribute:                tp.EponAttribute,
+		AllocID:                      tcontIDs[0],
+		UpstreamQueueAttributeList:   usQueueAttributeList,
+		DownstreamQueueAttributeList: dsQueueAttributeList}
+}
+
 // getSingleInstanceTp returns another TpInstance for an ONU on a different
 // uni port for the same TP ID, if it finds one, else nil.
 func (t *TechProfileMgr) getSingleInstanceTp(ctx context.Context, tpPath string) (*TechProfile, error) {
 	var tpInst TechProfile
+
+	// For example:
+	// tpPath like "service/voltha/technology_profiles/xgspon/64/pon-{0}/onu-{1}/uni-{1}"
+	// is broken into ["service/voltha/technology_profiles/xgspon/64/pon-{0}/onu-{1}" ""]
+	uniPathSlice := regexp.MustCompile(`/uni-{[0-9]+}$`).Split(tpPath, 2)
+	kvPairs, _ := t.config.KVBackend.List(ctx, uniPathSlice[0])
+
+	// Find a valid TP Instance among all the UNIs of that ONU for the given TP ID
+	for keyPath, kvPair := range kvPairs {
+		if value, err := kvstore.ToByte(kvPair.Value); err == nil {
+			if err = json.Unmarshal(value, &tpInst); err != nil {
+				log.Errorw("error-unmarshal-kv-pair", log.Fields{"keyPath": keyPath, "value": value})
+				return nil, errors.New("error-unmarshal-kv-pair")
+			} else {
+				log.Debugw("found-valid-tp-instance-on-another-uni", log.Fields{"keyPath": keyPath})
+				return &tpInst, nil
+			}
+		}
+	}
+	return nil, nil
+}
+
+// Function for EPON
+func (t *TechProfileMgr) getSingleInstanceEponTp(ctx context.Context, tpPath string) (*EponProfile, error) {
+	var tpInst EponProfile
 
 	// For example:
 	// tpPath like "service/voltha/technology_profiles/xgspon/64/pon-{0}/onu-{1}/uni-{1}"
@@ -631,6 +971,68 @@ func (t *TechProfileMgr) getDefaultTechProfile() *DefaultTechProfile {
 			QSchedPolicy: SchedulingPolicy_name[defaultQueueSchedPolicy]},
 		UpstreamGemPortAttributeList:   usGemPortAttributeList,
 		DownstreamGemPortAttributeList: dsGemPortAttributeList}
+}
+
+// Function for EPON
+func (t *TechProfileMgr) getDefaultEponProfile() *DefaultEponProfile {
+
+	var usQueueAttributeList []UpstreamQueueAttribute
+	var dsQueueAttributeList []DownstreamQueueAttribute
+
+	for _, pbit := range t.config.DefaultPbits {
+		log.Debugw("Creating Queue", log.Fields{"pbit": pbit})
+		usQueueAttributeList = append(usQueueAttributeList,
+			UpstreamQueueAttribute{
+				MaxQueueSize:              defaultMaxQueueSize,
+				PbitMap:                   pbit,
+				AesEncryption:             defaultAESEncryption,
+				TrafficType:               defaultTrafficType,
+				UnsolicitedGrantSize:      defaultUnsolicitedGrantSize,
+				NominalInterval:           defaultNominalInterval,
+				ToleratedPollJitter:       defaultToleratedPollJitter,
+				RequestTransmissionPolicy: defaultRequestTransmissionPolicy,
+				NumQueueSet:               defaultNumQueueSet,
+				QThresholds: QThresholds{
+					QThreshold1: defaultQThreshold1,
+					QThreshold2: defaultQThreshold2,
+					QThreshold3: defaultQThreshold3,
+					QThreshold4: defaultQThreshold4,
+					QThreshold5: defaultQThreshold5,
+					QThreshold6: defaultQThreshold6,
+					QThreshold7: defaultQThreshold7},
+				SchedulingPolicy: SchedulingPolicy_name[defaultSchedulePolicy],
+				PriorityQueue:    defaultPriorityQueue,
+				Weight:           defaultQueueWeight,
+				DiscardPolicy:    DiscardPolicy_name[defaultdropPolicy],
+				DiscardConfig: DiscardConfig{
+					MinThreshold:   defaultMinThreshold,
+					MaxThreshold:   defaultMaxThreshold,
+					MaxProbability: defaultMaxProbability}})
+		dsQueueAttributeList = append(dsQueueAttributeList,
+			DownstreamQueueAttribute{
+				MaxQueueSize:     defaultMaxQueueSize,
+				PbitMap:          pbit,
+				AesEncryption:    defaultAESEncryption,
+				SchedulingPolicy: SchedulingPolicy_name[defaultSchedulePolicy],
+				PriorityQueue:    defaultPriorityQueue,
+				Weight:           defaultQueueWeight,
+				DiscardPolicy:    DiscardPolicy_name[defaultdropPolicy],
+				DiscardConfig: DiscardConfig{
+					MinThreshold:   defaultMinThreshold,
+					MaxThreshold:   defaultMaxThreshold,
+					MaxProbability: defaultMaxProbability}})
+	}
+	return &DefaultEponProfile{
+		Name:        t.config.DefaultTPName,
+		ProfileType: t.resourceMgr.GetTechnology(),
+		Version:     t.config.TPVersion,
+		NumGemPorts: uint32(len(usQueueAttributeList)),
+		InstanceCtrl: InstanceControl{
+			Onu:               defaultOnuInstance,
+			Uni:               defaultUniInstance,
+			MaxGemPayloadSize: defaultGemPayloadSize},
+		UpstreamQueueAttributeList:   usQueueAttributeList,
+		DownstreamQueueAttributeList: dsQueueAttributeList}
 }
 
 func (t *TechProfileMgr) GetprotoBufParamValue(paramType string, paramKey string) int32 {
@@ -907,6 +1309,28 @@ func (t *TechProfileMgr) FindAllTpInstances(ctx context.Context, techProfiletblI
 
 	if kvPairs, _ := t.config.KVBackend.List(ctx, onuTpInstancePath); kvPairs != nil {
 		tpInstances := make([]TechProfile, 0, len(kvPairs))
+		for kvPath, kvPair := range kvPairs {
+			if value, err := kvstore.ToByte(kvPair.Value); err == nil {
+				if err = json.Unmarshal(value, &tp); err != nil {
+					log.Errorw("error-unmarshal-kv-pair", log.Fields{"kvPath": kvPath, "value": value})
+					continue
+				} else {
+					tpInstances = append(tpInstances, tp)
+				}
+			}
+		}
+		return tpInstances
+	}
+	return nil
+}
+
+// Function for EPON
+func (t *TechProfileMgr) FindAllEponTpInstances(ctx context.Context, techProfiletblID uint32, ponIntf uint32, onuID uint32) []EponProfile {
+	var tp EponProfile
+	onuTpInstancePath := fmt.Sprintf("%s/%d/pon-{%d}/onu-{%d}", t.resourceMgr.GetTechnology(), techProfiletblID, ponIntf, onuID)
+
+	if kvPairs, _ := t.config.KVBackend.List(ctx, onuTpInstancePath); kvPairs != nil {
+		tpInstances := make([]EponProfile, 0, len(kvPairs))
 		for kvPath, kvPair := range kvPairs {
 			if value, err := kvstore.ToByte(kvPair.Value); err == nil {
 				if err = json.Unmarshal(value, &tp); err != nil {
