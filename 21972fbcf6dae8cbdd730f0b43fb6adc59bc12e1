@@ -22,6 +22,30 @@
       "revId": "21972fbcf6dae8cbdd730f0b43fb6adc59bc12e1",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2e9b32c_ec56007f",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-03-13T15:57:41Z",
+      "side": 1,
+      "message": "I see there are many queries raised here. Let me try to address the ones I could understand and we can take up further discussion over slack, if needed\n\nAs we decided that component won\u0027t push initial log config to etcd and only read from it, this does result in a somewhat out-of-sync between output of \u0027voltctl loglevel list\u0027 and active log configuration of component. We initially planned to push initial logconfig to etcd to avoid this deviation; may be we can revisit this addition now.\n\nAfter a clean kind-voltha startup, the components will start with initial default loglevel as set in helm start and all packages will have that loglevel. The etcd would be clean at that time and hence same initial default loglevel will continue to drive the component logging until some loglevel config is pushed to etcd for that component (or at global level).\n\nSo, \u0027voltctl loglevel list\u0027 would not return any record after kind-voltha startup because voltctl only looks up etcd. As soon as we do \u0027voltctl loglevel set debug\u0027, all voltha components will change to debug loglevel and \u0027voltctl loglevel list\u0027 will return a single record of global:default.\n\nThe loglevel of a package in a component will be decided in following way:\n- Use loglevel for that package and that component, if configured; Otherwise\n- Use default loglevel for that component, if configured; Otherwise\n- Use default global loglevel, if configured; Otherwise\n- Fallback to use initial default loglevel of component",
+      "parentUuid": "e0c72a8c_308fa8b1",
+      "range": {
+        "startLine": 33,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 19
+      },
+      "revId": "21972fbcf6dae8cbdd730f0b43fb6adc59bc12e1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
