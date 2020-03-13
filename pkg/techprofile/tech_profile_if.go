@@ -27,7 +27,9 @@ type TechProfileIf interface {
 	SetKVClient() *db.Backend
 	GetTechProfileInstanceKVPath(techProfiletblID uint32, uniPortName string) string
 	GetTPInstanceFromKVStore(ctx context.Context, techProfiletblID uint32, path string) (*TechProfile, error)
+	GetEponTPInstanceFromKVStore(ctx context.Context, techProfiletblID uint32, path string) (*EponProfile, error)
 	CreateTechProfInstance(ctx context.Context, techProfiletblID uint32, uniPortName string, intfId uint32) (*TechProfile, error)
+	CreateEponProfInstance(ctx context.Context, techProfiletblID uint32, uniPortName string, intfId uint32) (*EponProfile, error)
 	DeleteTechProfileInstance(ctx context.Context, techProfiletblID uint32, uniPortName string) error
 	GetprotoBufParamValue(paramType string, paramKey string) int32
 	GetUsScheduler(tpInstance *TechProfile) (*tp_pb.SchedulerConfig, error)
@@ -38,4 +40,5 @@ type TechProfileIf interface {
 	GetMulticastTrafficQueues(tp *TechProfile) []*tp_pb.TrafficQueue
 	GetGemportIDForPbit(tp *TechProfile, Dir tp_pb.Direction, pbit uint32) uint32
 	FindAllTpInstances(ctx context.Context, techProfiletblID uint32, ponIntf uint32, onuID uint32) []TechProfile
+	FindAllEponTpInstances(ctx context.Context, techProfiletblID uint32, ponIntf uint32, onuID uint32) []EponProfile
 }
