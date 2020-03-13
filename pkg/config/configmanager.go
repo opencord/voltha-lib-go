@@ -59,6 +59,10 @@ const (
 	Delete
 )
 
+func (ce ChangeEvent) String() string {
+	return [...]string{"Put", "Delete"}[ce]
+}
+
 // ConfigChangeEvent represents config for the events recieved from watch
 // For example,ChangeType is Put ,ConfigAttribute default
 type ConfigChangeEvent struct {
