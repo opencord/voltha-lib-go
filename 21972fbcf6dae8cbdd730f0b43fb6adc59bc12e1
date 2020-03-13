@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0c72a8c_308fa8b1",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-03-13T15:07:35Z",
+      "side": 1,
+      "message": "Now that the log config is storing the initial config in the kv store, does this mean that when the CLI queries the log level for a component or lists all log settings that the CLI should return the initial setting?\n\nI am attempting to work through what storing the initial value in etcd means and the implications of that.\n\nEffectively the initial setting is the value for the components loglevel. So when starting a clean kind-voltha and then doing a `voltctl logleve list` I should see the initial loglevel for each component.\n\nThen what happens if I do a `voltctl loglevel set debug global`? Does that mean all the initial settings are no long seen in `list`? and all components are at the `global` level?\n\nStarting to think that setting the global value doesn\u0027t override the initial value on the component. But I am not sure what the implications of that are.",
+      "range": {
+        "startLine": 33,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 19
+      },
+      "revId": "21972fbcf6dae8cbdd730f0b43fb6adc59bc12e1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
