@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8413a125_40cc8657",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-03-16T17:02:44Z",
+      "side": 1,
+      "message": "Agree with David that we should differentiate these two cases. Although it may be the case right now that LogLevels cannot validly be empty strings, that might not be the case for future configuration variables that might be handed by configmanager.",
+      "parentUuid": "0d1e551f_74bed934",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 102
+      },
+      "revId": "221b20d99a3d68924b3c0742b9beaea650c593e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21f340ee_a5622a8e",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 1
