@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "82b0dd20_4c315422",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-03-16T18:48:07Z",
+      "side": 1,
+      "message": "Agree. Returning an error when key does not exist. Have also adjusted logcontroller logic accordingly",
+      "parentUuid": "8413a125_40cc8657",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 102
+      },
+      "revId": "221b20d99a3d68924b3c0742b9beaea650c593e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21f340ee_a5622a8e",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 1
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "21d5ef2d_c5c6b1b2",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-03-16T18:48:07Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "21f340ee_a5622a8e",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 145
+      },
+      "revId": "221b20d99a3d68924b3c0742b9beaea650c593e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64d85928_7d8b5135",
         "filename": "pkg/config/logcontroller.go",
         "patchSetId": 1
@@ -83,6 +131,30 @@
       "writtenOn": "2020-03-16T16:25:14Z",
       "side": 1,
       "message": "not sure this is a warning, as on a clean start there won\u0027t be any value set. maybe a debug here?",
+      "range": {
+        "startLine": 207,
+        "startChar": 6,
+        "endLine": 207,
+        "endChar": 10
+      },
+      "revId": "221b20d99a3d68924b3c0742b9beaea650c593e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ffd5f7f_162e8f9d",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-03-16T18:48:07Z",
+      "side": 1,
+      "message": "This warning is fine. The startup loading of global default is done in persistInitialDefaultLogConfigs; I have changed that log to Debug.\n\nThis method is part of complete log config loading done later in pod startup (and also as part of watch callback) and global default loglevel is expected to be populated in etcd at this point",
+      "parentUuid": "64d85928_7d8b5135",
       "range": {
         "startLine": 207,
         "startChar": 6,
