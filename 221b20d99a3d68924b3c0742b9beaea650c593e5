@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d1e551f_74bed934",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-03-16T16:25:14Z",
+      "side": 1,
+      "message": "There is a risk of returning an empty string when a key does not exist as there is no way to determine between a key that does not exist and a key that exists but has the empty string as a value. I would recommend returning a \"NotFound\" or \"KeyDoesNotExist\" error.",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 102
+      },
+      "revId": "221b20d99a3d68924b3c0742b9beaea650c593e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64d85928_7d8b5135",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-03-16T16:25:14Z",
+      "side": 1,
+      "message": "not sure this is a warning, as on a clean start there won\u0027t be any value set. maybe a debug here?",
+      "range": {
+        "startLine": 207,
+        "startChar": 6,
+        "endLine": 207,
+        "endChar": 10
+      },
+      "revId": "221b20d99a3d68924b3c0742b9beaea650c593e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
