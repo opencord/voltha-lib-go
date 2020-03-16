@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-// Package Config provides dynamic logging configuration for specific Voltha component type implemented using backend.The package can be used in following manner
-// Any Voltha component type can start dynamic logging by starting goroutine of ProcessLogConfigChange after starting kvClient for the component.
+// Package Config provides dynamic logging configuration for specific Voltha component with loglevel lookup
+// from etcd kvstore implemented using backend.
+// Any Voltha component can start utilizing dynamic logging by starting goroutine of StartLogLevelConfigProcessing after
+// starting kvClient for the component.
 
 package config
 
@@ -30,9 +32,9 @@ import (
 )
 
 const (
-	defaultLogLevelKey   = "default" // kvstore key containing default loglevel
-	globalConfigRootNode = "global"  // Root Node in kvstore containing global config
-	// that is applicable; unless overridden by individual component
+	defaultLogLevelKey                = "default" // kvstore key containing default loglevel
+	globalConfigRootNode              = "global"  // Root Node in kvstore containing global config
+	initialGlobalDefaultLogLevelValue = "WARN"    // Hard-coded Global Default loglevel pushed at PoD startup
 )
 
 // ComponentLogController represents a Configuration for Logging Config of specific Voltha component type
@@ -72,8 +74,10 @@ func NewComponentLogController(cm *ConfigManager) (*ComponentLogController, erro
 
 }
 
-// ProcessLogConfigChange initialize component config and global config
-func ProcessLogConfigChange(cm *ConfigManager, ctx context.Context) {
+// StartLogLevelConfigProcessing initialize component config and global config
+// Then, it persists initial default Loglevels into Config Store before
+// starting the loading and processing of all Log Configuration
+func StartLogLevelConfigProcessing(cm *ConfigManager, ctx context.Context) {
 	cc, err := NewComponentLogController(cm)
 	if err != nil {
 		log.Errorw("unable-to-construct-component-log-controller-instance-for-log-config-monitoring", log.Fields{"error": err})
@@ -86,7 +90,34 @@ func ProcessLogConfigChange(cm *ConfigManager, ctx context.Context) {
 	cc.componentNameConfig = cm.InitComponentConfig(cc.ComponentName, ConfigTypeLogLevel)
 	log.Debugw("component-log-config", log.Fields{"cc-component-name-config": cc.componentNameConfig})
 
+	cc.persistInitialDefaultLogConfigs(ctx)
+
 	cc.processLogConfig(ctx)
+}
+
+// Method to persist Global default loglevel into etcd, if not set yet
+// It also checks and set Component default loglevel into etcd with initial loglevel set from command line
+func (c *ComponentLogController) persistInitialDefaultLogConfigs(ctx context.Context) {
+
+	_, err := c.GlobalConfig.Retrieve(ctx, defaultLogLevelKey)
+	if err != nil {
+		log.Debugw("failed-to-retrieve-global-default-log-config-at-startup", log.Fields{"error": err})
+
+		err = c.GlobalConfig.Save(ctx, defaultLogLevelKey, initialGlobalDefaultLogLevelValue)
+		if err != nil {
+			log.Errorw("failed-to-persist-global-default-log-config-at-startup", log.Fields{"error": err, "loglevel": initialGlobalDefaultLogLevelValue})
+		}
+	}
+
+	_, err = c.componentNameConfig.Retrieve(ctx, defaultLogLevelKey)
+	if err != nil {
+		log.Debugw("failed-to-retrieve-component-default-log-config-at-startup", log.Fields{"error": err})
+
+		err = c.componentNameConfig.Save(ctx, defaultLogLevelKey, c.initialLogLevel)
+		if err != nil {
+			log.Errorw("failed-to-persist-component-default-log-config-at-startup", log.Fields{"error": err, "loglevel": c.initialLogLevel})
+		}
+	}
 }
 
 // ProcessLogConfig will first load and apply log config and then start waiting on component config and global config
@@ -163,21 +194,24 @@ func getActiveLogLevels() map[string]string {
 
 func (c *ComponentLogController) getGlobalLogConfig(ctx context.Context) (string, error) {
 
-	globalDefaultLogLevel := ""
-	globalLogConfig, err := c.GlobalConfig.RetrieveAll(ctx)
+	globalDefaultLogLevel, err := c.GlobalConfig.Retrieve(ctx, defaultLogLevelKey)
 	if err != nil {
 		return "", err
 	}
 
-	if globalLevel, ok := globalLogConfig[defaultLogLevelKey]; ok {
-		if _, err := log.StringToLogLevel(globalLevel); err != nil {
-			log.Warnw("unsupported-loglevel-config-defined-at-global-context-package-name", log.Fields{"log-level": globalLevel})
-		} else {
-			globalDefaultLogLevel = globalLevel
-		}
+	// Handle edge cases when global default loglevel is deleted directly from etcd or set to a invalid value
+	// We should use hard-coded initial default value in such cases
+	if globalDefaultLogLevel == "" {
+		log.Warn("global-default-loglevel-not-found-in-config-store")
+		globalDefaultLogLevel = initialGlobalDefaultLogLevelValue
 	}
 
-	log.Debugw("retrieved-global-log-config", log.Fields{"global-log-config": globalLogConfig})
+	if _, err := log.StringToLogLevel(globalDefaultLogLevel); err != nil {
+		log.Warnw("unsupported-loglevel-config-defined-at-global-default", log.Fields{"log-level": globalDefaultLogLevel})
+		globalDefaultLogLevel = initialGlobalDefaultLogLevelValue
+	}
+
+	log.Debugw("retrieved-global-default-loglevel", log.Fields{"level": globalDefaultLogLevel})
 
 	return globalDefaultLogLevel, nil
 }
@@ -201,13 +235,9 @@ func (c *ComponentLogController) getComponentLogConfig(ctx context.Context, glob
 	}
 
 	// if default loglevel is not configured for the component, component should use
-	// - default loglevel configured at global level, if set
+	// default loglevel configured at global level
 	if effectiveDefaultLogLevel == "" {
 		effectiveDefaultLogLevel = globalDefaultLogLevel
-	}
-	// - else, use initial loglevel which component was started with (set from helm chart)
-	if effectiveDefaultLogLevel == "" {
-		effectiveDefaultLogLevel = c.initialLogLevel
 	}
 
 	componentLogConfig[defaultLogLevelKey] = effectiveDefaultLogLevel
@@ -226,7 +256,7 @@ func (c *ComponentLogController) getComponentLogConfig(ctx context.Context, glob
 func (c *ComponentLogController) buildUpdatedLogConfig(ctx context.Context) (map[string]string, error) {
 	globalLogLevel, err := c.getGlobalLogConfig(ctx)
 	if err != nil {
-		return nil, err
+		log.Errorw("unable-to-retrieve-global-log-config", log.Fields{"err": err})
 	}
 
 	componentLogConfig, err := c.getComponentLogConfig(ctx, globalLogLevel)
