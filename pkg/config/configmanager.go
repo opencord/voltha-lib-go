@@ -33,7 +33,7 @@ func init() {
 
 const (
 	defaultkvStoreConfigPath = "config"
-	kvStoreDataPathPrefix    = "/service/voltha"
+	kvStoreDataPathPrefix    = "service/voltha"
 	kvStorePathSeparator     = "/"
 )
 
