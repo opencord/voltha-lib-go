@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fb48a0c_569e26b0",
+        "filename": "VERSION",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-03-20T21:04:03Z",
+      "side": 1,
+      "message": "Should be 3.0.25-dev (by voltha convention `-dev` versions are based on the version you\u0027re working towards, not the version they\u0027re based on.)\nSorry if I wasn\u0027t clear.",
+      "revId": "056b800bafa836ac7e6fcfe4e7eed9561067ff1e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
