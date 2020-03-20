@@ -33,13 +33,6 @@ const (
 	RESERVED_GEM_PORT_ID = uint32(5)
 )
 
-func init() {
-	_, err := log.SetDefaultLogger(log.JSON, log.DebugLevel, nil)
-	if err != nil {
-		panic(err)
-	}
-}
-
 // MockKVClient mocks the AdapterProxy interface.
 type MockResKVClient struct {
 	resourceMap map[string]interface{}
@@ -58,16 +51,16 @@ func (kvclient *MockResKVClient) List(ctx context.Context, key string) (map[stri
 
 // Get mock function implementation for KVClient
 func (kvclient *MockResKVClient) Get(ctx context.Context, key string) (*kvstore.KVPair, error) {
-	log.Debugw("Get of MockKVClient called", log.Fields{"key": key})
+	logger.Debugw("Get of MockKVClient called", log.Fields{"key": key})
 	if key != "" {
 		if strings.Contains(key, RESERVED_GEMPORT_IDS_PATH) {
-			log.Debug("Getting Key:", RESERVED_GEMPORT_IDS_PATH)
+			logger.Debug("Getting Key:", RESERVED_GEMPORT_IDS_PATH)
 			reservedGemPorts := []uint32{RESERVED_GEM_PORT_ID}
 			str, _ := json.Marshal(reservedGemPorts)
 			return kvstore.NewKVPair(key, str, "mock", 3000, 1), nil
 		}
 		if strings.Contains(key, GEM_POOL_PATH) {
-			log.Debug("Getting Key:", GEM_POOL_PATH)
+			logger.Debug("Getting Key:", GEM_POOL_PATH)
 			resource := kvclient.resourceMap[key]
 			return kvstore.NewKVPair(key, resource, "mock", 3000, 1), nil
 		}
