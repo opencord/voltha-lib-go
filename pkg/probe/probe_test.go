@@ -18,21 +18,13 @@ package probe
 import (
 	"context"
 	"encoding/json"
+	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 	"time"
-
-	"github.com/opencord/voltha-lib-go/v3/pkg/log"
-	"github.com/stretchr/testify/assert"
 )
-
-func init() {
-	if _, err := log.AddPackage(log.JSON, log.WarnLevel, nil); err != nil {
-		log.Fatalw("adding-log-package", log.Fields{"error": err})
-	}
-}
 
 func TestServiceStatusString(t *testing.T) {
 	assert.Equal(t, "Unknown", ServiceStatusUnknown.String(), "ServiceStatusUnknown")
