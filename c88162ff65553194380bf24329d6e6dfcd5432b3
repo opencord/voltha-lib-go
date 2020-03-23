@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efabe94e_37f5b8f3",
+        "filename": "pkg/config/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-03-23T17:20:56Z",
+      "side": 1,
+      "message": "Should this be using a \"globally\"-defined constant instead, instead of per-package defaults? (defined in pkg/log/ ?)  (I understand if one usage needs to be different, but there\u0027s no need re-define the same default value in may places.)\n\n(More like this.)",
+      "revId": "c88162ff65553194380bf24329d6e6dfcd5432b3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
