@@ -16,6 +16,24 @@
       "revId": "c88162ff65553194380bf24329d6e6dfcd5432b3",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0bc8fcf_fb4ff767",
+        "filename": "pkg/config/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-03-23T17:38:36Z",
+      "side": 1,
+      "message": "or better yes, just use the constant log.ErrorLevel where is it needed. i gather that the intent was to have a global default that can be set one and everyone uses it, so that if we want to change it globally we can. it just means in terms of code support more back tracing.",
+      "parentUuid": "efabe94e_37f5b8f3",
+      "revId": "c88162ff65553194380bf24329d6e6dfcd5432b3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
