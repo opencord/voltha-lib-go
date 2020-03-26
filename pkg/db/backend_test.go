@@ -413,3 +413,24 @@ func TestCreateWatch_EmbeddedEtcdServer(t *testing.T) {
 
 	backend.DeleteWatch("key5", eventChan)
 }
+
+// Test Create and Delete Watch with prefix for Embedded Etcd Server
+func TestCreateWatch_With_Prefix_EmbeddedEtcdServer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	backend := provisionBackendWithEmbeddedEtcdServer(t)
+	eventChan := backend.CreateWatch(ctx, "key6", true)
+	assert.NotNil(t, eventChan)
+	assert.Equal(t, 0, len(eventChan))
+
+	// Assert this method does not change alive state
+	assert.False(t, backend.alive)
+
+	// Put a value for watched key and event should appear
+	err := backend.Put(ctx, "key6/is-a-prefix", []uint8("value5"))
+	assert.Nil(t, err)
+	time.Sleep(time.Millisecond * 100)
+	assert.Equal(t, 1, len(eventChan))
+
+	backend.DeleteWatch("key6", eventChan)
+}
