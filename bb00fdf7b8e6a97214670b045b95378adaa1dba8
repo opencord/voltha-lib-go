@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be4e12c4_bc6eb66b",
+        "filename": "VERSION",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-03-26T13:38:01Z",
+      "side": 1,
+      "message": "Since you\u0027re just adding a unit test, should use a -dev version.",
+      "range": {
+        "startLine": 1,
+        "startChar": 4,
+        "endLine": 1,
+        "endChar": 6
+      },
+      "revId": "bb00fdf7b8e6a97214670b045b95378adaa1dba8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed0209bd_e93160c2",
+        "filename": "pkg/db/backend_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-03-26T13:38:01Z",
+      "side": 1,
+      "message": "Since you\u0027re testing \"with prefix\", consider adding some extra characters to the key here.  `key5/is-a-prefix`?",
+      "range": {
+        "startLine": 430,
+        "startChar": 26,
+        "endLine": 430,
+        "endChar": 30
+      },
+      "revId": "bb00fdf7b8e6a97214670b045b95378adaa1dba8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
