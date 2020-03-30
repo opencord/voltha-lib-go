@@ -86,7 +86,7 @@ sca:
 	@echo ""
 	@echo "Static code analysis OK"
 
-test:
+test: local-protos
 	@mkdir -p ./tests/results
 	@${GO} test -mod=vendor -v -coverprofile ./tests/results/go-test-coverage.out -covermode count ./... 2>&1 | tee ./tests/results/go-test-results.out ;\
 	RETURN=$$? ;\

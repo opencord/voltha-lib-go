@@ -37,6 +37,88 @@ func TestCoreProxyImplementsAdapterIfCoreProxy(t *testing.T) {
 
 }
 
+func TestCoreProxy_RegisterAdapter_default(t *testing.T) {
+	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
+		InvokeRpcSpy: mocks.InvokeRpcSpy{
+			Calls:    make(map[int]mocks.InvokeRpcArgs),
+			Response: &voltha.Device{Id: "testDevice"},
+		},
+	}
+
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+
+	adapter := &voltha.Adapter{
+		Id:      "testAdapter",
+		Vendor:  "ONF",
+		Version: "1.0.0",
+	}
+	types := []*voltha.DeviceType{{
+		Id:                    "testolt",
+		Adapter:               "testAdapter",
+		AcceptsBulkFlowUpdate: true,
+	}}
+	devices := &voltha.DeviceTypes{Items: types}
+
+	err := proxy.RegisterAdapter(context.TODO(), adapter, devices)
+
+	assert.Equal(t, mockKafkaIcProxy.InvokeRpcSpy.CallCount, 1)
+	assert.Equal(t, nil, err)
+
+	call := mockKafkaIcProxy.InvokeRpcSpy.Calls[1]
+	assert.Equal(t, call.Rpc, "Register")
+	assert.Equal(t, call.ToTopic, &kafka.Topic{Name: "testCoreTopic"})
+	assert.Equal(t, call.ReplyToTopic, &kafka.Topic{Name: "testAdapterTopic"})
+	assert.Equal(t, call.WaitForResponse, true)
+	assert.Equal(t, call.Key, "")
+	assert.Equal(t, call.KvArgs[0], &kafka.KVArg{Key: "adapter", Value: &voltha.Adapter{
+		Id:             adapter.Id,
+		Vendor:         adapter.Vendor,
+		Version:        adapter.Version,
+		CurrentReplica: 1,
+		TotalReplicas:  1,
+	}})
+	assert.Equal(t, call.KvArgs[1], &kafka.KVArg{Key: "deviceTypes", Value: devices})
+}
+
+func TestCoreProxy_RegisterAdapter_multiple(t *testing.T) {
+	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
+		InvokeRpcSpy: mocks.InvokeRpcSpy{
+			Calls:    make(map[int]mocks.InvokeRpcArgs),
+			Response: &voltha.Device{Id: "testDevice"},
+		},
+	}
+
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+
+	adapter := &voltha.Adapter{
+		Id:             "testAdapter",
+		Vendor:         "ONF",
+		Version:        "1.0.0",
+		CurrentReplica: 4,
+		TotalReplicas:  8,
+	}
+	types := []*voltha.DeviceType{{
+		Id:                    "testolt",
+		Adapter:               "testAdapter",
+		AcceptsBulkFlowUpdate: true,
+	}}
+	devices := &voltha.DeviceTypes{Items: types}
+
+	err := proxy.RegisterAdapter(context.TODO(), adapter, devices)
+
+	assert.Equal(t, mockKafkaIcProxy.InvokeRpcSpy.CallCount, 1)
+	assert.Equal(t, nil, err)
+
+	call := mockKafkaIcProxy.InvokeRpcSpy.Calls[1]
+	assert.Equal(t, call.KvArgs[0], &kafka.KVArg{Key: "adapter", Value: &voltha.Adapter{
+		Id:             adapter.Id,
+		Vendor:         adapter.Vendor,
+		Version:        adapter.Version,
+		CurrentReplica: 4,
+		TotalReplicas:  8,
+	}})
+}
+
 func TestCoreProxy_GetChildDevice_sn(t *testing.T) {
 
 	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
