@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba008f7d_8eb6842a",
+        "filename": "pkg/adapters/common/core_proxy_test.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2020-03-30T20:11:11Z",
+      "side": 1,
+      "message": "nit: maybe testonu",
+      "range": {
+        "startLine": 56,
+        "startChar": 26,
+        "endLine": 56,
+        "endChar": 33
+      },
+      "revId": "dd2855d00ac549a9d1db7f9a6a9ff5b333588e3e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
