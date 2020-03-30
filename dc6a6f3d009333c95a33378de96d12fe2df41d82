@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28fcac64_dc220064",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-30T18:00:40Z",
+      "side": 1,
+      "message": "just a nit -- in all the functions, we use \"request\" instead of \"req\"",
+      "revId": "dc6a6f3d009333c95a33378de96d12fe2df41d82",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
