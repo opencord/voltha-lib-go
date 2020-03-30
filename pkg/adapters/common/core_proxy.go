@@ -99,6 +99,15 @@ func (ap *CoreProxy) RegisterAdapter(ctx context.Context, adapter *voltha.Adapte
 	topic := kafka.Topic{Name: ap.coreTopic}
 	replyToTopic := ap.getAdapterTopic()
 	args := make([]*kafka.KVArg, 2)
+
+	if adapter.CurrentReplica == 0 && adapter.TotalReplicas == 0 {
+		// if the adapter is not setting these fields they default to 0,
+		// in that case it means the adapter is not ready to be scaled and thus it defaults
+		// to a single instance
+		adapter.CurrentReplica = 1
+		adapter.TotalReplicas = 1
+	}
+
 	args[0] = &kafka.KVArg{
 		Key:   "adapter",
 		Value: adapter,
