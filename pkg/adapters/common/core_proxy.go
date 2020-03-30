@@ -93,12 +93,12 @@ func (ap *CoreProxy) getAdapterTopic(args ...string) kafka.Topic {
 	return kafka.Topic{Name: ap.adapterTopic}
 }
 
-func (ap *CoreProxy) RegisterAdapter(ctx context.Context, adapter *voltha.Adapter, deviceTypes *voltha.DeviceTypes) error {
+func (ap *CoreProxy) RegisterAdapter(ctx context.Context, adapter *voltha.Adapter, deviceTypes *voltha.DeviceTypes, instanceNumber int, totalInstances int) error {
 	logger.Debugw("registering-adapter", log.Fields{"coreTopic": ap.coreTopic, "adapterTopic": ap.adapterTopic})
 	rpc := "Register"
 	topic := kafka.Topic{Name: ap.coreTopic}
 	replyToTopic := ap.getAdapterTopic()
-	args := make([]*kafka.KVArg, 2)
+	args := make([]*kafka.KVArg, 4)
 	args[0] = &kafka.KVArg{
 		Key:   "adapter",
 		Value: adapter,
@@ -106,6 +106,14 @@ func (ap *CoreProxy) RegisterAdapter(ctx context.Context, adapter *voltha.Adapte
 	args[1] = &kafka.KVArg{
 		Key:   "deviceTypes",
 		Value: deviceTypes,
+	}
+	args[2] = &kafka.KVArg{
+		Key:   "instanceNumber",
+		Value: instanceNumber,
+	}
+	args[3] = &kafka.KVArg{
+		Key:   "totalInstances",
+		Value: totalInstances,
 	}
 
 	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &topic, &replyToTopic, true, "", args...)
