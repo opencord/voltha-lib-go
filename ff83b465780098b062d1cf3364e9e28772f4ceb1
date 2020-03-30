@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "687d401a_3fa2e334",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-30T20:30:20Z",
+      "side": 1,
+      "message": "another nit -- typo in request",
+      "revId": "ff83b465780098b062d1cf3364e9e28772f4ceb1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
