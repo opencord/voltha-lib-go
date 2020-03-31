@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa8a8473_e8fb3cdd",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-03-31T13:31:22Z",
+      "side": 1,
+      "message": "Should we have a check for the case where an adapter sets only 1 of these fields?  E.g. the adapter sets TotalReplicas to 10 and leave CurrentReplica to 0 or does the opposite?",
+      "revId": "6de94338ca47a1589b2e74056cde3fb69cbb62c1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
