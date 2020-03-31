@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eae255c0_f70057ca",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-03-31T16:15:31Z",
+      "side": 1,
+      "message": "Consider moving this before the `if` to avoid predeclaring vars.",
+      "range": {
+        "startLine": 734,
+        "startChar": 4,
+        "endLine": 734,
+        "endChar": 62
+      },
+      "revId": "5e7d832b0bb7a495d538331586119cb1dff3a457",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
