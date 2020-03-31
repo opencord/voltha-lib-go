@@ -16,6 +16,24 @@
       "revId": "6de94338ca47a1589b2e74056cde3fb69cbb62c1",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea4ce2ed_c6281f76",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-31T15:09:29Z",
+      "side": 1,
+      "message": "Easy to do, should we just log a fatal error? in that case it\u0027s a configuration error that we\u0027re not sure how to resolve",
+      "parentUuid": "aa8a8473_e8fb3cdd",
+      "revId": "6de94338ca47a1589b2e74056cde3fb69cbb62c1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
