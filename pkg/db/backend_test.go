@@ -18,11 +18,11 @@ package db
 
 import (
 	"context"
+	"github.com/opencord/voltha-lib-go/v3/pkg/mocks/etcd"
 	"os"
 	"testing"
 	"time"
 
-	"github.com/opencord/voltha-lib-go/v3/pkg/mocks"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
@@ -54,7 +54,7 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		logger.Fatal(err)
 	}
-	etcdServer := mocks.StartEtcdServer(mocks.MKConfig("voltha.db.test", embedEtcdServerPort, peerPort, "voltha.lib.db", "error"))
+	etcdServer := etcd.StartEtcdServer(etcd.MKConfig("voltha.db.test", embedEtcdServerPort, peerPort, "voltha.lib.db", "error"))
 	res := m.Run()
 
 	etcdServer.Stop()

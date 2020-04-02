@@ -2,12 +2,16 @@ module github.com/opencord/voltha-lib-go/v3
 
 go 1.13
 
+replace github.com/opencord/voltha-protos/v3 => /Users/knursimu/work/go/src/github.com/opencord/voltha-protos
+
 require (
 	github.com/DataDog/zstd v1.4.1 // indirect
 	github.com/Shopify/sarama v1.23.1
 	github.com/armon/go-metrics v0.0.0-20190430140413-ec5e00d3c878 // indirect
 	github.com/boljen/go-bitmap v0.0.0-20151001105940-23cd2fb0ce7d
 	github.com/bsm/sarama-cluster v2.1.15+incompatible
+	github.com/buraksezer/consistent v0.0.0-20191006190839-693edf70fd72
+	github.com/cespare/xxhash v1.1.0
 	github.com/cevaris/ordered_map v0.0.0-20190319150403-3adeae072e73
 	github.com/coreos/go-systemd v0.0.0-20190620071333-e64a0ec8b42a // indirect
 	github.com/coreos/pkg v0.0.0-20180108230652-97fdf19511ea // indirect
