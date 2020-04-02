@@ -19,7 +19,7 @@ import (
 	"context"
 	adapterIf "github.com/opencord/voltha-lib-go/v3/pkg/adapters/adapterif"
 	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
-	"github.com/opencord/voltha-lib-go/v3/pkg/mocks"
+	kmocks "github.com/opencord/voltha-lib-go/v3/pkg/mocks/kafka"
 	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
 	"github.com/opencord/voltha-protos/v3/go/voltha"
 	"github.com/stretchr/testify/assert"
@@ -38,9 +38,9 @@ func TestCoreProxyImplementsAdapterIfCoreProxy(t *testing.T) {
 }
 
 func TestCoreProxy_RegisterAdapter_default(t *testing.T) {
-	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
-		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls:    make(map[int]mocks.InvokeRpcArgs),
+	var mockKafkaIcProxy = kmocks.MockKafkaICProxy{
+		InvokeRpcSpy: kmocks.InvokeRpcSpy{
+			Calls:    make(map[int]kmocks.InvokeRpcArgs),
 			Response: &voltha.Device{Id: "testDevice"},
 		},
 	}
@@ -81,9 +81,9 @@ func TestCoreProxy_RegisterAdapter_default(t *testing.T) {
 }
 
 func TestCoreProxy_RegisterAdapter_multiple(t *testing.T) {
-	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
-		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls:    make(map[int]mocks.InvokeRpcArgs),
+	var mockKafkaIcProxy = kmocks.MockKafkaICProxy{
+		InvokeRpcSpy: kmocks.InvokeRpcSpy{
+			Calls:    make(map[int]kmocks.InvokeRpcArgs),
 			Response: &voltha.Device{Id: "testDevice"},
 		},
 	}
@@ -121,9 +121,9 @@ func TestCoreProxy_RegisterAdapter_multiple(t *testing.T) {
 
 func TestCoreProxy_GetChildDevice_sn(t *testing.T) {
 
-	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
-		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls:    make(map[int]mocks.InvokeRpcArgs),
+	var mockKafkaIcProxy = kmocks.MockKafkaICProxy{
+		InvokeRpcSpy: kmocks.InvokeRpcSpy{
+			Calls:    make(map[int]kmocks.InvokeRpcArgs),
 			Response: &voltha.Device{Id: "testDevice"},
 		},
 	}
@@ -152,9 +152,9 @@ func TestCoreProxy_GetChildDevice_sn(t *testing.T) {
 
 func TestCoreProxy_GetChildDevice_id(t *testing.T) {
 
-	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
-		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls:    make(map[int]mocks.InvokeRpcArgs),
+	var mockKafkaIcProxy = kmocks.MockKafkaICProxy{
+		InvokeRpcSpy: kmocks.InvokeRpcSpy{
+			Calls:    make(map[int]kmocks.InvokeRpcArgs),
 			Response: &voltha.Device{Id: "testDevice"},
 		},
 	}
@@ -183,9 +183,9 @@ func TestCoreProxy_GetChildDevice_id(t *testing.T) {
 
 func TestCoreProxy_GetChildDevice_fail_timeout(t *testing.T) {
 
-	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
-		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls:   make(map[int]mocks.InvokeRpcArgs),
+	var mockKafkaIcProxy = kmocks.MockKafkaICProxy{
+		InvokeRpcSpy: kmocks.InvokeRpcSpy{
+			Calls:   make(map[int]kmocks.InvokeRpcArgs),
 			Timeout: true,
 		},
 	}
@@ -206,9 +206,9 @@ func TestCoreProxy_GetChildDevice_fail_timeout(t *testing.T) {
 
 func TestCoreProxy_GetChildDevice_fail_unmarhsal(t *testing.T) {
 
-	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
-		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls:    make(map[int]mocks.InvokeRpcArgs),
+	var mockKafkaIcProxy = kmocks.MockKafkaICProxy{
+		InvokeRpcSpy: kmocks.InvokeRpcSpy{
+			Calls:    make(map[int]kmocks.InvokeRpcArgs),
 			Response: &voltha.LogicalDevice{Id: "testDevice"},
 		},
 	}
@@ -234,9 +234,9 @@ func TestCoreProxy_GetChildDevices_success(t *testing.T) {
 	devicesResponse.Items = append(devicesResponse.Items, &voltha.Device{Id: "testDevice1"})
 	devicesResponse.Items = append(devicesResponse.Items, &voltha.Device{Id: "testDevice2"})
 
-	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
-		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls:    make(map[int]mocks.InvokeRpcArgs),
+	var mockKafkaIcProxy = kmocks.MockKafkaICProxy{
+		InvokeRpcSpy: kmocks.InvokeRpcSpy{
+			Calls:    make(map[int]kmocks.InvokeRpcArgs),
 			Response: devicesResponse,
 		},
 	}
@@ -261,9 +261,9 @@ func TestCoreProxy_GetChildDevices_success(t *testing.T) {
 
 func TestCoreProxy_GetChildDevices_fail_unmarhsal(t *testing.T) {
 
-	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
-		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls:    make(map[int]mocks.InvokeRpcArgs),
+	var mockKafkaIcProxy = kmocks.MockKafkaICProxy{
+		InvokeRpcSpy: kmocks.InvokeRpcSpy{
+			Calls:    make(map[int]kmocks.InvokeRpcArgs),
 			Response: &voltha.LogicalDevice{Id: "testDevice"},
 		},
 	}
@@ -281,9 +281,9 @@ func TestCoreProxy_GetChildDevices_fail_unmarhsal(t *testing.T) {
 
 func TestCoreProxy_GetChildDevices_fail_timeout(t *testing.T) {
 
-	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
-		InvokeRpcSpy: mocks.InvokeRpcSpy{
-			Calls:   make(map[int]mocks.InvokeRpcArgs),
+	var mockKafkaIcProxy = kmocks.MockKafkaICProxy{
+		InvokeRpcSpy: kmocks.InvokeRpcSpy{
+			Calls:   make(map[int]kmocks.InvokeRpcArgs),
 			Timeout: true,
 		},
 	}
