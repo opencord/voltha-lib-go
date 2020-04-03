@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "276cfaca_a7825e0d",
+        "filename": "pkg/kafka/endpoint_manager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-04-03T16:50:58Z",
+      "side": 1,
+      "message": "if there is an error return the error, not the empty string",
+      "range": {
+        "startLine": 138,
+        "startChar": 2,
+        "endLine": 138,
+        "endChar": 16
+      },
+      "revId": "a054e5059f74dad6c58477434a1d0bebe4b67af1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
