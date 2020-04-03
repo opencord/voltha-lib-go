@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68237aa9_a2136440",
+        "filename": "pkg/kafka/endpoint_manager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-04-03T00:04:07Z",
+      "side": 1,
+      "message": "we should define an Interface for it",
+      "range": {
+        "startLine": 48,
+        "startChar": 5,
+        "endLine": 48,
+        "endChar": 20
+      },
+      "revId": "9b6ef969d9187577a7dc7c8939ac1ef440eecbea",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b98a8aa_2a277870",
+        "filename": "pkg/kafka/endpoint_manager.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-04-03T00:04:07Z",
+      "side": 1,
+      "message": "if it\u0027s not a public method should be lowercase",
+      "range": {
+        "startLine": 65,
+        "startChar": 1,
+        "endLine": 65,
+        "endChar": 21
+      },
+      "revId": "9b6ef969d9187577a7dc7c8939ac1ef440eecbea",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
