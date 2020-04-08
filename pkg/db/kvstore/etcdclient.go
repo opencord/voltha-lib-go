@@ -20,6 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"sync"
+	"time"
 
 	"github.com/opencord/voltha-lib-go/v3/pkg/log"
 	v3Client "go.etcd.io/etcd/clientv3"
@@ -39,12 +40,11 @@ type EtcdClient struct {
 }
 
 // NewEtcdClient returns a new client for the Etcd KV store
-func NewEtcdClient(addr string, timeout int) (*EtcdClient, error) {
-	duration := GetDuration(timeout)
+func NewEtcdClient(addr string, timeout time.Duration) (*EtcdClient, error) {
 
 	c, err := v3Client.New(v3Client.Config{
 		Endpoints:   []string{addr},
-		DialTimeout: duration,
+		DialTimeout: timeout,
 	})
 	if err != nil {
 		logger.Error(err)
@@ -160,7 +160,7 @@ func (c *EtcdClient) Delete(ctx context.Context, key string) error {
 // defines how long that reservation is valid.  When TTL expires the key is unreserved by the KV store itself.
 // If the key is acquired then the value returned will be the value passed in.  If the key is already acquired
 // then the value assigned to that key will be returned.
-func (c *EtcdClient) Reserve(ctx context.Context, key string, value interface{}, ttl int64) (interface{}, error) {
+func (c *EtcdClient) Reserve(ctx context.Context, key string, value interface{}, ttl time.Duration) (interface{}, error) {
 	// Validate that we can convert value to a string as etcd API expects a string
 	var val string
 	var er error
@@ -168,7 +168,7 @@ func (c *EtcdClient) Reserve(ctx context.Context, key string, value interface{},
 		return nil, fmt.Errorf("unexpected-type%T", value)
 	}
 
-	resp, err := c.ectdAPI.Grant(ctx, ttl)
+	resp, err := c.ectdAPI.Grant(ctx, int64(ttl.Seconds()))
 	if err != nil {
 		logger.Error(err)
 		return nil, err
@@ -455,7 +455,7 @@ func (c *EtcdClient) getLock(lockName string) (*v3Concurrency.Mutex, *v3Concurre
 	return lock, session
 }
 
-func (c *EtcdClient) AcquireLock(ctx context.Context, lockName string, timeout int) error {
+func (c *EtcdClient) AcquireLock(ctx context.Context, lockName string, timeout time.Duration) error {
 	session, _ := v3Concurrency.NewSession(c.ectdAPI, v3Concurrency.WithContext(ctx))
 	mu := v3Concurrency.NewMutex(session, "/devicelock_"+lockName)
 	if err := mu.Lock(context.Background()); err != nil {

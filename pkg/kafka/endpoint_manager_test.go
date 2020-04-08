@@ -62,7 +62,7 @@ func (ep *EPTest) initBackend() error {
 	configName := "voltha-lib.kafka.ep.test"
 	storageDir := "voltha-lib.kafka.ep.etcd"
 	logLevel := "error"
-	timeout := time.Duration(5 * time.Second)
+	timeout := 5 * time.Second
 
 	kvClientPort, err := freeport.GetFreePort()
 	if err != nil {
@@ -77,7 +77,7 @@ func (ep *EPTest) initBackend() error {
 		return status.Error(codes.Internal, "Embedded server failed to start")
 	}
 
-	ep.backend = db.NewBackend("etcd", "127.0.0.1", kvClientPort, int(timeout.Milliseconds()), "service/voltha")
+	ep.backend = db.NewBackend("etcd", "127.0.0.1", kvClientPort, timeout, "service/voltha")
 	return nil
 }
 

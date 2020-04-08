@@ -24,6 +24,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
+	"time"
 )
 
 var etcdServer *EtcdServer
@@ -43,7 +44,7 @@ func setup() {
 		logger.Fatal("Embedded server failed to start")
 	}
 	clientAddr := fmt.Sprintf("localhost:%d", clientPort)
-	client, err = kvstore.NewEtcdClient(clientAddr, 10)
+	client, err = kvstore.NewEtcdClient(clientAddr, 10*time.Second)
 	if err != nil || client == nil {
 		etcdServer.Stop()
 		logger.Fatal("Failed to create an Etcd client")
