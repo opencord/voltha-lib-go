@@ -31,7 +31,7 @@ import (
 
 const (
 	embedEtcdServerHost = "localhost"
-	defaultTimeout      = 1
+	defaultTimeout      = 1 * time.Second
 	defaultPathPrefix   = "Prefix"
 )
 
@@ -119,7 +119,7 @@ func TestMakePath(t *testing.T) {
 // Liveness Check against Embedded Etcd Server should return alive state
 func TestPerformLivenessCheck_EmbeddedEtcdServer(t *testing.T) {
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 	alive := backend.PerformLivenessCheck(ctx)
 	assert.True(t, alive)
@@ -128,7 +128,7 @@ func TestPerformLivenessCheck_EmbeddedEtcdServer(t *testing.T) {
 // Liveness Check against Dummy Etcd Server should return not-alive state
 func TestPerformLivenessCheck_DummyEtcdServer(t *testing.T) {
 	backend := provisionBackendWithDummyEtcdServer(t)
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 	alive := backend.PerformLivenessCheck(ctx)
 	assert.False(t, alive)
@@ -148,7 +148,7 @@ func TestEnableLivenessChannel_EmbeddedEtcdServer_BeforeLivenessCheck(t *testing
 // Enabling Liveness Channel after First Liveness Check
 func TestEnableLivenessChannel_EmbeddedEtcdServer_AfterLivenessCheck(t *testing.T) {
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 	backend.PerformLivenessCheck(ctx)
 

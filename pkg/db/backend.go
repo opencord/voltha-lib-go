@@ -42,7 +42,7 @@ type Backend struct {
 	StoreType               string
 	Host                    string
 	Port                    int
-	Timeout                 int
+	Timeout                 time.Duration
 	PathPrefix              string
 	alive                   bool          // Is this backend connection alive?
 	liveness                chan bool     // channel to post alive state
@@ -51,7 +51,7 @@ type Backend struct {
 }
 
 // NewBackend creates a new instance of a Backend structure
-func NewBackend(storeType string, host string, port int, timeout int, pathPrefix string) *Backend {
+func NewBackend(storeType string, host string, port int, timeout time.Duration, pathPrefix string) *Backend {
 	var err error
 
 	b := &Backend{
@@ -77,7 +77,7 @@ func NewBackend(storeType string, host string, port int, timeout int, pathPrefix
 	return b
 }
 
-func (b *Backend) newClient(address string, timeout int) (kvstore.Client, error) {
+func (b *Backend) newClient(address string, timeout time.Duration) (kvstore.Client, error) {
 	switch b.StoreType {
 	case "consul":
 		return kvstore.NewConsulClient(address, timeout)
