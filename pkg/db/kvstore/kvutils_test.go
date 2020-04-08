@@ -18,29 +18,7 @@ package kvstore
 import (
 	"github.com/stretchr/testify/assert"
 	"testing"
-	"time"
 )
-
-func TestDurationWithNegativeTimeout(t *testing.T) {
-	actualResult := GetDuration(-1)
-	var expectedResult = defaultKVGetTimeout * time.Second
-
-	assert.Equal(t, expectedResult, actualResult)
-}
-
-func TestDurationWithZeroTimeout(t *testing.T) {
-	actualResult := GetDuration(0)
-	var expectedResult = defaultKVGetTimeout * time.Second
-
-	assert.Equal(t, expectedResult, actualResult)
-}
-
-func TestDurationWithTimeout(t *testing.T) {
-	actualResult := GetDuration(10)
-	var expectedResult = time.Duration(10) * time.Second
-
-	assert.Equal(t, expectedResult, actualResult)
-}
 
 func TestToStringWithString(t *testing.T) {
 	actualResult, _ := ToString("myString")
