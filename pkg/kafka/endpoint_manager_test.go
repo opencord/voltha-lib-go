@@ -195,7 +195,7 @@ func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serv
 			logger.Fatalw("error-getting-endpoint", log.Fields{"error": err})
 		}
 		deviceIDs[deviceID] = endpoint
-		replicaID, err := tm.getReplicaAssignment(deviceID, serviceType)
+		replicaID, err := tm.GetReplicaAssignment(deviceID, serviceType)
 		if err != nil {
 			logger.Fatalw("error-getting-endpoint", log.Fields{"error": err})
 		}
@@ -219,7 +219,7 @@ func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serv
 
 	// Verify that a device belong to the correct node
 	for deviceID := range deviceIDs {
-		replicaID, err := tm.getReplicaAssignment(deviceID, serviceType)
+		replicaID, err := tm.GetReplicaAssignment(deviceID, serviceType)
 		if err != nil {
 			logger.Fatalw("error-getting-topic", log.Fields{"error": err})
 		}
