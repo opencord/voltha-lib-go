@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5d191f1f_838ee88c",
+        "filename": "pkg/db/backend_test.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000675
+      },
+      "writtenOn": "2020-04-13T18:43:49Z",
+      "side": 1,
+      "message": "Yes, \u00271 * time.Second\u0027 works here but using time.Duration seems to be a better convention",
+      "parentUuid": "b69345be_405677d6",
+      "range": {
+        "startLine": 34,
+        "startChar": 23,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "aab2567cd34bb36c647775ad0c56beadb6237308",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db0f4459_a8671e7a",
         "filename": "pkg/db/kvstore/client.go",
         "patchSetId": 2
@@ -59,6 +83,30 @@
       "writtenOn": "2020-04-13T17:39:59Z",
       "side": 1,
       "message": "ttl.String()",
+      "range": {
+        "startLine": 176,
+        "startChar": 12,
+        "endLine": 176,
+        "endChar": 27
+      },
+      "revId": "aab2567cd34bb36c647775ad0c56beadb6237308",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e100752e_02713f30",
+        "filename": "pkg/db/kvstore/consulclient.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000675
+      },
+      "writtenOn": "2020-04-13T18:43:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "381614e5_ba4fa78a",
       "range": {
         "startLine": 176,
         "startChar": 12,
