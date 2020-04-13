@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "da4abe89_5613a033",
+        "filename": "pkg/db/backend_test.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-04-13T20:24:18Z",
+      "side": 1,
+      "message": "from https://golang.org/pkg/time/#pkg-constants, the convention seems to be \"To convert an integer number of units to a Duration, multiply\". Followed by the example\nconst (\n    Nanosecond  Duration \u003d 1\n    Microsecond          \u003d 1000 * Nanosecond\n    Millisecond          \u003d 1000 * Microsecond\n    Second               \u003d 1000 * Millisecond\n    Minute               \u003d 60 * Second\n    Hour                 \u003d 60 * Minute\n)",
+      "parentUuid": "5d191f1f_838ee88c",
+      "range": {
+        "startLine": 34,
+        "startChar": 23,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "aab2567cd34bb36c647775ad0c56beadb6237308",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db0f4459_a8671e7a",
         "filename": "pkg/db/kvstore/client.go",
         "patchSetId": 2
