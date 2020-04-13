@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b69345be_405677d6",
+        "filename": "pkg/db/backend_test.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-04-13T17:39:59Z",
+      "side": 1,
+      "message": "i think `1 * time.Second` works here, but it is sort of a nit",
+      "range": {
+        "startLine": 34,
+        "startChar": 23,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "aab2567cd34bb36c647775ad0c56beadb6237308",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db0f4459_a8671e7a",
+        "filename": "pkg/db/kvstore/client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-04-13T17:39:59Z",
+      "side": 1,
+      "message": "5 * time.Second",
+      "range": {
+        "startLine": 25,
+        "startChar": 23,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "aab2567cd34bb36c647775ad0c56beadb6237308",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "381614e5_ba4fa78a",
+        "filename": "pkg/db/kvstore/consulclient.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-04-13T17:39:59Z",
+      "side": 1,
+      "message": "ttl.String()",
+      "range": {
+        "startLine": 176,
+        "startChar": 12,
+        "endLine": 176,
+        "endChar": 27
+      },
+      "revId": "aab2567cd34bb36c647775ad0c56beadb6237308",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8eeb480a_ace283bf",
+        "filename": "pkg/kafka/endpoint_manager_test.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-04-13T17:39:59Z",
+      "side": 1,
+      "message": "5 * time.Second",
+      "range": {
+        "startLine": 65,
+        "startChar": 12,
+        "endLine": 65,
+        "endChar": 42
+      },
+      "revId": "aab2567cd34bb36c647775ad0c56beadb6237308",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "271f2e4b_0207b182",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-04-13T17:39:59Z",
+      "side": 1,
+      "message": "5 * time.Second",
+      "range": {
+        "startLine": 128,
+        "startChar": 25,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "revId": "aab2567cd34bb36c647775ad0c56beadb6237308",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93e5a376_0cc76889",
+        "filename": "pkg/techprofile/config.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-04-13T17:39:59Z",
+      "side": 1,
+      "message": "5 * time.Second",
+      "range": {
+        "startLine": 32,
+        "startChar": 25,
+        "endLine": 32,
+        "endChar": 55
+      },
+      "revId": "aab2567cd34bb36c647775ad0c56beadb6237308",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
