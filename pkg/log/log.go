@@ -232,6 +232,12 @@ func getDefaultConfig(outputType string, level LogLevel, defaultFields Fields) z
 	}
 }
 
+func GetConfig(outputType string, level LogLevel, fields Fields) *zp.Config {
+	cfg = getDefaultConfig(outputType, level, fields)
+	var config *zp.Config = &cfg
+	return config
+}
+
 // SetLogger needs to be invoked before the logger API can be invoked.  This function
 // initialize the default logger (zap's sugaredlogger)
 func SetDefaultLogger(outputType string, level LogLevel, defaultFields Fields) (Logger, error) {
