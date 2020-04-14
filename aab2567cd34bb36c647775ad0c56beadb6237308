@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e29c77f8_09324c00",
+        "filename": "pkg/db/backend_test.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000675
+      },
+      "writtenOn": "2020-04-14T14:30:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da4abe89_5613a033",
+      "range": {
+        "startLine": 34,
+        "startChar": 23,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "aab2567cd34bb36c647775ad0c56beadb6237308",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db0f4459_a8671e7a",
         "filename": "pkg/db/kvstore/client.go",
         "patchSetId": 2
