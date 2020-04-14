@@ -25,7 +25,12 @@ import (
 	v3Client "go.etcd.io/etcd/clientv3"
 	v3Concurrency "go.etcd.io/etcd/clientv3/concurrency"
 	v3rpcTypes "go.etcd.io/etcd/etcdserver/api/v3rpc/rpctypes"
+	"go.etcd.io/etcd/pkg/logutil"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
+
+var DefaultLogLevel = "fatal"
 
 // EtcdClient represents the Etcd KV store client
 type EtcdClient struct {
@@ -38,13 +43,46 @@ type EtcdClient struct {
 	lockToMutexLock     sync.Mutex
 }
 
+func NewLogConfig(level string) *zap.Config {
+	return &zap.Config{
+		Level: zap.NewAtomicLevelAt(logutil.ConvertToZapLevel(level)),
+
+		Development: false,
+		Sampling: &zap.SamplingConfig{
+			Initial:    100,
+			Thereafter: 100,
+		},
+
+		Encoding: "json",
+
+		EncoderConfig: zapcore.EncoderConfig{
+			TimeKey:        "ts",
+			LevelKey:       "level",
+			NameKey:        "logger",
+			CallerKey:      "caller",
+			MessageKey:     "msg",
+			StacktraceKey:  "stacktrace",
+			LineEnding:     zapcore.DefaultLineEnding,
+			EncodeLevel:    zapcore.LowercaseLevelEncoder,
+			EncodeTime:     zapcore.ISO8601TimeEncoder,
+			EncodeDuration: zapcore.StringDurationEncoder,
+			EncodeCaller:   zapcore.ShortCallerEncoder,
+		},
+
+		OutputPaths:      []string{"stderr"},
+		ErrorOutputPaths: []string{"stderr"},
+	}
+}
+
 // NewEtcdClient returns a new client for the Etcd KV store
-func NewEtcdClient(addr string, timeout int) (*EtcdClient, error) {
+func NewEtcdClient(addr string, timeout int, level string) (*EtcdClient, error) {
 	duration := GetDuration(timeout)
+	logconfig := NewLogConfig(level)
 
 	c, err := v3Client.New(v3Client.Config{
 		Endpoints:   []string{addr},
 		DialTimeout: duration,
+		LogConfig:   logconfig,
 	})
 	if err != nil {
 		logger.Error(err)
