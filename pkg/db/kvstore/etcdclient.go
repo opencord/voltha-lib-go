@@ -27,6 +27,8 @@ import (
 	v3rpcTypes "go.etcd.io/etcd/etcdserver/api/v3rpc/rpctypes"
 )
 
+var DefaultLogLevel = log.WarnLevel
+
 // EtcdClient represents the Etcd KV store client
 type EtcdClient struct {
 	ectdAPI             *v3Client.Client
@@ -39,12 +41,14 @@ type EtcdClient struct {
 }
 
 // NewEtcdClient returns a new client for the Etcd KV store
-func NewEtcdClient(addr string, timeout int) (*EtcdClient, error) {
+func NewEtcdClient(addr string, timeout int, level log.LogLevel) (*EtcdClient, error) {
 	duration := GetDuration(timeout)
+	logconfig := log.ConstructZapConfig(log.JSON, level, log.Fields{})
 
 	c, err := v3Client.New(v3Client.Config{
 		Endpoints:   []string{addr},
 		DialTimeout: duration,
+		LogConfig:   logconfig,
 	})
 	if err != nil {
 		logger.Error(err)
