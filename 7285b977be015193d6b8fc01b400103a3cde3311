@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dec96ef9_a2ea3950",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-04-15T15:47:21Z",
+      "side": 1,
+      "message": "I think a comma-separated string is fine given that packagenames don\u0027t ordinarily contains commas and deserializing this ought to be simple. However, I am curious if there are any etcd conventions on how to pass arrays in general. Do people typically JSON-encode complex data?",
+      "range": {
+        "startLine": 137,
+        "startChar": 17,
+        "endLine": 137,
+        "endChar": 47
+      },
+      "revId": "7285b977be015193d6b8fc01b400103a3cde3311",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
