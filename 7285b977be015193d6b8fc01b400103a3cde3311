@@ -22,6 +22,30 @@
       "revId": "7285b977be015193d6b8fc01b400103a3cde3311",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "deb43277_944593ea",
+        "filename": "pkg/config/logcontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-04-16T18:28:21Z",
+      "side": 1,
+      "message": "I actually overlooked it. Yeah it is better to be consistent across and hence changed to store as json now. \n\nIt is getting stored as a JSON array now in etcd e.g.\n\nkey \u003d service/voltha/config/read-write-core/metadata/log_package_list\nvalue \u003d [\"default\",\"github.com/opencord/voltha-go/common/core/northbound/grpc\",\"github.com/opencord/voltha-go/db/model\",\"github.com/opencord/voltha-go/rw_core/core\",\"github.com/opencord/voltha-go/rw_core/core/adapter\",\"github.com/opencord/voltha-go/rw_core/core/api\",\"github.com/opencord/voltha-go/rw_core/core/device\",\"github.com/opencord/voltha-go/rw_core/core/device/remote\",\"github.com/opencord/voltha-go/rw_core/flowdecomposition\",\"github.com/opencord/voltha-go/rw_core/route\",\"github.com/opencord/voltha-lib-go/v3/pkg/config\",\"github.com/opencord/voltha-lib-go/v3/pkg/db\",\"github.com/opencord/voltha-lib-go/v3/pkg/db/kvstore\",\"github.com/opencord/voltha-lib-go/v3/pkg/flows\",\"github.com/opencord/voltha-lib-go/v3/pkg/grpc\",\"github.com/opencord/voltha-lib-go/v3/pkg/kafka\",\"github.com/opencord/voltha-lib-go/v3/pkg/probe\",\"main\"]",
+      "parentUuid": "dec96ef9_a2ea3950",
+      "range": {
+        "startLine": 137,
+        "startChar": 17,
+        "endLine": 137,
+        "endChar": 47
+      },
+      "revId": "7285b977be015193d6b8fc01b400103a3cde3311",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
