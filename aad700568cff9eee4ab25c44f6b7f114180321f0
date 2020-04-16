@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d2e96fe_08c2dff9",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-04-16T15:15:14Z",
+      "side": 1,
+      "message": "Should this not be using the same `logger` logs that other packages do?  (Seems like this is repeating effort.)",
+      "revId": "aad700568cff9eee4ab25c44f6b7f114180321f0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
