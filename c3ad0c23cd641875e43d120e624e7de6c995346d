@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "80f07e57_5284b4ad",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-04-20T14:33:30Z",
+      "side": 1,
+      "message": "Would it make more sense to  just use WarnLevel wherever DefaultLogLevel is used?  Seems like an unnecessary indirection.\nAdditionally, `var` should be `const`, and should be locally scoped (lowerCamelCase).",
+      "revId": "c3ad0c23cd641875e43d120e624e7de6c995346d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c30a9384_7d969d09",
         "filename": "pkg/log/log.go",
         "patchSetId": 4
