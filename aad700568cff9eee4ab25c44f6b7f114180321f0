@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ec1c1c7a_09c8a1ea",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-04-20T13:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d2e96fe_08c2dff9",
+      "revId": "aad700568cff9eee4ab25c44f6b7f114180321f0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee284531_ebe27baa",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2020-04-16T16:00:24Z",
       "side": 1,
       "message": "The voltha logger uses the zap logger as well.   In this scenario, you can use the same zap.config used by logger.  You will need to add something like \u003cfunc (l logger) GetConfig() ...\u003e in the logger package to use the same config.",
+      "revId": "aad700568cff9eee4ab25c44f6b7f114180321f0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c090019_f24487ab",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-04-20T13:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee284531_ebe27baa",
       "revId": "aad700568cff9eee4ab25c44f6b7f114180321f0",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
