@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a520bc7c_15e60256",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-04-20T13:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "956874a7_ad68cf9a",
+      "revId": "a4735cd3d0efe92cca321c69a666e2b8d3ec2ab6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afbb0b25_7199f7ad",
         "filename": "pkg/log/log.go",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2020-04-20T06:18:11Z",
       "side": 1,
       "message": "You are updating global variable maintaining default log config (cfg) in this method. Should not be done.\n\nBetter name this method as ConstructZapConfig",
+      "revId": "a4735cd3d0efe92cca321c69a666e2b8d3ec2ab6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038bd6ed_aefe633d",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-04-20T13:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afbb0b25_7199f7ad",
       "revId": "a4735cd3d0efe92cca321c69a666e2b8d3ec2ab6",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
