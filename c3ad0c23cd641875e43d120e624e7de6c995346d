@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c30a9384_7d969d09",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-04-20T14:14:42Z",
+      "side": 1,
+      "message": "variables conf and config seems un-necesary. Either try to return the config directly or change the return type to non-pointer (zp.Config)",
+      "revId": "c3ad0c23cd641875e43d120e624e7de6c995346d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
