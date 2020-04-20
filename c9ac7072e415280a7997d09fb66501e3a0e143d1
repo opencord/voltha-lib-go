@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f24bdd43_d0b9f232",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-04-20T17:37:35Z",
+      "side": 1,
+      "message": "please correct error message",
+      "range": {
+        "startLine": 767,
+        "startChar": 46,
+        "endLine": 767,
+        "endChar": 78
+      },
+      "revId": "c9ac7072e415280a7997d09fb66501e3a0e143d1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ca8a310_9ce36beb",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-04-20T17:37:35Z",
+      "side": 1,
+      "message": "please remove name and add dashes (`key-not-found`), or remove message if it was only necessary for debugging.",
+      "range": {
+        "startLine": 771,
+        "startChar": 17,
+        "endLine": 771,
+        "endChar": 23
+      },
+      "revId": "c9ac7072e415280a7997d09fb66501e3a0e143d1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce582925_a928e585",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-04-20T17:37:35Z",
+      "side": 1,
+      "message": "remove name and add dashes to log message",
+      "range": {
+        "startLine": 775,
+        "startChar": 17,
+        "endLine": 775,
+        "endChar": 23
+      },
+      "revId": "c9ac7072e415280a7997d09fb66501e3a0e143d1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
