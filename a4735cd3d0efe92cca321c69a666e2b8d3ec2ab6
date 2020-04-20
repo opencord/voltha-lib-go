@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "956874a7_ad68cf9a",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-04-20T06:18:11Z",
+      "side": 1,
+      "message": "Would suggest to use default as Warn so that we don\u0027t suppress any fault indications coming from etcd client",
+      "revId": "a4735cd3d0efe92cca321c69a666e2b8d3ec2ab6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afbb0b25_7199f7ad",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-04-20T06:18:11Z",
+      "side": 1,
+      "message": "You are updating global variable maintaining default log config (cfg) in this method. Should not be done.\n\nBetter name this method as ConstructZapConfig",
+      "revId": "a4735cd3d0efe92cca321c69a666e2b8d3ec2ab6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
