@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb0cb4af_b74eb415",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 14
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-04-23T19:37:30Z",
+      "side": 1,
+      "message": "Should this return an error as well?",
+      "revId": "4c89a1da6f7a02a1bbc26217ceca0c1ba64a8d25",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
