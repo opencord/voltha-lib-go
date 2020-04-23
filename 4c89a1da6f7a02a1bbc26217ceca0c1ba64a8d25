@@ -16,6 +16,24 @@
       "revId": "4c89a1da6f7a02a1bbc26217ceca0c1ba64a8d25",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9111ae4_599eed99",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 14
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-04-23T19:50:08Z",
+      "side": 1,
+      "message": "Not necessarily. This is diagnostic code that was added when I was helping Dinesh diagnose reasons why his requests were not being decoded properly. I\u0027m torn between whether it should be removed outright, or the same warning should be added to all of the other RequestHandlerProxy functions. Seems like unknown parameters showing up on the bus is at least a warnable offense, but not necessarily an error that should cause the function to abort. Thoughts?",
+      "parentUuid": "fb0cb4af_b74eb415",
+      "revId": "4c89a1da6f7a02a1bbc26217ceca0c1ba64a8d25",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
