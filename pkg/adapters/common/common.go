@@ -17,9 +17,13 @@ package common
 
 import (
 	"github.com/opencord/voltha-lib-go/v3/pkg/log"
+	"github.com/phayes/freeport"
 )
 
-var logger log.Logger
+var (
+	logger              log.Logger
+	embedEtcdServerPort int
+)
 
 func init() {
 	// Setup this package so that it's log level can be modified at run time
@@ -27,5 +31,10 @@ func init() {
 	logger, err = log.AddPackage(log.JSON, log.ErrorLevel, log.Fields{"pkg": "common"})
 	if err != nil {
 		panic(err)
+	}
+
+	embedEtcdServerPort, err = freeport.GetFreePort()
+	if err != nil {
+		logger.Fatal("Cannot get freeport for KvClient")
 	}
 }
