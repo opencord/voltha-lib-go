@@ -16,6 +16,24 @@
       "revId": "9417fcba61f53d426f100584006563609b191a9f",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2bc345d_3d27c484",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-04-23T15:55:43Z",
+      "side": 1,
+      "message": "I think we can just drop it.",
+      "parentUuid": "a5fa9d9a_c32dca82",
+      "revId": "9417fcba61f53d426f100584006563609b191a9f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
