@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b4a1136_281aa177",
+        "filename": "pkg/adapters/common/adapter_proxy_test.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-04-24T16:55:53Z",
+      "side": 1,
+      "message": "Should this global variable be set in a suite setup function rather than in a unit test? I\u0027m thinking in particular of the case where someone attempts to run just one test in the suite.",
+      "range": {
+        "startLine": 48,
+        "startChar": 1,
+        "endLine": 48,
+        "endChar": 20
+      },
+      "revId": "5330aaa338be9c27cedcd5676373eb5717995e02",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
