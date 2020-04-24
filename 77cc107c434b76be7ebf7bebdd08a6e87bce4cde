@@ -16,6 +16,24 @@
       "revId": "77cc107c434b76be7ebf7bebdd08a6e87bce4cde",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ed7f075_0a371ea2",
+        "filename": "pkg/adapters/common/adapter_proxy_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-04-24T04:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a10798c_7d835e2a",
+      "revId": "77cc107c434b76be7ebf7bebdd08a6e87bce4cde",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
