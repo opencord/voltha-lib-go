@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e44a91bf_4f3a57c8",
+        "filename": "pkg/adapters/common/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-04-27T15:22:41Z",
+      "side": 1,
+      "message": "Since this is used in tests only, it should be defined \u0026 set in a `*_test.go` file, to avoid being included in the final binary.",
+      "range": {
+        "startLine": 25,
+        "startChar": 1,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "9f8ec8a42dc60368ff36ffc3a5ef5a106eed9b5e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
