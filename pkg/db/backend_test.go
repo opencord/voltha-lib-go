@@ -18,15 +18,15 @@ package db
 
 import (
 	"context"
-	"os"
-	"testing"
-	"time"
-
 	mocks "github.com/opencord/voltha-lib-go/v3/pkg/mocks/etcd"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"os"
+	"strconv"
+	"testing"
+	"time"
 )
 
 const (
@@ -62,14 +62,14 @@ func TestMain(m *testing.M) {
 }
 
 func provisionBackendWithEmbeddedEtcdServer(t *testing.T) *Backend {
-	backend := NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	backend := NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 	assert.NotNil(t, backend)
 	assert.NotNil(t, backend.Client)
 	return backend
 }
 
 func provisionBackendWithDummyEtcdServer(t *testing.T) *Backend {
-	backend := NewBackend("etcd", embedEtcdServerHost, dummyEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	backend := NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(dummyEtcdServerPort), defaultTimeout, defaultPathPrefix)
 	assert.NotNil(t, backend)
 	assert.NotNil(t, backend.Client)
 	return backend
@@ -77,14 +77,14 @@ func provisionBackendWithDummyEtcdServer(t *testing.T) *Backend {
 
 // Create instance using Etcd Kvstore
 func TestNewBackend_EtcdKvStore(t *testing.T) {
-	backend := NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	address := embedEtcdServerHost + ":" + strconv.Itoa(embedEtcdServerPort)
+	backend := NewBackend("etcd", address, defaultTimeout, defaultPathPrefix)
 
 	// Verify all attributes of backend have got set correctly
 	assert.NotNil(t, backend)
 	assert.NotNil(t, backend.Client)
 	assert.Equal(t, backend.StoreType, "etcd")
-	assert.Equal(t, backend.Host, embedEtcdServerHost)
-	assert.Equal(t, backend.Port, embedEtcdServerPort)
+	assert.Equal(t, backend.Address, address)
 	assert.Equal(t, backend.Timeout, defaultTimeout)
 	assert.Equal(t, backend.PathPrefix, defaultPathPrefix)
 	assert.Equal(t, backend.alive, false) // backend is not alive at start
@@ -94,7 +94,7 @@ func TestNewBackend_EtcdKvStore(t *testing.T) {
 
 // Create instance using Consul Kvstore
 func TestNewBackend_ConsulKvStore(t *testing.T) {
-	backend := NewBackend("consul", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	backend := NewBackend("consul", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
 	// Verify kvstore type attribute of backend has got set correctly
 	assert.NotNil(t, backend)
@@ -104,7 +104,7 @@ func TestNewBackend_ConsulKvStore(t *testing.T) {
 
 // Create instance using Invalid Kvstore; instance creation should fail
 func TestNewBackend_InvalidKvstore(t *testing.T) {
-	backend := NewBackend("unknown", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	backend := NewBackend("unknown", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
 	assert.NotNil(t, backend)
 	assert.Nil(t, backend.Client)

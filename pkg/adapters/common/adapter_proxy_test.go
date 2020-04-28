@@ -25,6 +25,7 @@ import (
 	"github.com/opencord/voltha-protos/v3/go/voltha"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
+	"strconv"
 	"testing"
 )
 
@@ -53,7 +54,7 @@ func TestNewAdapterProxy(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	backend := db.NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
 	assert.NotNil(t, adapter)
@@ -67,8 +68,7 @@ func TestSendInterAdapterMessage(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	backend := db.NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
 	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
@@ -112,8 +112,7 @@ func TestHeaderId(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	backend := db.NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
 	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
@@ -141,8 +140,7 @@ func TestInvalidProtoMessage(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	backend := db.NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
 	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
