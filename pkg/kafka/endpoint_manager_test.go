@@ -29,6 +29,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"math"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -77,7 +78,7 @@ func (ep *EPTest) initBackend() error {
 		return status.Error(codes.Internal, "Embedded server failed to start")
 	}
 
-	ep.backend = db.NewBackend("etcd", "127.0.0.1", kvClientPort, timeout, "service/voltha")
+	ep.backend = db.NewBackend("etcd", "127.0.0.1"+":"+strconv.Itoa(kvClientPort), timeout, "service/voltha")
 	return nil
 }
 
