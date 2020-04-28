@@ -137,7 +137,7 @@ func (kvclient *MockResKVClient) Close() {
 
 func TestExcludeReservedGemPortIdFromThePool(t *testing.T) {
 	PONRMgr, err := NewPONResourceManager("gpon", "onu", "olt1",
-		"etcd", "1", 1)
+		"etcd", "1:1")
 	if err != nil {
 		return
 	}
