@@ -21,6 +21,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/google/uuid"
 	"github.com/opencord/voltha-lib-go/v3/pkg/db"
+	"github.com/opencord/voltha-lib-go/v3/pkg/db/kvstore"
 	"github.com/opencord/voltha-lib-go/v3/pkg/log"
 	"github.com/opencord/voltha-lib-go/v3/pkg/mocks/etcd"
 	"github.com/opencord/voltha-protos/v3/go/voltha"
@@ -77,7 +78,7 @@ func (ep *EPTest) initBackend() error {
 		return status.Error(codes.Internal, "Embedded server failed to start")
 	}
 
-	ep.backend = db.NewBackend("etcd", "127.0.0.1", kvClientPort, timeout, "service/voltha")
+	ep.backend = db.NewBackend("etcd", kvstore.GetAddress("127.0.0.1", kvClientPort), timeout, "service/voltha")
 	return nil
 }
 
