@@ -20,7 +20,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"strconv"
 	"sync"
 	"time"
 
@@ -40,8 +39,7 @@ type Backend struct {
 	sync.RWMutex
 	Client                  kvstore.Client
 	StoreType               string
-	Host                    string
-	Port                    int
+	Address                 string
 	Timeout                 int
 	PathPrefix              string
 	alive                   bool          // Is this backend connection alive?
@@ -51,24 +49,22 @@ type Backend struct {
 }
 
 // NewBackend creates a new instance of a Backend structure
-func NewBackend(storeType string, host string, port int, timeout int, pathPrefix string) *Backend {
+func NewBackend(storeType string, address string, timeout int, pathPrefix string) *Backend {
 	var err error
 
 	b := &Backend{
 		StoreType:               storeType,
-		Host:                    host,
-		Port:                    port,
+		Address:                 address,
 		Timeout:                 timeout,
 		LivenessChannelInterval: DefaultLivenessChannelInterval,
 		PathPrefix:              pathPrefix,
 		alive:                   false, // connection considered down at start
 	}
 
-	address := host + ":" + strconv.Itoa(port)
 	if b.Client, err = b.newClient(address, timeout); err != nil {
 		logger.Errorw("failed-to-create-kv-client",
 			log.Fields{
-				"type": storeType, "host": host, "port": port,
+				"type": storeType, "address": address,
 				"timeout": timeout, "prefix": pathPrefix,
 				"error": err.Error(),
 			})

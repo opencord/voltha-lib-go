@@ -16,6 +16,7 @@
 package common
 
 import (
+	"fmt"
 	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
@@ -80,4 +81,34 @@ func TestICProxyErrorCodeToGrpcErrorCode(t *testing.T) {
 
 	timeout := ICProxyErrorCodeToGrpcErrorCode(ic.ErrorCode_DEADLINE_EXCEEDED)
 	assert.Equal(t, timeout, codes.DeadlineExceeded)
+}
+
+func TestToValidateAddressWithValidFormat(t *testing.T) {
+	actualResult := ValidateAddress("localhost:8080")
+	assert.Equal(t, nil, actualResult)
+}
+
+func TestToValidateAddressWithInvalidFormat(t *testing.T) {
+	actualResult := ValidateAddress("a.b.0.1::::::")
+	var expectedResult = fmt.Errorf("Invalid Format of address: address a.b.0.1::::::: too many colons in address")
+	assert.Equal(t, expectedResult, actualResult)
+}
+
+func TestToValidateAddressWithInvalidHost(t *testing.T) {
+	address := "a:8080"
+	actualResult := ValidateAddress(address)
+	var expectedResult = fmt.Errorf("Unknown host: lookup a on 8.8.8.8:53: no such host")
+	assert.Equal(t, expectedResult, actualResult)
+}
+
+func TestToValidateAddressWithInvalidPort(t *testing.T) {
+	actualResult := ValidateAddress("127.0.0.1:5ax65")
+	var expectedResult = fmt.Errorf("Invalid address port [5ax65]: strconv.Atoi: parsing \"5ax65\": invalid syntax")
+	assert.Equal(t, expectedResult, actualResult)
+}
+
+func TestToValidateAddressWithInvalidPortRange(t *testing.T) {
+	actualResult := ValidateAddress("127.0.0.1:65539")
+	var expectedResult = fmt.Errorf("Invalid range for address port: 65539")
+	assert.Equal(t, expectedResult, actualResult)
 }

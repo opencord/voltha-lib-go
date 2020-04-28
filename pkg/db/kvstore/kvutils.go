@@ -17,6 +17,7 @@ package kvstore
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 )
 
@@ -53,4 +54,10 @@ func ToByte(value interface{}) ([]byte, error) {
 	default:
 		return nil, fmt.Errorf("unexpected-type-%T", t)
 	}
+}
+
+// GetAddress concatenates the Host and Port as single arguement.
+func GetAddress(host string, port int) string {
+	addr := host + ":" + strconv.Itoa(port)
+	return addr
 }
