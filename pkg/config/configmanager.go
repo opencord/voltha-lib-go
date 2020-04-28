@@ -93,15 +93,14 @@ type ComponentConfig struct {
 	kvStoreEventChan chan *kvstore.Event
 }
 
-func NewConfigManager(kvClient kvstore.Client, kvStoreType, kvStoreHost string, kvStorePort int, kvStoreTimeout time.Duration) *ConfigManager {
+func NewConfigManager(kvClient kvstore.Client, kvStoreType, kvStoreAddress string, kvStoreTimeout time.Duration) *ConfigManager {
 
 	return &ConfigManager{
 		KvStoreConfigPrefix: defaultkvStoreConfigPath,
 		Backend: &db.Backend{
 			Client:     kvClient,
 			StoreType:  kvStoreType,
-			Host:       kvStoreHost,
-			Port:       kvStorePort,
+			Address:    kvStoreAddress,
 			Timeout:    kvStoreTimeout,
 			PathPrefix: kvStoreDataPathPrefix,
 		},

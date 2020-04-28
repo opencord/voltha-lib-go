@@ -15,7 +15,9 @@
  */
 package kvstore
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // ToString converts an interface value to a string.  The interface should either be of
 // a string type or []byte.  Otherwise, an error is returned.
