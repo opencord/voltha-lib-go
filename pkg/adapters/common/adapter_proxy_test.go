@@ -19,6 +19,7 @@ package common
 import (
 	"context"
 	"github.com/opencord/voltha-lib-go/v3/pkg/db"
+	"github.com/opencord/voltha-lib-go/v3/pkg/db/kvstore"
 	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
 	mocks "github.com/opencord/voltha-lib-go/v3/pkg/mocks/kafka"
 	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
@@ -53,7 +54,8 @@ func TestNewAdapterProxy(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	address := kvstore.GetAddress(embedEtcdServerHost, embedEtcdServerPort)
+	backend := db.NewBackend("etcd", address, defaultTimeout, defaultPathPrefix)
 	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
 	assert.NotNil(t, adapter)
@@ -67,8 +69,8 @@ func TestSendInterAdapterMessage(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	address := kvstore.GetAddress(embedEtcdServerHost, embedEtcdServerPort)
+	backend := db.NewBackend("etcd", address, defaultTimeout, defaultPathPrefix)
 
 	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
@@ -112,8 +114,8 @@ func TestHeaderId(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	address := kvstore.GetAddress(embedEtcdServerHost, embedEtcdServerPort)
+	backend := db.NewBackend("etcd", address, defaultTimeout, defaultPathPrefix)
 
 	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
@@ -141,8 +143,8 @@ func TestInvalidProtoMessage(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	address := kvstore.GetAddress(embedEtcdServerHost, embedEtcdServerPort)
+	backend := db.NewBackend("etcd", address, defaultTimeout, defaultPathPrefix)
 
 	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 

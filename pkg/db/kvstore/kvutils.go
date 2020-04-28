@@ -15,7 +15,10 @@
  */
 package kvstore
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 // ToString converts an interface value to a string.  The interface should either be of
 // a string type or []byte.  Otherwise, an error is returned.
@@ -41,4 +44,10 @@ func ToByte(value interface{}) ([]byte, error) {
 	default:
 		return nil, fmt.Errorf("unexpected-type-%T", t)
 	}
+}
+
+// GetAddress concatenates the Host and Port as single arguement.
+func GetAddress(host string, port int) string {
+	addr := host + ":" + strconv.Itoa(port)
+	return addr
 }
