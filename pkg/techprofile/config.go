@@ -75,8 +75,7 @@ const (
 
 // TechprofileFlags represents the set of configurations used
 type TechProfileFlags struct {
-	KVStoreHost          string
-	KVStorePort          int
+	KVStoreAddress       string
 	KVStoreType          string
 	KVStoreTimeout       int
 	KVBackend            *db.Backend
@@ -92,12 +91,11 @@ type TechProfileFlags struct {
 	DefaultNumGemPorts   uint32
 }
 
-func NewTechProfileFlags(KVStoreType string, KVStoreHost string, KVStorePort int) *TechProfileFlags {
+func NewTechProfileFlags(KVStoreType string, KVStoreAddress string) *TechProfileFlags {
 	// initialize with default values
 	var techProfileFlags = TechProfileFlags{
 		KVBackend:            nil,
-		KVStoreHost:          KVStoreHost,
-		KVStorePort:          KVStorePort,
+		KVStoreAddress:       KVStoreAddress,
 		KVStoreType:          KVStoreType,
 		KVStoreTimeout:       defaultKVStoreTimeout,
 		DefaultTPName:        defaultTechProfileName,
