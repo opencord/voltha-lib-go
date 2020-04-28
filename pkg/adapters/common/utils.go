@@ -21,6 +21,8 @@ import (
 	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
 	"google.golang.org/grpc/codes"
 	"math/rand"
+	"net"
+	"strconv"
 	"time"
 )
 
@@ -87,4 +89,27 @@ func ICProxyErrorCodeToGrpcErrorCode(icErr ic.ErrorCodeCodes) codes.Code {
 		logger.Warnw("cannnot-map-ic-error-code-to-grpc-error-code", log.Fields{"err": icErr})
 		return codes.Internal
 	}
+}
+
+// ValidateAddress validates the host and port values
+func ValidateAddress(address string) error {
+	host, port, err := net.SplitHostPort(address)
+	if err != nil {
+		return fmt.Errorf("Invalid Format of address: %v", err)
+	}
+
+	ip, err := net.LookupIP(host)
+	if err != nil || len(ip) == 0 {
+		return fmt.Errorf("Unknown host in the address: %v", address)
+	}
+
+	portInt, err := strconv.Atoi(port)
+	if err != nil {
+		return fmt.Errorf("Invalid address port [%s]: %v", port, err)
+	}
+
+	if !(portInt <= 65535 && portInt >= 0) {
+		return fmt.Errorf("Invalid range for address port: %d", portInt)
+	}
+	return nil
 }
