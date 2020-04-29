@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99a618cd_592df93c",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-04-29T21:12:55Z",
+      "side": 0,
+      "message": "don\u0027t we need to avoid parallel updates? or is ETCD guaranteeing the consistency?",
+      "range": {
+        "startLine": 221,
+        "startChar": 1,
+        "endLine": 222,
+        "endChar": 17
+      },
+      "revId": "8d4d6c9c37baac17b58b4aa6370966f27bb70a49",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
