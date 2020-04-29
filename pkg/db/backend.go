@@ -21,7 +21,6 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
-	"sync"
 	"time"
 
 	"github.com/opencord/voltha-lib-go/v3/pkg/db/kvstore"
@@ -37,7 +36,6 @@ const (
 
 // Backend structure holds details for accessing the kv store
 type Backend struct {
-	sync.RWMutex
 	Client                  kvstore.Client
 	StoreType               string
 	Host                    string
@@ -188,9 +186,6 @@ func (b *Backend) isErrorIndicatingAliveKvstore(err error) bool {
 
 // List retrieves one or more items that match the specified key
 func (b *Backend) List(ctx context.Context, key string) (map[string]*kvstore.KVPair, error) {
-	b.Lock()
-	defer b.Unlock()
-
 	formattedPath := b.makePath(key)
 	logger.Debugw("listing-key", log.Fields{"key": key, "path": formattedPath})
 
@@ -203,9 +198,6 @@ func (b *Backend) List(ctx context.Context, key string) (map[string]*kvstore.KVP
 
 // Get retrieves an item that matches the specified key
 func (b *Backend) Get(ctx context.Context, key string) (*kvstore.KVPair, error) {
-	b.Lock()
-	defer b.Unlock()
-
 	formattedPath := b.makePath(key)
 	logger.Debugw("getting-key", log.Fields{"key": key, "path": formattedPath})
 
@@ -218,9 +210,6 @@ func (b *Backend) Get(ctx context.Context, key string) (*kvstore.KVPair, error) 
 
 // Put stores an item value under the specifed key
 func (b *Backend) Put(ctx context.Context, key string, value interface{}) error {
-	b.Lock()
-	defer b.Unlock()
-
 	formattedPath := b.makePath(key)
 	logger.Debugw("putting-key", log.Fields{"key": key, "path": formattedPath})
 
@@ -233,9 +222,6 @@ func (b *Backend) Put(ctx context.Context, key string, value interface{}) error 
 
 // Delete removes an item under the specified key
 func (b *Backend) Delete(ctx context.Context, key string) error {
-	b.Lock()
-	defer b.Unlock()
-
 	formattedPath := b.makePath(key)
 	logger.Debugw("deleting-key", log.Fields{"key": key, "path": formattedPath})
 
@@ -248,9 +234,6 @@ func (b *Backend) Delete(ctx context.Context, key string) error {
 
 // CreateWatch starts watching events for the specified key
 func (b *Backend) CreateWatch(ctx context.Context, key string, withPrefix bool) chan *kvstore.Event {
-	b.Lock()
-	defer b.Unlock()
-
 	formattedPath := b.makePath(key)
 	logger.Debugw("creating-key-watch", log.Fields{"key": key, "path": formattedPath})
 
@@ -259,9 +242,6 @@ func (b *Backend) CreateWatch(ctx context.Context, key string, withPrefix bool) 
 
 // DeleteWatch stops watching events for the specified key
 func (b *Backend) DeleteWatch(key string, ch chan *kvstore.Event) {
-	b.Lock()
-	defer b.Unlock()
-
 	formattedPath := b.makePath(key)
 	logger.Debugw("deleting-key-watch", log.Fields{"key": key, "path": formattedPath})
 
