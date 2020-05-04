@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19fd55b0_e4ab0b1a",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-05-04T16:25:18Z",
+      "side": 1,
+      "message": "This will wait forever as the lock is still on above.",
+      "revId": "9b145d46616ed04c9061ee741d01d3500e87d9bd",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
