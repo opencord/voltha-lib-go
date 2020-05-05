@@ -37,11 +37,6 @@ func init() {
 	timeoutError = status.Errorf(codes.Aborted, "timeout")
 }
 
-func TestHashFlowStatsNil(t *testing.T) {
-	_, err := HashFlowStats(nil)
-	assert.EqualError(t, err, "hash-flow-stats-nil-flow")
-}
-
 func TestFlowsAndGroups_AddFlow(t *testing.T) {
 	fg := NewFlowsAndGroups()
 	allFlows := fg.ListFlows()
@@ -261,7 +256,7 @@ func TestFlowsAndGroups_String(t *testing.T) {
 	fg.AddGroup(group)
 
 	str = fg.String()
-	assert.True(t, strings.Contains(str, "id: 1143307409938767207"))
+	assert.True(t, strings.Contains(str, "id: 11819684229970388353"))
 	assert.True(t, strings.Contains(str, "group_id: 10"))
 	assert.True(t, strings.Contains(str, "oxm_class: OFPXMC_OPENFLOW_BASICOFPXMC_OPENFLOW_BASIC"))
 	assert.True(t, strings.Contains(str, "type: OFPXMT_OFB_VLAN_VIDOFPXMT_OFB_VLAN_VID"))
@@ -503,6 +498,7 @@ func TestMatchFlow(t *testing.T) {
 	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, nil))
 
+	// different table_id, cookie, flags
 	fa = &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 500},
 		MatchFields: []*ofp.OfpOxmOfbField{
@@ -521,6 +517,7 @@ func TestMatchFlow(t *testing.T) {
 	assert.False(t, FlowMatch(flow1, flow2))
 	assert.False(t, FlowMatch(nil, flow2))
 
+	// no difference
 	fa = &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
@@ -535,6 +532,7 @@ func TestMatchFlow(t *testing.T) {
 	assert.Nil(t, err)
 	assert.True(t, FlowMatch(flow1, flow2))
 
+	// different priority
 	fa = &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 501, "table_id": 1, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
@@ -552,6 +550,7 @@ func TestMatchFlow(t *testing.T) {
 	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, flow2))
 
+	// different table id
 	fa = &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 2, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
@@ -566,6 +565,7 @@ func TestMatchFlow(t *testing.T) {
 	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, flow2))
 
+	// different cookie
 	fa = &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268467, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
@@ -578,8 +578,9 @@ func TestMatchFlow(t *testing.T) {
 	}
 	flow2, err = MkFlowStat(fa)
 	assert.Nil(t, err)
-	assert.False(t, FlowMatch(flow1, flow2))
+	assert.True(t, FlowMatch(flow1, flow2))
 
+	// different flags
 	fa = &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268468, "flags": 14},
 		MatchFields: []*ofp.OfpOxmOfbField{
@@ -592,8 +593,9 @@ func TestMatchFlow(t *testing.T) {
 	}
 	flow2, err = MkFlowStat(fa)
 	assert.Nil(t, err)
-	assert.False(t, FlowMatch(flow1, flow2))
+	assert.True(t, FlowMatch(flow1, flow2))
 
+	// different match InPort
 	fa = &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
@@ -608,6 +610,7 @@ func TestMatchFlow(t *testing.T) {
 	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, flow2))
 
+	// different match Ipv4Dst
 	fa = &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
@@ -621,6 +624,7 @@ func TestMatchFlow(t *testing.T) {
 	assert.Nil(t, err)
 	assert.False(t, FlowMatch(flow1, flow2))
 
+	// different actions
 	fa = &FlowArgs{
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
