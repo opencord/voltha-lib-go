@@ -18,14 +18,15 @@ package flows
 import (
 	"bytes"
 	"crypto/md5"
-	"errors"
+	"encoding/binary"
 	"fmt"
+	"sort"
+	"strings"
+
 	"github.com/cevaris/ordered_map"
 	"github.com/gogo/protobuf/proto"
 	"github.com/opencord/voltha-lib-go/v3/pkg/log"
 	ofp "github.com/opencord/voltha-protos/v3/go/openflow_13"
-	"math/big"
-	"strings"
 )
 
 var (
@@ -680,22 +681,64 @@ func GetMetadataFlowModArgs(kw OfpFlowModArgs) uint64 {
 // Return unique 64-bit integer hash for flow covering the following attributes:
 // 'table_id', 'priority', 'flags', 'cookie', 'match', '_instruction_string'
 func HashFlowStats(flow *ofp.OfpFlowStats) (uint64, error) {
-	if flow == nil { // Should never happen
-		return 0, errors.New("hash-flow-stats-nil-flow")
-	}
-	// Create string with the instructions field first
-	var instructionString bytes.Buffer
-	for _, instruction := range flow.Instructions {
-		instructionString.WriteString(instruction.String())
-	}
-	var flowString = fmt.Sprintf("%d%d%d%d%s%s", flow.TableId, flow.Priority, flow.Flags, flow.Cookie, flow.Match.String(), instructionString.String())
+	// first we need to make sure the oxm fields are in a predictable order, though the exact order doesn't matter
+	sort.Slice(flow.Match.OxmFields, func(a, b int) bool {
+		fieldsA, fieldsB := flow.Match.OxmFields[a], flow.Match.OxmFields[b]
+		if fieldsA.OxmClass < fieldsB.OxmClass {
+			return true
+		}
+		switch fieldA := fieldsA.Field.(type) {
+		case *ofp.OfpOxmField_OfbField:
+			switch fieldB := fieldsB.Field.(type) {
+			case *ofp.OfpOxmField_ExperimenterField:
+				return true // ofp < experimenter
+			case *ofp.OfpOxmField_OfbField:
+				if fieldA.OfbField.Type < fieldB.OfbField.Type {
+					return true
+				}
+			}
+		case *ofp.OfpOxmField_ExperimenterField:
+			switch fieldB := fieldsB.Field.(type) {
+			case *ofp.OfpOxmField_OfbField:
+				return false // ofp < experimenter
+			case *ofp.OfpOxmField_ExperimenterField:
+				eFieldA, eFieldB := fieldA.ExperimenterField, fieldB.ExperimenterField
+				if eFieldA.Experimenter < eFieldB.Experimenter || eFieldA.OxmHeader < eFieldB.OxmHeader {
+					return true
+				}
+			}
+		}
+		return false
+	})
+
 	h := md5.New()
-	if _, err := h.Write([]byte(flowString)); err != nil {
-		return 0, fmt.Errorf("hash-flow-stats-failed-hash: %v", err)
+	var tmp [12]byte
+
+	binary.BigEndian.PutUint32(tmp[0:4], flow.TableId)             // tableId
+	binary.BigEndian.PutUint32(tmp[4:8], flow.Priority)            // priority
+	binary.BigEndian.PutUint32(tmp[8:12], uint32(flow.Match.Type)) // match type
+	_, _ = h.Write(tmp[:12])
+
+	for _, field := range flow.Match.OxmFields { // match fields
+		binary.BigEndian.PutUint32(tmp[:4], uint32(field.OxmClass))
+		_, _ = h.Write(tmp[:4])
+
+		switch oxmField := field.Field.(type) {
+		case *ofp.OfpOxmField_ExperimenterField:
+			binary.BigEndian.PutUint32(tmp[4:8], oxmField.ExperimenterField.Experimenter)
+			binary.BigEndian.PutUint32(tmp[0:4], oxmField.ExperimenterField.OxmHeader)
+			_, _ = h.Write(tmp[:8])
+
+		case *ofp.OfpOxmField_OfbField:
+			_, _ = h.Write([]byte(oxmField.OfbField.String())) // TODO: can be more efficient by avoiding .String()
+
+		default:
+			return 0, fmt.Errorf("unknown OfpOxmField type: %T", field.Field)
+		}
 	}
-	hash := big.NewInt(0)
-	hash.SetBytes(h.Sum(nil))
-	return hash.Uint64(), nil
+
+	ret := h.Sum(nil)
+	return binary.BigEndian.Uint64(ret[0:8]), nil
 }
 
 // flowStatsEntryFromFlowModMessage maps an ofp_flow_mod message to an ofp_flow_stats message
