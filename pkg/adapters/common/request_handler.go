@@ -93,7 +93,7 @@ func (rhp *RequestHandlerProxy) Adopt_device(args []*ic.Argument) (*empty.Empty,
 	rhp.coreProxy.UpdateCoreReference(device.Id, fromTopic.Val)
 
 	//Invoke the adopt device on the adapter
-	if err := rhp.adapter.Adopt_device(device); err != nil {
+	if err := rhp.adapter.AdoptDevice(device); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 
@@ -133,7 +133,7 @@ func (rhp *RequestHandlerProxy) Reconcile_device(args []*ic.Argument) (*empty.Em
 	rhp.coreProxy.UpdateCoreReference(device.Id, fromTopic.Val)
 
 	//Invoke the reconcile device API on the adapter
-	if err := rhp.adapter.Reconcile_device(device); err != nil {
+	if err := rhp.adapter.ReconcileDevice(device); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return new(empty.Empty), nil
@@ -175,7 +175,7 @@ func (rhp *RequestHandlerProxy) Disable_device(args []*ic.Argument) (*empty.Empt
 	//Update the core reference for that device
 	rhp.coreProxy.UpdateCoreReference(device.Id, fromTopic.Val)
 	//Invoke the Disable_device API on the adapter
-	if err := rhp.adapter.Disable_device(device); err != nil {
+	if err := rhp.adapter.DisableDevice(device); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return new(empty.Empty), nil
@@ -213,7 +213,7 @@ func (rhp *RequestHandlerProxy) Reenable_device(args []*ic.Argument) (*empty.Emp
 	//Update the core reference for that device
 	rhp.coreProxy.UpdateCoreReference(device.Id, fromTopic.Val)
 	//Invoke the Reenable_device API on the adapter
-	if err := rhp.adapter.Reenable_device(device); err != nil {
+	if err := rhp.adapter.ReenableDevice(device); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return new(empty.Empty), nil
@@ -251,7 +251,7 @@ func (rhp *RequestHandlerProxy) Reboot_device(args []*ic.Argument) (*empty.Empty
 	//Update the core reference for that device
 	rhp.coreProxy.UpdateCoreReference(device.Id, fromTopic.Val)
 	//Invoke the Reboot_device API on the adapter
-	if err := rhp.adapter.Reboot_device(device); err != nil {
+	if err := rhp.adapter.RebootDevice(device); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return new(empty.Empty), nil
@@ -294,7 +294,7 @@ func (rhp *RequestHandlerProxy) Delete_device(args []*ic.Argument) (*empty.Empty
 	//Update the core reference for that device
 	rhp.coreProxy.UpdateCoreReference(device.Id, fromTopic.Val)
 	//Invoke the delete_device API on the adapter
-	if err := rhp.adapter.Delete_device(device); err != nil {
+	if err := rhp.adapter.DeleteDevice(device); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return new(empty.Empty), nil
@@ -347,7 +347,7 @@ func (rhp *RequestHandlerProxy) Update_flows_bulk(args []*ic.Argument) (*empty.E
 	}
 	logger.Debugw("Update_flows_bulk", log.Fields{"flows": flows, "groups": groups})
 	//Invoke the bulk flow update API of the adapter
-	if err := rhp.adapter.Update_flows_bulk(device, flows, groups, flowMetadata); err != nil {
+	if err := rhp.adapter.UpdateFlowsBulk(device, flows, groups, flowMetadata); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return new(empty.Empty), nil
@@ -396,7 +396,7 @@ func (rhp *RequestHandlerProxy) Update_flows_incrementally(args []*ic.Argument) 
 	}
 	logger.Debugw("Update_flows_incrementally", log.Fields{"flows": flows, "groups": groups})
 	//Invoke the incremental flow update API of the adapter
-	if err := rhp.adapter.Update_flows_incrementally(device, flows, groups, flowMetadata); err != nil {
+	if err := rhp.adapter.UpdateFlowsIncrementally(device, flows, groups, flowMetadata); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return new(empty.Empty), nil
@@ -433,7 +433,7 @@ func (rhp *RequestHandlerProxy) Update_pm_config(args []*ic.Argument) (*empty.Em
 	}
 	logger.Debugw("Update_pm_config", log.Fields{"deviceId": device.Id, "pmConfigs": pmConfigs})
 	//Invoke the pm config update API of the adapter
-	if err := rhp.adapter.Update_pm_config(device, pmConfigs); err != nil {
+	if err := rhp.adapter.UpdatePmConfig(device, pmConfigs); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return new(empty.Empty), nil
@@ -476,7 +476,7 @@ func (rhp *RequestHandlerProxy) Receive_packet_out(args []*ic.Argument) (*empty.
 	}
 	logger.Debugw("Receive_packet_out", log.Fields{"deviceId": deviceId.Val, "outPort": egressPort, "packet": packet})
 	//Invoke the adopt device on the adapter
-	if err := rhp.adapter.Receive_packet_out(deviceId.Val, int(egressPort.Val), packet); err != nil {
+	if err := rhp.adapter.ReceivePacketOut(deviceId.Val, int(egressPort.Val), packet); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return new(empty.Empty), nil
@@ -517,7 +517,7 @@ func (rhp *RequestHandlerProxy) Get_ofp_device_info(args []*ic.Argument) (*ic.Sw
 
 	var cap *ic.SwitchCapability
 	var err error
-	if cap, err = rhp.adapter.Get_ofp_device_info(device); err != nil {
+	if cap, err = rhp.adapter.GetOfpDeviceInfo(device); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	logger.Debugw("Get_ofp_device_info", log.Fields{"cap": cap})
@@ -555,7 +555,7 @@ func (rhp *RequestHandlerProxy) Get_ofp_port_info(args []*ic.Argument) (*ic.Port
 	logger.Debugw("Get_ofp_port_info", log.Fields{"deviceId": device.Id, "portNo": pNo.Val})
 	var cap *ic.PortCapability
 	var err error
-	if cap, err = rhp.adapter.Get_ofp_port_info(device, pNo.Val); err != nil {
+	if cap, err = rhp.adapter.GetOfpPortInfo(device, pNo.Val); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return cap, nil
@@ -587,7 +587,7 @@ func (rhp *RequestHandlerProxy) Process_inter_adapter_message(args []*ic.Argumen
 	logger.Debugw("Process_inter_adapter_message", log.Fields{"msgId": iaMsg.Header.Id})
 
 	//Invoke the inter adapter API on the handler
-	if err := rhp.adapter.Process_inter_adapter_message(iaMsg); err != nil {
+	if err := rhp.adapter.ProcessInterAdapterMessage(iaMsg); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 
@@ -621,7 +621,7 @@ func (rhp *RequestHandlerProxy) Enable_port(args []*ic.Argument) error {
 		logger.Warnw("enable_port", log.Fields{"args": args, "deviceId": deviceId, "port": port})
 		return err
 	}
-	return rhp.adapter.Enable_port(deviceId, port)
+	return rhp.adapter.EnablePort(deviceId, port)
 }
 
 func (rhp *RequestHandlerProxy) Disable_port(args []*ic.Argument) error {
@@ -631,7 +631,7 @@ func (rhp *RequestHandlerProxy) Disable_port(args []*ic.Argument) error {
 		logger.Warnw("disable_port", log.Fields{"args": args, "deviceId": deviceId, "port": port})
 		return err
 	}
-	return rhp.adapter.Disable_port(deviceId, port)
+	return rhp.adapter.DisablePort(deviceId, port)
 }
 
 func (rhp *RequestHandlerProxy) getEnableDisableParams(args []*ic.Argument) (string, *voltha.Port, error) {
@@ -696,7 +696,7 @@ func (rhp *RequestHandlerProxy) Child_device_lost(args []*ic.Argument) error {
 	//Update the core reference for that device
 	rhp.coreProxy.UpdateCoreReference(pDeviceId.Val, fromTopic.Val)
 	//Invoke the Child_device_lost API on the adapter
-	if err := rhp.adapter.Child_device_lost(pDeviceId.Val, uint32(pPortNo.Val), uint32(onuID.Val)); err != nil {
+	if err := rhp.adapter.ChildDeviceLost(pDeviceId.Val, uint32(pPortNo.Val), uint32(onuID.Val)); err != nil {
 		return status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return nil
@@ -729,7 +729,7 @@ func (rhp *RequestHandlerProxy) Start_omci_test(args []*ic.Argument) (*ic.TestRe
 		}
 	}
 	logger.Debugw("Start_omci_test", log.Fields{"device-id": device.Id, "req": request})
-	result, err := rhp.adapter.Start_omci_test(device, request)
+	result, err := rhp.adapter.StartOmciTest(device, request)
 	if err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
@@ -767,5 +767,5 @@ func (rhp *RequestHandlerProxy) Get_ext_value(args []*ic.Argument) (*voltha.Retu
 	}
 
 	//Invoke the Get_value API on the adapter
-	return rhp.adapter.Get_ext_value(pDeviceId.Val, device, voltha.ValueType_Type(valuetype.Val))
+	return rhp.adapter.GetExtValue(pDeviceId.Val, device, voltha.ValueType_Type(valuetype.Val))
 }
