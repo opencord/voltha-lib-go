@@ -37,11 +37,6 @@ func init() {
 	timeoutError = status.Errorf(codes.Aborted, "timeout")
 }
 
-func TestHashFlowStatsNil(t *testing.T) {
-	_, err := HashFlowStats(nil)
-	assert.EqualError(t, err, "hash-flow-stats-nil-flow")
-}
-
 func TestFlowsAndGroups_AddFlow(t *testing.T) {
 	fg := NewFlowsAndGroups()
 	allFlows := fg.ListFlows()
@@ -261,7 +256,7 @@ func TestFlowsAndGroups_String(t *testing.T) {
 	fg.AddGroup(group)
 
 	str = fg.String()
-	assert.True(t, strings.Contains(str, "id: 1143307409938767207"))
+	assert.True(t, strings.Contains(str, "id: 11819684229970388353"))
 	assert.True(t, strings.Contains(str, "group_id: 10"))
 	assert.True(t, strings.Contains(str, "oxm_class: OFPXMC_OPENFLOW_BASICOFPXMC_OPENFLOW_BASIC"))
 	assert.True(t, strings.Contains(str, "type: OFPXMT_OFB_VLAN_VIDOFPXMT_OFB_VLAN_VID"))
