@@ -23,35 +23,35 @@ import (
 
 //IAdapter represents the set of APIs a voltha adapter has to support.
 type IAdapter interface {
-	Adapter_descriptor() error
-	Device_types() (*voltha.DeviceTypes, error)
+	AdapterDescriptor() error
+	DeviceTypes() (*voltha.DeviceTypes, error)
 	Health() (*voltha.HealthStatus, error)
-	Adopt_device(device *voltha.Device) error
-	Reconcile_device(device *voltha.Device) error
-	Abandon_device(device *voltha.Device) error
-	Disable_device(device *voltha.Device) error
-	Reenable_device(device *voltha.Device) error
-	Reboot_device(device *voltha.Device) error
-	Self_test_device(device *voltha.Device) error
-	Delete_device(device *voltha.Device) error
-	Get_device_details(device *voltha.Device) error
-	Update_flows_bulk(device *voltha.Device, flows *voltha.Flows, groups *voltha.FlowGroups, flowMetadata *voltha.FlowMetadata) error
-	Update_flows_incrementally(device *voltha.Device, flows *openflow_13.FlowChanges, groups *openflow_13.FlowGroupChanges, flowMetadata *voltha.FlowMetadata) error
-	Update_pm_config(device *voltha.Device, pm_configs *voltha.PmConfigs) error
-	Receive_packet_out(deviceId string, egress_port_no int, msg *openflow_13.OfpPacketOut) error
-	Suppress_event(filter *voltha.EventFilter) error
-	Unsuppress_event(filter *voltha.EventFilter) error
-	Get_ofp_device_info(device *voltha.Device) (*ic.SwitchCapability, error)
-	Get_ofp_port_info(device *voltha.Device, port_no int64) (*ic.PortCapability, error)
-	Process_inter_adapter_message(msg *ic.InterAdapterMessage) error
-	Download_image(device *voltha.Device, request *voltha.ImageDownload) (*voltha.ImageDownload, error)
-	Get_image_download_status(device *voltha.Device, request *voltha.ImageDownload) (*voltha.ImageDownload, error)
-	Cancel_image_download(device *voltha.Device, request *voltha.ImageDownload) (*voltha.ImageDownload, error)
-	Activate_image_update(device *voltha.Device, request *voltha.ImageDownload) (*voltha.ImageDownload, error)
-	Revert_image_update(device *voltha.Device, request *voltha.ImageDownload) (*voltha.ImageDownload, error)
-	Enable_port(deviceId string, port *voltha.Port) error
-	Disable_port(deviceId string, port *voltha.Port) error
-	Child_device_lost(parentDeviceId string, parentPortNo uint32, onuID uint32) error
-	Start_omci_test(device *voltha.Device, request *voltha.OmciTestRequest) (*voltha.TestResponse, error)
-	Get_ext_value(deviceId string, device *voltha.Device, valueflag voltha.ValueType_Type) (*voltha.ReturnValues, error)
+	AdoptDevice(device *voltha.Device) error
+	ReconcileDevice(device *voltha.Device) error
+	AbandonDevice(device *voltha.Device) error
+	DisableDevice(device *voltha.Device) error
+	ReenableDevice(device *voltha.Device) error
+	RebootDevice(device *voltha.Device) error
+	SelfTestDevice(device *voltha.Device) error
+	DeleteDevice(device *voltha.Device) error
+	GetDeviceDetails(device *voltha.Device) error
+	UpdateFlowsBulk(device *voltha.Device, flows *voltha.Flows, groups *voltha.FlowGroups, flowMetadata *voltha.FlowMetadata) error
+	UpdateFlowsIncrementally(device *voltha.Device, flows *openflow_13.FlowChanges, groups *openflow_13.FlowGroupChanges, flowMetadata *voltha.FlowMetadata) error
+	UpdatePmConfig(device *voltha.Device, pm_configs *voltha.PmConfigs) error
+	ReceivePacketOut(deviceId string, egress_port_no int, msg *openflow_13.OfpPacketOut) error
+	SuppressEvent(filter *voltha.EventFilter) error
+	UnsuppressEvent(filter *voltha.EventFilter) error
+	GetOfpDeviceInfo(device *voltha.Device) (*ic.SwitchCapability, error)
+	GetOfpPortInfo(device *voltha.Device, port_no int64) (*ic.PortCapability, error)
+	ProcessInterAdapterMessage(msg *ic.InterAdapterMessage) error
+	DownloadImage(device *voltha.Device, request *voltha.ImageDownload) (*voltha.ImageDownload, error)
+	GetImageDownloadStatus(device *voltha.Device, request *voltha.ImageDownload) (*voltha.ImageDownload, error)
+	CancelImageDownload(device *voltha.Device, request *voltha.ImageDownload) (*voltha.ImageDownload, error)
+	ActivateImageUpdate(device *voltha.Device, request *voltha.ImageDownload) (*voltha.ImageDownload, error)
+	RevertImageUpdate(device *voltha.Device, request *voltha.ImageDownload) (*voltha.ImageDownload, error)
+	EnablePort(deviceId string, port *voltha.Port) error
+	DisablePort(deviceId string, port *voltha.Port) error
+	ChildDeviceLost(parentDeviceId string, parentPortNo uint32, onuID uint32) error
+	StartOmciTest(device *voltha.Device, request *voltha.OmciTestRequest) (*voltha.TestResponse, error)
+	GetExtValue(deviceId string, device *voltha.Device, valueflag voltha.ValueType_Type) (*voltha.ReturnValues, error)
 }
