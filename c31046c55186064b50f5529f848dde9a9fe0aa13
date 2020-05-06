@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "c511ba7d_f79d388b",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2020-05-06T14:03:25Z",
+      "side": 1,
+      "message": "I\u0027m wondering the same, a hash should be independent of the order of arguments given to the hashing function.",
+      "parentUuid": "ebce5bc3_1b1fcb18",
+      "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50cd2b38_e68c6764",
         "filename": "pkg/flows/flow_utils.go",
         "patchSetId": 1
@@ -64,6 +82,24 @@
       "writtenOn": "2020-05-06T13:47:35Z",
       "side": 1,
       "message": "If the OF spec states that priority + match type makes a flow unique then can we omit tableId?",
+      "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90c8422c_0badec3b",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2020-05-06T14:03:25Z",
+      "side": 1,
+      "message": "no, because the priority + match is only unique in that specific table, see OF 1.3.1 spec section 5.2: A flow table entry is identified by its match fields and priority: the match fields and priority taken together identify a unique flow entry in the flow table.",
+      "parentUuid": "50cd2b38_e68c6764",
       "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
