@@ -16,6 +16,24 @@
       "revId": "8ff91fba50bc4d2978b3d1fe79dfaa306f48368a",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "470b8b34_307e324e",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-05-06T15:41:36Z",
+      "side": 1,
+      "message": "It\u0027s expensive in some specific cases, but here it should just be a `switch(int){` under the hood.\n\nType checking is expensive in that it\u0027s often entirely unnecessary (and iirc some specific ops used to be slow), but golang typing is pretty fast in general.",
+      "parentUuid": "2fe4d161_3750b305",
+      "revId": "8ff91fba50bc4d2978b3d1fe79dfaa306f48368a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
