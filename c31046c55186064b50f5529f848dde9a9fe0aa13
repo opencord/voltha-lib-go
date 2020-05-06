@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "db5e4c73_bd52c917",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-05-06T15:08:18Z",
+      "side": 1,
+      "message": "Will change.",
+      "parentUuid": "4c3c4003_afe46dcf",
+      "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80956082_74a25609",
         "filename": "pkg/flows/flow_utils.go",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2020-05-06T13:47:35Z",
       "side": 1,
       "message": "This function is fairly complex compare to the previous one.   What do we gain with this approach?  Is it speed?",
+      "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b332228_0dc7e7dd",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-05-06T15:08:18Z",
+      "side": 1,
+      "message": "Speed, \u0026 correctness in some corner cases.\n\nThe previous version printed everything to a string, then hashed that string.  Manipulating strings is slow in general.",
+      "parentUuid": "80956082_74a25609",
       "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
@@ -65,6 +101,24 @@
       "side": 1,
       "message": "I\u0027m wondering the same, a hash should be independent of the order of arguments given to the hashing function.",
       "parentUuid": "ebce5bc3_1b1fcb18",
+      "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c69fd220_0f5e7e0f",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-05-06T15:08:18Z",
+      "side": 1,
+      "message": "Hash(aString+bString) !\u003d Hash(bString+aString)\n\nTherefore:\nHash(aMatchField+bMatchField) !\u003d Hash(bMatchField+aMatchField)\n\nThus we must put the match fields in a predictable order before hashing.  The _specific_ order doesn\u0027t matter, but some known ordering _is_ required.",
+      "parentUuid": "c511ba7d_f79d388b",
       "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
