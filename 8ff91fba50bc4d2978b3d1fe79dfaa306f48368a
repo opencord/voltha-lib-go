@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fe4d161_3750b305",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-05-06T15:30:09Z",
+      "side": 1,
+      "message": "Isn\u0027t a type check an expensive operation?  I saw a number of references to type checking when using the profiling tool.",
+      "revId": "8ff91fba50bc4d2978b3d1fe79dfaa306f48368a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
