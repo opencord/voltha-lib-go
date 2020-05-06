@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c3c4003_afe46dcf",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-05-06T13:47:35Z",
+      "side": 1,
+      "message": "Comments need to be change.  Maybe a reference to the OF spec would be good.",
+      "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80956082_74a25609",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-05-06T13:47:35Z",
+      "side": 1,
+      "message": "This function is fairly complex compare to the previous one.   What do we gain with this approach?  Is it speed?",
+      "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ebce5bc3_1b1fcb18",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-05-06T13:47:35Z",
+      "side": 1,
+      "message": "If the order does not matter should we have this sorting step?",
+      "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50cd2b38_e68c6764",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-05-06T13:47:35Z",
+      "side": 1,
+      "message": "If the OF spec states that priority + match type makes a flow unique then can we omit tableId?",
+      "revId": "c31046c55186064b50f5529f848dde9a9fe0aa13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
