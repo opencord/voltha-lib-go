@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5effb9a3_a6e8feac",
+        "filename": "VERSION",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000669
+      },
+      "writtenOn": "2020-05-08T23:10:46Z",
+      "side": 1,
+      "message": "It has been modified for the latest version.",
+      "parentUuid": "cd800f69_77c36fb9",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 9
+      },
+      "revId": "5e0bf947987ebf6afee810a47a3b2d18d0cc8406",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f16641d_5a8a9d9a",
         "filename": "pkg/techprofile/SingleQueueEponProfile.json",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2020-04-29T23:20:37Z",
       "side": 1,
       "message": "In the downstream it is True and in upstream is False. Any particular reason? Why isn\u0027t symmetric encryption is used.",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 32
+      },
+      "revId": "5e0bf947987ebf6afee810a47a3b2d18d0cc8406",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d508aaa6_38d68098",
+        "filename": "pkg/techprofile/SingleQueueEponProfile.json",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000669
+      },
+      "writtenOn": "2020-05-08T23:10:46Z",
+      "side": 1,
+      "message": "Because the downstream encryption is mandatory and upstream encryption is optional in EPON, and the setting is common.",
+      "parentUuid": "7f16641d_5a8a9d9a",
       "range": {
         "startLine": 17,
         "startChar": 27,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4538c8a7_c33cd08a",
+        "filename": "pkg/techprofile/SingleQueueEponProfile.json",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000669
+      },
+      "writtenOn": "2020-05-08T23:10:46Z",
+      "side": 1,
+      "message": "Thank you for this comment. I will do.",
+      "parentUuid": "f8f20488_f0ebe83c",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 10
+      },
+      "revId": "5e0bf947987ebf6afee810a47a3b2d18d0cc8406",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b32c5d67_c707f453",
         "filename": "pkg/techprofile/SingleQueueEponProfile.json",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2020-04-29T23:20:37Z",
       "side": 1,
       "message": "I don\u0027t think this is a valid string allowed. Allowed values are below.\n\"SchedulingPolicy\", \"WRR\" and \"Hybrid\" .\nIn your case, please use \"StrictPriority\"",
+      "range": {
+        "startLine": 33,
+        "startChar": 30,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "5e0bf947987ebf6afee810a47a3b2d18d0cc8406",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7677e9a3_1a23b237",
+        "filename": "pkg/techprofile/SingleQueueEponProfile.json",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000669
+      },
+      "writtenOn": "2020-05-08T23:10:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b32c5d67_c707f453",
       "range": {
         "startLine": 33,
         "startChar": 30,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7f3eddd2_d145c39c",
+        "filename": "pkg/techprofile/SingleQueueEponProfile.json",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000669
+      },
+      "writtenOn": "2020-05-08T23:10:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bea4aa10_74530075",
+      "range": {
+        "startLine": 49,
+        "startChar": 30,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "5e0bf947987ebf6afee810a47a3b2d18d0cc8406",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73750f66_ab02bbcb",
         "filename": "pkg/techprofile/SingleQueueEponProfile.json",
         "patchSetId": 9
@@ -128,6 +248,24 @@
       "writtenOn": "2020-04-29T23:20:37Z",
       "side": 1,
       "message": "Remove redundant space.",
+      "revId": "5e0bf947987ebf6afee810a47a3b2d18d0cc8406",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4a97bc1_b75f37a2",
+        "filename": "pkg/techprofile/SingleQueueEponProfile.json",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000669
+      },
+      "writtenOn": "2020-05-08T23:10:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73750f66_ab02bbcb",
       "revId": "5e0bf947987ebf6afee810a47a3b2d18d0cc8406",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
