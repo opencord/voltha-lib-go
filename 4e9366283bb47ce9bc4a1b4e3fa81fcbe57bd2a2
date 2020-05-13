@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "90c8309d_39c287af",
+        "filename": "pkg/adapters/common/utils.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000675
+      },
+      "writtenOn": "2020-05-13T15:23:24Z",
+      "side": 1,
+      "message": "The DNS entry is supported. This validation will catch the error in address early-on and throw an appropriate log. Better than etcd/kafka client raising error later during connection establishment.",
+      "parentUuid": "b06a69c3_223e0203",
+      "range": {
+        "startLine": 95,
+        "startChar": 5,
+        "endLine": 95,
+        "endChar": 20
+      },
+      "revId": "4e9366283bb47ce9bc4a1b4e3fa81fcbe57bd2a2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9e4cb46_b07d3364",
         "filename": "pkg/db/kvstore/kvutils.go",
         "patchSetId": 7
