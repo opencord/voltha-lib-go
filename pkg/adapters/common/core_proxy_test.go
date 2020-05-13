@@ -17,6 +17,8 @@ package common
 
 import (
 	"context"
+	"testing"
+
 	adapterIf "github.com/opencord/voltha-lib-go/v3/pkg/adapters/adapterif"
 	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
 	mocks "github.com/opencord/voltha-lib-go/v3/pkg/mocks/kafka"
@@ -25,7 +27,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"testing"
 )
 
 func TestCoreProxyImplementsAdapterIfCoreProxy(t *testing.T) {
@@ -52,11 +53,13 @@ func TestCoreProxy_RegisterAdapter_default(t *testing.T) {
 		Vendor:  "ONF",
 		Version: "1.0.0",
 	}
-	types := []*voltha.DeviceType{{
-		Id:                    "testolt",
-		Adapter:               "testAdapter",
-		AcceptsBulkFlowUpdate: true,
-	}}
+	types := map[string]*voltha.DeviceType{
+		"testolt": {
+			Id:                    "testolt",
+			Adapter:               "testAdapter",
+			AcceptsBulkFlowUpdate: true,
+		},
+	}
 	devices := &voltha.DeviceTypes{Items: types}
 
 	err := proxy.RegisterAdapter(context.TODO(), adapter, devices)
@@ -97,11 +100,13 @@ func TestCoreProxy_RegisterAdapter_multiple(t *testing.T) {
 		CurrentReplica: 4,
 		TotalReplicas:  8,
 	}
-	types := []*voltha.DeviceType{{
-		Id:                    "testolt",
-		Adapter:               "testAdapter",
-		AcceptsBulkFlowUpdate: true,
-	}}
+	types := map[string]*voltha.DeviceType{
+		"testolt": {
+			Id:                    "testolt",
+			Adapter:               "testAdapter",
+			AcceptsBulkFlowUpdate: true,
+		},
+	}
 	devices := &voltha.DeviceTypes{Items: types}
 
 	err := proxy.RegisterAdapter(context.TODO(), adapter, devices)
@@ -228,11 +233,10 @@ func TestCoreProxy_GetChildDevice_fail_unmarhsal(t *testing.T) {
 }
 
 func TestCoreProxy_GetChildDevices_success(t *testing.T) {
-
-	devicesResponse := &voltha.Devices{}
-
-	devicesResponse.Items = append(devicesResponse.Items, &voltha.Device{Id: "testDevice1"})
-	devicesResponse.Items = append(devicesResponse.Items, &voltha.Device{Id: "testDevice2"})
+	devicesResponse := &voltha.Devices{Items: map[string]*voltha.Device{
+		"testDevice1": {Id: "testDevice1"},
+		"testDevice2": {Id: "testDevice2"},
+	}}
 
 	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
 		InvokeRpcSpy: mocks.InvokeRpcSpy{

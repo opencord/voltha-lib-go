@@ -69,7 +69,7 @@ func TestFlowsAndGroups_AddFlow(t *testing.T) {
 
 	allFlows = fg.ListFlows()
 	assert.Equal(t, 1, len(allFlows))
-	assert.True(t, FlowMatch(flow, allFlows[0]))
+	assert.NotNil(t, allFlows[flow.Id])
 }
 
 func TestFlowsAndGroups_AddGroup(t *testing.T) {
@@ -97,7 +97,7 @@ func TestFlowsAndGroups_AddGroup(t *testing.T) {
 
 	allGroups = fg.ListGroups()
 	assert.Equal(t, 1, len(allGroups))
-	assert.Equal(t, ga.GroupId, allGroups[0].Desc.GroupId)
+	assert.NotNil(t, allGroups[ga.GroupId])
 }
 
 func TestFlowsAndGroups_Copy(t *testing.T) {
@@ -137,11 +137,11 @@ func TestFlowsAndGroups_Copy(t *testing.T) {
 
 	allFlows := fgCopy.ListFlows()
 	assert.Equal(t, 1, len(allFlows))
-	assert.True(t, FlowMatch(flow, allFlows[0]))
+	assert.NotNil(t, allFlows[flow.Id])
 
 	allGroups := fgCopy.ListGroups()
 	assert.Equal(t, 1, len(allGroups))
-	assert.Equal(t, ga.GroupId, allGroups[0].Desc.GroupId)
+	assert.NotNil(t, allGroups[ga.GroupId])
 
 	fg = NewFlowsAndGroups()
 	fgCopy = fg.Copy()
@@ -213,8 +213,8 @@ func TestFlowsAndGroups_GetFlow(t *testing.T) {
 	assert.Nil(t, gf3)
 
 	allFlows := fg.ListFlows()
-	assert.True(t, FlowMatch(flow1, allFlows[0]))
-	assert.True(t, FlowMatch(flow2, allFlows[1]))
+	assert.NotNil(t, allFlows[flow1.Id])
+	assert.NotNil(t, allFlows[flow2.Id])
 }
 
 func TestFlowsAndGroups_String(t *testing.T) {
@@ -310,8 +310,8 @@ func TestFlowsAndGroups_AddFrom(t *testing.T) {
 	allGroups := fg1.ListGroups()
 	assert.Equal(t, 1, len(allFlows))
 	assert.Equal(t, 1, len(allGroups))
-	assert.True(t, FlowMatch(flow, allFlows[0]))
-	assert.Equal(t, group.Desc.GroupId, allGroups[0].Desc.GroupId)
+	assert.NotNil(t, allFlows[flow.Id])
+	assert.NotNil(t, allGroups[group.Desc.GroupId])
 }
 
 func TestDeviceRules_AddFlow(t *testing.T) {
@@ -349,7 +349,7 @@ func TestDeviceRules_AddFlow(t *testing.T) {
 	val, ok = rules["123456"]
 	assert.True(t, ok)
 	assert.Equal(t, 1, len(val.ListFlows()))
-	assert.True(t, FlowMatch(flow, val.ListFlows()[0]))
+	assert.NotNil(t, val.ListFlows()[flow.Id])
 	assert.Equal(t, 0, len(val.ListGroups()))
 }
 
@@ -400,8 +400,8 @@ func TestDeviceRules_AddFlowsAndGroup(t *testing.T) {
 	assert.True(t, ok)
 	assert.Equal(t, 1, len(val.ListFlows()))
 	assert.Equal(t, 1, len(val.ListGroups()))
-	assert.True(t, FlowMatch(flow, val.ListFlows()[0]))
-	assert.Equal(t, 10, int(val.ListGroups()[0].Desc.GroupId))
+	assert.NotNil(t, val.ListFlows()[flow.Id])
+	assert.NotNil(t, val.ListGroups()[10])
 }
 
 func TestFlowHasOutPort(t *testing.T) {
