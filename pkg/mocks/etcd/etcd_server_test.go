@@ -32,23 +32,24 @@ var etcdServer *EtcdServer
 var client *kvstore.EtcdClient
 
 func setup() {
+	ctx := context.Background()
 	clientPort, err := freeport.GetFreePort()
 	if err != nil {
-		logger.Fatal(err)
+		logger.Fatal(ctx, err)
 	}
 	peerPort, err := freeport.GetFreePort()
 	if err != nil {
-		logger.Fatal(err)
+		logger.Fatal(ctx, err)
 	}
 	etcdServer = StartEtcdServer(MKConfig("voltha.mock.test", clientPort, peerPort, "voltha.lib.mocks.etcd", "error"))
 	if etcdServer == nil {
-		logger.Fatal("Embedded server failed to start")
+		logger.Fatal(ctx, "Embedded server failed to start")
 	}
 	clientAddr := fmt.Sprintf("localhost:%d", clientPort)
 	client, err = kvstore.NewEtcdClient(clientAddr, 10*time.Second, log.WarnLevel)
 	if err != nil || client == nil {
 		etcdServer.Stop()
-		logger.Fatal("Failed to create an Etcd client")
+		logger.Fatal(ctx, "Failed to create an Etcd client")
 	}
 }
 

@@ -41,6 +41,7 @@ type EPTest struct {
 }
 
 func newEPTest(minReplicas, maxReplicas int) *EPTest {
+	ctx := context.Background()
 	test := &EPTest{
 		minReplicas: minReplicas,
 		maxReplicas: maxReplicas,
@@ -48,12 +49,12 @@ func newEPTest(minReplicas, maxReplicas int) *EPTest {
 
 	// Create backend
 	if err := test.initBackend(); err != nil {
-		logger.Fatalw("setting-backend-failed", log.Fields{"error": err})
+		logger.Fatalw(ctx, "setting-backend-failed", log.Fields{"error": err})
 	}
 
 	// Populate backend with data
 	if err := test.populateBackend(); err != nil {
-		logger.Fatalw("populating-db-failed", log.Fields{"error": err})
+		logger.Fatalw(ctx, "populating-db-failed", log.Fields{"error": err})
 	}
 	return test
 }
@@ -184,6 +185,7 @@ func getMeanAndStdDeviation(val []int, replicas int) (float64, float64) {
 }
 
 func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serviceType string, deviceType string, replicas int) {
+	ctx := context.Background()
 	// Map of device ids to topic
 	deviceIDs := make(map[string]Endpoint)
 	numDevices := 1000
@@ -192,12 +194,12 @@ func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serv
 		deviceID := uuid.New().String()
 		endpoint, err := tm.GetEndpoint(deviceID, serviceType)
 		if err != nil {
-			logger.Fatalw("error-getting-endpoint", log.Fields{"error": err})
+			logger.Fatalw(ctx, "error-getting-endpoint", log.Fields{"error": err})
 		}
 		deviceIDs[deviceID] = endpoint
 		replicaID, err := tm.GetReplicaAssignment(deviceID, serviceType)
 		if err != nil {
-			logger.Fatalw("error-getting-endpoint", log.Fields{"error": err})
+			logger.Fatalw(ctx, "error-getting-endpoint", log.Fields{"error": err})
 		}
 		total[replicaID] += 1
 	}
@@ -211,7 +213,7 @@ func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serv
 		for deviceID, expectedEndpoint := range deviceIDs {
 			endpointByServiceType, err := tm.GetEndpoint(deviceID, serviceType)
 			if err != nil {
-				logger.Fatalw("error-getting-endpoint", log.Fields{"error": err})
+				logger.Fatalw(ctx, "error-getting-endpoint", log.Fields{"error": err})
 			}
 			assert.Equal(t, expectedEndpoint, endpointByServiceType)
 		}
@@ -221,12 +223,12 @@ func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serv
 	for deviceID := range deviceIDs {
 		replicaID, err := tm.GetReplicaAssignment(deviceID, serviceType)
 		if err != nil {
-			logger.Fatalw("error-getting-topic", log.Fields{"error": err})
+			logger.Fatalw(ctx, "error-getting-topic", log.Fields{"error": err})
 		}
 		for k := 0; k < replicas; k++ {
 			owned, err := tm.IsDeviceOwnedByService(deviceID, serviceType, int32(k))
 			if err != nil {
-				logger.Fatalw("error-verifying-device-ownership", log.Fields{"error": err})
+				logger.Fatalw(ctx, "error-verifying-device-ownership", log.Fields{"error": err})
 			}
 			assert.Equal(t, ReplicaID(k) == replicaID, owned)
 		}

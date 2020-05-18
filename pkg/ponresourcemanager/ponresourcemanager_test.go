@@ -52,16 +52,16 @@ func (kvclient *MockResKVClient) List(ctx context.Context, key string) (map[stri
 
 // Get mock function implementation for KVClient
 func (kvclient *MockResKVClient) Get(ctx context.Context, key string) (*kvstore.KVPair, error) {
-	logger.Debugw("Get of MockKVClient called", log.Fields{"key": key})
+	logger.Debugw(ctx, "Get of MockKVClient called", log.Fields{"key": key})
 	if key != "" {
 		if strings.Contains(key, RESERVED_GEMPORT_IDS_PATH) {
-			logger.Debug("Getting Key:", RESERVED_GEMPORT_IDS_PATH)
+			logger.Debug(ctx, "Getting Key:", RESERVED_GEMPORT_IDS_PATH)
 			reservedGemPorts := []uint32{RESERVED_GEM_PORT_ID}
 			str, _ := json.Marshal(reservedGemPorts)
 			return kvstore.NewKVPair(key, str, "mock", 3000, 1), nil
 		}
 		if strings.Contains(key, GEM_POOL_PATH) {
-			logger.Debug("Getting Key:", GEM_POOL_PATH)
+			logger.Debug(ctx, "Getting Key:", GEM_POOL_PATH)
 			resource := kvclient.resourceMap[key]
 			return kvstore.NewKVPair(key, resource, "mock", 3000, 1), nil
 		}
