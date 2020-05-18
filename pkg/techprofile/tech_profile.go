@@ -243,10 +243,11 @@ type TechProfile struct {
 }
 
 func (t *TechProfileMgr) SetKVClient() *db.Backend {
+	ctx := context.Background()
 	addr := t.config.KVStoreHost + ":" + strconv.Itoa(t.config.KVStorePort)
 	kvClient, err := newKVClient(t.config.KVStoreType, addr, t.config.KVStoreTimeout)
 	if err != nil {
-		logger.Errorw("failed-to-create-kv-client",
+		logger.Errorw(ctx, "failed-to-create-kv-client",
 			log.Fields{
 				"type": t.config.KVStoreType, "host": t.config.KVStoreHost, "port": t.config.KVStorePort,
 				"timeout": t.config.KVStoreTimeout, "prefix": t.config.TPKVPathPrefix,
@@ -270,8 +271,9 @@ func (t *TechProfileMgr) SetKVClient() *db.Backend {
 }
 
 func newKVClient(storeType string, address string, timeout time.Duration) (kvstore.Client, error) {
+	ctx := context.Background()
 
-	logger.Infow("kv-store", log.Fields{"storeType": storeType, "address": address})
+	logger.Infow(ctx, "kv-store", log.Fields{"storeType": storeType, "address": address})
 	switch storeType {
 	case "consul":
 		return kvstore.NewConsulClient(address, timeout)
@@ -282,21 +284,23 @@ func newKVClient(storeType string, address string, timeout time.Duration) (kvsto
 }
 
 func NewTechProfile(resourceMgr iPonResourceMgr, KVStoreType string, KVStoreHost string, KVStorePort int) (*TechProfileMgr, error) {
+	ctx := context.Background()
 	var techprofileObj TechProfileMgr
-	logger.Debug("Initializing techprofile Manager")
+	logger.Debug(ctx, "Initializing techprofile Manager")
 	techprofileObj.config = NewTechProfileFlags(KVStoreType, KVStoreHost, KVStorePort)
 	techprofileObj.config.KVBackend = techprofileObj.SetKVClient()
 	if techprofileObj.config.KVBackend == nil {
-		logger.Error("Failed to initialize KV backend\n")
+		logger.Error(ctx, "Failed to initialize KV backend\n")
 		return nil, errors.New("KV backend init failed")
 	}
 	techprofileObj.resourceMgr = resourceMgr
-	logger.Debug("Initializing techprofile object instance success")
+	logger.Debug(ctx, "Initializing techprofile object instance success")
 	return &techprofileObj, nil
 }
 
 func (t *TechProfileMgr) GetTechProfileInstanceKVPath(techProfiletblID uint32, uniPortName string) string {
-	logger.Debugw("get-tp-instance-kv-path", log.Fields{
+	ctx := context.Background()
+	logger.Debugw(ctx, "get-tp-instance-kv-path", log.Fields{
 		"uniPortName": uniPortName,
 		"tpId":        techProfiletblID,
 	})
@@ -309,16 +313,16 @@ func (t *TechProfileMgr) GetTPInstanceFromKVStore(ctx context.Context, techProfi
 	var err error
 	var kvResult *kvstore.KVPair
 
-	logger.Infow("get-tp-instance-form-kv-store", log.Fields{"path": path, "tpid": techProfiletblID})
+	logger.Infow(ctx, "get-tp-instance-form-kv-store", log.Fields{"path": path, "tpid": techProfiletblID})
 
 	kvResult, _ = t.config.KVBackend.Get(ctx, path)
 	if kvResult == nil {
-		logger.Infow("tp-instance-not-found-on-kv", log.Fields{"key": path})
+		logger.Infow(ctx, "tp-instance-not-found-on-kv", log.Fields{"key": path})
 		return nil, nil
 	} else {
 		if value, err := kvstore.ToByte(kvResult.Value); err == nil {
 			if err = json.Unmarshal(value, resPtr); err != nil {
-				logger.Errorw("error-unmarshal-kv-result", log.Fields{"key": path, "value": value})
+				logger.Errorw(ctx, "error-unmarshal-kv-result", log.Fields{"key": path, "value": value})
 				return nil, errors.New("error-unmarshal-kv-result")
 			} else {
 				return resPtr, nil
@@ -330,35 +334,35 @@ func (t *TechProfileMgr) GetTPInstanceFromKVStore(ctx context.Context, techProfi
 
 func (t *TechProfileMgr) addTechProfInstanceToKVStore(ctx context.Context, techProfiletblID uint32, uniPortName string, tpInstance *TechProfile) error {
 	path := t.GetTechProfileInstanceKVPath(techProfiletblID, uniPortName)
-	logger.Debugw("Adding techprof instance to kvstore", log.Fields{"key": path, "tpinstance": tpInstance})
+	logger.Debugw(ctx, "Adding techprof instance to kvstore", log.Fields{"key": path, "tpinstance": tpInstance})
 	tpInstanceJson, err := json.Marshal(*tpInstance)
 	if err == nil {
 		// Backend will convert JSON byte array into string format
-		logger.Debugw("Storing tech profile instance to KV Store", log.Fields{"key": path, "val": tpInstanceJson})
+		logger.Debugw(ctx, "Storing tech profile instance to KV Store", log.Fields{"key": path, "val": tpInstanceJson})
 		err = t.config.KVBackend.Put(ctx, path, tpInstanceJson)
 	} else {
-		logger.Errorw("Error in marshaling into Json format", log.Fields{"key": path, "tpinstance": tpInstance})
+		logger.Errorw(ctx, "Error in marshaling into Json format", log.Fields{"key": path, "tpinstance": tpInstance})
 	}
 	return err
 }
 func (t *TechProfileMgr) getTPFromKVStore(ctx context.Context, techProfiletblID uint32) *DefaultTechProfile {
 	var kvtechprofile DefaultTechProfile
 	key := fmt.Sprintf(t.config.TPFileKVPath, t.resourceMgr.GetTechnology(), techProfiletblID)
-	logger.Debugw("Getting techprofile from KV store", log.Fields{"techProfiletblID": techProfiletblID, "Key": key})
+	logger.Debugw(ctx, "Getting techprofile from KV store", log.Fields{"techProfiletblID": techProfiletblID, "Key": key})
 	kvresult, err := t.config.KVBackend.Get(ctx, key)
 	if err != nil {
-		logger.Errorw("Error while fetching value from KV store", log.Fields{"key": key})
+		logger.Errorw(ctx, "Error while fetching value from KV store", log.Fields{"key": key})
 		return nil
 	}
 	if kvresult != nil {
 		/* Backend will return Value in string format,needs to be converted to []byte before unmarshal*/
 		if value, err := kvstore.ToByte(kvresult.Value); err == nil {
 			if err = json.Unmarshal(value, &kvtechprofile); err != nil {
-				logger.Errorw("Error unmarshaling techprofile fetched from KV store", log.Fields{"techProfiletblID": techProfiletblID, "error": err, "techprofile_json": value})
+				logger.Errorw(ctx, "Error unmarshaling techprofile fetched from KV store", log.Fields{"techProfiletblID": techProfiletblID, "error": err, "techprofile_json": value})
 				return nil
 			}
 
-			logger.Debugw("Success fetched techprofile from KV store", log.Fields{"techProfiletblID": techProfiletblID, "value": kvtechprofile})
+			logger.Debugw(ctx, "Success fetched techprofile from KV store", log.Fields{"techProfiletblID": techProfiletblID, "value": kvtechprofile})
 			return &kvtechprofile
 		}
 	}
@@ -367,36 +371,36 @@ func (t *TechProfileMgr) getTPFromKVStore(ctx context.Context, techProfiletblID 
 
 func (t *TechProfileMgr) CreateTechProfInstance(ctx context.Context, techProfiletblID uint32, uniPortName string, intfId uint32) (*TechProfile, error) {
 	var tpInstance *TechProfile
-	logger.Infow("creating-tp-instance", log.Fields{"tableid": techProfiletblID, "uni": uniPortName, "intId": intfId})
+	logger.Infow(ctx, "creating-tp-instance", log.Fields{"tableid": techProfiletblID, "uni": uniPortName, "intId": intfId})
 
 	// Make sure the uniPortName is as per format pon-{[0-9]+}/onu-{[0-9]+}/uni-{[0-9]+}
 	if !uniPortNameFormat.Match([]byte(uniPortName)) {
-		logger.Errorw("uni-port-name-not-confirming-to-format", log.Fields{"uniPortName": uniPortName})
+		logger.Errorw(ctx, "uni-port-name-not-confirming-to-format", log.Fields{"uniPortName": uniPortName})
 		return nil, errors.New("uni-port-name-not-confirming-to-format")
 	}
 
 	tp := t.getTPFromKVStore(ctx, techProfiletblID)
 	if tp != nil {
 		if err := t.validateInstanceControlAttr(tp.InstanceCtrl); err != nil {
-			logger.Error("invalid-instance-ctrl-attr--using-default-tp")
+			logger.Error(ctx, "invalid-instance-ctrl-attr--using-default-tp")
 			tp = t.getDefaultTechProfile()
 		} else {
-			logger.Infow("using-specified-tp-from-kv-store", log.Fields{"tpid": techProfiletblID})
+			logger.Infow(ctx, "using-specified-tp-from-kv-store", log.Fields{"tpid": techProfiletblID})
 		}
 	} else {
-		logger.Info("tp-not-found-on-kv--creating-default-tp")
+		logger.Info(ctx, "tp-not-found-on-kv--creating-default-tp")
 		tp = t.getDefaultTechProfile()
 	}
 	tpInstancePath := t.GetTechProfileInstanceKVPath(techProfiletblID, uniPortName)
 	if tpInstance = t.allocateTPInstance(ctx, uniPortName, tp, intfId, tpInstancePath); tpInstance == nil {
-		logger.Error("tp-intance-allocation-failed")
+		logger.Error(ctx, "tp-intance-allocation-failed")
 		return nil, errors.New("tp-intance-allocation-failed")
 	}
 	if err := t.addTechProfInstanceToKVStore(ctx, techProfiletblID, uniPortName, tpInstance); err != nil {
-		logger.Errorw("error-adding-tp-to-kv-store", log.Fields{"tableid": techProfiletblID, "uni": uniPortName})
+		logger.Errorw(ctx, "error-adding-tp-to-kv-store", log.Fields{"tableid": techProfiletblID, "uni": uniPortName})
 		return nil, errors.New("error-adding-tp-to-kv-store")
 	}
-	logger.Infow("tp-added-to-kv-store-successfully",
+	logger.Infow(ctx, "tp-added-to-kv-store-successfully",
 		log.Fields{"tpid": techProfiletblID, "uni": uniPortName, "intfId": intfId})
 	return tpInstance, nil
 }
@@ -407,18 +411,19 @@ func (t *TechProfileMgr) DeleteTechProfileInstance(ctx context.Context, techProf
 }
 
 func (t *TechProfileMgr) validateInstanceControlAttr(instCtl InstanceControl) error {
+	ctx := context.Background()
 	if instCtl.Onu != "single-instance" && instCtl.Onu != "multi-instance" {
-		logger.Errorw("invalid-onu-instance-control-attribute", log.Fields{"onu-inst": instCtl.Onu})
+		logger.Errorw(ctx, "invalid-onu-instance-control-attribute", log.Fields{"onu-inst": instCtl.Onu})
 		return errors.New("invalid-onu-instance-ctl-attr")
 	}
 
 	if instCtl.Uni != "single-instance" && instCtl.Uni != "multi-instance" {
-		logger.Errorw("invalid-uni-instance-control-attribute", log.Fields{"uni-inst": instCtl.Uni})
+		logger.Errorw(ctx, "invalid-uni-instance-control-attribute", log.Fields{"uni-inst": instCtl.Uni})
 		return errors.New("invalid-uni-instance-ctl-attr")
 	}
 
 	if instCtl.Uni == "multi-instance" {
-		logger.Error("uni-multi-instance-tp-not-supported")
+		logger.Error(ctx, "uni-multi-instance-tp-not-supported")
 		return errors.New("uni-multi-instance-tp-not-supported")
 	}
 
@@ -435,22 +440,22 @@ func (t *TechProfileMgr) allocateTPInstance(ctx context.Context, uniPortName str
 	var gemPorts []uint32
 	var err error
 
-	logger.Infow("Allocating TechProfileMgr instance from techprofile template", log.Fields{"uniPortName": uniPortName, "intfId": intfId, "numGem": tp.NumGemPorts})
+	logger.Infow(ctx, "Allocating TechProfileMgr instance from techprofile template", log.Fields{"uniPortName": uniPortName, "intfId": intfId, "numGem": tp.NumGemPorts})
 
 	if tp.InstanceCtrl.Onu == "multi-instance" {
 		if tcontIDs, err = t.resourceMgr.GetResourceID(ctx, intfId, t.resourceMgr.GetResourceTypeAllocID(), 1); err != nil {
-			logger.Errorw("Error getting alloc id from rsrcrMgr", log.Fields{"intfId": intfId})
+			logger.Errorw(ctx, "Error getting alloc id from rsrcrMgr", log.Fields{"intfId": intfId})
 			return nil
 		}
 	} else { // "single-instance"
 		if tpInst, err := t.getSingleInstanceTp(ctx, tpInstPath); err != nil {
-			logger.Errorw("Error getting alloc id from rsrcrMgr", log.Fields{"intfId": intfId})
+			logger.Errorw(ctx, "Error getting alloc id from rsrcrMgr", log.Fields{"intfId": intfId})
 			return nil
 		} else if tpInst == nil {
 			// No "single-instance" tp found on one any uni port for the given TP ID
 			// Allocate a new TcontID or AllocID
 			if tcontIDs, err = t.resourceMgr.GetResourceID(ctx, intfId, t.resourceMgr.GetResourceTypeAllocID(), 1); err != nil {
-				logger.Errorw("Error getting alloc id from rsrcrMgr", log.Fields{"intfId": intfId})
+				logger.Errorw(ctx, "Error getting alloc id from rsrcrMgr", log.Fields{"intfId": intfId})
 				return nil
 			}
 		} else {
@@ -458,12 +463,12 @@ func (t *TechProfileMgr) allocateTPInstance(ctx context.Context, uniPortName str
 			tcontIDs = append(tcontIDs, tpInst.UsScheduler.AllocID)
 		}
 	}
-	logger.Debugw("Num GEM ports in TP:", log.Fields{"NumGemPorts": tp.NumGemPorts})
+	logger.Debugw(ctx, "Num GEM ports in TP:", log.Fields{"NumGemPorts": tp.NumGemPorts})
 	if gemPorts, err = t.resourceMgr.GetResourceID(ctx, intfId, t.resourceMgr.GetResourceTypeGemPortID(), tp.NumGemPorts); err != nil {
-		logger.Errorw("Error getting gemport ids from rsrcrMgr", log.Fields{"intfId": intfId, "numGemports": tp.NumGemPorts})
+		logger.Errorw(ctx, "Error getting gemport ids from rsrcrMgr", log.Fields{"intfId": intfId, "numGemports": tp.NumGemPorts})
 		return nil
 	}
-	logger.Infow("Allocated tconts and GEM ports successfully", log.Fields{"tconts": tcontIDs, "gemports": gemPorts})
+	logger.Infow(ctx, "Allocated tconts and GEM ports successfully", log.Fields{"tconts": tcontIDs, "gemports": gemPorts})
 	for index := 0; index < int(tp.NumGemPorts); index++ {
 		usGemPortAttributeList = append(usGemPortAttributeList,
 			iGemPortAttribute{GemportID: gemPorts[index],
@@ -477,7 +482,7 @@ func (t *TechProfileMgr) allocateTPInstance(ctx context.Context, uniPortName str
 				DiscardConfig:    tp.UpstreamGemPortAttributeList[index].DiscardConfig})
 	}
 
-	logger.Info("length of DownstreamGemPortAttributeList", len(tp.DownstreamGemPortAttributeList))
+	logger.Info(ctx, "length of DownstreamGemPortAttributeList", len(tp.DownstreamGemPortAttributeList))
 	//put multicast and unicast downstream GEM port attributes in different lists first
 	for index := 0; index < int(len(tp.DownstreamGemPortAttributeList)); index++ {
 		if isMulticastGem(tp.DownstreamGemPortAttributeList[index].IsMulticast) {
@@ -566,10 +571,10 @@ func (t *TechProfileMgr) getSingleInstanceTp(ctx context.Context, tpPath string)
 	for keyPath, kvPair := range kvPairs {
 		if value, err := kvstore.ToByte(kvPair.Value); err == nil {
 			if err = json.Unmarshal(value, &tpInst); err != nil {
-				logger.Errorw("error-unmarshal-kv-pair", log.Fields{"keyPath": keyPath, "value": value})
+				logger.Errorw(ctx, "error-unmarshal-kv-pair", log.Fields{"keyPath": keyPath, "value": value})
 				return nil, errors.New("error-unmarshal-kv-pair")
 			} else {
-				logger.Debugw("found-valid-tp-instance-on-another-uni", log.Fields{"keyPath": keyPath})
+				logger.Debugw(ctx, "found-valid-tp-instance-on-another-uni", log.Fields{"keyPath": keyPath})
 				return &tpInst, nil
 			}
 		}
@@ -578,12 +583,13 @@ func (t *TechProfileMgr) getSingleInstanceTp(ctx context.Context, tpPath string)
 }
 
 func (t *TechProfileMgr) getDefaultTechProfile() *DefaultTechProfile {
+	ctx := context.Background()
 
 	var usGemPortAttributeList []GemPortAttribute
 	var dsGemPortAttributeList []GemPortAttribute
 
 	for _, pbit := range t.config.DefaultPbits {
-		logger.Debugw("Creating GEM port", log.Fields{"pbit": pbit})
+		logger.Debugw(ctx, "Creating GEM port", log.Fields{"pbit": pbit})
 		usGemPortAttributeList = append(usGemPortAttributeList,
 			GemPortAttribute{
 				MaxQueueSize:     defaultMaxQueueSize,
@@ -641,6 +647,7 @@ func (t *TechProfileMgr) getDefaultTechProfile() *DefaultTechProfile {
 }
 
 func (t *TechProfileMgr) GetprotoBufParamValue(paramType string, paramKey string) int32 {
+	ctx := context.Background()
 	var result int32 = -1
 
 	if paramType == "direction" {
@@ -658,7 +665,7 @@ func (t *TechProfileMgr) GetprotoBufParamValue(paramType string, paramKey string
 	} else if paramType == "sched_policy" {
 		for key, val := range tp_pb.SchedulingPolicy_value {
 			if key == paramKey {
-				logger.Debugw("Got value in proto", log.Fields{"key": key, "value": val})
+				logger.Debugw(ctx, "Got value in proto", log.Fields{"key": key, "value": val})
 				result = val
 			}
 		}
@@ -669,29 +676,30 @@ func (t *TechProfileMgr) GetprotoBufParamValue(paramType string, paramKey string
 			}
 		}
 	} else {
-		logger.Error("Could not find proto parameter", log.Fields{"paramType": paramType, "key": paramKey})
+		logger.Error(ctx, "Could not find proto parameter", log.Fields{"paramType": paramType, "key": paramKey})
 		return -1
 	}
-	logger.Debugw("Got value in proto", log.Fields{"key": paramKey, "value": result})
+	logger.Debugw(ctx, "Got value in proto", log.Fields{"key": paramKey, "value": result})
 	return result
 }
 
 func (t *TechProfileMgr) GetUsScheduler(tpInstance *TechProfile) (*tp_pb.SchedulerConfig, error) {
+	ctx := context.Background()
 	dir := tp_pb.Direction(t.GetprotoBufParamValue("direction", tpInstance.UsScheduler.Direction))
 	if dir == -1 {
-		logger.Errorf("Error in getting proto id for direction %s for upstream scheduler", tpInstance.UsScheduler.Direction)
+		logger.Errorf(ctx, "Error in getting proto id for direction %s for upstream scheduler", tpInstance.UsScheduler.Direction)
 		return nil, fmt.Errorf("unable to get proto id for direction %s for upstream scheduler", tpInstance.UsScheduler.Direction)
 	}
 
 	bw := tp_pb.AdditionalBW(t.GetprotoBufParamValue("additional_bw", tpInstance.UsScheduler.AdditionalBw))
 	if bw == -1 {
-		logger.Errorf("Error in getting proto id for bandwidth %s for upstream scheduler", tpInstance.UsScheduler.AdditionalBw)
+		logger.Errorf(ctx, "Error in getting proto id for bandwidth %s for upstream scheduler", tpInstance.UsScheduler.AdditionalBw)
 		return nil, fmt.Errorf("unable to get proto id for bandwidth %s for upstream scheduler", tpInstance.UsScheduler.AdditionalBw)
 	}
 
 	policy := tp_pb.SchedulingPolicy(t.GetprotoBufParamValue("sched_policy", tpInstance.UsScheduler.QSchedPolicy))
 	if policy == -1 {
-		logger.Errorf("Error in getting proto id for scheduling policy %s for upstream scheduler", tpInstance.UsScheduler.QSchedPolicy)
+		logger.Errorf(ctx, "Error in getting proto id for scheduling policy %s for upstream scheduler", tpInstance.UsScheduler.QSchedPolicy)
 		return nil, fmt.Errorf("unable to get proto id for scheduling policy %s for upstream scheduler", tpInstance.UsScheduler.QSchedPolicy)
 	}
 
@@ -704,22 +712,23 @@ func (t *TechProfileMgr) GetUsScheduler(tpInstance *TechProfile) (*tp_pb.Schedul
 }
 
 func (t *TechProfileMgr) GetDsScheduler(tpInstance *TechProfile) (*tp_pb.SchedulerConfig, error) {
+	ctx := context.Background()
 
 	dir := tp_pb.Direction(t.GetprotoBufParamValue("direction", tpInstance.DsScheduler.Direction))
 	if dir == -1 {
-		logger.Errorf("Error in getting proto id for direction %s for downstream scheduler", tpInstance.DsScheduler.Direction)
+		logger.Errorf(ctx, "Error in getting proto id for direction %s for downstream scheduler", tpInstance.DsScheduler.Direction)
 		return nil, fmt.Errorf("unable to get proto id for direction %s for downstream scheduler", tpInstance.DsScheduler.Direction)
 	}
 
 	bw := tp_pb.AdditionalBW(t.GetprotoBufParamValue("additional_bw", tpInstance.DsScheduler.AdditionalBw))
 	if bw == -1 {
-		logger.Errorf("Error in getting proto id for bandwidth %s for downstream scheduler", tpInstance.DsScheduler.AdditionalBw)
+		logger.Errorf(ctx, "Error in getting proto id for bandwidth %s for downstream scheduler", tpInstance.DsScheduler.AdditionalBw)
 		return nil, fmt.Errorf("unable to get proto id for bandwidth %s for downstream scheduler", tpInstance.DsScheduler.AdditionalBw)
 	}
 
 	policy := tp_pb.SchedulingPolicy(t.GetprotoBufParamValue("sched_policy", tpInstance.DsScheduler.QSchedPolicy))
 	if policy == -1 {
-		logger.Errorf("Error in getting proto id for scheduling policy %s for downstream scheduler", tpInstance.DsScheduler.QSchedPolicy)
+		logger.Errorf(ctx, "Error in getting proto id for scheduling policy %s for downstream scheduler", tpInstance.DsScheduler.QSchedPolicy)
 		return nil, fmt.Errorf("unable to get proto id for scheduling policy %s for downstream scheduler", tpInstance.DsScheduler.QSchedPolicy)
 	}
 
@@ -744,6 +753,7 @@ func (t *TechProfileMgr) GetTrafficScheduler(tpInstance *TechProfile, SchedCfg *
 }
 
 func (tpm *TechProfileMgr) GetTrafficQueues(tp *TechProfile, Dir tp_pb.Direction) ([]*tp_pb.TrafficQueue, error) {
+	ctx := context.Background()
 
 	var encryp bool
 	if Dir == tp_pb.Direction_UPSTREAM {
@@ -759,13 +769,13 @@ func (tpm *TechProfileMgr) GetTrafficQueues(tp *TechProfile, Dir tp_pb.Direction
 
 			schedPolicy := tpm.GetprotoBufParamValue("sched_policy", tp.UpstreamGemPortAttributeList[Count].SchedulingPolicy)
 			if schedPolicy == -1 {
-				logger.Errorf("Error in getting Proto Id for scheduling policy %s for Upstream Gem Port %d", tp.UpstreamGemPortAttributeList[Count].SchedulingPolicy, Count)
+				logger.Errorf(ctx, "Error in getting Proto Id for scheduling policy %s for Upstream Gem Port %d", tp.UpstreamGemPortAttributeList[Count].SchedulingPolicy, Count)
 				return nil, fmt.Errorf("upstream gem port traffic queue creation failed due to unrecognized scheduling policy %s", tp.UpstreamGemPortAttributeList[Count].SchedulingPolicy)
 			}
 
 			discardPolicy := tpm.GetprotoBufParamValue("discard_policy", tp.UpstreamGemPortAttributeList[Count].DiscardPolicy)
 			if discardPolicy == -1 {
-				logger.Errorf("Error in getting Proto Id for discard policy %s for Upstream Gem Port %d", tp.UpstreamGemPortAttributeList[Count].DiscardPolicy, Count)
+				logger.Errorf(ctx, "Error in getting Proto Id for discard policy %s for Upstream Gem Port %d", tp.UpstreamGemPortAttributeList[Count].DiscardPolicy, Count)
 				return nil, fmt.Errorf("upstream gem port traffic queue creation failed due to unrecognized discard policy %s", tp.UpstreamGemPortAttributeList[Count].DiscardPolicy)
 			}
 
@@ -780,7 +790,7 @@ func (tpm *TechProfileMgr) GetTrafficQueues(tp *TechProfile, Dir tp_pb.Direction
 				DiscardPolicy: tp_pb.DiscardPolicy(discardPolicy),
 			})
 		}
-		logger.Debugw("Upstream Traffic queue list ", log.Fields{"queuelist": GemPorts})
+		logger.Debugw(ctx, "Upstream Traffic queue list ", log.Fields{"queuelist": GemPorts})
 		return GemPorts, nil
 	} else if Dir == tp_pb.Direction_DOWNSTREAM {
 		//downstream GEM ports
@@ -799,13 +809,13 @@ func (tpm *TechProfileMgr) GetTrafficQueues(tp *TechProfile, Dir tp_pb.Direction
 
 			schedPolicy := tpm.GetprotoBufParamValue("sched_policy", tp.DownstreamGemPortAttributeList[Count].SchedulingPolicy)
 			if schedPolicy == -1 {
-				logger.Errorf("Error in getting Proto Id for scheduling policy %s for Downstream Gem Port %d", tp.DownstreamGemPortAttributeList[Count].SchedulingPolicy, Count)
+				logger.Errorf(ctx, "Error in getting Proto Id for scheduling policy %s for Downstream Gem Port %d", tp.DownstreamGemPortAttributeList[Count].SchedulingPolicy, Count)
 				return nil, fmt.Errorf("downstream gem port traffic queue creation failed due to unrecognized scheduling policy %s", tp.DownstreamGemPortAttributeList[Count].SchedulingPolicy)
 			}
 
 			discardPolicy := tpm.GetprotoBufParamValue("discard_policy", tp.DownstreamGemPortAttributeList[Count].DiscardPolicy)
 			if discardPolicy == -1 {
-				logger.Errorf("Error in getting Proto Id for discard policy %s for Downstream Gem Port %d", tp.DownstreamGemPortAttributeList[Count].DiscardPolicy, Count)
+				logger.Errorf(ctx, "Error in getting Proto Id for discard policy %s for Downstream Gem Port %d", tp.DownstreamGemPortAttributeList[Count].DiscardPolicy, Count)
 				return nil, fmt.Errorf("downstream gem port traffic queue creation failed due to unrecognized discard policy %s", tp.DownstreamGemPortAttributeList[Count].DiscardPolicy)
 			}
 
@@ -820,11 +830,11 @@ func (tpm *TechProfileMgr) GetTrafficQueues(tp *TechProfile, Dir tp_pb.Direction
 				DiscardPolicy: tp_pb.DiscardPolicy(discardPolicy),
 			})
 		}
-		logger.Debugw("Downstream Traffic queue list ", log.Fields{"queuelist": GemPorts})
+		logger.Debugw(ctx, "Downstream Traffic queue list ", log.Fields{"queuelist": GemPorts})
 		return GemPorts, nil
 	}
 
-	logger.Errorf("Unsupported direction %s used for generating Traffic Queue list", Dir)
+	logger.Errorf(ctx, "Unsupported direction %s used for generating Traffic Queue list", Dir)
 	return nil, fmt.Errorf("downstream gem port traffic queue creation failed due to unsupported direction %s", Dir)
 }
 
@@ -835,6 +845,7 @@ func isMulticastGem(isMulticastAttrValue string) bool {
 }
 
 func (tpm *TechProfileMgr) GetMulticastTrafficQueues(tp *TechProfile) []*tp_pb.TrafficQueue {
+	ctx := context.Background()
 	var encryp bool
 	NumGemPorts := len(tp.DownstreamGemPortAttributeList)
 	mcastTrafficQueues := make([]*tp_pb.TrafficQueue, 0)
@@ -858,7 +869,7 @@ func (tpm *TechProfileMgr) GetMulticastTrafficQueues(tp *TechProfile) []*tp_pb.T
 			DiscardPolicy: tp_pb.DiscardPolicy(tpm.GetprotoBufParamValue("discard_policy", tp.DownstreamGemPortAttributeList[Count].DiscardPolicy)),
 		})
 	}
-	logger.Debugw("Downstream Multicast Traffic queue list ", log.Fields{"queuelist": mcastTrafficQueues})
+	logger.Debugw(ctx, "Downstream Multicast Traffic queue list ", log.Fields{"queuelist": mcastTrafficQueues})
 	return mcastTrafficQueues
 }
 
@@ -871,6 +882,7 @@ func (tpm *TechProfileMgr) GetUsTrafficScheduler(tp *TechProfile) *tp_pb.Traffic
 }
 
 func (t *TechProfileMgr) GetGemportIDForPbit(tp *TechProfile, dir tp_pb.Direction, pbit uint32) uint32 {
+	ctx := context.Background()
 	/*
 	   Function to get the Gemport ID mapped to a pbit.
 	*/
@@ -884,7 +896,7 @@ func (t *TechProfileMgr) GetGemportIDForPbit(tp *TechProfile, dir tp_pb.Directio
 				// "lenOfPbitMap - pbitMapIdx + 1" will give pbit-i th value from LSB position in the pbit map string
 				if p, err := strconv.Atoi(string(tp.UpstreamGemPortAttributeList[gemCnt].PbitMap[lenOfPbitMap-pbitMapIdx+1])); err == nil {
 					if uint32(pbitMapIdx-2) == pbit && p == 1 { // Check this p-bit is set
-						logger.Debugw("Found-US-GEMport-for-Pcp", log.Fields{"pbit": pbit, "GEMport": tp.UpstreamGemPortAttributeList[gemCnt].GemportID})
+						logger.Debugw(ctx, "Found-US-GEMport-for-Pcp", log.Fields{"pbit": pbit, "GEMport": tp.UpstreamGemPortAttributeList[gemCnt].GemportID})
 						return tp.UpstreamGemPortAttributeList[gemCnt].GemportID
 					}
 				}
@@ -900,14 +912,14 @@ func (t *TechProfileMgr) GetGemportIDForPbit(tp *TechProfile, dir tp_pb.Directio
 				// "lenOfPbitMap - pbitMapIdx + 1" will give pbit-i th value from LSB position in the pbit map string
 				if p, err := strconv.Atoi(string(tp.DownstreamGemPortAttributeList[gemCnt].PbitMap[lenOfPbitMap-pbitMapIdx+1])); err == nil {
 					if uint32(pbitMapIdx-2) == pbit && p == 1 { // Check this p-bit is set
-						logger.Debugw("Found-DS-GEMport-for-Pcp", log.Fields{"pbit": pbit, "GEMport": tp.DownstreamGemPortAttributeList[gemCnt].GemportID})
+						logger.Debugw(ctx, "Found-DS-GEMport-for-Pcp", log.Fields{"pbit": pbit, "GEMport": tp.DownstreamGemPortAttributeList[gemCnt].GemportID})
 						return tp.DownstreamGemPortAttributeList[gemCnt].GemportID
 					}
 				}
 			}
 		}
 	}
-	logger.Errorw("No-GemportId-Found-For-Pcp", log.Fields{"pcpVlan": pbit})
+	logger.Errorw(ctx, "No-GemportId-Found-For-Pcp", log.Fields{"pcpVlan": pbit})
 	return 0
 }
 
@@ -921,7 +933,7 @@ func (t *TechProfileMgr) FindAllTpInstances(ctx context.Context, techProfiletblI
 		for kvPath, kvPair := range kvPairs {
 			if value, err := kvstore.ToByte(kvPair.Value); err == nil {
 				if err = json.Unmarshal(value, &tp); err != nil {
-					logger.Errorw("error-unmarshal-kv-pair", log.Fields{"kvPath": kvPath, "value": value})
+					logger.Errorw(ctx, "error-unmarshal-kv-pair", log.Fields{"kvPath": kvPath, "value": value})
 					continue
 				} else {
 					tpInstances = append(tpInstances, tp)

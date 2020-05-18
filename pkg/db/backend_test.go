@@ -41,18 +41,19 @@ var (
 )
 
 func TestMain(m *testing.M) {
+	ctx := context.Background()
 	var err error
 	embedEtcdServerPort, err = freeport.GetFreePort()
 	if err != nil {
-		logger.Fatal(err)
+		logger.Fatal(ctx, err)
 	}
 	dummyEtcdServerPort, err = freeport.GetFreePort()
 	if err != nil {
-		logger.Fatal(err)
+		logger.Fatal(ctx, err)
 	}
 	peerPort, err := freeport.GetFreePort()
 	if err != nil {
-		logger.Fatal(err)
+		logger.Fatal(ctx, err)
 	}
 	etcdServer := mocks.StartEtcdServer(mocks.MKConfig("voltha.db.test", embedEtcdServerPort, peerPort, "voltha.lib.db", "error"))
 	res := m.Run()
@@ -112,7 +113,7 @@ func TestNewBackend_InvalidKvstore(t *testing.T) {
 
 func TestMakePath(t *testing.T) {
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	path := backend.makePath("Suffix")
+	path := backend.makePath(context.Background(), "Suffix")
 	assert.Equal(t, defaultPathPrefix+"/Suffix", path)
 }
 
@@ -170,7 +171,7 @@ func TestUpdateLiveness_AliveStatusChange(t *testing.T) {
 	lastUpdateTime := backend.lastLivenessTime
 
 	// Update with changed alive state. Verify alive state push & liveness time update
-	backend.updateLiveness(true)
+	backend.updateLiveness(context.Background(), true)
 	assert.Equal(t, 1, len(backend.liveness))
 	assert.Equal(t, true, <-backend.liveness)
 	assert.NotEqual(t, lastUpdateTime, backend.lastLivenessTime)
@@ -186,7 +187,7 @@ func TestUpdateLiveness_AliveStatusUnchanged(t *testing.T) {
 	lastUpdateTime := backend.lastLivenessTime
 
 	// Update with same alive state. Verify no further alive state push
-	backend.updateLiveness(false)
+	backend.updateLiveness(context.Background(), false)
 	assert.Equal(t, 0, len(backend.liveness))
 	assert.Equal(t, lastUpdateTime, backend.lastLivenessTime)
 
@@ -195,7 +196,7 @@ func TestUpdateLiveness_AliveStatusUnchanged(t *testing.T) {
 	backend.lastLivenessTime = time.Now().Add(-tenMinDuration)
 	lastUpdateTime = backend.lastLivenessTime
 
-	backend.updateLiveness(false)
+	backend.updateLiveness(context.Background(), false)
 	assert.Equal(t, 1, len(backend.liveness))
 	assert.Equal(t, false, <-backend.liveness)
 	assert.NotEqual(t, lastUpdateTime, backend.lastLivenessTime)
@@ -223,7 +224,7 @@ func TestIsErrorIndicatingAliveKvstore(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if backend.isErrorIndicatingAliveKvstore(tt.arg) != tt.want {
+			if backend.isErrorIndicatingAliveKvstore(context.Background(), tt.arg) != tt.want {
 				t.Errorf("isErrorIndicatingAliveKvstore failed for %s: expected %t but got %t", tt.name, tt.want, !tt.want)
 			}
 		})
