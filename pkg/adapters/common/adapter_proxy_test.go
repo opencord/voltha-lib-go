@@ -39,10 +39,11 @@ var embedEtcdServerPort int
 
 func init() {
 
+	ctx := context.Background()
 	var err error
 	embedEtcdServerPort, err = freeport.GetFreePort()
 	if err != nil {
-		logger.Fatal("Cannot get freeport for KvClient")
+		logger.Fatal(ctx, "Cannot get freeport for KvClient")
 	}
 }
 

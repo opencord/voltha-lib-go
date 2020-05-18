@@ -11,6 +11,7 @@ require (
 	github.com/buraksezer/consistent v0.0.0-20191006190839-693edf70fd72
 	github.com/cespare/xxhash v1.1.0
 	github.com/cevaris/ordered_map v0.0.0-20190319150403-3adeae072e73
+	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/coreos/go-systemd v0.0.0-20190620071333-e64a0ec8b42a // indirect
 	github.com/coreos/pkg v0.0.0-20180108230652-97fdf19511ea // indirect
 	github.com/eapache/go-resiliency v1.2.0
@@ -28,11 +29,14 @@ require (
 	github.com/jcmturner/gofork v1.0.0 // indirect
 	github.com/onsi/gomega v1.4.2 // indirect
 	github.com/opencord/voltha-protos/v3 v3.3.3
+	github.com/opentracing/opentracing-go v1.1.0
 	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
 	github.com/pierrec/lz4 v2.3.0+incompatible // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20190826022208-cac0b30c2563 // indirect
 	github.com/spf13/pflag v1.0.3 // indirect
 	github.com/stretchr/testify v1.4.0
+	github.com/uber/jaeger-client-go v2.23.1+incompatible
+	github.com/uber/jaeger-lib v2.2.0+incompatible
 	go.etcd.io/etcd v0.0.0-20190930204107-236ac2a90522
 	go.uber.org/atomic v1.4.0 // indirect
 	go.uber.org/multierr v1.2.0 // indirect
