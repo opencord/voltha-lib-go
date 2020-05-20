@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b52cebe_68639d7d",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-20T03:47:58Z",
+      "side": 1,
+      "message": "I would be inclined to have verify specific comments rather than just \"struct for EPON\". This applies everywhere in this file.",
+      "range": {
+        "startLine": 244,
+        "startChar": 3,
+        "endLine": 244,
+        "endChar": 18
+      },
+      "revId": "ade11fbbb6a0ae6df95dc77c180758121e578c29",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ac86b67_c248896d",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-20T03:47:58Z",
+      "side": 1,
+      "message": "Same here. Be specific about this function than just \"Function for EPON\"",
+      "range": {
+        "startLine": 458,
+        "startChar": 3,
+        "endLine": 458,
+        "endChar": 20
+      },
+      "revId": "ade11fbbb6a0ae6df95dc77c180758121e578c29",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "104b4772_93b1c977",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-20T03:47:58Z",
+      "side": 1,
+      "message": "I think we should re-use the GetTPInstanceFromKVStore function.\n\nThe function already has the \u0027path\u0027 argument - it is the TP instance path. Ensure using \"regexp.MustCompile\" that the TPInstancePath follows a specific format. Then extract the \u0027technology\u0027 string from the \u0027path\u0027. Then return an interface{} (this could cast to EponProfile or TechProfile). The caller of the function should cast it to appropriate structure based on the technology it deals with.",
+      "range": {
+        "startLine": 459,
+        "startChar": 100,
+        "endLine": 459,
+        "endChar": 104
+      },
+      "revId": "ade11fbbb6a0ae6df95dc77c180758121e578c29",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c7b8223_948360e8",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-20T03:47:58Z",
+      "side": 1,
+      "message": "Same here, re-use addTechProfInstanceToKVStore based on logic explained above.",
+      "revId": "ade11fbbb6a0ae6df95dc77c180758121e578c29",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39641c92_74c0979c",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-20T03:47:58Z",
+      "side": 1,
+      "message": "Re-use getTPFromKVStore based on logic explained above.",
+      "revId": "ade11fbbb6a0ae6df95dc77c180758121e578c29",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ceb3f98b_b1095353",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-20T03:47:58Z",
+      "side": 1,
+      "message": "re-use CreateTechProfInstance",
+      "revId": "ade11fbbb6a0ae6df95dc77c180758121e578c29",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28afdc6f_eeace093",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-20T03:47:58Z",
+      "side": 1,
+      "message": "This has lot of EPON specific handling, so it may not make sense to re-use allocateTPInstance for this function.",
+      "revId": "ade11fbbb6a0ae6df95dc77c180758121e578c29",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c75a9f41_daf35f70",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-20T03:47:58Z",
+      "side": 1,
+      "message": "Re-use getSingleInstanceTp",
+      "revId": "ade11fbbb6a0ae6df95dc77c180758121e578c29",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "115488e3_c12ebc10",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-20T03:47:58Z",
+      "side": 1,
+      "message": "Since this has lot of specific code for EPON, it is ok to not re-use the getDefaultTechProfile function.",
+      "revId": "ade11fbbb6a0ae6df95dc77c180758121e578c29",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8aaceea1_26575d64",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-20T03:47:58Z",
+      "side": 1,
+      "message": "Re-use FindAllTpInstances",
+      "revId": "ade11fbbb6a0ae6df95dc77c180758121e578c29",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
