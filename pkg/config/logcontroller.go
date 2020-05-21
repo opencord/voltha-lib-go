@@ -51,7 +51,7 @@ type ComponentLogController struct {
 	initialLogLevel     string // Initial default log level set by helm chart
 }
 
-func NewComponentLogController(cm *ConfigManager) (*ComponentLogController, error) {
+func NewComponentLogController(ctx context.Context, cm *ConfigManager) (*ComponentLogController, error) {
 
 	logger.Debug("creating-new-component-log-controller")
 	componentName := os.Getenv("COMPONENT_NAME")
@@ -79,17 +79,17 @@ func NewComponentLogController(cm *ConfigManager) (*ComponentLogController, erro
 // StartLogLevelConfigProcessing initialize component config and global config
 // Then, it persists initial default Loglevels into Config Store before
 // starting the loading and processing of all Log Configuration
-func StartLogLevelConfigProcessing(cm *ConfigManager, ctx context.Context) {
-	cc, err := NewComponentLogController(cm)
+func StartLogLevelConfigProcessing(ctx context.Context, cm *ConfigManager) {
+	cc, err := NewComponentLogController(ctx, cm)
 	if err != nil {
 		logger.Errorw("unable-to-construct-component-log-controller-instance-for-log-config-monitoring", log.Fields{"error": err})
 		return
 	}
 
-	cc.GlobalConfig = cm.InitComponentConfig(globalConfigRootNode, ConfigTypeLogLevel)
+	cc.GlobalConfig = cm.InitComponentConfig(ctx, globalConfigRootNode, ConfigTypeLogLevel)
 	logger.Debugw("global-log-config", log.Fields{"cc-global-config": cc.GlobalConfig})
 
-	cc.componentNameConfig = cm.InitComponentConfig(cc.ComponentName, ConfigTypeLogLevel)
+	cc.componentNameConfig = cm.InitComponentConfig(ctx, cc.ComponentName, ConfigTypeLogLevel)
 	logger.Debugw("component-log-config", log.Fields{"cc-component-name-config": cc.componentNameConfig})
 
 	cc.persistInitialDefaultLogConfigs(ctx)
@@ -128,7 +128,7 @@ func (c *ComponentLogController) persistInitialDefaultLogConfigs(ctx context.Con
 // is constructed with comma-separated package names in sorted order and persisted
 func (c *ComponentLogController) persistRegisteredLogPackageList(ctx context.Context) {
 
-	componentMetadataConfig := c.configManager.InitComponentConfig(c.ComponentName, ConfigTypeMetadata)
+	componentMetadataConfig := c.configManager.InitComponentConfig(ctx, c.ComponentName, ConfigTypeMetadata)
 	logger.Debugw("component-metadata-config", log.Fields{"component-metadata-config": componentMetadataConfig})
 
 	packageList := log.GetPackageNames()
@@ -157,7 +157,7 @@ func (c *ComponentLogController) processLogConfig(ctx context.Context) {
 	if err != nil {
 		logger.Warnw("unable-to-load-log-config-at-startup", log.Fields{"error": err})
 	} else {
-		if err := c.loadAndApplyLogConfig(initialLogConfig); err != nil {
+		if err := c.loadAndApplyLogConfig(ctx, initialLogConfig); err != nil {
 			logger.Warnw("unable-to-apply-log-config-at-startup", log.Fields{"error": err})
 		}
 	}
@@ -184,7 +184,7 @@ func (c *ComponentLogController) processLogConfig(ctx context.Context) {
 
 		logger.Debugw("applying-updated-log-config", log.Fields{"updated-log-config": updatedLogConfig})
 
-		if err := c.loadAndApplyLogConfig(updatedLogConfig); err != nil {
+		if err := c.loadAndApplyLogConfig(ctx, updatedLogConfig); err != nil {
 			logger.Warnw("unable-to-load-and-apply-log-config", log.Fields{"error": err})
 		}
 	}
@@ -192,7 +192,7 @@ func (c *ComponentLogController) processLogConfig(ctx context.Context) {
 }
 
 // get active loglevel from the zap logger
-func getActiveLogLevels() map[string]string {
+func getActiveLogLevels(ctx context.Context) map[string]string {
 	loglevels := make(map[string]string)
 
 	// now do the default log level
@@ -302,14 +302,14 @@ func (c *ComponentLogController) buildUpdatedLogConfig(ctx context.Context) (map
 // create hash of loaded configuration using GenerateLogConfigHash
 // if there is previous hash stored, compare the hash to stored hash
 // if there is any change will call UpdateLogLevels
-func (c *ComponentLogController) loadAndApplyLogConfig(logConfig map[string]string) error {
-	currentLogHash, err := GenerateLogConfigHash(logConfig)
+func (c *ComponentLogController) loadAndApplyLogConfig(ctx context.Context, logConfig map[string]string) error {
+	currentLogHash, err := GenerateLogConfigHash(ctx, logConfig)
 	if err != nil {
 		return err
 	}
 
 	if c.logHash != currentLogHash {
-		UpdateLogLevels(logConfig)
+		UpdateLogLevels(ctx, logConfig)
 		c.logHash = currentLogHash
 	} else {
 		logger.Debug("effective-loglevel-config-same-as-currently-active")
@@ -322,7 +322,7 @@ func (c *ComponentLogController) loadAndApplyLogConfig(logConfig map[string]stri
 // to identify and create map of modified Log Levels of 2 types:
 // - Packages for which log level has been changed
 // - Packages for which log level config has been cleared - set to default log level
-func createModifiedLogLevels(activeLogLevels, updatedLogLevels map[string]string) map[string]string {
+func createModifiedLogLevels(ctx context.Context, activeLogLevels, updatedLogLevels map[string]string) map[string]string {
 	defaultLevel := updatedLogLevels[defaultLogLevelKey]
 
 	modifiedLogLevels := make(map[string]string)
@@ -349,10 +349,10 @@ func createModifiedLogLevels(activeLogLevels, updatedLogLevels map[string]string
 // updateLogLevels update the loglevels for the component
 // retrieve active confguration from logger
 // compare with entries one by one and apply
-func UpdateLogLevels(updatedLogConfig map[string]string) {
+func UpdateLogLevels(ctx context.Context, updatedLogConfig map[string]string) {
 
-	activeLogLevels := getActiveLogLevels()
-	changedLogLevels := createModifiedLogLevels(activeLogLevels, updatedLogConfig)
+	activeLogLevels := getActiveLogLevels(ctx)
+	changedLogLevels := createModifiedLogLevels(ctx, activeLogLevels, updatedLogConfig)
 
 	// If no changed log levels are found, just return. It may happen on configuration of a invalid package
 	if len(changedLogLevels) == 0 {
@@ -376,7 +376,7 @@ func UpdateLogLevels(updatedLogConfig map[string]string) {
 
 // generate md5 hash of key value pairs appended into a single string
 // in order by key name
-func GenerateLogConfigHash(createHashLog map[string]string) ([16]byte, error) {
+func GenerateLogConfigHash(ctx context.Context, createHashLog map[string]string) ([16]byte, error) {
 	createHashLogBytes := []byte{}
 	levelData, err := json.Marshal(createHashLog)
 	if err != nil {

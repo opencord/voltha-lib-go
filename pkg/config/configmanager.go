@@ -41,7 +41,7 @@ const (
 	ConfigTypeKafka
 )
 
-func (c ConfigType) String() string {
+func (c ConfigType) String(ctx context.Context) string {
 	return [...]string{"loglevel", "metadata", "kafka"}[c]
 }
 
@@ -54,7 +54,7 @@ const (
 	Delete
 )
 
-func (ce ChangeEvent) String() string {
+func (ce ChangeEvent) String(ctx context.Context) string {
 	return [...]string{"Put", "Delete"}[ce]
 }
 
@@ -93,7 +93,7 @@ type ComponentConfig struct {
 	kvStoreEventChan chan *kvstore.Event
 }
 
-func NewConfigManager(kvClient kvstore.Client, kvStoreType, kvStoreHost string, kvStorePort int, kvStoreTimeout time.Duration) *ConfigManager {
+func NewConfigManager(ctx context.Context, kvClient kvstore.Client, kvStoreType, kvStoreHost string, kvStorePort int, kvStoreTimeout time.Duration) *ConfigManager {
 
 	return &ConfigManager{
 		KvStoreConfigPrefix: defaultkvStoreConfigPath,
@@ -119,7 +119,7 @@ func (c *ConfigManager) RetrieveComponentList(ctx context.Context, configType Co
 	// Trimming and Splitting the required key and value from data and  storing as componentName,PackageName and Level
 	// For Example, recieved key would be <Backend Prefix Path>/<Config Prefix>/<Component Name>/<Config Type>/default and value \"DEBUG\"
 	// Then in default will be stored as PackageName,componentName as <Component Name> and DEBUG will be stored as value in List struct
-	ccPathPrefix := kvStorePathSeparator + configType.String() + kvStorePathSeparator
+	ccPathPrefix := kvStorePathSeparator + configType.String(ctx) + kvStorePathSeparator
 	pathPrefix := kvStoreDataPathPrefix + kvStorePathSeparator + c.KvStoreConfigPrefix + kvStorePathSeparator
 	var list []string
 	keys := make(map[string]interface{})
@@ -138,7 +138,7 @@ func (c *ConfigManager) RetrieveComponentList(ctx context.Context, configType Co
 }
 
 // Initialize the component config
-func (cm *ConfigManager) InitComponentConfig(componentLabel string, configType ConfigType) *ComponentConfig {
+func (cm *ConfigManager) InitComponentConfig(ctx context.Context, componentLabel string, configType ConfigType) *ComponentConfig {
 
 	return &ComponentConfig{
 		componentLabel:   componentLabel,
@@ -150,9 +150,9 @@ func (cm *ConfigManager) InitComponentConfig(componentLabel string, configType C
 
 }
 
-func (c *ComponentConfig) makeConfigPath() string {
+func (c *ComponentConfig) makeConfigPath(ctx context.Context) string {
 
-	cType := c.configType.String()
+	cType := c.configType.String(ctx)
 	return c.cManager.KvStoreConfigPrefix + kvStorePathSeparator +
 		c.componentLabel + kvStorePathSeparator + cType
 }
@@ -164,7 +164,7 @@ func (c *ComponentConfig) makeConfigPath() string {
 // will return an event channel for PUT,DELETE eventType.
 // Then values from event channel will be processed and  stored in kvStoreEventChan.
 func (c *ComponentConfig) MonitorForConfigChange(ctx context.Context) chan *ConfigChangeEvent {
-	key := c.makeConfigPath()
+	key := c.makeConfigPath(ctx)
 
 	logger.Debugw("monitoring-for-config-change", log.Fields{"key": key})
 
@@ -172,16 +172,16 @@ func (c *ComponentConfig) MonitorForConfigChange(ctx context.Context) chan *Conf
 
 	c.kvStoreEventChan = c.cManager.Backend.CreateWatch(ctx, key, true)
 
-	go c.processKVStoreWatchEvents()
+	go c.processKVStoreWatchEvents(ctx)
 
 	return c.changeEventChan
 }
 
 // processKVStoreWatchEvents process event channel recieved from the Backend for any ChangeType
 // It checks for the EventType is valid or not.For the valid EventTypes creates ConfigChangeEvent and send it on channel
-func (c *ComponentConfig) processKVStoreWatchEvents() {
+func (c *ComponentConfig) processKVStoreWatchEvents(ctx context.Context) {
 
-	ccKeyPrefix := c.makeConfigPath()
+	ccKeyPrefix := c.makeConfigPath(ctx)
 
 	logger.Debugw("processing-kvstore-event-change", log.Fields{"key-prefix": ccKeyPrefix})
 
@@ -208,7 +208,7 @@ func (c *ComponentConfig) processKVStoreWatchEvents() {
 
 // Retrieves value of a specific config key. Value of key is returned in String format
 func (c *ComponentConfig) Retrieve(ctx context.Context, configKey string) (string, error) {
-	key := c.makeConfigPath() + "/" + configKey
+	key := c.makeConfigPath(ctx) + "/" + configKey
 
 	logger.Debugw("retrieving-config", log.Fields{"key": key})
 
@@ -226,7 +226,7 @@ func (c *ComponentConfig) Retrieve(ctx context.Context, configKey string) (strin
 }
 
 func (c *ComponentConfig) RetrieveAll(ctx context.Context) (map[string]string, error) {
-	key := c.makeConfigPath()
+	key := c.makeConfigPath(ctx)
 
 	logger.Debugw("retreiving-list", log.Fields{"key": key})
 
@@ -249,7 +249,7 @@ func (c *ComponentConfig) RetrieveAll(ctx context.Context) (map[string]string, e
 }
 
 func (c *ComponentConfig) Save(ctx context.Context, configKey string, configValue string) error {
-	key := c.makeConfigPath() + "/" + configKey
+	key := c.makeConfigPath(ctx) + "/" + configKey
 
 	logger.Debugw("saving-config", log.Fields{"key": key, "value": configValue})
 
@@ -262,7 +262,7 @@ func (c *ComponentConfig) Save(ctx context.Context, configKey string, configValu
 
 func (c *ComponentConfig) Delete(ctx context.Context, configKey string) error {
 	//construct key using makeConfigPath
-	key := c.makeConfigPath() + "/" + configKey
+	key := c.makeConfigPath(ctx) + "/" + configKey
 
 	logger.Debugw("deleting-config", log.Fields{"key": key})
 	//delete the config

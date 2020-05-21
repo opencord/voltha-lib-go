@@ -16,6 +16,7 @@
 package kafka
 
 import (
+	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -35,19 +36,19 @@ type KafkaClient struct {
 	lock             sync.RWMutex
 }
 
-func NewKafkaClient() *KafkaClient {
+func NewKafkaClient(ctx context.Context) *KafkaClient {
 	return &KafkaClient{
 		topicsChannelMap: make(map[string][]chan *ic.InterContainerMessage),
 		lock:             sync.RWMutex{},
 	}
 }
 
-func (kc *KafkaClient) Start() error {
+func (kc *KafkaClient) Start(ctx context.Context) error {
 	logger.Debug("kafka-client-started")
 	return nil
 }
 
-func (kc *KafkaClient) Stop() {
+func (kc *KafkaClient) Stop(ctx context.Context) {
 	kc.lock.Lock()
 	defer kc.lock.Unlock()
 	for topic, chnls := range kc.topicsChannelMap {
@@ -59,7 +60,7 @@ func (kc *KafkaClient) Stop() {
 	logger.Debug("kafka-client-stopped")
 }
 
-func (kc *KafkaClient) CreateTopic(topic *kafka.Topic, numPartition int, repFactor int) error {
+func (kc *KafkaClient) CreateTopic(ctx context.Context, topic *kafka.Topic, numPartition int, repFactor int) error {
 	logger.Debugw("CreatingTopic", log.Fields{"topic": topic.Name, "numPartition": numPartition, "replicationFactor": repFactor})
 	kc.lock.Lock()
 	defer kc.lock.Unlock()
@@ -71,7 +72,7 @@ func (kc *KafkaClient) CreateTopic(topic *kafka.Topic, numPartition int, repFact
 	return nil
 }
 
-func (kc *KafkaClient) DeleteTopic(topic *kafka.Topic) error {
+func (kc *KafkaClient) DeleteTopic(ctx context.Context, topic *kafka.Topic) error {
 	logger.Debugw("DeleteTopic", log.Fields{"topic": topic.Name})
 	kc.lock.Lock()
 	defer kc.lock.Unlock()
@@ -79,7 +80,7 @@ func (kc *KafkaClient) DeleteTopic(topic *kafka.Topic) error {
 	return nil
 }
 
-func (kc *KafkaClient) Subscribe(topic *kafka.Topic, kvArgs ...*kafka.KVArg) (<-chan *ic.InterContainerMessage, error) {
+func (kc *KafkaClient) Subscribe(ctx context.Context, topic *kafka.Topic, kvArgs ...*kafka.KVArg) (<-chan *ic.InterContainerMessage, error) {
 	logger.Debugw("Subscribe", log.Fields{"topic": topic.Name, "args": kvArgs})
 	kc.lock.Lock()
 	defer kc.lock.Unlock()
@@ -88,12 +89,12 @@ func (kc *KafkaClient) Subscribe(topic *kafka.Topic, kvArgs ...*kafka.KVArg) (<-
 	return ch, nil
 }
 
-func removeChannel(s []chan *ic.InterContainerMessage, i int) []chan *ic.InterContainerMessage {
+func removeChannel(ctx context.Context, s []chan *ic.InterContainerMessage, i int) []chan *ic.InterContainerMessage {
 	s[i] = s[len(s)-1]
 	return s[:len(s)-1]
 }
 
-func (kc *KafkaClient) UnSubscribe(topic *kafka.Topic, ch <-chan *ic.InterContainerMessage) error {
+func (kc *KafkaClient) UnSubscribe(ctx context.Context, topic *kafka.Topic, ch <-chan *ic.InterContainerMessage) error {
 	logger.Debugw("UnSubscribe", log.Fields{"topic": topic.Name})
 	kc.lock.Lock()
 	defer kc.lock.Unlock()
@@ -106,17 +107,17 @@ func (kc *KafkaClient) UnSubscribe(topic *kafka.Topic, ch <-chan *ic.InterContai
 			}
 		}
 		if idx >= 0 {
-			kc.topicsChannelMap[topic.Name] = removeChannel(kc.topicsChannelMap[topic.Name], idx)
+			kc.topicsChannelMap[topic.Name] = removeChannel(ctx, kc.topicsChannelMap[topic.Name], idx)
 		}
 	}
 	return nil
 }
 
-func (kc *KafkaClient) SubscribeForMetadata(_ func(fromTopic string, timestamp time.Time)) {
+func (kc *KafkaClient) SubscribeForMetadata(_ context.Context, _ func(ctx context.Context, fromTopic string, timestamp time.Time)) {
 	logger.Debug("SubscribeForMetadata - unimplemented")
 }
 
-func (kc *KafkaClient) Send(msg interface{}, topic *kafka.Topic, keys ...string) error {
+func (kc *KafkaClient) Send(ctx context.Context, msg interface{}, topic *kafka.Topic, keys ...string) error {
 	req, ok := msg.(*ic.InterContainerMessage)
 	if !ok {
 		return status.Error(codes.InvalidArgument, "msg-not-InterContainerMessage-type")
@@ -133,16 +134,16 @@ func (kc *KafkaClient) Send(msg interface{}, topic *kafka.Topic, keys ...string)
 	return nil
 }
 
-func (kc *KafkaClient) SendLiveness() error {
+func (kc *KafkaClient) SendLiveness(ctx context.Context) error {
 	return status.Error(codes.Unimplemented, "SendLiveness")
 }
 
-func (kc *KafkaClient) EnableLivenessChannel(enable bool) chan bool {
+func (kc *KafkaClient) EnableLivenessChannel(ctx context.Context, enable bool) chan bool {
 	logger.Debug("EnableLivenessChannel - unimplemented")
 	return nil
 }
 
-func (kc *KafkaClient) EnableHealthinessChannel(enable bool) chan bool {
+func (kc *KafkaClient) EnableHealthinessChannel(ctx context.Context, enable bool) chan bool {
 	logger.Debug("EnableHealthinessChannel - unimplemented")
 	return nil
 }

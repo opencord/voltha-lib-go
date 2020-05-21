@@ -17,17 +17,17 @@
 package common
 
 import (
+	"context"
 	"errors"
 	"fmt"
-	"strconv"
-	"strings"
-	"time"
-
 	"github.com/golang/protobuf/ptypes"
 	"github.com/opencord/voltha-lib-go/v3/pkg/adapters/adapterif"
 	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
 	"github.com/opencord/voltha-lib-go/v3/pkg/log"
 	"github.com/opencord/voltha-protos/v3/go/voltha"
+	"strconv"
+	"strings"
+	"time"
 )
 
 type EventProxy struct {
@@ -35,7 +35,7 @@ type EventProxy struct {
 	eventTopic  kafka.Topic
 }
 
-func NewEventProxy(opts ...EventProxyOption) *EventProxy {
+func NewEventProxy(ctx context.Context, opts ...EventProxyOption) *EventProxy {
 	var proxy EventProxy
 	for _, option := range opts {
 		option(&proxy)
@@ -61,7 +61,8 @@ func (ep *EventProxy) formatId(eventName string) string {
 	return fmt.Sprintf("Voltha.openolt.%s.%s", eventName, strconv.FormatInt(time.Now().UnixNano(), 10))
 }
 
-func (ep *EventProxy) getEventHeader(eventName string,
+func (ep *EventProxy) getEventHeader(ctx context.Context,
+	eventName string,
 	category adapterif.EventCategory,
 	subCategory adapterif.EventSubCategory,
 	eventType adapterif.EventType,
@@ -96,7 +97,7 @@ func (ep *EventProxy) getEventHeader(eventName string,
 }
 
 /* Send out device events*/
-func (ep *EventProxy) SendDeviceEvent(deviceEvent *voltha.DeviceEvent, category adapterif.EventCategory, subCategory adapterif.EventSubCategory, raisedTs int64) error {
+func (ep *EventProxy) SendDeviceEvent(ctx context.Context, deviceEvent *voltha.DeviceEvent, category adapterif.EventCategory, subCategory adapterif.EventSubCategory, raisedTs int64) error {
 	if deviceEvent == nil {
 		logger.Error("Recieved empty device event")
 		return errors.New("Device event nil")
@@ -105,11 +106,11 @@ func (ep *EventProxy) SendDeviceEvent(deviceEvent *voltha.DeviceEvent, category 
 	var de voltha.Event_DeviceEvent
 	var err error
 	de.DeviceEvent = deviceEvent
-	if event.Header, err = ep.getEventHeader(deviceEvent.DeviceEventName, category, subCategory, voltha.EventType_DEVICE_EVENT, raisedTs); err != nil {
+	if event.Header, err = ep.getEventHeader(ctx, deviceEvent.DeviceEventName, category, subCategory, voltha.EventType_DEVICE_EVENT, raisedTs); err != nil {
 		return err
 	}
 	event.EventType = &de
-	if err := ep.sendEvent(&event); err != nil {
+	if err := ep.sendEvent(ctx, &event); err != nil {
 		logger.Errorw("Failed to send device event to KAFKA bus", log.Fields{"device-event": deviceEvent})
 		return err
 	}
@@ -123,7 +124,7 @@ func (ep *EventProxy) SendDeviceEvent(deviceEvent *voltha.DeviceEvent, category 
 }
 
 // SendKpiEvent is to send kpi events to voltha.event topic
-func (ep *EventProxy) SendKpiEvent(id string, kpiEvent *voltha.KpiEvent2, category adapterif.EventCategory, subCategory adapterif.EventSubCategory, raisedTs int64) error {
+func (ep *EventProxy) SendKpiEvent(ctx context.Context, id string, kpiEvent *voltha.KpiEvent2, category adapterif.EventCategory, subCategory adapterif.EventSubCategory, raisedTs int64) error {
 	if kpiEvent == nil {
 		logger.Error("Recieved empty kpi event")
 		return errors.New("KPI event nil")
@@ -132,11 +133,11 @@ func (ep *EventProxy) SendKpiEvent(id string, kpiEvent *voltha.KpiEvent2, catego
 	var de voltha.Event_KpiEvent2
 	var err error
 	de.KpiEvent2 = kpiEvent
-	if event.Header, err = ep.getEventHeader(id, category, subCategory, voltha.EventType_KPI_EVENT2, raisedTs); err != nil {
+	if event.Header, err = ep.getEventHeader(ctx, id, category, subCategory, voltha.EventType_KPI_EVENT2, raisedTs); err != nil {
 		return err
 	}
 	event.EventType = &de
-	if err := ep.sendEvent(&event); err != nil {
+	if err := ep.sendEvent(ctx, &event); err != nil {
 		logger.Errorw("Failed to send kpi event to KAFKA bus", log.Fields{"device-event": kpiEvent})
 		return err
 	}
@@ -150,8 +151,8 @@ func (ep *EventProxy) SendKpiEvent(id string, kpiEvent *voltha.KpiEvent2, catego
 
 /* TODO: Send out KPI events*/
 
-func (ep *EventProxy) sendEvent(event *voltha.Event) error {
-	if err := ep.kafkaClient.Send(event, &ep.eventTopic); err != nil {
+func (ep *EventProxy) sendEvent(ctx context.Context, event *voltha.Event) error {
+	if err := ep.kafkaClient.Send(ctx, event, &ep.eventTopic); err != nil {
 		return err
 	}
 	logger.Debugw("Sent event to kafka", log.Fields{"event": event})

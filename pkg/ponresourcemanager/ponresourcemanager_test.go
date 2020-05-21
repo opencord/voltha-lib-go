@@ -119,7 +119,7 @@ func (kvclient *MockResKVClient) AcquireLock(ctx context.Context, lockName strin
 }
 
 // ReleaseLock mock function implementation for KVClient
-func (kvclient *MockResKVClient) ReleaseLock(lockName string) error {
+func (kvclient *MockResKVClient) ReleaseLock(ctx context.Context, lockName string) error {
 	return nil
 }
 
@@ -129,15 +129,15 @@ func (kvclient *MockResKVClient) IsConnectionUp(ctx context.Context) bool { // t
 }
 
 // CloseWatch mock function implementation for KVClient
-func (kvclient *MockResKVClient) CloseWatch(key string, ch chan *kvstore.Event) {
+func (kvclient *MockResKVClient) CloseWatch(ctx context.Context, key string, ch chan *kvstore.Event) {
 }
 
 // Close mock function implementation for KVClient
-func (kvclient *MockResKVClient) Close() {
+func (kvclient *MockResKVClient) Close(ctx context.Context) {
 }
 
 func TestExcludeReservedGemPortIdFromThePool(t *testing.T) {
-	PONRMgr, err := NewPONResourceManager("gpon", "onu", "olt1",
+	PONRMgr, err := NewPONResourceManager(context.Background(), "gpon", "onu", "olt1",
 		"etcd", "1", 1)
 	if err != nil {
 		return
@@ -160,7 +160,7 @@ func TestExcludeReservedGemPortIdFromThePool(t *testing.T) {
 		return
 	}
 
-	FormatResult, err := PONRMgr.FormatResource(1, StartIndex, EndIndex, reservedGemPortIds)
+	FormatResult, err := PONRMgr.FormatResource(context.Background(), 1, StartIndex, EndIndex, reservedGemPortIds)
 	if err != nil {
 		t.Error("Failed to format resource", err)
 		return
@@ -181,7 +181,7 @@ func TestExcludeReservedGemPortIdFromThePool(t *testing.T) {
 			return
 		}
 		// get a gem port id from the pool
-		nextID, err := PONRMgr.GenerateNextID(resource)
+		nextID, err := PONRMgr.GenerateNextID(context.Background(), resource)
 		if err != nil {
 			t.Error("Failed to get gem port id from the pool", err)
 			return

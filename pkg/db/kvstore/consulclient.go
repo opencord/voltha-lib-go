@@ -44,7 +44,7 @@ type ConsulClient struct {
 }
 
 // NewConsulClient returns a new client for the Consul KV store
-func NewConsulClient(addr string, timeout time.Duration) (*ConsulClient, error) {
+func NewConsulClient(ctx context.Context, addr string, timeout time.Duration) (*ConsulClient, error) {
 
 	config := consulapi.DefaultConfig()
 	config.Address = addr
@@ -155,7 +155,7 @@ func (c *ConsulClient) Delete(ctx context.Context, key string) error {
 	return nil
 }
 
-func (c *ConsulClient) deleteSession() {
+func (c *ConsulClient) deleteSession(ctx context.Context) {
 	if c.sessionID != "" {
 		logger.Debug("cleaning-up-session")
 		session := c.consul.Session()
@@ -168,7 +168,7 @@ func (c *ConsulClient) deleteSession() {
 	c.session = nil
 }
 
-func (c *ConsulClient) createSession(ttl time.Duration, retries int) (*consulapi.Session, string, error) {
+func (c *ConsulClient) createSession(ctx context.Context, ttl time.Duration, retries int) (*consulapi.Session, string, error) {
 	session := c.consul.Session()
 	entry := &consulapi.SessionEntry{
 		Behavior: consulapi.SessionBehaviorDelete,
@@ -206,7 +206,7 @@ func (c *ConsulClient) createSession(ttl time.Duration, retries int) (*consulapi
 
 // Helper function to verify mostly whether the content of two interface types are the same.  Focus is []byte and
 // string types
-func isEqual(val1 interface{}, val2 interface{}) bool {
+func isEqual(ctx context.Context, val1 interface{}, val2 interface{}) bool {
 	b1, err := ToByte(val1)
 	b2, er := ToByte(val2)
 	if err == nil && er == nil {
@@ -232,7 +232,7 @@ func (c *ConsulClient) Reserve(ctx context.Context, key string, value interface{
 
 	// Cleanup any existing session and recreate new ones.  A key is reserved against a session
 	if c.sessionID != "" {
-		c.deleteSession()
+		c.deleteSession(ctx)
 	}
 
 	// Clear session if reservation is not successful
@@ -240,11 +240,11 @@ func (c *ConsulClient) Reserve(ctx context.Context, key string, value interface{
 	defer func() {
 		if !reservationSuccessful {
 			logger.Debug("deleting-session")
-			c.deleteSession()
+			c.deleteSession(ctx)
 		}
 	}()
 
-	session, sessionID, err := c.createSession(ttl, -1)
+	session, sessionID, err := c.createSession(ctx, ttl, -1)
 	if err != nil {
 		logger.Errorw("no-session-created", log.Fields{"error": err})
 		return "", errors.New("no-session-created")
@@ -271,7 +271,7 @@ func (c *ConsulClient) Reserve(ctx context.Context, key string, value interface{
 	}
 	if m != nil {
 		logger.Debugw("response-received", log.Fields{"key": m.Key, "m.value": string(m.Value.([]byte)), "value": value})
-		if m.Key == key && isEqual(m.Value, value) {
+		if m.Key == key && isEqual(ctx, m.Value, value) {
 			// My reservation is successful - register it.  For now, support is only for 1 reservation per key
 			// per session.
 			reservationSuccessful = true
@@ -377,14 +377,14 @@ func (c *ConsulClient) Watch(ctx context.Context, key string, withPrefix bool) c
 	c.watchedChannelsContext[key] = append(c.watchedChannelsContext[key], &ccm)
 
 	// Launch a go routine to listen for updates
-	go c.listenForKeyChange(watchContext, key, ch)
+	go c.listenForKeyChange(ctx, watchContext, key, ch)
 
 	return ch
 }
 
 // CloseWatch closes a specific watch. Both the key and the channel are required when closing a watch as there
 // may be multiple listeners on the same key.  The previously created channel serves as a key
-func (c *ConsulClient) CloseWatch(key string, ch chan *Event) {
+func (c *ConsulClient) CloseWatch(ctx context.Context, key string, ch chan *Event) {
 	// First close the context
 	var ok bool
 	var watchedChannelsContexts []*channelContextMap
@@ -413,7 +413,7 @@ func (c *ConsulClient) CloseWatch(key string, ch chan *Event) {
 	logger.Debugw("watched-channel-exiting", log.Fields{"key": key, "channel": c.watchedChannelsContext[key]})
 }
 
-func (c *ConsulClient) isKVEqual(kv1 *consulapi.KVPair, kv2 *consulapi.KVPair) bool {
+func (c *ConsulClient) isKVEqual(ctx context.Context, kv1 *consulapi.KVPair, kv2 *consulapi.KVPair) bool {
 	if (kv1 == nil) && (kv2 == nil) {
 		return true
 	} else if (kv1 == nil) || (kv2 == nil) {
@@ -430,10 +430,10 @@ func (c *ConsulClient) isKVEqual(kv1 *consulapi.KVPair, kv2 *consulapi.KVPair) b
 	return true
 }
 
-func (c *ConsulClient) listenForKeyChange(watchContext context.Context, key string, ch chan *Event) {
+func (c *ConsulClient) listenForKeyChange(ctx context.Context, watchContext context.Context, key string, ch chan *Event) {
 	logger.Debugw("start-watching-channel", log.Fields{"key": key, "channel": ch})
 
-	defer c.CloseWatch(key, ch)
+	defer c.CloseWatch(ctx, key, ch)
 	kv := c.consul.KV()
 	var queryOptions consulapi.QueryOptions
 	queryOptions.WaitTime = defaultKVGetTimeout
@@ -476,7 +476,7 @@ func (c *ConsulClient) listenForKeyChange(watchContext context.Context, key stri
 			logger.Debugw("update-received", log.Fields{"pair": pair})
 			if pair == nil {
 				ch <- NewEvent(DELETE, key, []byte(""), -1)
-			} else if !c.isKVEqual(pair, previousKVPair) {
+			} else if !c.isKVEqual(ctx, pair, previousKVPair) {
 				// Push the change onto the channel if the data has changed
 				// For now just assume it's a PUT change
 				logger.Debugw("pair-details", log.Fields{"session": pair.Session, "key": pair.Key, "value": pair.Value})
@@ -489,7 +489,7 @@ func (c *ConsulClient) listenForKeyChange(watchContext context.Context, key stri
 }
 
 // Close closes the KV store client
-func (c *ConsulClient) Close() {
+func (c *ConsulClient) Close(ctx context.Context) {
 	var writeOptions consulapi.WriteOptions
 	// Inform any goroutine it's time to say goodbye.
 	c.writeLock.Lock()
@@ -508,6 +508,6 @@ func (c *ConsulClient) AcquireLock(ctx context.Context, lockName string, timeout
 	return nil
 }
 
-func (c *ConsulClient) ReleaseLock(lockName string) error {
+func (c *ConsulClient) ReleaseLock(ctx context.Context, lockName string) error {
 	return nil
 }

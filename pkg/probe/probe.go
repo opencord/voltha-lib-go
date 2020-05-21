@@ -97,19 +97,19 @@ type Probe struct {
 }
 
 // WithReadyFunc override the default ready calculation function
-func (p *Probe) WithReadyFunc(readyFunc func(map[string]ServiceStatus) bool) *Probe {
+func (p *Probe) WithReadyFunc(ctx context.Context, readyFunc func(map[string]ServiceStatus) bool) *Probe {
 	p.readyFunc = readyFunc
 	return p
 }
 
 // WithHealthFunc override the default health calculation function
-func (p *Probe) WithHealthFunc(healthFunc func(map[string]ServiceStatus) bool) *Probe {
+func (p *Probe) WithHealthFunc(ctx context.Context, healthFunc func(map[string]ServiceStatus) bool) *Probe {
 	p.healthFunc = healthFunc
 	return p
 }
 
 // RegisterService register one or more service names with the probe, status will be track against service name
-func (p *Probe) RegisterService(names ...string) {
+func (p *Probe) RegisterService(ctx context.Context, names ...string) {
 	p.mutex.Lock()
 	defer p.mutex.Unlock()
 	if p.status == nil {
@@ -125,18 +125,18 @@ func (p *Probe) RegisterService(names ...string) {
 	if p.readyFunc != nil {
 		p.isReady = p.readyFunc(p.status)
 	} else {
-		p.isReady = defaultReadyFunc(p.status)
+		p.isReady = defaultReadyFunc(ctx, p.status)
 	}
 
 	if p.healthFunc != nil {
 		p.isHealthy = p.healthFunc(p.status)
 	} else {
-		p.isHealthy = defaultHealthFunc(p.status)
+		p.isHealthy = defaultHealthFunc(ctx, p.status)
 	}
 }
 
 // UpdateStatus utility function to send a service update to the probe
-func (p *Probe) UpdateStatus(name string, status ServiceStatus) {
+func (p *Probe) UpdateStatus(ctx context.Context, name string, status ServiceStatus) {
 	p.mutex.Lock()
 	defer p.mutex.Unlock()
 	if p.status == nil {
@@ -153,13 +153,13 @@ func (p *Probe) UpdateStatus(name string, status ServiceStatus) {
 	if p.readyFunc != nil {
 		p.isReady = p.readyFunc(p.status)
 	} else {
-		p.isReady = defaultReadyFunc(p.status)
+		p.isReady = defaultReadyFunc(ctx, p.status)
 	}
 
 	if p.healthFunc != nil {
 		p.isHealthy = p.healthFunc(p.status)
 	} else {
-		p.isHealthy = defaultHealthFunc(p.status)
+		p.isHealthy = defaultHealthFunc(ctx, p.status)
 	}
 	logger.Debugw("probe-service-status-updated",
 		log.Fields{
@@ -170,7 +170,7 @@ func (p *Probe) UpdateStatus(name string, status ServiceStatus) {
 		})
 }
 
-func (p *Probe) GetStatus(name string) ServiceStatus {
+func (p *Probe) GetStatus(ctx context.Context, name string) ServiceStatus {
 	p.mutex.Lock()
 	defer p.mutex.Unlock()
 
@@ -204,7 +204,7 @@ func GetProbeFromContext(ctx context.Context) *Probe {
 func UpdateStatusFromContext(ctx context.Context, name string, status ServiceStatus) {
 	p := GetProbeFromContext(ctx)
 	if p != nil {
-		p.UpdateStatus(name, status)
+		p.UpdateStatus(ctx, name, status)
 	}
 }
 
@@ -254,7 +254,7 @@ func (p *Probe) detailzFunc(w http.ResponseWriter, req *http.Request) {
 }
 
 // ListenAndServe implements 3 HTTP endpoints on the given port for healthz, readz, and detailz. Returns only on error
-func (p *Probe) ListenAndServe(address string) {
+func (p *Probe) ListenAndServe(ctx context.Context, address string) {
 	mux := http.NewServeMux()
 
 	// Returns the result of the readyFunc calculation
@@ -272,12 +272,12 @@ func (p *Probe) ListenAndServe(address string) {
 	logger.Fatal(s.ListenAndServe())
 }
 
-func (p *Probe) IsReady() bool {
+func (p *Probe) IsReady(ctx context.Context) bool {
 	return p.isReady
 }
 
 // defaultReadyFunc if all services are running then ready, else not
-func defaultReadyFunc(services map[string]ServiceStatus) bool {
+func defaultReadyFunc(ctx context.Context, services map[string]ServiceStatus) bool {
 	if len(services) == 0 {
 		return false
 	}
@@ -291,7 +291,7 @@ func defaultReadyFunc(services map[string]ServiceStatus) bool {
 
 // defaultHealthFunc if no service is stopped or failed, then healthy, else not.
 // service is start as unknown, so they are considered healthy
-func defaultHealthFunc(services map[string]ServiceStatus) bool {
+func defaultHealthFunc(ctx context.Context, services map[string]ServiceStatus) bool {
 	if len(services) == 0 {
 		return false
 	}

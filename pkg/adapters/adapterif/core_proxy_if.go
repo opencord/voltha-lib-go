@@ -23,8 +23,8 @@ import (
 
 // CoreProxy interface for voltha-go coreproxy.
 type CoreProxy interface {
-	UpdateCoreReference(deviceID string, coreReference string)
-	DeleteCoreReference(deviceID string)
+	UpdateCoreReference(ctx context.Context, deviceID string, coreReference string)
+	DeleteCoreReference(ctx context.Context, deviceID string)
 	// getCoreTopic(deviceID string) kafka.Topic
 	//GetAdapterTopic(args ...string) kafka.Topic
 	// getAdapterTopic(args ...string) kafka.Topic

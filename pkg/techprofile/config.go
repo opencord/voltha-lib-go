@@ -16,6 +16,7 @@
 package techprofile
 
 import (
+	"context"
 	"github.com/opencord/voltha-lib-go/v3/pkg/db"
 	"time"
 )
@@ -93,7 +94,7 @@ type TechProfileFlags struct {
 	DefaultNumGemPorts   uint32
 }
 
-func NewTechProfileFlags(KVStoreType string, KVStoreHost string, KVStorePort int) *TechProfileFlags {
+func NewTechProfileFlags(ctx context.Context, KVStoreType string, KVStoreHost string, KVStorePort int) *TechProfileFlags {
 	// initialize with default values
 	var techProfileFlags = TechProfileFlags{
 		KVBackend:            nil,

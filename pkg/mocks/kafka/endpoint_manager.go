@@ -17,26 +17,27 @@
 package kafka
 
 import (
+	"context"
 	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
 )
 
 type EndpointManager struct{}
 
-func NewEndpointManager() kafka.EndpointManager {
+func NewEndpointManager(ctx context.Context) kafka.EndpointManager {
 	mock := &EndpointManager{}
 	return mock
 }
 
-func (em *EndpointManager) GetEndpoint(deviceID string, serviceType string) (kafka.Endpoint, error) {
+func (em *EndpointManager) GetEndpoint(ctx context.Context, deviceID string, serviceType string) (kafka.Endpoint, error) {
 	// TODO add mocks call and args
 	return kafka.Endpoint(serviceType), nil
 }
 
-func (em *EndpointManager) IsDeviceOwnedByService(deviceID string, serviceType string, replicaNumber int32) (bool, error) {
+func (em *EndpointManager) IsDeviceOwnedByService(ctx context.Context, deviceID string, serviceType string, replicaNumber int32) (bool, error) {
 	// TODO add mocks call and args
 	return true, nil
 }
 
-func (em *EndpointManager) GetReplicaAssignment(deviceID string, serviceType string) (kafka.ReplicaID, error) {
+func (em *EndpointManager) GetReplicaAssignment(ctx context.Context, deviceID string, serviceType string) (kafka.ReplicaID, error) {
 	return kafka.ReplicaID(1), nil
 }

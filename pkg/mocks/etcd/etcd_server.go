@@ -16,6 +16,7 @@
 package etcd
 
 import (
+	"context"
 	"fmt"
 	"go.etcd.io/etcd/embed"
 	"net/url"
@@ -33,7 +34,7 @@ type EtcdServer struct {
 	server *embed.Etcd
 }
 
-func islogLevelValid(logLevel string) bool {
+func islogLevelValid(ctx context.Context, logLevel string) bool {
 	valid := []string{"debug", "info", "warn", "error", "panic", "fatal"}
 	for _, l := range valid {
 		if l == logLevel {
@@ -51,12 +52,12 @@ func islogLevelValid(logLevel string) bool {
 * :param localPersistentStorageDir: The name of a local directory which will hold the Etcd server data
 * :param logLevel: One of debug, info, warn, error, panic, or fatal. Default 'info'.
  */
-func MKConfig(configName string, clientPort, peerPort int, localPersistentStorageDir string, logLevel string) *embed.Config {
+func MKConfig(ctx context.Context, configName string, clientPort, peerPort int, localPersistentStorageDir string, logLevel string) *embed.Config {
 	cfg := embed.NewConfig()
 	cfg.Name = configName
 	cfg.Dir = localPersistentStorageDir
 	cfg.Logger = "zap"
-	if !islogLevelValid(logLevel) {
+	if !islogLevelValid(ctx, logLevel) {
 		logger.Fatalf("Invalid log level -%s", logLevel)
 	}
 	cfg.LogLevel = logLevel
@@ -81,7 +82,7 @@ func MKConfig(configName string, clientPort, peerPort int, localPersistentStorag
 }
 
 //getDefaultCfg specifies the default config
-func getDefaultCfg() *embed.Config {
+func getDefaultCfg(ctx context.Context) *embed.Config {
 	cfg := embed.NewConfig()
 	cfg.Dir = defaultLocalPersistentStorage
 	cfg.Logger = "zap"
@@ -91,10 +92,10 @@ func getDefaultCfg() *embed.Config {
 
 //StartEtcdServer creates and starts an embedded Etcd server.  A local directory to store data is created for the
 //embedded server lifetime (for the duration of a unit test.  The server runs at localhost:2379.
-func StartEtcdServer(cfg *embed.Config) *EtcdServer {
+func StartEtcdServer(ctx context.Context, cfg *embed.Config) *EtcdServer {
 	// If the server is already running, just return
 	if cfg == nil {
-		cfg = getDefaultCfg()
+		cfg = getDefaultCfg(ctx)
 	}
 	// Remove the local directory as
 	// a safeguard for the case where a prior test failed
@@ -121,7 +122,7 @@ func StartEtcdServer(cfg *embed.Config) *EtcdServer {
 }
 
 //Stop closes the embedded Etcd server and removes the local data directory as well
-func (es *EtcdServer) Stop() {
+func (es *EtcdServer) Stop(ctx context.Context) {
 	if es != nil {
 		storage := es.server.Config().Dir
 		es.server.Server.HardStop()

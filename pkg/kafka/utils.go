@@ -16,6 +16,7 @@
 package kafka
 
 import (
+	"context"
 	"github.com/golang/protobuf/ptypes/any"
 	"strings"
 )
@@ -56,7 +57,7 @@ type RpcResponse struct {
 	Reply *any.Any
 }
 
-func NewResponse(messageType RpcMType, err error, body *any.Any) *RpcResponse {
+func NewResponse(ctx context.Context, messageType RpcMType, err error, body *any.Any) *RpcResponse {
 	return &RpcResponse{
 		MType: messageType,
 		Err:   err,
@@ -67,7 +68,7 @@ func NewResponse(messageType RpcMType, err error, body *any.Any) *RpcResponse {
 // TODO:  Remove and provide better may to get the device id
 // GetDeviceIdFromTopic extract the deviceId from the topic name.  The topic name is formatted either as:
 //			<any string> or <any string>_<deviceId>.  The device Id is 24 characters long.
-func GetDeviceIdFromTopic(topic Topic) string {
+func GetDeviceIdFromTopic(ctx context.Context, topic Topic) string {
 	pos := strings.LastIndex(topic.Name, TopicSeparator)
 	if pos == -1 {
 		return ""
