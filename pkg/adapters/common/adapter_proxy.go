@@ -35,12 +35,12 @@ type AdapterProxy struct {
 	endpointMgr  kafka.EndpointManager
 }
 
-func NewAdapterProxy(kafkaProxy kafka.InterContainerProxy, adapterTopic string, coreTopic string, backend *db.Backend) *AdapterProxy {
+func NewAdapterProxy(ctx context.Context, kafkaProxy kafka.InterContainerProxy, adapterTopic string, coreTopic string, backend *db.Backend) *AdapterProxy {
 	proxy := AdapterProxy{
 		kafkaICProxy: kafkaProxy,
 		adapterTopic: adapterTopic,
 		coreTopic:    coreTopic,
-		endpointMgr:  kafka.NewEndpointManager(backend),
+		endpointMgr:  kafka.NewEndpointManager(ctx, backend),
 	}
 	logger.Debugw("topics", log.Fields{"core": proxy.coreTopic, "adapter": proxy.adapterTopic})
 	return &proxy
@@ -90,7 +90,7 @@ func (ap *AdapterProxy) SendInterAdapterMessage(ctx context.Context,
 	}
 
 	// Set up the required rpc arguments
-	endpoint, err := ap.endpointMgr.GetEndpoint(toDeviceId, toAdapter)
+	endpoint, err := ap.endpointMgr.GetEndpoint(ctx, toDeviceId, toAdapter)
 	if err != nil {
 		return err
 	}
@@ -100,5 +100,5 @@ func (ap *AdapterProxy) SendInterAdapterMessage(ctx context.Context,
 
 	success, result := ap.kafkaICProxy.InvokeRPC(ctx, rpc, &topic, &replyToTopic, true, proxyDeviceId, args...)
 	logger.Debugw("inter-adapter-msg-response", log.Fields{"replyTopic": replyToTopic, "success": success})
-	return unPackResponse(rpc, "", success, result)
+	return unPackResponse(ctx, rpc, "", success, result)
 }

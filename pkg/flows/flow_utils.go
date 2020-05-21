@@ -17,6 +17,7 @@ package flows
 
 import (
 	"bytes"
+	"context"
 	"crypto/md5"
 	"encoding/binary"
 	"fmt"
@@ -99,7 +100,7 @@ var (
 
 //ofp_action_* shortcuts
 
-func Output(port uint32, maxLen ...ofp.OfpControllerMaxLen) *ofp.OfpAction {
+func Output(ctx context.Context, port uint32, maxLen ...ofp.OfpControllerMaxLen) *ofp.OfpAction {
 	maxLength := ofp.OfpControllerMaxLen_OFPCML_MAX
 	if len(maxLen) > 0 {
 		maxLength = maxLen[0]
@@ -107,206 +108,206 @@ func Output(port uint32, maxLen ...ofp.OfpControllerMaxLen) *ofp.OfpAction {
 	return &ofp.OfpAction{Type: OUTPUT, Action: &ofp.OfpAction_Output{Output: &ofp.OfpActionOutput{Port: port, MaxLen: uint32(maxLength)}}}
 }
 
-func MplsTtl(ttl uint32) *ofp.OfpAction {
+func MplsTtl(ctx context.Context, ttl uint32) *ofp.OfpAction {
 	return &ofp.OfpAction{Type: SET_MPLS_TTL, Action: &ofp.OfpAction_MplsTtl{MplsTtl: &ofp.OfpActionMplsTtl{MplsTtl: ttl}}}
 }
 
-func PushVlan(ethType uint32) *ofp.OfpAction {
+func PushVlan(ctx context.Context, ethType uint32) *ofp.OfpAction {
 	return &ofp.OfpAction{Type: PUSH_VLAN, Action: &ofp.OfpAction_Push{Push: &ofp.OfpActionPush{Ethertype: ethType}}}
 }
 
-func PopVlan() *ofp.OfpAction {
+func PopVlan(ctx context.Context) *ofp.OfpAction {
 	return &ofp.OfpAction{Type: POP_VLAN}
 }
 
-func PopMpls(ethType uint32) *ofp.OfpAction {
+func PopMpls(ctx context.Context, ethType uint32) *ofp.OfpAction {
 	return &ofp.OfpAction{Type: POP_MPLS, Action: &ofp.OfpAction_PopMpls{PopMpls: &ofp.OfpActionPopMpls{Ethertype: ethType}}}
 }
 
-func Group(groupId uint32) *ofp.OfpAction {
+func Group(ctx context.Context, groupId uint32) *ofp.OfpAction {
 	return &ofp.OfpAction{Type: GROUP, Action: &ofp.OfpAction_Group{Group: &ofp.OfpActionGroup{GroupId: groupId}}}
 }
 
-func NwTtl(nwTtl uint32) *ofp.OfpAction {
+func NwTtl(ctx context.Context, nwTtl uint32) *ofp.OfpAction {
 	return &ofp.OfpAction{Type: NW_TTL, Action: &ofp.OfpAction_NwTtl{NwTtl: &ofp.OfpActionNwTtl{NwTtl: nwTtl}}}
 }
 
-func SetField(field *ofp.OfpOxmOfbField) *ofp.OfpAction {
+func SetField(ctx context.Context, field *ofp.OfpOxmOfbField) *ofp.OfpAction {
 	actionSetField := &ofp.OfpOxmField{OxmClass: ofp.OfpOxmClass_OFPXMC_OPENFLOW_BASIC, Field: &ofp.OfpOxmField_OfbField{OfbField: field}}
 	return &ofp.OfpAction{Type: SET_FIELD, Action: &ofp.OfpAction_SetField{SetField: &ofp.OfpActionSetField{Field: actionSetField}}}
 }
 
-func Experimenter(experimenter uint32, data []byte) *ofp.OfpAction {
+func Experimenter(ctx context.Context, experimenter uint32, data []byte) *ofp.OfpAction {
 	return &ofp.OfpAction{Type: EXPERIMENTER, Action: &ofp.OfpAction_Experimenter{Experimenter: &ofp.OfpActionExperimenter{Experimenter: experimenter, Data: data}}}
 }
 
 //ofb_field generators (incomplete set)
 
-func InPort(inPort uint32) *ofp.OfpOxmOfbField {
+func InPort(ctx context.Context, inPort uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IN_PORT, Value: &ofp.OfpOxmOfbField_Port{Port: inPort}}
 }
 
-func InPhyPort(inPhyPort uint32) *ofp.OfpOxmOfbField {
+func InPhyPort(ctx context.Context, inPhyPort uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IN_PHY_PORT, Value: &ofp.OfpOxmOfbField_Port{Port: inPhyPort}}
 }
 
-func Metadata_ofp(tableMetadata uint64) *ofp.OfpOxmOfbField {
+func Metadata_ofp(ctx context.Context, tableMetadata uint64) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: METADATA, Value: &ofp.OfpOxmOfbField_TableMetadata{TableMetadata: tableMetadata}}
 }
 
 // should Metadata_ofp used here ?????
-func EthDst(ethDst uint64) *ofp.OfpOxmOfbField {
+func EthDst(ctx context.Context, ethDst uint64) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ETH_DST, Value: &ofp.OfpOxmOfbField_TableMetadata{TableMetadata: ethDst}}
 }
 
 // should Metadata_ofp used here ?????
-func EthSrc(ethSrc uint64) *ofp.OfpOxmOfbField {
+func EthSrc(ctx context.Context, ethSrc uint64) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ETH_SRC, Value: &ofp.OfpOxmOfbField_TableMetadata{TableMetadata: ethSrc}}
 }
 
-func EthType(ethType uint32) *ofp.OfpOxmOfbField {
+func EthType(ctx context.Context, ethType uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ETH_TYPE, Value: &ofp.OfpOxmOfbField_EthType{EthType: ethType}}
 }
 
-func VlanVid(vlanVid uint32) *ofp.OfpOxmOfbField {
+func VlanVid(ctx context.Context, vlanVid uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: VLAN_VID, Value: &ofp.OfpOxmOfbField_VlanVid{VlanVid: vlanVid}}
 }
 
-func VlanPcp(vlanPcp uint32) *ofp.OfpOxmOfbField {
+func VlanPcp(ctx context.Context, vlanPcp uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: VLAN_PCP, Value: &ofp.OfpOxmOfbField_VlanPcp{VlanPcp: vlanPcp}}
 }
 
-func IpDscp(ipDscp uint32) *ofp.OfpOxmOfbField {
+func IpDscp(ctx context.Context, ipDscp uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IP_DSCP, Value: &ofp.OfpOxmOfbField_IpDscp{IpDscp: ipDscp}}
 }
 
-func IpEcn(ipEcn uint32) *ofp.OfpOxmOfbField {
+func IpEcn(ctx context.Context, ipEcn uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IP_ECN, Value: &ofp.OfpOxmOfbField_IpEcn{IpEcn: ipEcn}}
 }
 
-func IpProto(ipProto uint32) *ofp.OfpOxmOfbField {
+func IpProto(ctx context.Context, ipProto uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IP_PROTO, Value: &ofp.OfpOxmOfbField_IpProto{IpProto: ipProto}}
 }
 
-func Ipv4Src(ipv4Src uint32) *ofp.OfpOxmOfbField {
+func Ipv4Src(ctx context.Context, ipv4Src uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IPV4_SRC, Value: &ofp.OfpOxmOfbField_Ipv4Src{Ipv4Src: ipv4Src}}
 }
 
-func Ipv4Dst(ipv4Dst uint32) *ofp.OfpOxmOfbField {
+func Ipv4Dst(ctx context.Context, ipv4Dst uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IPV4_DST, Value: &ofp.OfpOxmOfbField_Ipv4Dst{Ipv4Dst: ipv4Dst}}
 }
 
-func TcpSrc(tcpSrc uint32) *ofp.OfpOxmOfbField {
+func TcpSrc(ctx context.Context, tcpSrc uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: TCP_SRC, Value: &ofp.OfpOxmOfbField_TcpSrc{TcpSrc: tcpSrc}}
 }
 
-func TcpDst(tcpDst uint32) *ofp.OfpOxmOfbField {
+func TcpDst(ctx context.Context, tcpDst uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: TCP_DST, Value: &ofp.OfpOxmOfbField_TcpDst{TcpDst: tcpDst}}
 }
 
-func UdpSrc(udpSrc uint32) *ofp.OfpOxmOfbField {
+func UdpSrc(ctx context.Context, udpSrc uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: UDP_SRC, Value: &ofp.OfpOxmOfbField_UdpSrc{UdpSrc: udpSrc}}
 }
 
-func UdpDst(udpDst uint32) *ofp.OfpOxmOfbField {
+func UdpDst(ctx context.Context, udpDst uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: UDP_DST, Value: &ofp.OfpOxmOfbField_UdpDst{UdpDst: udpDst}}
 }
 
-func SctpSrc(sctpSrc uint32) *ofp.OfpOxmOfbField {
+func SctpSrc(ctx context.Context, sctpSrc uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: SCTP_SRC, Value: &ofp.OfpOxmOfbField_SctpSrc{SctpSrc: sctpSrc}}
 }
 
-func SctpDst(sctpDst uint32) *ofp.OfpOxmOfbField {
+func SctpDst(ctx context.Context, sctpDst uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: SCTP_DST, Value: &ofp.OfpOxmOfbField_SctpDst{SctpDst: sctpDst}}
 }
 
-func Icmpv4Type(icmpv4Type uint32) *ofp.OfpOxmOfbField {
+func Icmpv4Type(ctx context.Context, icmpv4Type uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ICMPV4_TYPE, Value: &ofp.OfpOxmOfbField_Icmpv4Type{Icmpv4Type: icmpv4Type}}
 }
 
-func Icmpv4Code(icmpv4Code uint32) *ofp.OfpOxmOfbField {
+func Icmpv4Code(ctx context.Context, icmpv4Code uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ICMPV4_CODE, Value: &ofp.OfpOxmOfbField_Icmpv4Code{Icmpv4Code: icmpv4Code}}
 }
 
-func ArpOp(arpOp uint32) *ofp.OfpOxmOfbField {
+func ArpOp(ctx context.Context, arpOp uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ARP_OP, Value: &ofp.OfpOxmOfbField_ArpOp{ArpOp: arpOp}}
 }
 
-func ArpSpa(arpSpa uint32) *ofp.OfpOxmOfbField {
+func ArpSpa(ctx context.Context, arpSpa uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ARP_SPA, Value: &ofp.OfpOxmOfbField_ArpSpa{ArpSpa: arpSpa}}
 }
 
-func ArpTpa(arpTpa uint32) *ofp.OfpOxmOfbField {
+func ArpTpa(ctx context.Context, arpTpa uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ARP_TPA, Value: &ofp.OfpOxmOfbField_ArpTpa{ArpTpa: arpTpa}}
 }
 
-func ArpSha(arpSha []byte) *ofp.OfpOxmOfbField {
+func ArpSha(ctx context.Context, arpSha []byte) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ARP_SHA, Value: &ofp.OfpOxmOfbField_ArpSha{ArpSha: arpSha}}
 }
 
-func ArpTha(arpTha []byte) *ofp.OfpOxmOfbField {
+func ArpTha(ctx context.Context, arpTha []byte) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ARP_THA, Value: &ofp.OfpOxmOfbField_ArpTha{ArpTha: arpTha}}
 }
 
-func Ipv6Src(ipv6Src []byte) *ofp.OfpOxmOfbField {
+func Ipv6Src(ctx context.Context, ipv6Src []byte) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IPV6_SRC, Value: &ofp.OfpOxmOfbField_Ipv6Src{Ipv6Src: ipv6Src}}
 }
 
-func Ipv6Dst(ipv6Dst []byte) *ofp.OfpOxmOfbField {
+func Ipv6Dst(ctx context.Context, ipv6Dst []byte) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IPV6_DST, Value: &ofp.OfpOxmOfbField_Ipv6Dst{Ipv6Dst: ipv6Dst}}
 }
 
-func Ipv6Flabel(ipv6Flabel uint32) *ofp.OfpOxmOfbField {
+func Ipv6Flabel(ctx context.Context, ipv6Flabel uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IPV6_FLABEL, Value: &ofp.OfpOxmOfbField_Ipv6Flabel{Ipv6Flabel: ipv6Flabel}}
 }
 
-func Icmpv6Type(icmpv6Type uint32) *ofp.OfpOxmOfbField {
+func Icmpv6Type(ctx context.Context, icmpv6Type uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ICMPV6_TYPE, Value: &ofp.OfpOxmOfbField_Icmpv6Type{Icmpv6Type: icmpv6Type}}
 }
 
-func Icmpv6Code(icmpv6Code uint32) *ofp.OfpOxmOfbField {
+func Icmpv6Code(ctx context.Context, icmpv6Code uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: ICMPV6_CODE, Value: &ofp.OfpOxmOfbField_Icmpv6Code{Icmpv6Code: icmpv6Code}}
 }
 
-func Ipv6NdTarget(ipv6NdTarget []byte) *ofp.OfpOxmOfbField {
+func Ipv6NdTarget(ctx context.Context, ipv6NdTarget []byte) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IPV6_ND_TARGET, Value: &ofp.OfpOxmOfbField_Ipv6NdTarget{Ipv6NdTarget: ipv6NdTarget}}
 }
 
-func OfbIpv6NdSll(ofbIpv6NdSll []byte) *ofp.OfpOxmOfbField {
+func OfbIpv6NdSll(ctx context.Context, ofbIpv6NdSll []byte) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: OFB_IPV6_ND_SLL, Value: &ofp.OfpOxmOfbField_Ipv6NdSsl{Ipv6NdSsl: ofbIpv6NdSll}}
 }
 
-func Ipv6NdTll(ipv6NdTll []byte) *ofp.OfpOxmOfbField {
+func Ipv6NdTll(ctx context.Context, ipv6NdTll []byte) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IPV6_ND_TLL, Value: &ofp.OfpOxmOfbField_Ipv6NdTll{Ipv6NdTll: ipv6NdTll}}
 }
 
-func MplsLabel(mplsLabel uint32) *ofp.OfpOxmOfbField {
+func MplsLabel(ctx context.Context, mplsLabel uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: MPLS_LABEL, Value: &ofp.OfpOxmOfbField_MplsLabel{MplsLabel: mplsLabel}}
 }
 
-func MplsTc(mplsTc uint32) *ofp.OfpOxmOfbField {
+func MplsTc(ctx context.Context, mplsTc uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: MPLS_TC, Value: &ofp.OfpOxmOfbField_MplsTc{MplsTc: mplsTc}}
 }
 
-func MplsBos(mplsBos uint32) *ofp.OfpOxmOfbField {
+func MplsBos(ctx context.Context, mplsBos uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: MPLS_BOS, Value: &ofp.OfpOxmOfbField_MplsBos{MplsBos: mplsBos}}
 }
 
-func PbbIsid(pbbIsid uint32) *ofp.OfpOxmOfbField {
+func PbbIsid(ctx context.Context, pbbIsid uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: PBB_ISID, Value: &ofp.OfpOxmOfbField_PbbIsid{PbbIsid: pbbIsid}}
 }
 
-func TunnelId(tunnelId uint64) *ofp.OfpOxmOfbField {
+func TunnelId(ctx context.Context, tunnelId uint64) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: TUNNEL_ID, Value: &ofp.OfpOxmOfbField_TunnelId{TunnelId: tunnelId}}
 }
 
-func Ipv6Exthdr(ipv6Exthdr uint32) *ofp.OfpOxmOfbField {
+func Ipv6Exthdr(ctx context.Context, ipv6Exthdr uint32) *ofp.OfpOxmOfbField {
 	return &ofp.OfpOxmOfbField{Type: IPV6_EXTHDR, Value: &ofp.OfpOxmOfbField_Ipv6Exthdr{Ipv6Exthdr: ipv6Exthdr}}
 }
 
 //frequently used extractors
 
-func excludeAction(action *ofp.OfpAction, exclude ...ofp.OfpActionType) bool {
+func excludeAction(ctx context.Context, action *ofp.OfpAction, exclude ...ofp.OfpActionType) bool {
 	for _, actionToExclude := range exclude {
 		if action.Type == actionToExclude {
 			return true
@@ -315,7 +316,7 @@ func excludeAction(action *ofp.OfpAction, exclude ...ofp.OfpActionType) bool {
 	return false
 }
 
-func GetActions(flow *ofp.OfpFlowStats, exclude ...ofp.OfpActionType) []*ofp.OfpAction {
+func GetActions(ctx context.Context, flow *ofp.OfpFlowStats, exclude ...ofp.OfpActionType) []*ofp.OfpAction {
 	if flow == nil {
 		return nil
 	}
@@ -330,7 +331,7 @@ func GetActions(flow *ofp.OfpFlowStats, exclude ...ofp.OfpActionType) []*ofp.Ofp
 			} else {
 				filteredAction := make([]*ofp.OfpAction, 0)
 				for _, action := range instActions.Actions {
-					if !excludeAction(action, exclude...) {
+					if !excludeAction(ctx, action, exclude...) {
 						filteredAction = append(filteredAction, action)
 					}
 				}
@@ -341,7 +342,7 @@ func GetActions(flow *ofp.OfpFlowStats, exclude ...ofp.OfpActionType) []*ofp.Ofp
 	return nil
 }
 
-func UpdateOutputPortByActionType(flow *ofp.OfpFlowStats, actionType uint32, toPort uint32) *ofp.OfpFlowStats {
+func UpdateOutputPortByActionType(ctx context.Context, flow *ofp.OfpFlowStats, actionType uint32, toPort uint32) *ofp.OfpFlowStats {
 	if flow == nil {
 		return nil
 	}
@@ -357,7 +358,7 @@ func UpdateOutputPortByActionType(flow *ofp.OfpFlowStats, actionType uint32, toP
 			nActions := make([]*ofp.OfpAction, 0)
 			for _, action := range instActions.Actions {
 				if action.GetOutput() != nil {
-					nActions = append(nActions, Output(toPort))
+					nActions = append(nActions, Output(ctx, toPort))
 				} else {
 					nActions = append(nActions, action)
 				}
@@ -372,7 +373,7 @@ func UpdateOutputPortByActionType(flow *ofp.OfpFlowStats, actionType uint32, toP
 	return nFlow
 }
 
-func excludeOxmOfbField(field *ofp.OfpOxmOfbField, exclude ...ofp.OxmOfbFieldTypes) bool {
+func excludeOxmOfbField(ctx context.Context, field *ofp.OfpOxmOfbField, exclude ...ofp.OxmOfbFieldTypes) bool {
 	for _, fieldToExclude := range exclude {
 		if field.Type == fieldToExclude {
 			return true
@@ -381,7 +382,7 @@ func excludeOxmOfbField(field *ofp.OfpOxmOfbField, exclude ...ofp.OxmOfbFieldTyp
 	return false
 }
 
-func GetOfbFields(flow *ofp.OfpFlowStats, exclude ...ofp.OxmOfbFieldTypes) []*ofp.OfpOxmOfbField {
+func GetOfbFields(ctx context.Context, flow *ofp.OfpFlowStats, exclude ...ofp.OxmOfbFieldTypes) []*ofp.OfpOxmOfbField {
 	if flow == nil || flow.Match == nil || flow.Match.Type != ofp.OfpMatchType_OFPMT_OXM {
 		return nil
 	}
@@ -396,7 +397,7 @@ func GetOfbFields(flow *ofp.OfpFlowStats, exclude ...ofp.OxmOfbFieldTypes) []*of
 	} else {
 		filteredFields := make([]*ofp.OfpOxmOfbField, 0)
 		for _, ofbField := range ofbFields {
-			if !excludeOxmOfbField(ofbField, exclude...) {
+			if !excludeOxmOfbField(ctx, ofbField, exclude...) {
 				filteredFields = append(filteredFields, ofbField)
 			}
 		}
@@ -404,7 +405,7 @@ func GetOfbFields(flow *ofp.OfpFlowStats, exclude ...ofp.OxmOfbFieldTypes) []*of
 	}
 }
 
-func GetPacketOutPort(packet *ofp.OfpPacketOut) uint32 {
+func GetPacketOutPort(ctx context.Context, packet *ofp.OfpPacketOut) uint32 {
 	if packet == nil {
 		return 0
 	}
@@ -416,11 +417,11 @@ func GetPacketOutPort(packet *ofp.OfpPacketOut) uint32 {
 	return 0
 }
 
-func GetOutPort(flow *ofp.OfpFlowStats) uint32 {
+func GetOutPort(ctx context.Context, flow *ofp.OfpFlowStats) uint32 {
 	if flow == nil {
 		return 0
 	}
-	for _, action := range GetActions(flow) {
+	for _, action := range GetActions(ctx, flow) {
 		if action.Type == OUTPUT {
 			out := action.GetOutput()
 			if out == nil {
@@ -432,11 +433,11 @@ func GetOutPort(flow *ofp.OfpFlowStats) uint32 {
 	return 0
 }
 
-func GetInPort(flow *ofp.OfpFlowStats) uint32 {
+func GetInPort(ctx context.Context, flow *ofp.OfpFlowStats) uint32 {
 	if flow == nil {
 		return 0
 	}
-	for _, field := range GetOfbFields(flow) {
+	for _, field := range GetOfbFields(ctx, flow) {
 		if field.Type == IN_PORT {
 			return field.GetPort()
 		}
@@ -444,7 +445,7 @@ func GetInPort(flow *ofp.OfpFlowStats) uint32 {
 	return 0
 }
 
-func GetGotoTableId(flow *ofp.OfpFlowStats) uint32 {
+func GetGotoTableId(ctx context.Context, flow *ofp.OfpFlowStats) uint32 {
 	if flow == nil {
 		return 0
 	}
@@ -460,7 +461,7 @@ func GetGotoTableId(flow *ofp.OfpFlowStats) uint32 {
 	return 0
 }
 
-func GetMeterId(flow *ofp.OfpFlowStats) uint32 {
+func GetMeterId(ctx context.Context, flow *ofp.OfpFlowStats) uint32 {
 	if flow == nil {
 		return 0
 	}
@@ -476,11 +477,11 @@ func GetMeterId(flow *ofp.OfpFlowStats) uint32 {
 	return 0
 }
 
-func GetVlanVid(flow *ofp.OfpFlowStats) *uint32 {
+func GetVlanVid(ctx context.Context, flow *ofp.OfpFlowStats) *uint32 {
 	if flow == nil {
 		return nil
 	}
-	for _, field := range GetOfbFields(flow) {
+	for _, field := range GetOfbFields(ctx, flow) {
 		if field.Type == VLAN_VID {
 			ret := field.GetVlanVid()
 			return &ret
@@ -490,11 +491,11 @@ func GetVlanVid(flow *ofp.OfpFlowStats) *uint32 {
 	return nil
 }
 
-func GetTunnelId(flow *ofp.OfpFlowStats) uint64 {
+func GetTunnelId(ctx context.Context, flow *ofp.OfpFlowStats) uint64 {
 	if flow == nil {
 		return 0
 	}
-	for _, field := range GetOfbFields(flow) {
+	for _, field := range GetOfbFields(ctx, flow) {
 		if field.Type == TUNNEL_ID {
 			return field.GetTunnelId()
 		}
@@ -503,11 +504,11 @@ func GetTunnelId(flow *ofp.OfpFlowStats) uint64 {
 }
 
 //GetMetaData - legacy get method (only want lower 32 bits)
-func GetMetaData(flow *ofp.OfpFlowStats) uint32 {
+func GetMetaData(ctx context.Context, flow *ofp.OfpFlowStats) uint32 {
 	if flow == nil {
 		return 0
 	}
-	for _, field := range GetOfbFields(flow) {
+	for _, field := range GetOfbFields(ctx, flow) {
 		if field.Type == METADATA {
 			return uint32(field.GetTableMetadata() & 0xFFFFFFFF)
 		}
@@ -516,11 +517,11 @@ func GetMetaData(flow *ofp.OfpFlowStats) uint32 {
 	return 0
 }
 
-func GetMetaData64Bit(flow *ofp.OfpFlowStats) uint64 {
+func GetMetaData64Bit(ctx context.Context, flow *ofp.OfpFlowStats) uint64 {
 	if flow == nil {
 		return 0
 	}
-	for _, field := range GetOfbFields(flow) {
+	for _, field := range GetOfbFields(ctx, flow) {
 		if field.Type == METADATA {
 			return field.GetTableMetadata()
 		}
@@ -530,7 +531,7 @@ func GetMetaData64Bit(flow *ofp.OfpFlowStats) uint64 {
 }
 
 // function returns write metadata value from write_metadata action field
-func GetMetadataFromWriteMetadataAction(flow *ofp.OfpFlowStats) uint64 {
+func GetMetadataFromWriteMetadataAction(ctx context.Context, flow *ofp.OfpFlowStats) uint64 {
 	if flow != nil {
 		for _, instruction := range flow.Instructions {
 			if instruction.Type == uint32(WRITE_METADATA) {
@@ -544,7 +545,7 @@ func GetMetadataFromWriteMetadataAction(flow *ofp.OfpFlowStats) uint64 {
 	return 0
 }
 
-func GetTechProfileIDFromWriteMetaData(metadata uint64) uint16 {
+func GetTechProfileIDFromWriteMetaData(ctx context.Context, metadata uint64) uint16 {
 	/*
 	   Write metadata instruction value (metadata) is 8 bytes:
 	   MS 2 bytes: C Tag
@@ -562,7 +563,7 @@ func GetTechProfileIDFromWriteMetaData(metadata uint64) uint16 {
 	return tpId
 }
 
-func GetEgressPortNumberFromWriteMetadata(flow *ofp.OfpFlowStats) uint32 {
+func GetEgressPortNumberFromWriteMetadata(ctx context.Context, flow *ofp.OfpFlowStats) uint32 {
 	/*
 			  Write metadata instruction value (metadata) is 8 bytes:
 		    	MS 2 bytes: C Tag
@@ -571,7 +572,7 @@ func GetEgressPortNumberFromWriteMetadata(flow *ofp.OfpFlowStats) uint32 {
 		    	This is set in the ONOS OltPipeline as a write metadata instruction
 	*/
 	var uniPort uint32 = 0
-	md := GetMetadataFromWriteMetadataAction(flow)
+	md := GetMetadataFromWriteMetadataAction(ctx, flow)
 	logger.Debugw("Metadata found for egress/uni port ", log.Fields{"metadata": md})
 	if md != 0 {
 		uniPort = uint32(md & 0xFFFFFFFF)
@@ -581,7 +582,7 @@ func GetEgressPortNumberFromWriteMetadata(flow *ofp.OfpFlowStats) uint32 {
 
 }
 
-func GetInnerTagFromMetaData(flow *ofp.OfpFlowStats) uint16 {
+func GetInnerTagFromMetaData(ctx context.Context, flow *ofp.OfpFlowStats) uint16 {
 	/*
 			  Write metadata instruction value (metadata) is 8 bytes:
 		    	MS 2 bytes: C Tag
@@ -590,7 +591,7 @@ func GetInnerTagFromMetaData(flow *ofp.OfpFlowStats) uint16 {
 		    	This is set in the ONOS OltPipeline as a write metadata instruction
 	*/
 	var innerTag uint16 = 0
-	md := GetMetadataFromWriteMetadataAction(flow)
+	md := GetMetadataFromWriteMetadataAction(ctx, flow)
 	if md != 0 {
 		innerTag = uint16((md >> 48) & 0xFFFF)
 		logger.Debugw("Found  CVLAN from write metadate action", log.Fields{"c_vlan": innerTag})
@@ -616,8 +617,8 @@ func GetInnerTagFromMetaData(flow *ofp.OfpFlowStats) uint16 {
 // Extract the child device port from a flow that contains the parent device peer port.  Typically the UNI port of an
 // ONU child device.  Per TST agreement this will be the lower 32 bits of tunnel id reserving upper 32 bits for later
 // use
-func GetChildPortFromTunnelId(flow *ofp.OfpFlowStats) uint32 {
-	tid := GetTunnelId(flow)
+func GetChildPortFromTunnelId(ctx context.Context, flow *ofp.OfpFlowStats) uint32 {
+	tid := GetTunnelId(ctx, flow)
 	if tid == 0 {
 		return 0
 	}
@@ -625,18 +626,18 @@ func GetChildPortFromTunnelId(flow *ofp.OfpFlowStats) uint32 {
 	return uint32(tid & 0xffffffff)
 }
 
-func HasNextTable(flow *ofp.OfpFlowStats) bool {
+func HasNextTable(ctx context.Context, flow *ofp.OfpFlowStats) bool {
 	if flow == nil {
 		return false
 	}
-	return GetGotoTableId(flow) != 0
+	return GetGotoTableId(ctx, flow) != 0
 }
 
-func GetGroup(flow *ofp.OfpFlowStats) uint32 {
+func GetGroup(ctx context.Context, flow *ofp.OfpFlowStats) uint32 {
 	if flow == nil {
 		return 0
 	}
-	for _, action := range GetActions(flow) {
+	for _, action := range GetActions(ctx, flow) {
 		if action.Type == GROUP {
 			grp := action.GetGroup()
 			if grp == nil {
@@ -648,12 +649,12 @@ func GetGroup(flow *ofp.OfpFlowStats) uint32 {
 	return 0
 }
 
-func HasGroup(flow *ofp.OfpFlowStats) bool {
-	return GetGroup(flow) != 0
+func HasGroup(ctx context.Context, flow *ofp.OfpFlowStats) bool {
+	return GetGroup(ctx, flow) != 0
 }
 
 // GetNextTableId returns the next table ID if the "table_id" is present in the map, otherwise return nil
-func GetNextTableId(kw OfpFlowModArgs) *uint32 {
+func GetNextTableId(ctx context.Context, kw OfpFlowModArgs) *uint32 {
 	if val, exist := kw["table_id"]; exist {
 		ret := uint32(val)
 		return &ret
@@ -662,7 +663,7 @@ func GetNextTableId(kw OfpFlowModArgs) *uint32 {
 }
 
 // GetMeterIdFlowModArgs returns the meterId if the "meter_id" is present in the map, otherwise return 0
-func GetMeterIdFlowModArgs(kw OfpFlowModArgs) uint32 {
+func GetMeterIdFlowModArgs(ctx context.Context, kw OfpFlowModArgs) uint32 {
 	if val, exist := kw["meter_id"]; exist {
 		return uint32(val)
 	}
@@ -670,7 +671,7 @@ func GetMeterIdFlowModArgs(kw OfpFlowModArgs) uint32 {
 }
 
 // Function returns the metadata if the "write_metadata" is present in the map, otherwise return nil
-func GetMetadataFlowModArgs(kw OfpFlowModArgs) uint64 {
+func GetMetadataFlowModArgs(ctx context.Context, kw OfpFlowModArgs) uint64 {
 	if val, exist := kw["write_metadata"]; exist {
 		ret := uint64(val)
 		return ret
@@ -682,7 +683,7 @@ func GetMetadataFlowModArgs(kw OfpFlowModArgs) uint64 {
 // The OF spec states that:
 // A flow table entry is identified by its match fields and priority: the match fields
 // and priority taken together identify a unique flow entry in the flow table.
-func HashFlowStats(flow *ofp.OfpFlowStats) (uint64, error) {
+func HashFlowStats(ctx context.Context, flow *ofp.OfpFlowStats) (uint64, error) {
 	// first we need to make sure the oxm fields are in a predictable order (the specific order doesn't matter)
 	sort.Slice(flow.Match.OxmFields, func(a, b int) bool {
 		fieldsA, fieldsB := flow.Match.OxmFields[a], flow.Match.OxmFields[b]
@@ -731,7 +732,7 @@ func HashFlowStats(flow *ofp.OfpFlowStats) (uint64, error) {
 			_, _ = md5Hash.Write(tmp[:8])
 
 		case *ofp.OfpOxmField_OfbField:
-			if err := hashWriteOfbField(md5Hash, oxmField.OfbField); err != nil {
+			if err := hashWriteOfbField(ctx, md5Hash, oxmField.OfbField); err != nil {
 				return 0, err
 			}
 
@@ -744,7 +745,7 @@ func HashFlowStats(flow *ofp.OfpFlowStats) (uint64, error) {
 	return binary.BigEndian.Uint64(ret[0:8]), nil
 }
 
-func hashWriteOfbField(md5Hash hash.Hash, field *ofp.OfpOxmOfbField) error {
+func hashWriteOfbField(ctx context.Context, md5Hash hash.Hash, field *ofp.OfpOxmOfbField) error {
 	var tmp [8]byte
 	binary.BigEndian.PutUint32(tmp[:4], uint32(field.Type)) // type
 	_, _ = md5Hash.Write(tmp[:4])
@@ -904,7 +905,7 @@ func hashWriteOfbField(md5Hash hash.Hash, field *ofp.OfpOxmOfbField) error {
 }
 
 // flowStatsEntryFromFlowModMessage maps an ofp_flow_mod message to an ofp_flow_stats message
-func FlowStatsEntryFromFlowModMessage(mod *ofp.OfpFlowMod) (*ofp.OfpFlowStats, error) {
+func FlowStatsEntryFromFlowModMessage(ctx context.Context, mod *ofp.OfpFlowMod) (*ofp.OfpFlowStats, error) {
 	flow := &ofp.OfpFlowStats{}
 	if mod == nil {
 		return flow, nil
@@ -918,14 +919,14 @@ func FlowStatsEntryFromFlowModMessage(mod *ofp.OfpFlowMod) (*ofp.OfpFlowStats, e
 	flow.Match = mod.Match
 	flow.Instructions = mod.Instructions
 	var err error
-	if flow.Id, err = HashFlowStats(flow); err != nil {
+	if flow.Id, err = HashFlowStats(ctx, flow); err != nil {
 		return nil, err
 	}
 
 	return flow, nil
 }
 
-func GroupEntryFromGroupMod(mod *ofp.OfpGroupMod) *ofp.OfpGroupEntry {
+func GroupEntryFromGroupMod(ctx context.Context, mod *ofp.OfpGroupMod) *ofp.OfpGroupEntry {
 	group := &ofp.OfpGroupEntry{}
 	if mod == nil {
 		return group
@@ -937,7 +938,7 @@ func GroupEntryFromGroupMod(mod *ofp.OfpGroupMod) *ofp.OfpGroupEntry {
 }
 
 // flowStatsEntryFromFlowModMessage maps an ofp_flow_mod message to an ofp_flow_stats message
-func MeterEntryFromMeterMod(meterMod *ofp.OfpMeterMod) *ofp.OfpMeterEntry {
+func MeterEntryFromMeterMod(ctx context.Context, meterMod *ofp.OfpMeterMod) *ofp.OfpMeterEntry {
 	bandStats := make([]*ofp.OfpMeterBandStats, 0)
 	meter := &ofp.OfpMeterEntry{Config: &ofp.OfpMeterConfig{},
 		Stats: &ofp.OfpMeterStats{BandStats: bandStats}}
@@ -969,7 +970,7 @@ func MeterEntryFromMeterMod(meterMod *ofp.OfpMeterMod) *ofp.OfpMeterEntry {
 
 }
 
-func GetMeterIdFromFlow(flow *ofp.OfpFlowStats) uint32 {
+func GetMeterIdFromFlow(ctx context.Context, flow *ofp.OfpFlowStats) uint32 {
 	if flow != nil {
 		for _, instruction := range flow.Instructions {
 			if instruction.Type == uint32(METER_ACTION) {
@@ -983,7 +984,7 @@ func GetMeterIdFromFlow(flow *ofp.OfpFlowStats) uint32 {
 	return uint32(0)
 }
 
-func MkOxmFields(matchFields []ofp.OfpOxmField) []*ofp.OfpOxmField {
+func MkOxmFields(ctx context.Context, matchFields []ofp.OfpOxmField) []*ofp.OfpOxmField {
 	oxmFields := make([]*ofp.OfpOxmField, 0)
 	for _, matchField := range matchFields {
 		oxmField := ofp.OfpOxmField{OxmClass: ofp.OfpOxmClass_OFPXMC_OPENFLOW_BASIC, Field: matchField.Field}
@@ -992,7 +993,7 @@ func MkOxmFields(matchFields []ofp.OfpOxmField) []*ofp.OfpOxmField {
 	return oxmFields
 }
 
-func MkInstructionsFromActions(actions []*ofp.OfpAction) []*ofp.OfpInstruction {
+func MkInstructionsFromActions(ctx context.Context, actions []*ofp.OfpAction) []*ofp.OfpInstruction {
 	instructions := make([]*ofp.OfpInstruction, 0)
 	instructionAction := ofp.OfpInstruction_Actions{Actions: &ofp.OfpInstructionActions{Actions: actions}}
 	instruction := ofp.OfpInstruction{Type: uint32(APPLY_ACTIONS), Data: &instructionAction}
@@ -1002,7 +1003,7 @@ func MkInstructionsFromActions(actions []*ofp.OfpAction) []*ofp.OfpInstruction {
 
 // Convenience function to generare ofp_flow_mod message with OXM BASIC match composed from the match_fields, and
 // single APPLY_ACTIONS instruction with a list if ofp_action objects.
-func MkSimpleFlowMod(matchFields []*ofp.OfpOxmField, actions []*ofp.OfpAction, command *ofp.OfpFlowModCommand, kw OfpFlowModArgs) *ofp.OfpFlowMod {
+func MkSimpleFlowMod(ctx context.Context, matchFields []*ofp.OfpOxmField, actions []*ofp.OfpAction, command *ofp.OfpFlowModCommand, kw OfpFlowModArgs) *ofp.OfpFlowMod {
 
 	// Process actions instructions
 	instructions := make([]*ofp.OfpInstruction, 0)
@@ -1011,21 +1012,21 @@ func MkSimpleFlowMod(matchFields []*ofp.OfpOxmField, actions []*ofp.OfpAction, c
 	instructions = append(instructions, &instruction)
 
 	// Process next table
-	if tableId := GetNextTableId(kw); tableId != nil {
+	if tableId := GetNextTableId(ctx, kw); tableId != nil {
 		var instGotoTable ofp.OfpInstruction_GotoTable
 		instGotoTable.GotoTable = &ofp.OfpInstructionGotoTable{TableId: *tableId}
 		inst := ofp.OfpInstruction{Type: uint32(ofp.OfpInstructionType_OFPIT_GOTO_TABLE), Data: &instGotoTable}
 		instructions = append(instructions, &inst)
 	}
 	// Process meter action
-	if meterId := GetMeterIdFlowModArgs(kw); meterId != 0 {
+	if meterId := GetMeterIdFlowModArgs(ctx, kw); meterId != 0 {
 		var instMeter ofp.OfpInstruction_Meter
 		instMeter.Meter = &ofp.OfpInstructionMeter{MeterId: meterId}
 		inst := ofp.OfpInstruction{Type: uint32(METER_ACTION), Data: &instMeter}
 		instructions = append(instructions, &inst)
 	}
 	//process write_metadata action
-	if metadata := GetMetadataFlowModArgs(kw); metadata != 0 {
+	if metadata := GetMetadataFlowModArgs(ctx, kw); metadata != 0 {
 		var instWriteMetadata ofp.OfpInstruction_WriteMetadata
 		instWriteMetadata.WriteMetadata = &ofp.OfpInstructionWriteMetadata{Metadata: metadata}
 		inst := ofp.OfpInstruction{Type: uint32(WRITE_METADATA), Data: &instWriteMetadata}
@@ -1053,12 +1054,12 @@ func MkSimpleFlowMod(matchFields []*ofp.OfpOxmField, actions []*ofp.OfpAction, c
 	msg.Match = &match
 
 	// Set the variadic argument values
-	msg = setVariadicModAttributes(msg, kw)
+	msg = setVariadicModAttributes(ctx, msg, kw)
 
 	return msg
 }
 
-func MkMulticastGroupMod(groupId uint32, buckets []*ofp.OfpBucket, command *ofp.OfpGroupModCommand) *ofp.OfpGroupMod {
+func MkMulticastGroupMod(ctx context.Context, groupId uint32, buckets []*ofp.OfpBucket, command *ofp.OfpGroupModCommand) *ofp.OfpGroupMod {
 	group := &ofp.OfpGroupMod{}
 	if command == nil {
 		group.Command = ofp.OfpGroupModCommand_OFPGC_ADD
@@ -1072,7 +1073,7 @@ func MkMulticastGroupMod(groupId uint32, buckets []*ofp.OfpBucket, command *ofp.
 }
 
 //SetVariadicModAttributes sets only uint64 or uint32 fields of the ofp_flow_mod message
-func setVariadicModAttributes(mod *ofp.OfpFlowMod, args OfpFlowModArgs) *ofp.OfpFlowMod {
+func setVariadicModAttributes(ctx context.Context, mod *ofp.OfpFlowMod, args OfpFlowModArgs) *ofp.OfpFlowMod {
 	if args == nil {
 		return mod
 	}
@@ -1103,7 +1104,7 @@ func setVariadicModAttributes(mod *ofp.OfpFlowMod, args OfpFlowModArgs) *ofp.Ofp
 	return mod
 }
 
-func MkPacketIn(port uint32, packet []byte) *ofp.OfpPacketIn {
+func MkPacketIn(ctx context.Context, port uint32, packet []byte) *ofp.OfpPacketIn {
 	packetIn := &ofp.OfpPacketIn{
 		Reason: ofp.OfpPacketInReason_OFPR_ACTION,
 		Match: &ofp.OfpMatch{
@@ -1112,7 +1113,7 @@ func MkPacketIn(port uint32, packet []byte) *ofp.OfpPacketIn {
 				{
 					OxmClass: ofp.OfpOxmClass_OFPXMC_OPENFLOW_BASIC,
 					Field: &ofp.OfpOxmField_OfbField{
-						OfbField: InPort(port)},
+						OfbField: InPort(ctx, port)},
 				},
 			},
 		},
@@ -1122,17 +1123,17 @@ func MkPacketIn(port uint32, packet []byte) *ofp.OfpPacketIn {
 }
 
 // MkFlowStat is a helper method to build flows
-func MkFlowStat(fa *FlowArgs) (*ofp.OfpFlowStats, error) {
+func MkFlowStat(ctx context.Context, fa *FlowArgs) (*ofp.OfpFlowStats, error) {
 	//Build the match-fields
 	matchFields := make([]*ofp.OfpOxmField, 0)
 	for _, val := range fa.MatchFields {
 		matchFields = append(matchFields, &ofp.OfpOxmField{Field: &ofp.OfpOxmField_OfbField{OfbField: val}})
 	}
-	return FlowStatsEntryFromFlowModMessage(MkSimpleFlowMod(matchFields, fa.Actions, fa.Command, fa.KV))
+	return FlowStatsEntryFromFlowModMessage(ctx, MkSimpleFlowMod(ctx, matchFields, fa.Actions, fa.Command, fa.KV))
 }
 
-func MkGroupStat(ga *GroupArgs) *ofp.OfpGroupEntry {
-	return GroupEntryFromGroupMod(MkMulticastGroupMod(ga.GroupId, ga.Buckets, ga.Command))
+func MkGroupStat(ctx context.Context, ga *GroupArgs) *ofp.OfpGroupEntry {
+	return GroupEntryFromGroupMod(ctx, MkMulticastGroupMod(ctx, ga.GroupId, ga.Buckets, ga.Command))
 }
 
 type OfpFlowModArgs map[string]uint64
@@ -1156,15 +1157,15 @@ type FlowsAndGroups struct {
 	Groups *ordered_map.OrderedMap
 }
 
-func NewFlowsAndGroups() *FlowsAndGroups {
+func NewFlowsAndGroups(ctx context.Context) *FlowsAndGroups {
 	var fg FlowsAndGroups
 	fg.Flows = ordered_map.NewOrderedMap()
 	fg.Groups = ordered_map.NewOrderedMap()
 	return &fg
 }
 
-func (fg *FlowsAndGroups) Copy() *FlowsAndGroups {
-	copyFG := NewFlowsAndGroups()
+func (fg *FlowsAndGroups) Copy(ctx context.Context) *FlowsAndGroups {
+	copyFG := NewFlowsAndGroups(ctx)
 	iter := fg.Flows.IterFunc()
 	for kv, ok := iter(); ok; kv, ok = iter() {
 		if protoMsg, isMsg := kv.Value.(*ofp.OfpFlowStats); isMsg {
@@ -1180,7 +1181,7 @@ func (fg *FlowsAndGroups) Copy() *FlowsAndGroups {
 	return copyFG
 }
 
-func (fg *FlowsAndGroups) GetFlow(index int) *ofp.OfpFlowStats {
+func (fg *FlowsAndGroups) GetFlow(ctx context.Context, index int) *ofp.OfpFlowStats {
 	iter := fg.Flows.IterFunc()
 	pos := 0
 	for kv, ok := iter(); ok; kv, ok = iter() {
@@ -1195,7 +1196,7 @@ func (fg *FlowsAndGroups) GetFlow(index int) *ofp.OfpFlowStats {
 	return nil
 }
 
-func (fg *FlowsAndGroups) ListFlows() []*ofp.OfpFlowStats {
+func (fg *FlowsAndGroups) ListFlows(ctx context.Context) []*ofp.OfpFlowStats {
 	flows := make([]*ofp.OfpFlowStats, 0)
 	iter := fg.Flows.IterFunc()
 	for kv, ok := iter(); ok; kv, ok = iter() {
@@ -1206,7 +1207,7 @@ func (fg *FlowsAndGroups) ListFlows() []*ofp.OfpFlowStats {
 	return flows
 }
 
-func (fg *FlowsAndGroups) ListGroups() []*ofp.OfpGroupEntry {
+func (fg *FlowsAndGroups) ListGroups(ctx context.Context) []*ofp.OfpGroupEntry {
 	groups := make([]*ofp.OfpGroupEntry, 0)
 	iter := fg.Groups.IterFunc()
 	for kv, ok := iter(); ok; kv, ok = iter() {
@@ -1217,7 +1218,7 @@ func (fg *FlowsAndGroups) ListGroups() []*ofp.OfpGroupEntry {
 	return groups
 }
 
-func (fg *FlowsAndGroups) String() string {
+func (fg *FlowsAndGroups) String(ctx context.Context) string {
 	var buffer bytes.Buffer
 	iter := fg.Flows.IterFunc()
 	for kv, ok := iter(); ok; kv, ok = iter() {
@@ -1238,7 +1239,7 @@ func (fg *FlowsAndGroups) String() string {
 	return buffer.String()
 }
 
-func (fg *FlowsAndGroups) AddFlow(flow *ofp.OfpFlowStats) {
+func (fg *FlowsAndGroups) AddFlow(ctx context.Context, flow *ofp.OfpFlowStats) {
 	if flow == nil {
 		return
 	}
@@ -1255,7 +1256,7 @@ func (fg *FlowsAndGroups) AddFlow(flow *ofp.OfpFlowStats) {
 	}
 }
 
-func (fg *FlowsAndGroups) AddGroup(group *ofp.OfpGroupEntry) {
+func (fg *FlowsAndGroups) AddGroup(ctx context.Context, group *ofp.OfpGroupEntry) {
 	if group == nil {
 		return
 	}
@@ -1273,7 +1274,7 @@ func (fg *FlowsAndGroups) AddGroup(group *ofp.OfpGroupEntry) {
 }
 
 //AddFrom add flows and groups from the argument into this structure only if they do not already exist
-func (fg *FlowsAndGroups) AddFrom(from *FlowsAndGroups) {
+func (fg *FlowsAndGroups) AddFrom(ctx context.Context, from *FlowsAndGroups) {
 	iter := from.Flows.IterFunc()
 	for kv, ok := iter(); ok; kv, ok = iter() {
 		if protoMsg, isMsg := kv.Value.(*ofp.OfpFlowStats); isMsg {
@@ -1296,74 +1297,74 @@ type DeviceRules struct {
 	Rules map[string]*FlowsAndGroups
 }
 
-func NewDeviceRules() *DeviceRules {
+func NewDeviceRules(ctx context.Context) *DeviceRules {
 	var dr DeviceRules
 	dr.Rules = make(map[string]*FlowsAndGroups)
 	return &dr
 }
 
-func (dr *DeviceRules) Copy() *DeviceRules {
-	copyDR := NewDeviceRules()
+func (dr *DeviceRules) Copy(ctx context.Context) *DeviceRules {
+	copyDR := NewDeviceRules(ctx)
 	if dr != nil {
 		for key, val := range dr.Rules {
 			if val != nil {
-				copyDR.Rules[key] = val.Copy()
+				copyDR.Rules[key] = val.Copy(ctx)
 			}
 		}
 	}
 	return copyDR
 }
 
-func (dr *DeviceRules) ClearFlows(deviceId string) {
+func (dr *DeviceRules) ClearFlows(ctx context.Context, deviceId string) {
 	if _, exist := dr.Rules[deviceId]; exist {
 		dr.Rules[deviceId].Flows = ordered_map.NewOrderedMap()
 	}
 }
 
-func (dr *DeviceRules) FilterRules(deviceIds map[string]string) *DeviceRules {
-	filteredDR := NewDeviceRules()
+func (dr *DeviceRules) FilterRules(ctx context.Context, deviceIds map[string]string) *DeviceRules {
+	filteredDR := NewDeviceRules(ctx)
 	for key, val := range dr.Rules {
 		if _, exist := deviceIds[key]; exist {
-			filteredDR.Rules[key] = val.Copy()
+			filteredDR.Rules[key] = val.Copy(ctx)
 		}
 	}
 	return filteredDR
 }
 
-func (dr *DeviceRules) AddFlow(deviceId string, flow *ofp.OfpFlowStats) {
+func (dr *DeviceRules) AddFlow(ctx context.Context, deviceId string, flow *ofp.OfpFlowStats) {
 	if _, exist := dr.Rules[deviceId]; !exist {
-		dr.Rules[deviceId] = NewFlowsAndGroups()
+		dr.Rules[deviceId] = NewFlowsAndGroups(ctx)
 	}
-	dr.Rules[deviceId].AddFlow(flow)
+	dr.Rules[deviceId].AddFlow(ctx, flow)
 }
 
-func (dr *DeviceRules) GetRules() map[string]*FlowsAndGroups {
+func (dr *DeviceRules) GetRules(ctx context.Context) map[string]*FlowsAndGroups {
 	return dr.Rules
 }
 
-func (dr *DeviceRules) String() string {
+func (dr *DeviceRules) String(ctx context.Context) string {
 	var buffer bytes.Buffer
 	for key, value := range dr.Rules {
 		buffer.WriteString("DeviceId:")
 		buffer.WriteString(key)
-		buffer.WriteString(value.String())
+		buffer.WriteString(value.String(ctx))
 		buffer.WriteString("\n\n")
 	}
 	return buffer.String()
 }
 
-func (dr *DeviceRules) AddFlowsAndGroup(deviceId string, fg *FlowsAndGroups) {
+func (dr *DeviceRules) AddFlowsAndGroup(ctx context.Context, deviceId string, fg *FlowsAndGroups) {
 	if _, ok := dr.Rules[deviceId]; !ok {
-		dr.Rules[deviceId] = NewFlowsAndGroups()
+		dr.Rules[deviceId] = NewFlowsAndGroups(ctx)
 	}
 	dr.Rules[deviceId] = fg
 }
 
 // CreateEntryIfNotExist creates a new deviceId in the Map if it does not exist and assigns an
 // empty FlowsAndGroups to it.  Otherwise, it does nothing.
-func (dr *DeviceRules) CreateEntryIfNotExist(deviceId string) {
+func (dr *DeviceRules) CreateEntryIfNotExist(ctx context.Context, deviceId string) {
 	if _, ok := dr.Rules[deviceId]; !ok {
-		dr.Rules[deviceId] = NewFlowsAndGroups()
+		dr.Rules[deviceId] = NewFlowsAndGroups(ctx)
 	}
 }
 
@@ -1372,12 +1373,12 @@ func (dr *DeviceRules) CreateEntryIfNotExist(deviceId string) {
  */
 
 //FindOverlappingFlows return a list of overlapping flow(s) where mod is the flow request
-func FindOverlappingFlows(flows []*ofp.OfpFlowStats, mod *ofp.OfpFlowMod) []*ofp.OfpFlowStats {
+func FindOverlappingFlows(ctx context.Context, flows []*ofp.OfpFlowStats, mod *ofp.OfpFlowMod) []*ofp.OfpFlowStats {
 	return nil //TODO - complete implementation
 }
 
 // FindFlowById returns the index of the flow in the flows array if present. Otherwise, it returns -1
-func FindFlowById(flows []*ofp.OfpFlowStats, flow *ofp.OfpFlowStats) int {
+func FindFlowById(ctx context.Context, flows []*ofp.OfpFlowStats, flow *ofp.OfpFlowStats) int {
 	for idx, f := range flows {
 		if flow.Id == f.Id {
 			return idx
@@ -1387,7 +1388,7 @@ func FindFlowById(flows []*ofp.OfpFlowStats, flow *ofp.OfpFlowStats) int {
 }
 
 // FindFlows returns the index in flows where flow if present.  Otherwise, it returns -1
-func FindFlows(flows []*ofp.OfpFlowStats, flow *ofp.OfpFlowStats) int {
+func FindFlows(ctx context.Context, flows []*ofp.OfpFlowStats, flow *ofp.OfpFlowStats) int {
 	for idx, f := range flows {
 		if f.Id == flow.Id {
 			return idx
@@ -1398,13 +1399,13 @@ func FindFlows(flows []*ofp.OfpFlowStats, flow *ofp.OfpFlowStats) int {
 
 //FlowMatch returns true if two flows matches on the following flow attributes:
 //TableId, Priority, Flags, Cookie, Match
-func FlowMatch(f1 *ofp.OfpFlowStats, f2 *ofp.OfpFlowStats) bool {
+func FlowMatch(ctx context.Context, f1 *ofp.OfpFlowStats, f2 *ofp.OfpFlowStats) bool {
 	return f1 != nil && f2 != nil && f1.Id == f2.Id
 }
 
 //FlowMatchesMod returns True if given flow is "covered" by the wildcard flow_mod, taking into consideration of
 //both exact matches as well as masks-based match fields if any. Otherwise return False
-func FlowMatchesMod(flow *ofp.OfpFlowStats, mod *ofp.OfpFlowMod) bool {
+func FlowMatchesMod(ctx context.Context, flow *ofp.OfpFlowStats, mod *ofp.OfpFlowMod) bool {
 	if flow == nil || mod == nil {
 		return false
 	}
@@ -1419,12 +1420,12 @@ func FlowMatchesMod(flow *ofp.OfpFlowStats, mod *ofp.OfpFlowMod) bool {
 	}
 
 	//Check out_port
-	if (mod.OutPort&0x7fffffff) != uint32(ofp.OfpPortNo_OFPP_ANY) && !FlowHasOutPort(flow, mod.OutPort) {
+	if (mod.OutPort&0x7fffffff) != uint32(ofp.OfpPortNo_OFPP_ANY) && !FlowHasOutPort(ctx, flow, mod.OutPort) {
 		return false
 	}
 
 	//	Check out_group
-	if (mod.OutGroup&0x7fffffff) != uint32(ofp.OfpGroup_OFPG_ANY) && !FlowHasOutGroup(flow, mod.OutGroup) {
+	if (mod.OutGroup&0x7fffffff) != uint32(ofp.OfpGroup_OFPG_ANY) && !FlowHasOutGroup(ctx, flow, mod.OutGroup) {
 		return false
 	}
 
@@ -1441,7 +1442,7 @@ func FlowMatchesMod(flow *ofp.OfpFlowStats, mod *ofp.OfpFlowMod) bool {
 }
 
 //FlowHasOutPort returns True if flow has a output command with the given out_port
-func FlowHasOutPort(flow *ofp.OfpFlowStats, outPort uint32) bool {
+func FlowHasOutPort(ctx context.Context, flow *ofp.OfpFlowStats, outPort uint32) bool {
 	if flow == nil {
 		return false
 	}
@@ -1464,7 +1465,7 @@ func FlowHasOutPort(flow *ofp.OfpFlowStats, outPort uint32) bool {
 }
 
 //FlowHasOutGroup return True if flow has a output command with the given out_group
-func FlowHasOutGroup(flow *ofp.OfpFlowStats, groupID uint32) bool {
+func FlowHasOutGroup(ctx context.Context, flow *ofp.OfpFlowStats, groupID uint32) bool {
 	if flow == nil {
 		return false
 	}
@@ -1487,7 +1488,7 @@ func FlowHasOutGroup(flow *ofp.OfpFlowStats, groupID uint32) bool {
 }
 
 //FindGroup returns index of group if found, else returns -1
-func FindGroup(groups []*ofp.OfpGroupEntry, groupId uint32) int {
+func FindGroup(ctx context.Context, groups []*ofp.OfpGroupEntry, groupId uint32) int {
 	for idx, group := range groups {
 		if group.Desc.GroupId == groupId {
 			return idx
@@ -1496,18 +1497,18 @@ func FindGroup(groups []*ofp.OfpGroupEntry, groupId uint32) int {
 	return -1
 }
 
-func FlowsDeleteByGroupId(flows []*ofp.OfpFlowStats, groupId uint32) (bool, []*ofp.OfpFlowStats) {
+func FlowsDeleteByGroupId(ctx context.Context, flows []*ofp.OfpFlowStats, groupId uint32) (bool, []*ofp.OfpFlowStats) {
 	toKeep := make([]*ofp.OfpFlowStats, 0)
 
 	for _, f := range flows {
-		if !FlowHasOutGroup(f, groupId) {
+		if !FlowHasOutGroup(ctx, f, groupId) {
 			toKeep = append(toKeep, f)
 		}
 	}
 	return len(toKeep) < len(flows), toKeep
 }
 
-func ToOfpOxmField(from []*ofp.OfpOxmOfbField) []*ofp.OfpOxmField {
+func ToOfpOxmField(ctx context.Context, from []*ofp.OfpOxmOfbField) []*ofp.OfpOxmField {
 	matchFields := make([]*ofp.OfpOxmField, 0)
 	for _, val := range from {
 		matchFields = append(matchFields, &ofp.OfpOxmField{Field: &ofp.OfpOxmField_OfbField{OfbField: val}})
@@ -1517,12 +1518,12 @@ func ToOfpOxmField(from []*ofp.OfpOxmOfbField) []*ofp.OfpOxmField {
 
 //IsMulticastIp returns true if the ip starts with the byte sequence of 1110;
 //false otherwise.
-func IsMulticastIp(ip uint32) bool {
+func IsMulticastIp(ctx context.Context, ip uint32) bool {
 	return ip>>28 == 14
 }
 
 //ConvertToMulticastMacInt returns equivalent mac address of the given multicast ip address
-func ConvertToMulticastMacInt(ip uint32) uint64 {
+func ConvertToMulticastMacInt(ctx context.Context, ip uint32) uint64 {
 	//get last 23 bits of ip address by ip & 00000000011111111111111111111111
 	theLast23BitsOfIp := ip & 8388607
 	// perform OR with 0x1005E000000 to build mcast mac address
@@ -1530,8 +1531,8 @@ func ConvertToMulticastMacInt(ip uint32) uint64 {
 }
 
 //ConvertToMulticastMacBytes returns equivalent mac address of the given multicast ip address
-func ConvertToMulticastMacBytes(ip uint32) []byte {
-	mac := ConvertToMulticastMacInt(ip)
+func ConvertToMulticastMacBytes(ctx context.Context, ip uint32) []byte {
+	mac := ConvertToMulticastMacInt(ctx, ip)
 	var b bytes.Buffer
 	// catalyze (48 bits) in binary:111111110000000000000000000000000000000000000000
 	catalyze := uint64(280375465082880)

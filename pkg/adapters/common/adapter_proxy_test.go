@@ -53,8 +53,8 @@ func TestNewAdapterProxy(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
-	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
 	assert.NotNil(t, adapter)
 }
@@ -68,15 +68,15 @@ func TestSendInterAdapterMessage(t *testing.T) {
 		},
 	}
 
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
 
-	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
-	adapter.endpointMgr = mocks.NewEndpointManager()
+	adapter.endpointMgr = mocks.NewEndpointManager(context.Background())
 
 	delGemPortMsg := &ic.InterAdapterDeleteGemPortMessage{UniId: 1, TpPath: "tpPath", GemPortId: 2}
 
-	err := adapter.SendInterAdapterMessage(context.TODO(), delGemPortMsg, ic.InterAdapterMessageType_DELETE_GEM_PORT_REQUEST, "Adapter1", "Adapter2", "testDeviceId", "testProxyDeviceId", "testMessage")
+	err := adapter.SendInterAdapterMessage(context.Background(), delGemPortMsg, ic.InterAdapterMessageType_DELETE_GEM_PORT_REQUEST, "Adapter1", "Adapter2", "testDeviceId", "testProxyDeviceId", "testMessage")
 
 	assert.Nil(t, err)
 
@@ -113,15 +113,15 @@ func TestHeaderId(t *testing.T) {
 		},
 	}
 
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
 
-	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
-	adapter.endpointMgr = mocks.NewEndpointManager()
+	adapter.endpointMgr = mocks.NewEndpointManager(context.Background())
 
 	delGemPortMsg := &ic.InterAdapterDeleteGemPortMessage{UniId: 1, TpPath: "tpPath", GemPortId: 2}
 
-	err := adapter.SendInterAdapterMessage(context.TODO(), delGemPortMsg, ic.InterAdapterMessageType_DELETE_GEM_PORT_REQUEST, "Adapter1", "Adapter2", "testDeviceId", "testProxyDeviceId", "")
+	err := adapter.SendInterAdapterMessage(context.Background(), delGemPortMsg, ic.InterAdapterMessageType_DELETE_GEM_PORT_REQUEST, "Adapter1", "Adapter2", "testDeviceId", "testProxyDeviceId", "")
 	call := mockKafkaIcProxy.InvokeRpcSpy.Calls[1]
 
 	kvArgs := call.KvArgs[0].(*kafka.KVArg)
@@ -142,13 +142,13 @@ func TestInvalidProtoMessage(t *testing.T) {
 		},
 	}
 
-	backend := db.NewBackend("etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
+	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost, embedEtcdServerPort, defaultTimeout, defaultPathPrefix)
 
-	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
-	adapter.endpointMgr = mocks.NewEndpointManager()
+	adapter.endpointMgr = mocks.NewEndpointManager(context.Background())
 
-	err := adapter.SendInterAdapterMessage(context.TODO(), nil, ic.InterAdapterMessageType_DELETE_GEM_PORT_REQUEST, "Adapter1", "Adapter2", "testDeviceId", "testProxyDeviceId", "testMessage")
+	err := adapter.SendInterAdapterMessage(context.Background(), nil, ic.InterAdapterMessageType_DELETE_GEM_PORT_REQUEST, "Adapter1", "Adapter2", "testDeviceId", "testProxyDeviceId", "testMessage")
 
 	assert.NotNil(t, err)
 }

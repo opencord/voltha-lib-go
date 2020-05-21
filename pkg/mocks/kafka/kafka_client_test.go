@@ -17,34 +17,34 @@
 package kafka
 
 import (
-	"testing"
-	"time"
-
+	"context"
 	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
 	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
 	"github.com/stretchr/testify/assert"
+	"testing"
+	"time"
 )
 
 func TestKafkaClientCreateTopic(t *testing.T) {
-	cTkc := NewKafkaClient()
+	cTkc := NewKafkaClient(context.Background())
 	topic := kafka.Topic{Name: "myTopic"}
-	err := cTkc.CreateTopic(&topic, 1, 1)
+	err := cTkc.CreateTopic(context.Background(), &topic, 1, 1)
 	assert.Nil(t, err)
-	err = cTkc.CreateTopic(&topic, 1, 1)
+	err = cTkc.CreateTopic(context.Background(), &topic, 1, 1)
 	assert.NotNil(t, err)
 }
 
 func TestKafkaClientDeleteTopic(t *testing.T) {
-	cTkc := NewKafkaClient()
+	cTkc := NewKafkaClient(context.Background())
 	topic := kafka.Topic{Name: "myTopic"}
-	err := cTkc.DeleteTopic(&topic)
+	err := cTkc.DeleteTopic(context.Background(), &topic)
 	assert.Nil(t, err)
 }
 
 func TestKafkaClientSubscribeSend(t *testing.T) {
-	cTkc := NewKafkaClient()
+	cTkc := NewKafkaClient(context.Background())
 	topic := kafka.Topic{Name: "myTopic"}
-	ch, err := cTkc.Subscribe(&topic)
+	ch, err := cTkc.Subscribe(context.Background(), &topic)
 	assert.Nil(t, err)
 	assert.NotNil(t, ch)
 	testCh := make(chan bool)
@@ -65,29 +65,29 @@ func TestKafkaClientSubscribeSend(t *testing.T) {
 			testCh <- false
 		}
 	}()
-	err = cTkc.Send(msg, &topic)
+	err = cTkc.Send(context.Background(), msg, &topic)
 	assert.Nil(t, err)
 	res := <-testCh
 	assert.True(t, res)
 }
 
 func TestKafkaClientUnSubscribe(t *testing.T) {
-	cTkc := NewKafkaClient()
+	cTkc := NewKafkaClient(context.Background())
 	topic := kafka.Topic{Name: "myTopic"}
-	ch, err := cTkc.Subscribe(&topic)
+	ch, err := cTkc.Subscribe(context.Background(), &topic)
 	assert.Nil(t, err)
 	assert.NotNil(t, ch)
-	err = cTkc.UnSubscribe(&topic, ch)
+	err = cTkc.UnSubscribe(context.Background(), &topic, ch)
 	assert.Nil(t, err)
 }
 
 func TestKafkaClientStop(t *testing.T) {
-	cTkc := NewKafkaClient()
+	cTkc := NewKafkaClient(context.Background())
 	topic := kafka.Topic{Name: "myTopic"}
-	ch, err := cTkc.Subscribe(&topic)
+	ch, err := cTkc.Subscribe(context.Background(), &topic)
 	assert.Nil(t, err)
 	assert.NotNil(t, ch)
-	err = cTkc.UnSubscribe(&topic, ch)
+	err = cTkc.UnSubscribe(context.Background(), &topic, ch)
 	assert.Nil(t, err)
-	cTkc.Stop()
+	cTkc.Stop(context.Background())
 }

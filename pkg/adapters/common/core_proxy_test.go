@@ -45,7 +45,7 @@ func TestCoreProxy_RegisterAdapter_default(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	adapter := &voltha.Adapter{
 		Id:      "testAdapter",
@@ -59,7 +59,7 @@ func TestCoreProxy_RegisterAdapter_default(t *testing.T) {
 	}}
 	devices := &voltha.DeviceTypes{Items: types}
 
-	err := proxy.RegisterAdapter(context.TODO(), adapter, devices)
+	err := proxy.RegisterAdapter(context.Background(), adapter, devices)
 
 	assert.Equal(t, mockKafkaIcProxy.InvokeRpcSpy.CallCount, 1)
 	assert.Equal(t, nil, err)
@@ -88,7 +88,7 @@ func TestCoreProxy_RegisterAdapter_multiple(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	adapter := &voltha.Adapter{
 		Id:             "testAdapter",
@@ -104,7 +104,7 @@ func TestCoreProxy_RegisterAdapter_multiple(t *testing.T) {
 	}}
 	devices := &voltha.DeviceTypes{Items: types}
 
-	err := proxy.RegisterAdapter(context.TODO(), adapter, devices)
+	err := proxy.RegisterAdapter(context.Background(), adapter, devices)
 
 	assert.Equal(t, mockKafkaIcProxy.InvokeRpcSpy.CallCount, 1)
 	assert.Equal(t, nil, err)
@@ -128,13 +128,13 @@ func TestCoreProxy_GetChildDevice_sn(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	kwargs := make(map[string]interface{})
 	kwargs["serial_number"] = "TEST00000000001"
 
 	parentDeviceId := "aabbcc"
-	device, error := proxy.GetChildDevice(context.TODO(), parentDeviceId, kwargs)
+	device, error := proxy.GetChildDevice(context.Background(), parentDeviceId, kwargs)
 
 	assert.Equal(t, mockKafkaIcProxy.InvokeRpcSpy.CallCount, 1)
 	call := mockKafkaIcProxy.InvokeRpcSpy.Calls[1]
@@ -159,13 +159,13 @@ func TestCoreProxy_GetChildDevice_id(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	kwargs := make(map[string]interface{})
 	kwargs["onu_id"] = uint32(1234)
 
 	parentDeviceId := "aabbcc"
-	device, error := proxy.GetChildDevice(context.TODO(), parentDeviceId, kwargs)
+	device, error := proxy.GetChildDevice(context.Background(), parentDeviceId, kwargs)
 
 	assert.Equal(t, mockKafkaIcProxy.InvokeRpcSpy.CallCount, 1)
 	call := mockKafkaIcProxy.InvokeRpcSpy.Calls[1]
@@ -190,13 +190,13 @@ func TestCoreProxy_GetChildDevice_fail_timeout(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	kwargs := make(map[string]interface{})
 	kwargs["onu_id"] = uint32(1234)
 
 	parentDeviceId := "aabbcc"
-	device, error := proxy.GetChildDevice(context.TODO(), parentDeviceId, kwargs)
+	device, error := proxy.GetChildDevice(context.Background(), parentDeviceId, kwargs)
 
 	assert.Nil(t, device)
 	parsedErr, _ := status.FromError(error)
@@ -213,13 +213,13 @@ func TestCoreProxy_GetChildDevice_fail_unmarhsal(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	kwargs := make(map[string]interface{})
 	kwargs["onu_id"] = uint32(1234)
 
 	parentDeviceId := "aabbcc"
-	device, error := proxy.GetChildDevice(context.TODO(), parentDeviceId, kwargs)
+	device, error := proxy.GetChildDevice(context.Background(), parentDeviceId, kwargs)
 
 	assert.Nil(t, device)
 
@@ -241,10 +241,10 @@ func TestCoreProxy_GetChildDevices_success(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	parentDeviceId := "aabbcc"
-	devices, error := proxy.GetChildDevices(context.TODO(), parentDeviceId)
+	devices, error := proxy.GetChildDevices(context.Background(), parentDeviceId)
 
 	assert.Equal(t, mockKafkaIcProxy.InvokeRpcSpy.CallCount, 1)
 	call := mockKafkaIcProxy.InvokeRpcSpy.Calls[1]
@@ -268,10 +268,10 @@ func TestCoreProxy_GetChildDevices_fail_unmarhsal(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	parentDeviceId := "aabbcc"
-	devices, error := proxy.GetChildDevices(context.TODO(), parentDeviceId)
+	devices, error := proxy.GetChildDevices(context.Background(), parentDeviceId)
 
 	assert.Nil(t, devices)
 
@@ -288,10 +288,10 @@ func TestCoreProxy_GetChildDevices_fail_timeout(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	parentDeviceId := "aabbcc"
-	devices, error := proxy.GetChildDevices(context.TODO(), parentDeviceId)
+	devices, error := proxy.GetChildDevices(context.Background(), parentDeviceId)
 
 	assert.Nil(t, devices)
 

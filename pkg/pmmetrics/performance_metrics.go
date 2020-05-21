@@ -17,6 +17,7 @@
 package pmmetrics
 
 import (
+	"context"
 	"github.com/opencord/voltha-protos/v3/go/voltha"
 )
 
@@ -32,34 +33,34 @@ type PmMetrics struct {
 type PmMetricsOption func(*PmMetrics)
 
 // Frequency is to poll stats at this interval
-func Frequency(frequency uint32) PmMetricsOption {
+func Frequency(ctx context.Context, frequency uint32) PmMetricsOption {
 	return func(args *PmMetrics) {
 		args.frequency = frequency
 	}
 }
 
 // GetSubscriberMetrics will return the metrics subscribed for the device.
-func (pm *PmMetrics) GetSubscriberMetrics() map[string]*voltha.PmConfig {
+func (pm *PmMetrics) GetSubscriberMetrics(ctx context.Context) map[string]*voltha.PmConfig {
 	if pm == nil {
 		return nil
 	}
 	return pm.metrics
 }
 
-func Grouped(grouped bool) PmMetricsOption {
+func Grouped(ctx context.Context, grouped bool) PmMetricsOption {
 	return func(args *PmMetrics) {
 		args.grouped = grouped
 	}
 }
 
-func FrequencyOverride(frequencyOverride bool) PmMetricsOption {
+func FrequencyOverride(ctx context.Context, frequencyOverride bool) PmMetricsOption {
 	return func(args *PmMetrics) {
 		args.frequencyOverride = frequencyOverride
 	}
 }
 
 // Metrics will store the PMMetric params
-func Metrics(pmNames []string) PmMetricsOption {
+func Metrics(ctx context.Context, pmNames []string) PmMetricsOption {
 	return func(args *PmMetrics) {
 		args.metrics = make(map[string]*voltha.PmConfig)
 		for _, name := range pmNames {
@@ -73,7 +74,7 @@ func Metrics(pmNames []string) PmMetricsOption {
 }
 
 // NewPmMetrics will return the pmmetric object
-func NewPmMetrics(deviceID string, opts ...PmMetricsOption) *PmMetrics {
+func NewPmMetrics(ctx context.Context, deviceID string, opts ...PmMetricsOption) *PmMetrics {
 	pm := &PmMetrics{}
 	pm.deviceID = deviceID
 	for _, option := range opts {
@@ -83,7 +84,7 @@ func NewPmMetrics(deviceID string, opts ...PmMetricsOption) *PmMetrics {
 }
 
 // ToPmConfigs will enable the defined pmmetric
-func (pm *PmMetrics) ToPmConfigs() *voltha.PmConfigs {
+func (pm *PmMetrics) ToPmConfigs(ctx context.Context) *voltha.PmConfigs {
 	pmConfigs := &voltha.PmConfigs{
 		Id:           pm.deviceID,
 		DefaultFreq:  pm.frequency,

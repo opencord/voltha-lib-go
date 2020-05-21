@@ -56,7 +56,7 @@ To add a GRPC server to your existing component simply follow these steps:
 // Interface allows probes to be attached to server
 // A probe must support the IsReady() method
 type ReadyProbe interface {
-	IsReady() bool
+	IsReady(context.Context) bool
 }
 
 type GrpcServer struct {
@@ -74,6 +74,7 @@ type GrpcServer struct {
 Instantiate a GRPC server data structure
 */
 func NewGrpcServer(
+	ctx context.Context,
 	address string,
 	port int,
 	certs *GrpcSecurity,
@@ -108,11 +109,11 @@ func (s *GrpcServer) Start(ctx context.Context) {
 			logger.Fatalf("could not load TLS keys: %s", err)
 		}
 		s.gs = grpc.NewServer(grpc.Creds(creds),
-			withServerUnaryInterceptor(s))
+			withServerUnaryInterceptor(ctx, s))
 
 	} else {
 		logger.Info("starting-insecure-grpc-server")
-		s.gs = grpc.NewServer(withServerUnaryInterceptor(s))
+		s.gs = grpc.NewServer(withServerUnaryInterceptor(ctx, s))
 	}
 
 	// Register all required services
@@ -125,15 +126,15 @@ func (s *GrpcServer) Start(ctx context.Context) {
 	}
 }
 
-func withServerUnaryInterceptor(s *GrpcServer) grpc.ServerOption {
-	return grpc.UnaryInterceptor(mkServerInterceptor(s))
+func withServerUnaryInterceptor(ctx context.Context, s *GrpcServer) grpc.ServerOption {
+	return grpc.UnaryInterceptor(mkServerInterceptor(ctx, s))
 }
 
 // Make a serverInterceptor for the given GrpcServer
 // This interceptor will check whether there is an attached probe,
 // and if that probe indicates NotReady, then an UNAVAILABLE
 // response will be returned.
-func mkServerInterceptor(s *GrpcServer) func(ctx context.Context,
+func mkServerInterceptor(ctx context.Context, s *GrpcServer) func(ctx context.Context,
 	req interface{},
 	info *grpc.UnaryServerInfo,
 	handler grpc.UnaryHandler) (interface{}, error) {
@@ -143,7 +144,7 @@ func mkServerInterceptor(s *GrpcServer) func(ctx context.Context,
 		info *grpc.UnaryServerInfo,
 		handler grpc.UnaryHandler) (interface{}, error) {
 
-		if (s.probe != nil) && (!s.probe.IsReady()) {
+		if (s.probe != nil) && (!s.probe.IsReady(ctx)) {
 			logger.Warnf("Grpc request received while not ready %v", req)
 			return nil, status.Error(codes.Unavailable, "system is not ready")
 		}
@@ -158,7 +159,7 @@ func mkServerInterceptor(s *GrpcServer) func(ctx context.Context,
 /*
 Stop servicing GRPC requests
 */
-func (s *GrpcServer) Stop() {
+func (s *GrpcServer) Stop(ctx context.Context) {
 	if s.gs != nil {
 		s.gs.Stop()
 	}

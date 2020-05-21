@@ -69,7 +69,7 @@ type SaramaClient struct {
 	numReplicas                   int
 	autoCreateTopic               bool
 	doneCh                        chan int
-	metadataCallback              func(fromTopic string, timestamp time.Time)
+	metadataCallback              func(ctx context.Context, fromTopic string, timestamp time.Time)
 	topicToConsumerChannelMap     map[string]*consumerChannels
 	lockTopicToConsumerChannelMap sync.RWMutex
 	topicLockMap                  map[string]*sync.RWMutex
@@ -86,121 +86,121 @@ type SaramaClient struct {
 
 type SaramaClientOption func(*SaramaClient)
 
-func Host(host string) SaramaClientOption {
+func Host(ctx context.Context, host string) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.KafkaHost = host
 	}
 }
 
-func Port(port int) SaramaClientOption {
+func Port(ctx context.Context, port int) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.KafkaPort = port
 	}
 }
 
-func ConsumerGroupPrefix(prefix string) SaramaClientOption {
+func ConsumerGroupPrefix(ctx context.Context, prefix string) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.consumerGroupPrefix = prefix
 	}
 }
 
-func ConsumerGroupName(name string) SaramaClientOption {
+func ConsumerGroupName(ctx context.Context, name string) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.consumerGroupName = name
 	}
 }
 
-func ConsumerType(consumer int) SaramaClientOption {
+func ConsumerType(ctx context.Context, consumer int) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.consumerType = consumer
 	}
 }
 
-func ProducerFlushFrequency(frequency int) SaramaClientOption {
+func ProducerFlushFrequency(ctx context.Context, frequency int) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.producerFlushFrequency = frequency
 	}
 }
 
-func ProducerFlushMessages(num int) SaramaClientOption {
+func ProducerFlushMessages(ctx context.Context, num int) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.producerFlushMessages = num
 	}
 }
 
-func ProducerFlushMaxMessages(num int) SaramaClientOption {
+func ProducerFlushMaxMessages(ctx context.Context, num int) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.producerFlushMaxmessages = num
 	}
 }
 
-func ProducerMaxRetries(num int) SaramaClientOption {
+func ProducerMaxRetries(ctx context.Context, num int) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.producerRetryMax = num
 	}
 }
 
-func ProducerRetryBackoff(duration time.Duration) SaramaClientOption {
+func ProducerRetryBackoff(ctx context.Context, duration time.Duration) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.producerRetryBackOff = duration
 	}
 }
 
-func ProducerReturnOnErrors(opt bool) SaramaClientOption {
+func ProducerReturnOnErrors(ctx context.Context, opt bool) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.producerReturnErrors = opt
 	}
 }
 
-func ProducerReturnOnSuccess(opt bool) SaramaClientOption {
+func ProducerReturnOnSuccess(ctx context.Context, opt bool) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.producerReturnSuccess = opt
 	}
 }
 
-func ConsumerMaxWait(wait int) SaramaClientOption {
+func ConsumerMaxWait(ctx context.Context, wait int) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.consumerMaxwait = wait
 	}
 }
 
-func MaxProcessingTime(pTime int) SaramaClientOption {
+func MaxProcessingTime(ctx context.Context, pTime int) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.maxProcessingTime = pTime
 	}
 }
 
-func NumPartitions(number int) SaramaClientOption {
+func NumPartitions(ctx context.Context, number int) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.numPartitions = number
 	}
 }
 
-func NumReplicas(number int) SaramaClientOption {
+func NumReplicas(ctx context.Context, number int) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.numReplicas = number
 	}
 }
 
-func AutoCreateTopic(opt bool) SaramaClientOption {
+func AutoCreateTopic(ctx context.Context, opt bool) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.autoCreateTopic = opt
 	}
 }
 
-func MetadatMaxRetries(retry int) SaramaClientOption {
+func MetadatMaxRetries(ctx context.Context, retry int) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.metadataMaxRetry = retry
 	}
 }
 
-func LivenessChannelInterval(opt time.Duration) SaramaClientOption {
+func LivenessChannelInterval(ctx context.Context, opt time.Duration) SaramaClientOption {
 	return func(args *SaramaClient) {
 		args.livenessChannelInterval = opt
 	}
 }
 
-func NewSaramaClient(opts ...SaramaClientOption) *SaramaClient {
+func NewSaramaClient(ctx context.Context, opts ...SaramaClientOption) *SaramaClient {
 	client := &SaramaClient{
 		KafkaHost: DefaultKafkaHost,
 		KafkaPort: DefaultKafkaPort,
@@ -239,7 +239,7 @@ func NewSaramaClient(opts ...SaramaClientOption) *SaramaClient {
 	return client
 }
 
-func (sc *SaramaClient) Start() error {
+func (sc *SaramaClient) Start(ctx context.Context) error {
 	logger.Info("Starting-kafka-sarama-client")
 
 	// Create the Done channel
@@ -250,25 +250,25 @@ func (sc *SaramaClient) Start() error {
 	// Add a cleanup in case of failure to startup
 	defer func() {
 		if err != nil {
-			sc.Stop()
+			sc.Stop(ctx)
 		}
 	}()
 
 	// Create the Cluster Admin
-	if err = sc.createClusterAdmin(); err != nil {
+	if err = sc.createClusterAdmin(ctx); err != nil {
 		logger.Errorw("Cannot-create-cluster-admin", log.Fields{"error": err})
 		return err
 	}
 
 	// Create the Publisher
-	if err := sc.createPublisher(); err != nil {
+	if err := sc.createPublisher(ctx); err != nil {
 		logger.Errorw("Cannot-create-kafka-publisher", log.Fields{"error": err})
 		return err
 	}
 
 	if sc.consumerType == DefaultConsumerType {
 		// Create the master consumers
-		if err := sc.createConsumer(); err != nil {
+		if err := sc.createConsumer(ctx); err != nil {
 			logger.Errorw("Cannot-create-kafka-consumers", log.Fields{"error": err})
 			return err
 		}
@@ -284,7 +284,7 @@ func (sc *SaramaClient) Start() error {
 	return nil
 }
 
-func (sc *SaramaClient) Stop() {
+func (sc *SaramaClient) Stop(ctx context.Context) {
 	logger.Info("stopping-sarama-client")
 
 	sc.started = false
@@ -325,7 +325,7 @@ func (sc *SaramaClient) Stop() {
 
 //createTopic is an internal function to create a topic on the Kafka Broker. No locking is required as
 // the invoking function must hold the lock
-func (sc *SaramaClient) createTopic(topic *Topic, numPartition int, repFactor int) error {
+func (sc *SaramaClient) createTopic(ctx context.Context, topic *Topic, numPartition int, repFactor int) error {
 	// Set the topic details
 	topicDetail := &sarama.TopicDetail{}
 	topicDetail.NumPartitions = int32(numPartition)
@@ -351,17 +351,17 @@ func (sc *SaramaClient) createTopic(topic *Topic, numPartition int, repFactor in
 
 //CreateTopic is a public API to create a topic on the Kafka Broker.  It uses a lock on a specific topic to
 // ensure no two go routines are performing operations on the same topic
-func (sc *SaramaClient) CreateTopic(topic *Topic, numPartition int, repFactor int) error {
-	sc.lockTopic(topic)
-	defer sc.unLockTopic(topic)
+func (sc *SaramaClient) CreateTopic(ctx context.Context, topic *Topic, numPartition int, repFactor int) error {
+	sc.lockTopic(ctx, topic)
+	defer sc.unLockTopic(ctx, topic)
 
-	return sc.createTopic(topic, numPartition, repFactor)
+	return sc.createTopic(ctx, topic, numPartition, repFactor)
 }
 
 //DeleteTopic removes a topic from the kafka Broker
-func (sc *SaramaClient) DeleteTopic(topic *Topic) error {
-	sc.lockTopic(topic)
-	defer sc.unLockTopic(topic)
+func (sc *SaramaClient) DeleteTopic(ctx context.Context, topic *Topic) error {
+	sc.lockTopic(ctx, topic)
+	defer sc.unLockTopic(ctx, topic)
 
 	// Remove the topic from the broker
 	if err := sc.cAdmin.DeleteTopic(topic.Name); err != nil {
@@ -375,7 +375,7 @@ func (sc *SaramaClient) DeleteTopic(topic *Topic) error {
 	}
 
 	// Clear the topic from the consumer channel.  This will also close any consumers listening on that topic.
-	if err := sc.clearTopicFromConsumerChannelMap(*topic); err != nil {
+	if err := sc.clearTopicFromConsumerChannelMap(ctx, *topic); err != nil {
 		logger.Errorw("failure-clearing-channels", log.Fields{"topic": topic, "error": err})
 		return err
 	}
@@ -384,18 +384,18 @@ func (sc *SaramaClient) DeleteTopic(topic *Topic) error {
 
 // Subscribe registers a caller to a topic. It returns a channel that the caller can use to receive
 // messages from that topic
-func (sc *SaramaClient) Subscribe(topic *Topic, kvArgs ...*KVArg) (<-chan *ic.InterContainerMessage, error) {
-	sc.lockTopic(topic)
-	defer sc.unLockTopic(topic)
+func (sc *SaramaClient) Subscribe(ctx context.Context, topic *Topic, kvArgs ...*KVArg) (<-chan *ic.InterContainerMessage, error) {
+	sc.lockTopic(ctx, topic)
+	defer sc.unLockTopic(ctx, topic)
 
 	logger.Debugw("subscribe", log.Fields{"topic": topic.Name})
 
 	// If a consumers already exist for that topic then resuse it
-	if consumerCh := sc.getConsumerChannel(topic); consumerCh != nil {
+	if consumerCh := sc.getConsumerChannel(ctx, topic); consumerCh != nil {
 		logger.Debugw("topic-already-subscribed", log.Fields{"topic": topic.Name})
 		// Create a channel specific for that consumers and add it to the consumers channel map
 		ch := make(chan *ic.InterContainerMessage)
-		sc.addChannelToConsumerChannelMap(topic, ch)
+		sc.addChannelToConsumerChannelMap(ctx, topic, ch)
 		return ch, nil
 	}
 
@@ -406,12 +406,12 @@ func (sc *SaramaClient) Subscribe(topic *Topic, kvArgs ...*KVArg) (<-chan *ic.In
 	// Use the consumerType option to figure out the type of consumer to launch
 	if sc.consumerType == PartitionConsumer {
 		if sc.autoCreateTopic {
-			if err = sc.createTopic(topic, sc.numPartitions, sc.numReplicas); err != nil {
+			if err = sc.createTopic(ctx, topic, sc.numPartitions, sc.numReplicas); err != nil {
 				logger.Errorw("create-topic-failure", log.Fields{"error": err, "topic": topic.Name})
 				return nil, err
 			}
 		}
-		if consumerListeningChannel, err = sc.setupPartitionConsumerChannel(topic, getOffset(kvArgs...)); err != nil {
+		if consumerListeningChannel, err = sc.setupPartitionConsumerChannel(ctx, topic, getOffset(ctx, kvArgs...)); err != nil {
 			logger.Warnw("create-consumers-channel-failure", log.Fields{"error": err, "topic": topic.Name})
 			return nil, err
 		}
@@ -425,7 +425,7 @@ func (sc *SaramaClient) Subscribe(topic *Topic, kvArgs ...*KVArg) (<-chan *ic.In
 		//	}
 		//}
 		//groupId := sc.consumerGroupName
-		groupId := getGroupId(kvArgs...)
+		groupId := getGroupId(ctx, kvArgs...)
 		// Include the group prefix
 		if groupId != "" {
 			groupId = sc.consumerGroupPrefix + groupId
@@ -433,7 +433,7 @@ func (sc *SaramaClient) Subscribe(topic *Topic, kvArgs ...*KVArg) (<-chan *ic.In
 			// Need to use a unique group Id per topic
 			groupId = sc.consumerGroupPrefix + topic.Name
 		}
-		if consumerListeningChannel, err = sc.setupGroupConsumerChannel(topic, groupId, getOffset(kvArgs...)); err != nil {
+		if consumerListeningChannel, err = sc.setupGroupConsumerChannel(ctx, topic, groupId, getOffset(ctx, kvArgs...)); err != nil {
 			logger.Warnw("create-consumers-channel-failure", log.Fields{"error": err, "topic": topic.Name, "groupId": groupId})
 			return nil, err
 		}
@@ -447,26 +447,26 @@ func (sc *SaramaClient) Subscribe(topic *Topic, kvArgs ...*KVArg) (<-chan *ic.In
 }
 
 //UnSubscribe unsubscribe a consumer from a given topic
-func (sc *SaramaClient) UnSubscribe(topic *Topic, ch <-chan *ic.InterContainerMessage) error {
-	sc.lockTopic(topic)
-	defer sc.unLockTopic(topic)
+func (sc *SaramaClient) UnSubscribe(ctx context.Context, topic *Topic, ch <-chan *ic.InterContainerMessage) error {
+	sc.lockTopic(ctx, topic)
+	defer sc.unLockTopic(ctx, topic)
 
 	logger.Debugw("unsubscribing-channel-from-topic", log.Fields{"topic": topic.Name})
 	var err error
-	if err = sc.removeChannelFromConsumerChannelMap(*topic, ch); err != nil {
+	if err = sc.removeChannelFromConsumerChannelMap(ctx, *topic, ch); err != nil {
 		logger.Errorw("failed-removing-channel", log.Fields{"error": err})
 	}
-	if err = sc.deleteFromGroupConsumers(topic.Name); err != nil {
+	if err = sc.deleteFromGroupConsumers(ctx, topic.Name); err != nil {
 		logger.Errorw("failed-deleting-group-consumer", log.Fields{"error": err})
 	}
 	return err
 }
 
-func (sc *SaramaClient) SubscribeForMetadata(callback func(fromTopic string, timestamp time.Time)) {
+func (sc *SaramaClient) SubscribeForMetadata(ctx context.Context, callback func(ctx context.Context, fromTopic string, timestamp time.Time)) {
 	sc.metadataCallback = callback
 }
 
-func (sc *SaramaClient) updateLiveness(alive bool) {
+func (sc *SaramaClient) updateLiveness(ctx context.Context, alive bool) {
 	// Post a consistent stream of liveness data to the channel,
 	// so that in a live state, the core does not timeout and
 	// send a forced liveness message. Production of liveness
@@ -491,7 +491,7 @@ func (sc *SaramaClient) updateLiveness(alive bool) {
 }
 
 // Once unhealthy, we never go back
-func (sc *SaramaClient) setUnhealthy() {
+func (sc *SaramaClient) setUnhealthy(ctx context.Context) {
 	sc.healthy = false
 	if sc.healthiness != nil {
 		logger.Infow("set-client-unhealthy", log.Fields{"healthy": sc.healthy})
@@ -499,7 +499,7 @@ func (sc *SaramaClient) setUnhealthy() {
 	}
 }
 
-func (sc *SaramaClient) isLivenessError(err error) bool {
+func (sc *SaramaClient) isLivenessError(ctx context.Context, err error) bool {
 	// Sarama producers and consumers encapsulate the error inside
 	// a ProducerError or ConsumerError struct.
 	if prodError, ok := err.(*sarama.ProducerError); ok {
@@ -548,7 +548,7 @@ func (sc *SaramaClient) isLivenessError(err error) bool {
 }
 
 // send formats and sends the request onto the kafka messaging bus.
-func (sc *SaramaClient) Send(msg interface{}, topic *Topic, keys ...string) error {
+func (sc *SaramaClient) Send(ctx context.Context, msg interface{}, topic *Topic, keys ...string) error {
 
 	// Assert message is a proto message
 	var protoMsg proto.Message
@@ -583,11 +583,11 @@ func (sc *SaramaClient) Send(msg interface{}, topic *Topic, keys ...string) erro
 	select {
 	case ok := <-sc.producer.Successes():
 		logger.Debugw("message-sent", log.Fields{"status": ok.Topic})
-		sc.updateLiveness(true)
+		sc.updateLiveness(ctx, true)
 	case notOk := <-sc.producer.Errors():
 		logger.Debugw("error-sending", log.Fields{"status": notOk})
-		if sc.isLivenessError(notOk) {
-			sc.updateLiveness(false)
+		if sc.isLivenessError(ctx, notOk) {
+			sc.updateLiveness(ctx, false)
 		}
 		return notOk
 	}
@@ -599,7 +599,7 @@ func (sc *SaramaClient) Send(msg interface{}, topic *Topic, keys ...string) erro
 // or not the channel is still live. This channel is then picked up
 // by the service (i.e. rw_core / ro_core) to update readiness status
 // and/or take other actions.
-func (sc *SaramaClient) EnableLivenessChannel(enable bool) chan bool {
+func (sc *SaramaClient) EnableLivenessChannel(ctx context.Context, enable bool) chan bool {
 	logger.Infow("kafka-enable-liveness-channel", log.Fields{"enable": enable})
 	if enable {
 		if sc.liveness == nil {
@@ -623,7 +623,7 @@ func (sc *SaramaClient) EnableLivenessChannel(enable bool) chan bool {
 // Enable the Healthiness monitor channel. This channel will report "false"
 // if the kafka consumers die, or some other problem occurs which is
 // catastrophic that would require re-creating the client.
-func (sc *SaramaClient) EnableHealthinessChannel(enable bool) chan bool {
+func (sc *SaramaClient) EnableHealthinessChannel(ctx context.Context, enable bool) chan bool {
 	logger.Infow("kafka-enable-healthiness-channel", log.Fields{"enable": enable})
 	if enable {
 		if sc.healthiness == nil {
@@ -646,7 +646,7 @@ func (sc *SaramaClient) EnableHealthinessChannel(enable bool) chan bool {
 
 // send an empty message on the liveness channel to check whether connectivity has
 // been restored.
-func (sc *SaramaClient) SendLiveness() error {
+func (sc *SaramaClient) SendLiveness(ctx context.Context) error {
 	if !sc.started {
 		return fmt.Errorf("SendLiveness() called while not started")
 	}
@@ -663,11 +663,11 @@ func (sc *SaramaClient) SendLiveness() error {
 	select {
 	case ok := <-sc.producer.Successes():
 		logger.Debugw("liveness-message-sent", log.Fields{"status": ok.Topic})
-		sc.updateLiveness(true)
+		sc.updateLiveness(ctx, true)
 	case notOk := <-sc.producer.Errors():
 		logger.Debugw("liveness-error-sending", log.Fields{"status": notOk})
-		if sc.isLivenessError(notOk) {
-			sc.updateLiveness(false)
+		if sc.isLivenessError(ctx, notOk) {
+			sc.updateLiveness(ctx, false)
 		}
 		return notOk
 	}
@@ -675,7 +675,7 @@ func (sc *SaramaClient) SendLiveness() error {
 }
 
 // getGroupId returns the group id from the key-value args.
-func getGroupId(kvArgs ...*KVArg) string {
+func getGroupId(ctx context.Context, kvArgs ...*KVArg) string {
 	for _, arg := range kvArgs {
 		if arg.Key == GroupIdKey {
 			return arg.Value.(string)
@@ -685,7 +685,7 @@ func getGroupId(kvArgs ...*KVArg) string {
 }
 
 // getOffset returns the offset from the key-value args.
-func getOffset(kvArgs ...*KVArg) int64 {
+func getOffset(ctx context.Context, kvArgs ...*KVArg) int64 {
 	for _, arg := range kvArgs {
 		if arg.Key == Offset {
 			return arg.Value.(int64)
@@ -694,7 +694,7 @@ func getOffset(kvArgs ...*KVArg) int64 {
 	return sarama.OffsetNewest
 }
 
-func (sc *SaramaClient) createClusterAdmin() error {
+func (sc *SaramaClient) createClusterAdmin(ctx context.Context) error {
 	kafkaFullAddr := fmt.Sprintf("%s:%d", sc.KafkaHost, sc.KafkaPort)
 	config := sarama.NewConfig()
 	config.Version = sarama.V1_0_0_0
@@ -710,7 +710,7 @@ func (sc *SaramaClient) createClusterAdmin() error {
 	return nil
 }
 
-func (sc *SaramaClient) lockTopic(topic *Topic) {
+func (sc *SaramaClient) lockTopic(ctx context.Context, topic *Topic) {
 	sc.lockOfTopicLockMap.Lock()
 	if _, exist := sc.topicLockMap[topic.Name]; exist {
 		sc.lockOfTopicLockMap.Unlock()
@@ -722,7 +722,7 @@ func (sc *SaramaClient) lockTopic(topic *Topic) {
 	}
 }
 
-func (sc *SaramaClient) unLockTopic(topic *Topic) {
+func (sc *SaramaClient) unLockTopic(ctx context.Context, topic *Topic) {
 	sc.lockOfTopicLockMap.Lock()
 	defer sc.lockOfTopicLockMap.Unlock()
 	if _, exist := sc.topicLockMap[topic.Name]; exist {
@@ -730,7 +730,7 @@ func (sc *SaramaClient) unLockTopic(topic *Topic) {
 	}
 }
 
-func (sc *SaramaClient) addTopicToConsumerChannelMap(id string, arg *consumerChannels) {
+func (sc *SaramaClient) addTopicToConsumerChannelMap(ctx context.Context, id string, arg *consumerChannels) {
 	sc.lockTopicToConsumerChannelMap.Lock()
 	defer sc.lockTopicToConsumerChannelMap.Unlock()
 	if _, exist := sc.topicToConsumerChannelMap[id]; !exist {
@@ -738,7 +738,7 @@ func (sc *SaramaClient) addTopicToConsumerChannelMap(id string, arg *consumerCha
 	}
 }
 
-func (sc *SaramaClient) getConsumerChannel(topic *Topic) *consumerChannels {
+func (sc *SaramaClient) getConsumerChannel(ctx context.Context, topic *Topic) *consumerChannels {
 	sc.lockTopicToConsumerChannelMap.RLock()
 	defer sc.lockTopicToConsumerChannelMap.RUnlock()
 
@@ -748,7 +748,7 @@ func (sc *SaramaClient) getConsumerChannel(topic *Topic) *consumerChannels {
 	return nil
 }
 
-func (sc *SaramaClient) addChannelToConsumerChannelMap(topic *Topic, ch chan *ic.InterContainerMessage) {
+func (sc *SaramaClient) addChannelToConsumerChannelMap(ctx context.Context, topic *Topic, ch chan *ic.InterContainerMessage) {
 	sc.lockTopicToConsumerChannelMap.Lock()
 	defer sc.lockTopicToConsumerChannelMap.Unlock()
 	if consumerCh, exist := sc.topicToConsumerChannelMap[topic.Name]; exist {
@@ -759,7 +759,7 @@ func (sc *SaramaClient) addChannelToConsumerChannelMap(topic *Topic, ch chan *ic
 }
 
 //closeConsumers closes a list of sarama consumers.  The consumers can either be a partition consumers or a group consumers
-func closeConsumers(consumers []interface{}) error {
+func closeConsumers(ctx context.Context, consumers []interface{}) error {
 	var err error
 	for _, consumer := range consumers {
 		//	Is it a partition consumers?
@@ -787,16 +787,16 @@ func closeConsumers(consumers []interface{}) error {
 	return err
 }
 
-func (sc *SaramaClient) removeChannelFromConsumerChannelMap(topic Topic, ch <-chan *ic.InterContainerMessage) error {
+func (sc *SaramaClient) removeChannelFromConsumerChannelMap(ctx context.Context, topic Topic, ch <-chan *ic.InterContainerMessage) error {
 	sc.lockTopicToConsumerChannelMap.Lock()
 	defer sc.lockTopicToConsumerChannelMap.Unlock()
 	if consumerCh, exist := sc.topicToConsumerChannelMap[topic.Name]; exist {
 		// Channel will be closed in the removeChannel method
-		consumerCh.channels = removeChannel(consumerCh.channels, ch)
+		consumerCh.channels = removeChannel(ctx, consumerCh.channels, ch)
 		// If there are no more channels then we can close the consumers itself
 		if len(consumerCh.channels) == 0 {
 			logger.Debugw("closing-consumers", log.Fields{"topic": topic})
-			err := closeConsumers(consumerCh.consumers)
+			err := closeConsumers(ctx, consumerCh.consumers)
 			//err := consumerCh.consumers.Close()
 			delete(sc.topicToConsumerChannelMap, topic.Name)
 			return err
@@ -807,15 +807,15 @@ func (sc *SaramaClient) removeChannelFromConsumerChannelMap(topic Topic, ch <-ch
 	return errors.New("topic-does-not-exist")
 }
 
-func (sc *SaramaClient) clearTopicFromConsumerChannelMap(topic Topic) error {
+func (sc *SaramaClient) clearTopicFromConsumerChannelMap(ctx context.Context, topic Topic) error {
 	sc.lockTopicToConsumerChannelMap.Lock()
 	defer sc.lockTopicToConsumerChannelMap.Unlock()
 	if consumerCh, exist := sc.topicToConsumerChannelMap[topic.Name]; exist {
 		for _, ch := range consumerCh.channels {
 			// Channel will be closed in the removeChannel method
-			removeChannel(consumerCh.channels, ch)
+			removeChannel(ctx, consumerCh.channels, ch)
 		}
-		err := closeConsumers(consumerCh.consumers)
+		err := closeConsumers(ctx, consumerCh.consumers)
 		//if err == sarama.ErrUnknownTopicOrPartition {
 		//	// Not an error
 		//	err = nil
@@ -829,7 +829,7 @@ func (sc *SaramaClient) clearTopicFromConsumerChannelMap(topic Topic) error {
 }
 
 //createPublisher creates the publisher which is used to send a message onto kafka
-func (sc *SaramaClient) createPublisher() error {
+func (sc *SaramaClient) createPublisher(ctx context.Context) error {
 	// This Creates the publisher
 	config := sarama.NewConfig()
 	config.Producer.Partitioner = sarama.NewRandomPartitioner
@@ -854,7 +854,7 @@ func (sc *SaramaClient) createPublisher() error {
 	return nil
 }
 
-func (sc *SaramaClient) createConsumer() error {
+func (sc *SaramaClient) createConsumer(ctx context.Context) error {
 	config := sarama.NewConfig()
 	config.Consumer.Return.Errors = true
 	config.Consumer.Fetch.Min = 1
@@ -876,7 +876,7 @@ func (sc *SaramaClient) createConsumer() error {
 }
 
 // createGroupConsumer creates a consumers group
-func (sc *SaramaClient) createGroupConsumer(topic *Topic, groupId string, initialOffset int64, retries int) (*scc.Consumer, error) {
+func (sc *SaramaClient) createGroupConsumer(ctx context.Context, topic *Topic, groupId string, initialOffset int64, retries int) (*scc.Consumer, error) {
 	config := scc.NewConfig()
 	config.ClientID = uuid.New().String()
 	config.Group.Mode = scc.ConsumerModeMultiplex
@@ -901,13 +901,13 @@ func (sc *SaramaClient) createGroupConsumer(topic *Topic, groupId string, initia
 	logger.Debugw("create-group-consumers-success", log.Fields{"topic": topic.Name, "groupId": groupId})
 
 	//sc.groupConsumers[topic.Name] = consumer
-	sc.addToGroupConsumers(topic.Name, consumer)
+	sc.addToGroupConsumers(ctx, topic.Name, consumer)
 	return consumer, nil
 }
 
 // dispatchToConsumers sends the intercontainermessage received on a given topic to all subscribers for that
 // topic via the unique channel each subscriber received during subscription
-func (sc *SaramaClient) dispatchToConsumers(consumerCh *consumerChannels, protoMessage *ic.InterContainerMessage) {
+func (sc *SaramaClient) dispatchToConsumers(ctx context.Context, consumerCh *consumerChannels, protoMessage *ic.InterContainerMessage) {
 	// Need to go over all channels and publish messages to them - do we need to copy msg?
 	sc.lockTopicToConsumerChannelMap.RLock()
 	for _, ch := range consumerCh.channels {
@@ -919,19 +919,19 @@ func (sc *SaramaClient) dispatchToConsumers(consumerCh *consumerChannels, protoM
 
 	if callback := sc.metadataCallback; callback != nil {
 		ts, _ := ptypes.Timestamp(protoMessage.Header.Timestamp)
-		callback(protoMessage.Header.FromTopic, ts)
+		callback(ctx, protoMessage.Header.FromTopic, ts)
 	}
 }
 
-func (sc *SaramaClient) consumeFromAPartition(topic *Topic, consumer sarama.PartitionConsumer, consumerChnls *consumerChannels) {
+func (sc *SaramaClient) consumeFromAPartition(ctx context.Context, topic *Topic, consumer sarama.PartitionConsumer, consumerChnls *consumerChannels) {
 	logger.Debugw("starting-partition-consumption-loop", log.Fields{"topic": topic.Name})
 startloop:
 	for {
 		select {
 		case err, ok := <-consumer.Errors():
 			if ok {
-				if sc.isLivenessError(err) {
-					sc.updateLiveness(false)
+				if sc.isLivenessError(ctx, err) {
+					sc.updateLiveness(ctx, false)
 					logger.Warnw("partition-consumers-error", log.Fields{"error": err})
 				}
 			} else {
@@ -945,24 +945,24 @@ startloop:
 				break startloop
 			}
 			msgBody := msg.Value
-			sc.updateLiveness(true)
+			sc.updateLiveness(ctx, true)
 			logger.Debugw("message-received", log.Fields{"timestamp": msg.Timestamp, "receivedTopic": msg.Topic})
 			icm := &ic.InterContainerMessage{}
 			if err := proto.Unmarshal(msgBody, icm); err != nil {
 				logger.Warnw("partition-invalid-message", log.Fields{"error": err})
 				continue
 			}
-			go sc.dispatchToConsumers(consumerChnls, icm)
+			go sc.dispatchToConsumers(ctx, consumerChnls, icm)
 		case <-sc.doneCh:
 			logger.Infow("partition-received-exit-signal", log.Fields{"topic": topic.Name})
 			break startloop
 		}
 	}
 	logger.Infow("partition-consumer-stopped", log.Fields{"topic": topic.Name})
-	sc.setUnhealthy()
+	sc.setUnhealthy(ctx)
 }
 
-func (sc *SaramaClient) consumeGroupMessages(topic *Topic, consumer *scc.Consumer, consumerChnls *consumerChannels) {
+func (sc *SaramaClient) consumeGroupMessages(ctx context.Context, topic *Topic, consumer *scc.Consumer, consumerChnls *consumerChannels) {
 	logger.Debugw("starting-group-consumption-loop", log.Fields{"topic": topic.Name})
 
 startloop:
@@ -970,8 +970,8 @@ startloop:
 		select {
 		case err, ok := <-consumer.Errors():
 			if ok {
-				if sc.isLivenessError(err) {
-					sc.updateLiveness(false)
+				if sc.isLivenessError(ctx, err) {
+					sc.updateLiveness(ctx, false)
 				}
 				logger.Warnw("group-consumers-error", log.Fields{"topic": topic.Name, "error": err})
 			} else {
@@ -985,7 +985,7 @@ startloop:
 				// Channel closed
 				break startloop
 			}
-			sc.updateLiveness(true)
+			sc.updateLiveness(ctx, true)
 			logger.Debugw("message-received", log.Fields{"timestamp": msg.Timestamp, "receivedTopic": msg.Topic})
 			msgBody := msg.Value
 			icm := &ic.InterContainerMessage{}
@@ -993,7 +993,7 @@ startloop:
 				logger.Warnw("invalid-message", log.Fields{"error": err})
 				continue
 			}
-			go sc.dispatchToConsumers(consumerChnls, icm)
+			go sc.dispatchToConsumers(ctx, consumerChnls, icm)
 			consumer.MarkOffset(msg, "")
 		case ntf := <-consumer.Notifications():
 			logger.Debugw("group-received-notification", log.Fields{"notification": ntf})
@@ -1003,22 +1003,22 @@ startloop:
 		}
 	}
 	logger.Infow("group-consumer-stopped", log.Fields{"topic": topic.Name})
-	sc.setUnhealthy()
+	sc.setUnhealthy(ctx)
 }
 
-func (sc *SaramaClient) startConsumers(topic *Topic) error {
+func (sc *SaramaClient) startConsumers(ctx context.Context, topic *Topic) error {
 	logger.Debugw("starting-consumers", log.Fields{"topic": topic.Name})
 	var consumerCh *consumerChannels
-	if consumerCh = sc.getConsumerChannel(topic); consumerCh == nil {
+	if consumerCh = sc.getConsumerChannel(ctx, topic); consumerCh == nil {
 		logger.Errorw("consumers-not-exist", log.Fields{"topic": topic.Name})
 		return errors.New("consumers-not-exist")
 	}
 	// For each consumer listening for that topic, start a consumption loop
 	for _, consumer := range consumerCh.consumers {
 		if pConsumer, ok := consumer.(sarama.PartitionConsumer); ok {
-			go sc.consumeFromAPartition(topic, pConsumer, consumerCh)
+			go sc.consumeFromAPartition(ctx, topic, pConsumer, consumerCh)
 		} else if gConsumer, ok := consumer.(*scc.Consumer); ok {
-			go sc.consumeGroupMessages(topic, gConsumer, consumerCh)
+			go sc.consumeGroupMessages(ctx, topic, gConsumer, consumerCh)
 		} else {
 			logger.Errorw("invalid-consumer", log.Fields{"topic": topic})
 			return errors.New("invalid-consumer")
@@ -1029,11 +1029,11 @@ func (sc *SaramaClient) startConsumers(topic *Topic) error {
 
 //// setupConsumerChannel creates a consumerChannels object for that topic and add it to the consumerChannels map
 //// for that topic.  It also starts the routine that listens for messages on that topic.
-func (sc *SaramaClient) setupPartitionConsumerChannel(topic *Topic, initialOffset int64) (chan *ic.InterContainerMessage, error) {
+func (sc *SaramaClient) setupPartitionConsumerChannel(ctx context.Context, topic *Topic, initialOffset int64) (chan *ic.InterContainerMessage, error) {
 	var pConsumers []sarama.PartitionConsumer
 	var err error
 
-	if pConsumers, err = sc.createPartitionConsumers(topic, initialOffset); err != nil {
+	if pConsumers, err = sc.createPartitionConsumers(ctx, topic, initialOffset); err != nil {
 		logger.Errorw("creating-partition-consumers-failure", log.Fields{"error": err, "topic": topic.Name})
 		return nil, err
 	}
@@ -1052,11 +1052,11 @@ func (sc *SaramaClient) setupPartitionConsumerChannel(topic *Topic, initialOffse
 	}
 
 	// Add the consumers channel to the map
-	sc.addTopicToConsumerChannelMap(topic.Name, cc)
+	sc.addTopicToConsumerChannelMap(ctx, topic.Name, cc)
 
 	//Start a consumers to listen on that specific topic
 	go func() {
-		if err := sc.startConsumers(topic); err != nil {
+		if err := sc.startConsumers(ctx, topic); err != nil {
 			logger.Errorw("start-consumers-failed", log.Fields{
 				"topic": topic,
 				"error": err})
@@ -1068,11 +1068,11 @@ func (sc *SaramaClient) setupPartitionConsumerChannel(topic *Topic, initialOffse
 
 // setupConsumerChannel creates a consumerChannels object for that topic and add it to the consumerChannels map
 // for that topic.  It also starts the routine that listens for messages on that topic.
-func (sc *SaramaClient) setupGroupConsumerChannel(topic *Topic, groupId string, initialOffset int64) (chan *ic.InterContainerMessage, error) {
+func (sc *SaramaClient) setupGroupConsumerChannel(ctx context.Context, topic *Topic, groupId string, initialOffset int64) (chan *ic.InterContainerMessage, error) {
 	// TODO:  Replace this development partition consumers with a group consumers
 	var pConsumer *scc.Consumer
 	var err error
-	if pConsumer, err = sc.createGroupConsumer(topic, groupId, initialOffset, DefaultMaxRetries); err != nil {
+	if pConsumer, err = sc.createGroupConsumer(ctx, topic, groupId, initialOffset, DefaultMaxRetries); err != nil {
 		logger.Errorw("creating-partition-consumers-failure", log.Fields{"error": err, "topic": topic.Name})
 		return nil, err
 	}
@@ -1085,11 +1085,11 @@ func (sc *SaramaClient) setupGroupConsumerChannel(topic *Topic, groupId string, 
 	}
 
 	// Add the consumers channel to the map
-	sc.addTopicToConsumerChannelMap(topic.Name, cc)
+	sc.addTopicToConsumerChannelMap(ctx, topic.Name, cc)
 
 	//Start a consumers to listen on that specific topic
 	go func() {
-		if err := sc.startConsumers(topic); err != nil {
+		if err := sc.startConsumers(ctx, topic); err != nil {
 			logger.Errorw("start-consumers-failed", log.Fields{
 				"topic": topic,
 				"error": err})
@@ -1099,7 +1099,7 @@ func (sc *SaramaClient) setupGroupConsumerChannel(topic *Topic, groupId string, 
 	return consumerListeningChannel, nil
 }
 
-func (sc *SaramaClient) createPartitionConsumers(topic *Topic, initialOffset int64) ([]sarama.PartitionConsumer, error) {
+func (sc *SaramaClient) createPartitionConsumers(ctx context.Context, topic *Topic, initialOffset int64) ([]sarama.PartitionConsumer, error) {
 	logger.Debugw("creating-partition-consumers", log.Fields{"topic": topic.Name})
 	partitionList, err := sc.consumer.Partitions(topic.Name)
 	if err != nil {
@@ -1119,7 +1119,7 @@ func (sc *SaramaClient) createPartitionConsumers(topic *Topic, initialOffset int
 	return pConsumers, nil
 }
 
-func removeChannel(channels []chan *ic.InterContainerMessage, ch <-chan *ic.InterContainerMessage) []chan *ic.InterContainerMessage {
+func removeChannel(ctx context.Context, channels []chan *ic.InterContainerMessage, ch <-chan *ic.InterContainerMessage) []chan *ic.InterContainerMessage {
 	var i int
 	var channel chan *ic.InterContainerMessage
 	for i, channel = range channels {
@@ -1133,7 +1133,7 @@ func removeChannel(channels []chan *ic.InterContainerMessage, ch <-chan *ic.Inte
 	return channels
 }
 
-func (sc *SaramaClient) addToGroupConsumers(topic string, consumer *scc.Consumer) {
+func (sc *SaramaClient) addToGroupConsumers(ctx context.Context, topic string, consumer *scc.Consumer) {
 	sc.lockOfGroupConsumers.Lock()
 	defer sc.lockOfGroupConsumers.Unlock()
 	if _, exist := sc.groupConsumers[topic]; !exist {
@@ -1141,7 +1141,7 @@ func (sc *SaramaClient) addToGroupConsumers(topic string, consumer *scc.Consumer
 	}
 }
 
-func (sc *SaramaClient) deleteFromGroupConsumers(topic string) error {
+func (sc *SaramaClient) deleteFromGroupConsumers(ctx context.Context, topic string) error {
 	sc.lockOfGroupConsumers.Lock()
 	defer sc.lockOfGroupConsumers.Unlock()
 	if _, exist := sc.groupConsumers[topic]; exist {

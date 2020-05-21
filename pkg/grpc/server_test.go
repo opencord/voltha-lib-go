@@ -27,7 +27,7 @@ type MockReadyProbe struct {
 	Ready bool
 }
 
-func (m *MockReadyProbe) IsReady() bool {
+func (m *MockReadyProbe) IsReady(ctx context.Context) bool {
 	return m.Ready
 }
 
@@ -38,15 +38,15 @@ func MockUnaryHandler(ctx context.Context, req interface{}) (interface{}, error)
 }
 
 func TestNewGrpcServer(t *testing.T) {
-	server := NewGrpcServer("127.0.0.1", 1234, nil, false, nil)
+	server := NewGrpcServer(context.Background(), "127.0.0.1", 1234, nil, false, nil)
 	assert.NotNil(t, server)
 }
 
 func TestMkServerInterceptorNoProbe(t *testing.T) {
-	server := NewGrpcServer("127.0.0.1", 1234, nil, false, nil)
+	server := NewGrpcServer(context.Background(), "127.0.0.1", 1234, nil, false, nil)
 	assert.NotNil(t, server)
 
-	f := mkServerInterceptor(server)
+	f := mkServerInterceptor(context.Background(), server)
 	assert.NotNil(t, f)
 
 	req := "SomeRequest"
@@ -64,10 +64,10 @@ func TestMkServerInterceptorNoProbe(t *testing.T) {
 func TestMkServerInterceptorReady(t *testing.T) {
 	probe := &MockReadyProbe{Ready: true}
 
-	server := NewGrpcServer("127.0.0.1", 1234, nil, false, probe)
+	server := NewGrpcServer(context.Background(), "127.0.0.1", 1234, nil, false, probe)
 	assert.NotNil(t, server)
 
-	f := mkServerInterceptor(server)
+	f := mkServerInterceptor(context.Background(), server)
 	assert.NotNil(t, f)
 
 	req := "SomeRequest"
@@ -85,10 +85,10 @@ func TestMkServerInterceptorReady(t *testing.T) {
 func TestMkServerInterceptorNotReady(t *testing.T) {
 	probe := &MockReadyProbe{Ready: false}
 
-	server := NewGrpcServer("127.0.0.1", 1234, nil, false, probe)
+	server := NewGrpcServer(context.Background(), "127.0.0.1", 1234, nil, false, probe)
 	assert.NotNil(t, server)
 
-	f := mkServerInterceptor(server)
+	f := mkServerInterceptor(context.Background(), server)
 	assert.NotNil(t, f)
 
 	req := "SomeRequest"

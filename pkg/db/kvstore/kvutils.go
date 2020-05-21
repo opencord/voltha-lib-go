@@ -15,7 +15,10 @@
  */
 package kvstore
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+)
 
 // ToString converts an interface value to a string.  The interface should either be of
 // a string type or []byte.  Otherwise, an error is returned.
@@ -32,7 +35,7 @@ func ToString(value interface{}) (string, error) {
 
 // ToByte converts an interface value to a []byte.  The interface should either be of
 // a string type or []byte.  Otherwise, an error is returned.
-func ToByte(value interface{}) ([]byte, error) {
+func ToByte(ctx context.Context, value interface{}) ([]byte, error) {
 	switch t := value.(type) {
 	case []byte:
 		return value.([]byte), nil
