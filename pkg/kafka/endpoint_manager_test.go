@@ -72,18 +72,18 @@ func (ep *EPTest) initBackend() error {
 	if err != nil {
 		return err
 	}
-	ep.etcdServer = etcd.StartEtcdServer(etcd.MKConfig(configName, kvClientPort, peerPort, storageDir, logLevel))
+	ep.etcdServer = etcd.StartEtcdServer(context.Background(), etcd.MKConfig(context.Background(), configName, kvClientPort, peerPort, storageDir, logLevel))
 	if ep.etcdServer == nil {
 		return status.Error(codes.Internal, "Embedded server failed to start")
 	}
 
-	ep.backend = db.NewBackend("etcd", "127.0.0.1", kvClientPort, timeout, "service/voltha")
+	ep.backend = db.NewBackend(context.Background(), "etcd", "127.0.0.1", kvClientPort, timeout, "service/voltha")
 	return nil
 }
 
 func (ep *EPTest) stopAll() {
 	if ep.etcdServer != nil {
-		ep.etcdServer.Stop()
+		ep.etcdServer.Stop(context.Background())
 	}
 }
 
@@ -190,12 +190,12 @@ func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serv
 	total := make([]int, replicas)
 	for i := 0; i < numDevices; i++ {
 		deviceID := uuid.New().String()
-		endpoint, err := tm.GetEndpoint(deviceID, serviceType)
+		endpoint, err := tm.GetEndpoint(context.Background(), deviceID, serviceType)
 		if err != nil {
 			logger.Fatalw("error-getting-endpoint", log.Fields{"error": err})
 		}
 		deviceIDs[deviceID] = endpoint
-		replicaID, err := tm.GetReplicaAssignment(deviceID, serviceType)
+		replicaID, err := tm.GetReplicaAssignment(context.Background(), deviceID, serviceType)
 		if err != nil {
 			logger.Fatalw("error-getting-endpoint", log.Fields{"error": err})
 		}
@@ -209,7 +209,7 @@ func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serv
 	numIterations := 10
 	for i := 0; i < numIterations; i++ {
 		for deviceID, expectedEndpoint := range deviceIDs {
-			endpointByServiceType, err := tm.GetEndpoint(deviceID, serviceType)
+			endpointByServiceType, err := tm.GetEndpoint(context.Background(), deviceID, serviceType)
 			if err != nil {
 				logger.Fatalw("error-getting-endpoint", log.Fields{"error": err})
 			}
@@ -219,12 +219,12 @@ func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serv
 
 	// Verify that a device belong to the correct node
 	for deviceID := range deviceIDs {
-		replicaID, err := tm.GetReplicaAssignment(deviceID, serviceType)
+		replicaID, err := tm.GetReplicaAssignment(context.Background(), deviceID, serviceType)
 		if err != nil {
 			logger.Fatalw("error-getting-topic", log.Fields{"error": err})
 		}
 		for k := 0; k < replicas; k++ {
-			owned, err := tm.IsDeviceOwnedByService(deviceID, serviceType, int32(k))
+			owned, err := tm.IsDeviceOwnedByService(context.Background(), deviceID, serviceType, int32(k))
 			if err != nil {
 				logger.Fatalw("error-verifying-device-ownership", log.Fields{"error": err})
 			}
@@ -238,10 +238,11 @@ func TestEndpointManagerSuite(t *testing.T) {
 	assert.NotNil(t, tmt)
 
 	tm := NewEndpointManager(
+		context.Background(),
 		tmt.backend,
-		PartitionCount(1117),
-		ReplicationFactor(200),
-		Load(1.1))
+		PartitionCount(context.Background(), 1117),
+		ReplicationFactor(context.Background(), 200),
+		Load(context.Background(), 1.1))
 
 	defer tmt.stopAll()
 

@@ -50,15 +50,15 @@ type EndpointManager interface {
 
 	// GetEndpoint is called to get the endpoint to communicate with for a specific device and service type.  For
 	// now this will return the topic name
-	GetEndpoint(deviceID string, serviceType string) (Endpoint, error)
+	GetEndpoint(ctx context.Context, deviceID string, serviceType string) (Endpoint, error)
 
 	// IsDeviceOwnedByService is invoked when a specific service (service type + replicaNumber) is restarted and
 	// devices owned by that service need to be reconciled
-	IsDeviceOwnedByService(deviceID string, serviceType string, replicaNumber int32) (bool, error)
+	IsDeviceOwnedByService(ctx context.Context, deviceID string, serviceType string, replicaNumber int32) (bool, error)
 
 	// GetReplicaAssignment returns the replica number of the service that owns the deviceID.  This is used by the
 	// test only
-	GetReplicaAssignment(deviceID string, serviceType string) (ReplicaID, error)
+	GetReplicaAssignment(ctx context.Context, deviceID string, serviceType string) (ReplicaID, error)
 }
 
 type service struct {
@@ -81,25 +81,25 @@ type endpointManager struct {
 
 type EndpointManagerOption func(*endpointManager)
 
-func PartitionCount(count int) EndpointManagerOption {
+func PartitionCount(ctx context.Context, count int) EndpointManagerOption {
 	return func(args *endpointManager) {
 		args.partitionCount = count
 	}
 }
 
-func ReplicationFactor(replicas int) EndpointManagerOption {
+func ReplicationFactor(ctx context.Context, replicas int) EndpointManagerOption {
 	return func(args *endpointManager) {
 		args.replicationFactor = replicas
 	}
 }
 
-func Load(load float64) EndpointManagerOption {
+func Load(ctx context.Context, load float64) EndpointManagerOption {
 	return func(args *endpointManager) {
 		args.load = load
 	}
 }
 
-func newEndpointManager(backend *db.Backend, opts ...EndpointManagerOption) EndpointManager {
+func newEndpointManager(ctx context.Context, backend *db.Backend, opts ...EndpointManagerOption) EndpointManager {
 	tm := &endpointManager{
 		partitionCount:       DefaultPartitionCount,
 		replicationFactor:    DefaultReplicationFactor,
@@ -115,13 +115,13 @@ func newEndpointManager(backend *db.Backend, opts ...EndpointManagerOption) Endp
 	return tm
 }
 
-func NewEndpointManager(backend *db.Backend, opts ...EndpointManagerOption) EndpointManager {
-	return newEndpointManager(backend, opts...)
+func NewEndpointManager(ctx context.Context, backend *db.Backend, opts ...EndpointManagerOption) EndpointManager {
+	return newEndpointManager(ctx, backend, opts...)
 }
 
-func (ep *endpointManager) GetEndpoint(deviceID string, serviceType string) (Endpoint, error) {
+func (ep *endpointManager) GetEndpoint(ctx context.Context, deviceID string, serviceType string) (Endpoint, error) {
 	logger.Debugw("getting-endpoint", log.Fields{"device-id": deviceID, "service": serviceType})
-	owner, err := ep.getOwner(deviceID, serviceType)
+	owner, err := ep.getOwner(ctx, deviceID, serviceType)
 	if err != nil {
 		return "", err
 	}
@@ -129,7 +129,7 @@ func (ep *endpointManager) GetEndpoint(deviceID string, serviceType string) (End
 	if !ok {
 		return "", status.Errorf(codes.Aborted, "invalid-member-%v", owner)
 	}
-	endpoint := m.getEndPoint()
+	endpoint := m.getEndPoint(ctx)
 	if endpoint == "" {
 		return "", status.Errorf(codes.Unavailable, "endpoint-not-set-%s", serviceType)
 	}
@@ -137,9 +137,9 @@ func (ep *endpointManager) GetEndpoint(deviceID string, serviceType string) (End
 	return endpoint, nil
 }
 
-func (ep *endpointManager) IsDeviceOwnedByService(deviceID string, serviceType string, replicaNumber int32) (bool, error) {
+func (ep *endpointManager) IsDeviceOwnedByService(ctx context.Context, deviceID string, serviceType string, replicaNumber int32) (bool, error) {
 	logger.Debugw("device-ownership", log.Fields{"device-id": deviceID, "service": serviceType, "replica-number": replicaNumber})
-	owner, err := ep.getOwner(deviceID, serviceType)
+	owner, err := ep.getOwner(ctx, deviceID, serviceType)
 	if err != nil {
 		return false, nil
 	}
@@ -147,11 +147,11 @@ func (ep *endpointManager) IsDeviceOwnedByService(deviceID string, serviceType s
 	if !ok {
 		return false, status.Errorf(codes.Aborted, "invalid-member-%v", owner)
 	}
-	return m.getReplica() == ReplicaID(replicaNumber), nil
+	return m.getReplica(ctx) == ReplicaID(replicaNumber), nil
 }
 
-func (ep *endpointManager) GetReplicaAssignment(deviceID string, serviceType string) (ReplicaID, error) {
-	owner, err := ep.getOwner(deviceID, serviceType)
+func (ep *endpointManager) GetReplicaAssignment(ctx context.Context, deviceID string, serviceType string) (ReplicaID, error) {
+	owner, err := ep.getOwner(ctx, deviceID, serviceType)
 	if err != nil {
 		return 0, nil
 	}
@@ -159,19 +159,19 @@ func (ep *endpointManager) GetReplicaAssignment(deviceID string, serviceType str
 	if !ok {
 		return 0, status.Errorf(codes.Aborted, "invalid-member-%v", owner)
 	}
-	return m.getReplica(), nil
+	return m.getReplica(ctx), nil
 }
 
-func (ep *endpointManager) getOwner(deviceID string, serviceType string) (consistent.Member, error) {
-	serv, dType, err := ep.getServiceAndDeviceType(serviceType)
+func (ep *endpointManager) getOwner(ctx context.Context, deviceID string, serviceType string) (consistent.Member, error) {
+	serv, dType, err := ep.getServiceAndDeviceType(ctx, serviceType)
 	if err != nil {
 		return nil, err
 	}
-	key := ep.makeKey(deviceID, dType, serviceType)
+	key := ep.makeKey(ctx, deviceID, dType, serviceType)
 	return serv.consistentRing.LocateKey(key), nil
 }
 
-func (ep *endpointManager) getServiceAndDeviceType(serviceType string) (*service, string, error) {
+func (ep *endpointManager) getServiceAndDeviceType(ctx context.Context, serviceType string) (*service, string, error) {
 	// Check whether service exist
 	ep.servicesLock.RLock()
 	serv, serviceExist := ep.services[serviceType]
@@ -179,7 +179,7 @@ func (ep *endpointManager) getServiceAndDeviceType(serviceType string) (*service
 
 	// Load the service and device types if needed
 	if !serviceExist || serv == nil || int(serv.totalReplicas) != len(serv.consistentRing.GetMembers()) {
-		if err := ep.loadServices(); err != nil {
+		if err := ep.loadServices(ctx); err != nil {
 			return nil, "", err
 		}
 
@@ -202,7 +202,7 @@ func (ep *endpointManager) getServiceAndDeviceType(serviceType string) (*service
 	return nil, "", status.Errorf(codes.NotFound, "service-%s", serviceType)
 }
 
-func (ep *endpointManager) getConsistentConfig() consistent.Config {
+func (ep *endpointManager) getConsistentConfig(ctx context.Context) consistent.Config {
 	return consistent.Config{
 		PartitionCount:    ep.partitionCount,
 		ReplicationFactor: ep.replicationFactor,
@@ -214,7 +214,7 @@ func (ep *endpointManager) getConsistentConfig() consistent.Config {
 // loadServices loads the services (adapters) and device types in memory. Because of the small size of the data and
 // the data format in the dB being binary protobuf then it is better to load all the data if inconsistency is detected,
 // instead of watching for updates in the dB and acting on it.
-func (ep *endpointManager) loadServices() error {
+func (ep *endpointManager) loadServices(ctx context.Context) error {
 	ep.servicesLock.Lock()
 	defer ep.servicesLock.Unlock()
 	ep.deviceTypeServiceMapLock.Lock()
@@ -246,14 +246,14 @@ func (ep *endpointManager) loadServices() error {
 					id:             adapter.Type,
 					totalReplicas:  adapter.TotalReplicas,
 					replicas:       make(map[ReplicaID]Endpoint),
-					consistentRing: consistent.New(nil, ep.getConsistentConfig()),
+					consistentRing: consistent.New(nil, ep.getConsistentConfig(ctx)),
 				}
 
 			}
 			currentReplica := ReplicaID(adapter.CurrentReplica)
 			endpoint := Endpoint(adapter.Endpoint)
 			ep.services[adapter.Type].replicas[currentReplica] = endpoint
-			ep.services[adapter.Type].consistentRing.Add(newMember(adapter.Id, adapter.Type, adapter.Vendor, endpoint, adapter.Version, currentReplica))
+			ep.services[adapter.Type].consistentRing.Add(newMember(ctx, adapter.Id, adapter.Type, adapter.Vendor, endpoint, adapter.Version, currentReplica))
 		}
 	}
 	// Load the device types
@@ -279,7 +279,7 @@ func (ep *endpointManager) loadServices() error {
 			logger.Debugw("service", log.Fields{"service": key, "expected-replica": val.totalReplicas, "replicas": len(val.consistentRing.GetMembers())})
 			for _, m := range members {
 				n := m.(Member)
-				logger.Debugw("service-loaded", log.Fields{"serviceId": n.getID(), "serviceType": n.getServiceType(), "replica": n.getReplica(), "endpoint": n.getEndPoint()})
+				logger.Debugw("service-loaded", log.Fields{"serviceId": n.getID(ctx), "serviceType": n.getServiceType(ctx), "replica": n.getReplica(ctx), "endpoint": n.getEndPoint(ctx)})
 			}
 		}
 		logger.Debugw("device-types-loaded", log.Fields{"device-types": ep.deviceTypeServiceMap})
@@ -288,7 +288,7 @@ func (ep *endpointManager) loadServices() error {
 }
 
 // makeKey creates the string that the hash function uses to create the hash
-func (ep *endpointManager) makeKey(deviceID string, deviceType string, serviceType string) []byte {
+func (ep *endpointManager) makeKey(ctx context.Context, deviceID string, deviceType string, serviceType string) []byte {
 	return []byte(fmt.Sprintf("%s_%s_%s", serviceType, deviceType, deviceID))
 }
 
@@ -304,10 +304,10 @@ func (h hasher) Sum64(data []byte) uint64 {
 // Member represents a member on the consistent ring
 type Member interface {
 	String() string
-	getReplica() ReplicaID
-	getEndPoint() Endpoint
-	getID() string
-	getServiceType() string
+	getReplica(ctx context.Context) ReplicaID
+	getEndPoint(ctx context.Context) Endpoint
+	getID(ctx context.Context) string
+	getServiceType(ctx context.Context) string
 }
 
 // member implements the Member interface
@@ -320,7 +320,7 @@ type member struct {
 	endpoint    Endpoint
 }
 
-func newMember(ID string, serviceType string, vendor string, endPoint Endpoint, version string, replica ReplicaID) Member {
+func newMember(ctx context.Context, ID string, serviceType string, vendor string, endPoint Endpoint, version string, replica ReplicaID) Member {
 	return &member{
 		id:          ID,
 		serviceType: serviceType,
@@ -335,18 +335,18 @@ func (m *member) String() string {
 	return string(m.endpoint)
 }
 
-func (m *member) getReplica() ReplicaID {
+func (m *member) getReplica(ctx context.Context) ReplicaID {
 	return m.replica
 }
 
-func (m *member) getEndPoint() Endpoint {
+func (m *member) getEndPoint(ctx context.Context) Endpoint {
 	return m.endpoint
 }
 
-func (m *member) getID() string {
+func (m *member) getID(ctx context.Context) string {
 	return m.id
 }
 
-func (m *member) getServiceType() string {
+func (m *member) getServiceType(ctx context.Context) string {
 	return m.serviceType
 }

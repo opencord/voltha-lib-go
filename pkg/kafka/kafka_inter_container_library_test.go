@@ -16,33 +16,34 @@
 package kafka
 
 import (
+	"context"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestDefaultKafkaProxy(t *testing.T) {
-	actualResult := newInterContainerProxy()
+	actualResult := newInterContainerProxy(context.Background())
 	assert.Equal(t, actualResult.kafkaHost, DefaultKafkaHost)
 	assert.Equal(t, actualResult.kafkaPort, DefaultKafkaPort)
 	assert.Equal(t, actualResult.defaultRequestHandlerInterface, interface{}(nil))
 }
 
 func TestKafkaProxyOptionHost(t *testing.T) {
-	actualResult := newInterContainerProxy(InterContainerHost("10.20.30.40"))
+	actualResult := newInterContainerProxy(context.Background(), InterContainerHost(context.Background(), "10.20.30.40"))
 	assert.Equal(t, actualResult.kafkaHost, "10.20.30.40")
 	assert.Equal(t, actualResult.kafkaPort, DefaultKafkaPort)
 	assert.Equal(t, actualResult.defaultRequestHandlerInterface, interface{}(nil))
 }
 
 func TestKafkaProxyOptionPort(t *testing.T) {
-	actualResult := newInterContainerProxy(InterContainerPort(1020))
+	actualResult := newInterContainerProxy(context.Background(), InterContainerPort(context.Background(), 1020))
 	assert.Equal(t, actualResult.kafkaHost, DefaultKafkaHost)
 	assert.Equal(t, actualResult.kafkaPort, 1020)
 	assert.Equal(t, actualResult.defaultRequestHandlerInterface, interface{}(nil))
 }
 
 func TestKafkaProxyOptionTopic(t *testing.T) {
-	actualResult := newInterContainerProxy(DefaultTopic(&Topic{Name: "Adapter"}))
+	actualResult := newInterContainerProxy(context.Background(), DefaultTopic(context.Background(), &Topic{Name: "Adapter"}))
 	assert.Equal(t, actualResult.kafkaHost, DefaultKafkaHost)
 	assert.Equal(t, actualResult.kafkaPort, DefaultKafkaPort)
 	assert.Equal(t, actualResult.defaultRequestHandlerInterface, interface{}(nil))
@@ -54,7 +55,7 @@ type myInterface struct {
 
 func TestKafkaProxyOptionTargetInterface(t *testing.T) {
 	var m *myInterface
-	actualResult := newInterContainerProxy(RequestHandlerInterface(m))
+	actualResult := newInterContainerProxy(context.Background(), RequestHandlerInterface(context.Background(), m))
 	assert.Equal(t, actualResult.kafkaHost, DefaultKafkaHost)
 	assert.Equal(t, actualResult.kafkaPort, DefaultKafkaPort)
 	assert.Equal(t, actualResult.defaultRequestHandlerInterface, m)
@@ -63,10 +64,11 @@ func TestKafkaProxyOptionTargetInterface(t *testing.T) {
 func TestKafkaProxyChangeAllOptions(t *testing.T) {
 	var m *myInterface
 	actualResult := newInterContainerProxy(
-		InterContainerHost("10.20.30.40"),
-		InterContainerPort(1020),
-		DefaultTopic(&Topic{Name: "Adapter"}),
-		RequestHandlerInterface(m))
+		context.Background(),
+		InterContainerHost(context.Background(), "10.20.30.40"),
+		InterContainerPort(context.Background(), 1020),
+		DefaultTopic(context.Background(), &Topic{Name: "Adapter"}),
+		RequestHandlerInterface(context.Background(), m))
 	assert.Equal(t, actualResult.kafkaHost, "10.20.30.40")
 	assert.Equal(t, actualResult.kafkaPort, 1020)
 	assert.Equal(t, actualResult.defaultRequestHandlerInterface, m)
@@ -77,17 +79,18 @@ func TestKafkaProxyEnableLivenessChannel(t *testing.T) {
 	var m *myInterface
 
 	// Note: This doesn't actually start the client
-	client := NewSaramaClient()
+	client := NewSaramaClient(context.Background())
 
 	probe := newInterContainerProxy(
-		InterContainerHost("10.20.30.40"),
-		InterContainerPort(1020),
-		DefaultTopic(&Topic{Name: "Adapter"}),
-		RequestHandlerInterface(m),
-		MsgClient(client),
+		context.Background(),
+		InterContainerHost(context.Background(), "10.20.30.40"),
+		InterContainerPort(context.Background(), 1020),
+		DefaultTopic(context.Background(), &Topic{Name: "Adapter"}),
+		RequestHandlerInterface(context.Background(), m),
+		MsgClient(context.Background(), client),
 	)
 
-	ch := probe.EnableLivenessChannel(true)
+	ch := probe.EnableLivenessChannel(context.Background(), true)
 
 	// The channel should have one "true" message on it
 	assert.NotEmpty(t, ch)

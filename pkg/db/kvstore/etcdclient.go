@@ -40,7 +40,7 @@ type EtcdClient struct {
 }
 
 // NewEtcdClient returns a new client for the Etcd KV store
-func NewEtcdClient(addr string, timeout time.Duration, level log.LogLevel) (*EtcdClient, error) {
+func NewEtcdClient(ctx context.Context, addr string, timeout time.Duration, level log.LogLevel) (*EtcdClient, error) {
 	logconfig := log.ConstructZapConfig(log.JSON, level, log.Fields{})
 
 	c, err := v3Client.New(v3Client.Config{
@@ -219,7 +219,7 @@ func (c *EtcdClient) Reserve(ctx context.Context, key string, value interface{},
 			return nil, err
 		}
 		if m != nil {
-			if m.Key == key && isEqual(m.Value, value) {
+			if m.Key == key && isEqual(ctx, m.Value, value) {
 				// My reservation is successful - register it.  For now, support is only for 1 reservation per key
 				// per session.
 				reservationSuccessful = true
@@ -316,19 +316,19 @@ func (c *EtcdClient) Watch(ctx context.Context, key string, withPrefix bool) cha
 	channelMap := make(map[chan *Event]v3Client.Watcher)
 	channelMap[ch] = w
 
-	channelMaps := c.addChannelMap(key, channelMap)
+	channelMaps := c.addChannelMap(ctx, key, channelMap)
 
 	// Changing the log field (from channelMaps) as the underlying logger cannot format the map of channels into a
 	// json format.
 	logger.Debugw("watched-channels", log.Fields{"len": len(channelMaps)})
 	// Launch a go routine to listen for updates
-	go c.listenForKeyChange(channel, ch, cancel)
+	go c.listenForKeyChange(ctx, channel, ch, cancel)
 
 	return ch
 
 }
 
-func (c *EtcdClient) addChannelMap(key string, channelMap map[chan *Event]v3Client.Watcher) []map[chan *Event]v3Client.Watcher {
+func (c *EtcdClient) addChannelMap(ctx context.Context, key string, channelMap map[chan *Event]v3Client.Watcher) []map[chan *Event]v3Client.Watcher {
 	var channels interface{}
 	var exists bool
 
@@ -342,7 +342,7 @@ func (c *EtcdClient) addChannelMap(key string, channelMap map[chan *Event]v3Clie
 	return channels.([]map[chan *Event]v3Client.Watcher)
 }
 
-func (c *EtcdClient) removeChannelMap(key string, pos int) []map[chan *Event]v3Client.Watcher {
+func (c *EtcdClient) removeChannelMap(ctx context.Context, key string, pos int) []map[chan *Event]v3Client.Watcher {
 	var channels interface{}
 	var exists bool
 
@@ -354,7 +354,7 @@ func (c *EtcdClient) removeChannelMap(key string, pos int) []map[chan *Event]v3C
 	return channels.([]map[chan *Event]v3Client.Watcher)
 }
 
-func (c *EtcdClient) getChannelMaps(key string) ([]map[chan *Event]v3Client.Watcher, bool) {
+func (c *EtcdClient) getChannelMaps(ctx context.Context, key string) ([]map[chan *Event]v3Client.Watcher, bool) {
 	var channels interface{}
 	var exists bool
 
@@ -369,12 +369,12 @@ func (c *EtcdClient) getChannelMaps(key string) ([]map[chan *Event]v3Client.Watc
 
 // CloseWatch closes a specific watch. Both the key and the channel are required when closing a watch as there
 // may be multiple listeners on the same key.  The previously created channel serves as a key
-func (c *EtcdClient) CloseWatch(key string, ch chan *Event) {
+func (c *EtcdClient) CloseWatch(ctx context.Context, key string, ch chan *Event) {
 	// Get the array of channels mapping
 	var watchedChannels []map[chan *Event]v3Client.Watcher
 	var ok bool
 
-	if watchedChannels, ok = c.getChannelMaps(key); !ok {
+	if watchedChannels, ok = c.getChannelMaps(ctx, key); !ok {
 		logger.Warnw("key-has-no-watched-channels", log.Fields{"key": key})
 		return
 	}
@@ -392,27 +392,27 @@ func (c *EtcdClient) CloseWatch(key string, ch chan *Event) {
 		}
 	}
 
-	channelMaps, _ := c.getChannelMaps(key)
+	channelMaps, _ := c.getChannelMaps(ctx, key)
 	// Remove that entry if present
 	if pos >= 0 {
-		channelMaps = c.removeChannelMap(key, pos)
+		channelMaps = c.removeChannelMap(ctx, key, pos)
 	}
 	logger.Infow("watcher-channel-exiting", log.Fields{"key": key, "channel": channelMaps})
 }
 
-func (c *EtcdClient) listenForKeyChange(channel v3Client.WatchChan, ch chan<- *Event, cancel context.CancelFunc) {
+func (c *EtcdClient) listenForKeyChange(ctx context.Context, channel v3Client.WatchChan, ch chan<- *Event, cancel context.CancelFunc) {
 	logger.Debug("start-listening-on-channel ...")
 	defer cancel()
 	defer close(ch)
 	for resp := range channel {
 		for _, ev := range resp.Events {
-			ch <- NewEvent(getEventType(ev), ev.Kv.Key, ev.Kv.Value, ev.Kv.Version)
+			ch <- NewEvent(getEventType(ctx, ev), ev.Kv.Key, ev.Kv.Value, ev.Kv.Version)
 		}
 	}
 	logger.Debug("stop-listening-on-channel ...")
 }
 
-func getEventType(event *v3Client.Event) int {
+func getEventType(ctx context.Context, event *v3Client.Event) int {
 	switch event.Type {
 	case v3Client.EventTypePut:
 		return PUT
@@ -423,27 +423,27 @@ func getEventType(event *v3Client.Event) int {
 }
 
 // Close closes the KV store client
-func (c *EtcdClient) Close() {
+func (c *EtcdClient) Close(ctx context.Context) {
 	if err := c.ectdAPI.Close(); err != nil {
 		logger.Errorw("error-closing-client", log.Fields{"error": err})
 	}
 }
 
-func (c *EtcdClient) addLockName(lockName string, lock *v3Concurrency.Mutex, session *v3Concurrency.Session) {
+func (c *EtcdClient) addLockName(ctx context.Context, lockName string, lock *v3Concurrency.Mutex, session *v3Concurrency.Session) {
 	c.lockToMutexLock.Lock()
 	defer c.lockToMutexLock.Unlock()
 	c.lockToMutexMap[lockName] = lock
 	c.lockToSessionMap[lockName] = session
 }
 
-func (c *EtcdClient) deleteLockName(lockName string) {
+func (c *EtcdClient) deleteLockName(ctx context.Context, lockName string) {
 	c.lockToMutexLock.Lock()
 	defer c.lockToMutexLock.Unlock()
 	delete(c.lockToMutexMap, lockName)
 	delete(c.lockToSessionMap, lockName)
 }
 
-func (c *EtcdClient) getLock(lockName string) (*v3Concurrency.Mutex, *v3Concurrency.Session) {
+func (c *EtcdClient) getLock(ctx context.Context, lockName string) (*v3Concurrency.Mutex, *v3Concurrency.Session) {
 	c.lockToMutexLock.Lock()
 	defer c.lockToMutexLock.Unlock()
 	var lock *v3Concurrency.Mutex
@@ -464,12 +464,12 @@ func (c *EtcdClient) AcquireLock(ctx context.Context, lockName string, timeout t
 		//cancel()
 		return err
 	}
-	c.addLockName(lockName, mu, session)
+	c.addLockName(ctx, lockName, mu, session)
 	return nil
 }
 
-func (c *EtcdClient) ReleaseLock(lockName string) error {
-	lock, session := c.getLock(lockName)
+func (c *EtcdClient) ReleaseLock(ctx context.Context, lockName string) error {
+	lock, session := c.getLock(ctx, lockName)
 	var err error
 	if lock != nil {
 		if e := lock.Unlock(context.Background()); e != nil {
@@ -481,7 +481,7 @@ func (c *EtcdClient) ReleaseLock(lockName string) error {
 			err = e
 		}
 	}
-	c.deleteLockName(lockName)
+	c.deleteLockName(ctx, lockName)
 
 	return err
 }
