@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc4f6ac5_9f449f36",
+        "filename": "VERSION",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-05-22T16:16:31Z",
+      "side": 1,
+      "message": "Should be 3.1.12, I believe? (-dev version is supposed to be the version worked towards)",
+      "revId": "58fb9aa30b5f45449c246ae14fa5e7c6e15005d3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fecd5e4_b02b966f",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-05-22T16:16:31Z",
+      "side": 1,
+      "message": "Can more cleanly use os.LookupEnv() instead.  \n(Will return a boolean to indicate presence of env var.)",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 81
+      },
+      "revId": "58fb9aa30b5f45449c246ae14fa5e7c6e15005d3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
