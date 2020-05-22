@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3a0c6f33_853da081",
+        "filename": "VERSION",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-05-22T18:19:07Z",
+      "side": 1,
+      "message": "thanks, done.",
+      "parentUuid": "fc4f6ac5_9f449f36",
+      "revId": "58fb9aa30b5f45449c246ae14fa5e7c6e15005d3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fecd5e4_b02b966f",
         "filename": "pkg/config/configmanager.go",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2020-05-22T16:16:31Z",
       "side": 1,
       "message": "Can more cleanly use os.LookupEnv() instead.  \n(Will return a boolean to indicate presence of env var.)",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 81
+      },
+      "revId": "58fb9aa30b5f45449c246ae14fa5e7c6e15005d3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2febb72_34622355",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-05-22T18:19:07Z",
+      "side": 1,
+      "message": "it would be much better. Thanks.",
+      "parentUuid": "5fecd5e4_b02b966f",
       "range": {
         "startLine": 101,
         "startChar": 4,
