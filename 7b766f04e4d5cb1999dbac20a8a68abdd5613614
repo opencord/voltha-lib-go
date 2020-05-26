@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c21ccd8_7ce4d542",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-26T04:09:54Z",
+      "side": 1,
+      "message": "Consider making XGS-PON and EPON as string constants.\nAlso add \"GPON\". \n\"GPON\" tech-profile has same characteristics as \"XGS-PON\", so combine case of \"GPON\" with \"XGS-PON\". \nThis applies everywhere in this file.",
+      "range": {
+        "startLine": 445,
+        "startChar": 7,
+        "endLine": 445,
+        "endChar": 14
+      },
+      "revId": "7b766f04e4d5cb1999dbac20a8a68abdd5613614",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69beb9a7_621ad564",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-26T04:09:54Z",
+      "side": 1,
+      "message": "I would prefer to log and return error here.\nThis applies at all other places in this file.",
+      "revId": "7b766f04e4d5cb1999dbac20a8a68abdd5613614",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e31cb536_76f213f9",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-26T04:09:54Z",
+      "side": 1,
+      "message": "It would probably be best to check for \"XGS-PON\" and \"GPON\" technolgy here and in another else case below - return error (as it does not match anything).\nThis applies to other places in this file where such check is missing.",
+      "revId": "7b766f04e4d5cb1999dbac20a8a68abdd5613614",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
