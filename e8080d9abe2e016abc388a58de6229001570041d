@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d880d58_9f9778f1",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-26T04:09:54Z",
+      "side": 1,
+      "message": "The only difference are these two lines between this and next block of if-else code. We can easily combine them something like below (make sure to pre-declare tpInstanceJson and err variables.\n\n\t\ttech :\u003d pathSlice[3]\n\t\t\n\t\tswitch tech {\n\t\tcase “XGS-PON”:\n                case \"GPON\":\n\t\t\ttpInstanceTech :\u003d tpInstance.(*TechProfile)\n\t\t\ttpInstanceJson, err \u003d json.Marshal(*tpInstanceTech)\n\t\tcase “EPON:\n\t\t\ttpInstanceEpon :\u003d tpInstance.(*EponProfile)\n\t\t\ttpInstanceJson, err \u003d json.Marshal(*tpInstanceEpon)\n\t\tdefault:\n\t\t\tlog.Errorw(“unknown-tech”, log.Fields{“tech”:tech})\n\t\t\treturn fmt.Errorf(“unknown-tech-%s”, tech)\n\t\t}\n\n\t\tif err \u003d\u003d nil {\n\t\t\t// Backend will convert JSON byte array into string format\n\t\t\tlogger.Debugw(\"Storing tech profile instance to KV Store\", log.Fields{\"key\": path, \"val\": tpInstanceJson})\n\t\t\terr \u003d t.config.KVBackend.Put(ctx, path, tpInstanceJson)\n\t\t} else {\n\t\t\tlogger.Errorw(\"Error in marshaling into Json format\", log.Fields{\"key\": path, \"tpinstance\": tpInstanceCast})\n\t\t}\n\t\treturn err",
+      "range": {
+        "startLine": 478,
+        "startChar": 0,
+        "endLine": 479,
+        "endChar": 54
+      },
+      "revId": "e8080d9abe2e016abc388a58de6229001570041d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd8e1772_10a740cc",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-26T04:09:54Z",
+      "side": 1,
+      "message": "Can you adhering to logging guidelines at https://docs.google.com/document/d/1oXkhBPTA3fW35d--OcZTORgIBInixkTiMLLL0K5Ry_4/edit?pli\u003d1#heading\u003dh.h78kul5d3hed for all the new logs you have added.\n\nI understand the previous code has not strictly adhered to the logging guidelines, but let\u0027s assure that new code is strictly per the guidelines.",
+      "revId": "e8080d9abe2e016abc388a58de6229001570041d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71125538_a103dbe0",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-26T04:09:54Z",
+      "side": 1,
+      "message": "please remove the dead code if not needed.",
+      "range": {
+        "startLine": 747,
+        "startChar": 0,
+        "endLine": 748,
+        "endChar": 52
+      },
+      "revId": "e8080d9abe2e016abc388a58de6229001570041d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fb0a6e7_58f26362",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-05-26T04:09:54Z",
+      "side": 1,
+      "message": "I think we can avoid lot of duplicated code with something like below.\n\n\tif kvPairs, _ :\u003d t.config.KVBackend.List(ctx, onuTpInstancePath); kvPairs !\u003d nil {\n\t\ttech :\u003d  t.resourceMgr.GetTechnology()\n\t\tswitch tech {\n\t\tcase \"XGS-PON\":\n\t\t\ttp \u003d tpTech\n\t\t\ttpInstances :\u003d make([]TechProfile, 0, len(kvPairs))\n\t\tcase \"EPON\":\n\t\t\ttp \u003d tpEpon\n\t\t\ttpInstances :\u003d make([]EponProfile, 0, len(kvPairs))\n\t\tdefault:\n\t\t\tlog.Errorw(“unknown-technology”, log.Fields{“tech”: tech)\n\t\t\treturn nil\n\t\t}\n\t\ttpInstances :\u003d make([]TechProfile, 0, len(kvPairs))\n\t\tfor kvPath, kvPair :\u003d range kvPairs {\n\t\t\tif value, err :\u003d kvstore.ToByte(kvPair.Value); err \u003d\u003d nil {\n\t\t\t\tif err \u003d json.Unmarshal(value, \u0026tp); err !\u003d nil {\n\t\t\t\t\tlogger.Errorw(\"error-unmarshal-kv-pair\", log.Fields{\"kvPath\": kvPath, \"value\": value})\n\t\t\t\t\tcontinue\n\t\t\t\t} else {\n\t\t\t\t\ttpInstances \u003d append(tpInstances, tp)\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn tpInstances\n\t}\n\treturn nil",
+      "range": {
+        "startLine": 1280,
+        "startChar": 0,
+        "endLine": 1295,
+        "endChar": 12
+      },
+      "revId": "e8080d9abe2e016abc388a58de6229001570041d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
