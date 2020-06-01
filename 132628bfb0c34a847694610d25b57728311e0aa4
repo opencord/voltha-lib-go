@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af7275d7_4fcff254",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-01T15:20:44Z",
+      "side": 1,
+      "message": "In cases like these, ctx should be passed in from the caller.\n\n(Possibly as \"span\", see other comments.)\n\nIf this really shouldn\u0027t have context/span passed in, this is a perfect example of `logger.Debug()` vs `logger.CDebug()`.\n\nMany more like this.  Should focus on changes in the log package first.",
+      "range": {
+        "startLine": 508,
+        "startChar": 1,
+        "endLine": 508,
+        "endChar": 28
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72e38e01_a57dc951",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-01T15:20:44Z",
+      "side": 1,
+      "message": "Should think of this as just \"the logger supports ctx now\", shouldn\u0027t need to rename it.",
+      "range": {
+        "startLine": 77,
+        "startChar": 5,
+        "endLine": 77,
+        "endChar": 12
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "814071db_baf1902b",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-01T15:20:44Z",
+      "side": 1,
+      "message": "Consider creating ctx vs non-ctx logging functions `logger.Info(...)` in addition to `logger.CInfo(ctx, ...)`\n\nThoughts on this?  It seems unnecessary to pass ctx in cases where it\u0027s not needed.\n\nAnother thing to consider:\nCould pass \"span\" (`*jtracing.Span`) instead of \"ctx\" when a full context is not required.  Something like `logger.SInfo(span, ...)`.  This can be derived using \n\nThis should be clearer when reading the code because ctx currently indicates that a function can be canceled (typically this implies that the function makes a call to some external component).  Reading this code is made more complex if this information is diluted with logging.\n\nThe extra code required is all contained withing this package, and contain it within this package.\n\nThis should also resolve the issue of needing both Logger \u0026 CLogger.",
+      "range": {
+        "startLine": 83,
+        "startChar": 1,
+        "endLine": 86,
+        "endChar": 39
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4d6686c_53821b4d",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-01T15:20:44Z",
+      "side": 1,
+      "message": "Again, just leave as `logger`.",
+      "range": {
+        "startLine": 127,
+        "startChar": 5,
+        "endLine": 127,
+        "endChar": 12
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f809a12_3bba8059",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-01T15:20:44Z",
+      "side": 1,
+      "message": "Move serializeMap to utils file?",
+      "range": {
+        "startLine": 506,
+        "startChar": 5,
+        "endLine": 506,
+        "endChar": 17
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49a78793_f0855210",
+        "filename": "pkg/log/log_classic.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-01T15:20:44Z",
+      "side": 1,
+      "message": "If this capability is being changed, there\u0027s no need to keep old, unused code.  No need to have both CLogger \u0026 Logger.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
