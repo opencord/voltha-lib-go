@@ -16,6 +16,24 @@
       "revId": "37cd5cc7eaafb91e24f610691902de564b8b40a2",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4df6b163_60f983af",
+        "filename": "pkg/pmmetrics/performance_metrics.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-06-01T18:17:15Z",
+      "side": 1,
+      "message": "Since the pmmetrics package is being used by openolt-adapter only currently for which frequency override has been set to \u0027false\u0027, I don\u0027t feel we need to consider frequency override here.",
+      "parentUuid": "032cd8f3_e1df9ad3",
+      "revId": "37cd5cc7eaafb91e24f610691902de564b8b40a2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
