@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "ec081fac_1cd54125",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-01T17:47:04Z",
+      "side": 1,
+      "message": "If the logger supported both the current implementation and an additional ctx-accepting version (and a span-accepting version?), this renaming would be unnecessary, the existing `Logger` would support both implementations.\n\nThe implementations could still be altered gradually (per-package), though I wouldn\u0027t recommend this.  (partial changes like this are confusing to work with.)\n\nBetter to just find-and-replace `logger.XXXX(` with `logger.SXXX(span,` and then fix compilation errors (either by passing span/ctx, or in some cases, simply by reverting).",
+      "parentUuid": "74aad81b_cce57a56",
+      "range": {
+        "startLine": 77,
+        "startChar": 5,
+        "endLine": 77,
+        "endChar": 12
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "814071db_baf1902b",
         "filename": "pkg/log/log.go",
         "patchSetId": 4
@@ -129,6 +153,30 @@
       "side": 1,
       "message": "I also had thought of introducing Cxxxxx(ctx, ...) methods initially.\n\nBut that approach has serious downsides. 1) If we have both logger.Debug() and logger.CDebug(), many will miss using logger.CDebug() even when they have context. 2) Also, we will miss to do correlation in the generated logs for statements using logger.Debug() method which will defeat the whole purpose of this log correlation effort.",
       "parentUuid": "814071db_baf1902b",
+      "range": {
+        "startLine": 83,
+        "startChar": 1,
+        "endLine": 86,
+        "endChar": 39
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0f54b58_c10f5057",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-01T17:47:04Z",
+      "side": 1,
+      "message": "Though programmers _might_ use logger.Debug() when they should use logger.CDebug(), they can currently use `logger.Debug(context.Background(), ...)` with the current implementation, which is equivalently incorrect.\n\nMy point is that this is not a guaranteed fix, people will continue to make silly mistakes, and this sort of thing should be addressed in code review.\n\n\n\nI really think it\u0027s less readable in the long run to enforce ctx everywhere.  Specifically because ctx implies cancellation support.  Functions which do not require cancellation but do require a span should just accept a span.  \n\nThis makes the usage clear when reading the code, the usage in both the caller \u0026 the implementation are more clear. \n(span implies logging, ctx implies cancellation, nothing implies neither)",
+      "parentUuid": "79154f7f_2cabfa28",
       "range": {
         "startLine": 83,
         "startChar": 1,
