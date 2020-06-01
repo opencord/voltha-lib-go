@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "47bc900d_b20605ca",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-01T16:56:20Z",
+      "side": 1,
+      "message": "This dummy context has been created just to use in logger call. Will remove this line when ctx is the first argument (changes being done in VOL-3069).\n\nAll these ctx :\u003d context.Background() lines appearing as first statement of methods will be removed after merge with VOL-3069.\n\nAs for logger.CDebug(), I also had thought of it initially. But that approach has serious downsides. 1) If we have both logger.Debug() and logger.CDebug(), many will miss using logger.CDebug() even when they have context. 2) Also, we will miss to do correlation in the generated logs for statements using logger.Debug() method which will defeat the whole purpose of this log correlation effort.",
+      "range": {
+        "startLine": 508,
+        "startChar": 1,
+        "endLine": 508,
+        "endChar": 28
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72e38e01_a57dc951",
         "filename": "pkg/log/log.go",
         "patchSetId": 4
@@ -36,6 +59,29 @@
       "writtenOn": "2020-06-01T15:20:44Z",
       "side": 1,
       "message": "Should think of this as just \"the logger supports ctx now\", shouldn\u0027t need to rename it.",
+      "range": {
+        "startLine": 77,
+        "startChar": 5,
+        "endLine": 77,
+        "endChar": 12
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74aad81b_cce57a56",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-01T16:56:20Z",
+      "side": 1,
+      "message": "I agree. But unfortunately I could not find a way to avoid changing this Logger interface name. The plan is to gradually move each package to this CLogger one by one by changing the common.go file of package while still keeping the Logger interface available so as to avoid any build issue.\n\nMay be, we can rename it back to just Logger after all components have migrated to use this.",
       "range": {
         "startLine": 77,
         "startChar": 5,
@@ -71,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "79154f7f_2cabfa28",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-01T16:56:20Z",
+      "side": 1,
+      "message": "I also had thought of introducing Cxxxxx(ctx, ...) methods initially.\n\nBut that approach has serious downsides. 1) If we have both logger.Debug() and logger.CDebug(), many will miss using logger.CDebug() even when they have context. 2) Also, we will miss to do correlation in the generated logs for statements using logger.Debug() method which will defeat the whole purpose of this log correlation effort.",
+      "parentUuid": "814071db_baf1902b",
+      "range": {
+        "startLine": 83,
+        "startChar": 1,
+        "endLine": 86,
+        "endChar": 39
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4d6686c_53821b4d",
         "filename": "pkg/log/log.go",
         "patchSetId": 4
@@ -82,6 +152,30 @@
       "writtenOn": "2020-06-01T15:20:44Z",
       "side": 1,
       "message": "Again, just leave as `logger`.",
+      "range": {
+        "startLine": 127,
+        "startChar": 5,
+        "endLine": 127,
+        "endChar": 12
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5112965_4236d034",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-01T16:56:20Z",
+      "side": 1,
+      "message": "Same issue. Name conflict.",
+      "parentUuid": "b4d6686c_53821b4d",
       "range": {
         "startLine": 127,
         "startChar": 5,
@@ -117,6 +211,30 @@
     },
     {
       "key": {
+        "uuid": "35b8f1d3_fe9cb464",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-01T16:56:20Z",
+      "side": 1,
+      "message": "Yeah. Will do",
+      "parentUuid": "8f809a12_3bba8059",
+      "range": {
+        "startLine": 506,
+        "startChar": 5,
+        "endLine": 506,
+        "endChar": 17
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49a78793_f0855210",
         "filename": "pkg/log/log_classic.go",
         "patchSetId": 4
@@ -128,6 +246,30 @@
       "writtenOn": "2020-06-01T15:20:44Z",
       "side": 1,
       "message": "If this capability is being changed, there\u0027s no need to keep old, unused code.  No need to have both CLogger \u0026 Logger.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50798b00_45f2969a",
+        "filename": "pkg/log/log_classic.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-01T16:56:20Z",
+      "side": 1,
+      "message": "I need to. While each package is gradually migrated to use new CLogger, I need this Logger available in log package so that un-changed packages still continue to build and run.\n\nThe plan is to gradually move each package to this CLogger one by one by changing the common.go file of package and associated log statement changes.\n\nThis migration to use CLogger across all voltha code should be done in a 2-3 weeks and then I will delete this complete file as there will be no user of this Logger interface.",
+      "parentUuid": "49a78793_f0855210",
       "range": {
         "startLine": 30,
         "startChar": 0,
