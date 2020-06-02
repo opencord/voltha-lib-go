@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "63a376c9_878c0703",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-02T17:48:37Z",
+      "side": 1,
+      "message": "Hi Kent, actually 2 sets of changes needs to go in together to do this migration to log methods with context injection.  And I want to avoid changing to CXXXX() methods because finally all the log methods will have ctx as first arguments and only CXXXX() will be supported by Logger interface.\n\nHence, I came up with this alternate approach of introducing CLogger so that we can make this movement one-by-one. Doing this big-bang change may be disruptive as all patches will have to be merged in together.\n\nIf the concern is to keep the name as Logger, it can also be done later as small patch. It will just need changes in log.go in voltha-lib-go and then in all the common.go files, but will be much smoother",
+      "parentUuid": "ec081fac_1cd54125",
+      "range": {
+        "startLine": 77,
+        "startChar": 5,
+        "endLine": 77,
+        "endChar": 12
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "814071db_baf1902b",
         "filename": "pkg/log/log.go",
         "patchSetId": 4
