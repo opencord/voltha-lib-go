@@ -142,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "8352b6bc_19e4f3eb",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-02T19:29:04Z",
+      "side": 1,
+      "message": "Per discussion at the TST, this patch can go ahead mostly as-is.  Decision was made to always pass as ctx, never as span.",
+      "parentUuid": "63a376c9_878c0703",
+      "range": {
+        "startLine": 77,
+        "startChar": 5,
+        "endLine": 77,
+        "endChar": 12
+      },
+      "revId": "132628bfb0c34a847694610d25b57728311e0aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "814071db_baf1902b",
         "filename": "pkg/log/log.go",
         "patchSetId": 4
