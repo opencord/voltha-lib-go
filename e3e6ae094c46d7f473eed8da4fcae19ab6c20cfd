@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "641ed123_05fb3f7e",
+        "filename": "VERSION",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-05T21:27:14Z",
+      "side": 1,
+      "message": "if you want to used this version in other repos, don\u0027t use -dev",
+      "range": {
+        "startLine": 1,
+        "startChar": 6,
+        "endLine": 1,
+        "endChar": 10
+      },
+      "revId": "e3e6ae094c46d7f473eed8da4fcae19ab6c20cfd",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
