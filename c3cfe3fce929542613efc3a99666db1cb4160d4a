@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1c77c335_59d05915",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1000669
+      },
+      "writtenOn": "2020-06-05T21:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82976b98_85e311fc",
+      "revId": "c3cfe3fce929542613efc3a99666db1cb4160d4a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3467c452_06a59ed2",
         "filename": "pkg/techprofile/tech_profile.go",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2020-06-03T18:13:18Z",
       "side": 1,
       "message": "shouldn\u0027t we return error here?",
+      "revId": "c3cfe3fce929542613efc3a99666db1cb4160d4a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4507db72_bfac0623",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1000669
+      },
+      "writtenOn": "2020-06-05T21:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3467c452_06a59ed2",
       "revId": "c3cfe3fce929542613efc3a99666db1cb4160d4a",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
