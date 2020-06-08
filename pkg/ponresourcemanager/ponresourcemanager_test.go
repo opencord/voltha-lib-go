@@ -39,7 +39,7 @@ type MockResKVClient struct {
 	resourceMap map[string]interface{}
 }
 
-func newMockKvClient() *MockResKVClient {
+func newMockKvClient(ctx context.Context) *MockResKVClient {
 	var mockResKVClient MockResKVClient
 	mockResKVClient.resourceMap = make(map[string]interface{})
 	return &mockResKVClient
@@ -52,16 +52,16 @@ func (kvclient *MockResKVClient) List(ctx context.Context, key string) (map[stri
 
 // Get mock function implementation for KVClient
 func (kvclient *MockResKVClient) Get(ctx context.Context, key string) (*kvstore.KVPair, error) {
-	logger.Debugw("Get of MockKVClient called", log.Fields{"key": key})
+	logger.Debugw(ctx, "Get of MockKVClient called", log.Fields{"key": key})
 	if key != "" {
 		if strings.Contains(key, RESERVED_GEMPORT_IDS_PATH) {
-			logger.Debug("Getting Key:", RESERVED_GEMPORT_IDS_PATH)
+			logger.Debug(ctx, "Getting Key:", RESERVED_GEMPORT_IDS_PATH)
 			reservedGemPorts := []uint32{RESERVED_GEM_PORT_ID}
 			str, _ := json.Marshal(reservedGemPorts)
 			return kvstore.NewKVPair(key, str, "mock", 3000, 1), nil
 		}
 		if strings.Contains(key, GEM_POOL_PATH) {
-			logger.Debug("Getting Key:", GEM_POOL_PATH)
+			logger.Debug(ctx, "Getting Key:", GEM_POOL_PATH)
 			resource := kvclient.resourceMap[key]
 			return kvstore.NewKVPair(key, resource, "mock", 3000, 1), nil
 		}
@@ -129,38 +129,38 @@ func (kvclient *MockResKVClient) IsConnectionUp(ctx context.Context) bool { // t
 }
 
 // CloseWatch mock function implementation for KVClient
-func (kvclient *MockResKVClient) CloseWatch(key string, ch chan *kvstore.Event) {
+func (kvclient *MockResKVClient) CloseWatch(ctx context.Context, key string, ch chan *kvstore.Event) {
 }
 
 // Close mock function implementation for KVClient
-func (kvclient *MockResKVClient) Close() {
+func (kvclient *MockResKVClient) Close(ctx context.Context) {
 }
 
 func TestExcludeReservedGemPortIdFromThePool(t *testing.T) {
-	PONRMgr, err := NewPONResourceManager("gpon", "onu", "olt1",
+	ctx := context.Background()
+	PONRMgr, err := NewPONResourceManager(ctx, "gpon", "onu", "olt1",
 		"etcd", "1:1")
 	if err != nil {
 		return
 	}
 	PONRMgr.KVStore = &db.Backend{
-		Client: newMockKvClient(),
+		Client: newMockKvClient(ctx),
 	}
 
 	PONRMgr.KVStoreForConfig = &db.Backend{
-		Client: newMockKvClient(),
+		Client: newMockKvClient(ctx),
 	}
 	// create a pool in the range of [1,16]
 	// and exclude id 5 from this pool
 	StartIndex := uint32(1)
 	EndIndex := uint32(16)
 
-	ctx := context.Background()
 	reservedGemPortIds, defined := PONRMgr.getReservedGemPortIdsFromKVStore(ctx)
 	if !defined {
 		return
 	}
 
-	FormatResult, err := PONRMgr.FormatResource(1, StartIndex, EndIndex, reservedGemPortIds)
+	FormatResult, err := PONRMgr.FormatResource(ctx, 1, StartIndex, EndIndex, reservedGemPortIds)
 	if err != nil {
 		t.Error("Failed to format resource", err)
 		return
@@ -181,7 +181,7 @@ func TestExcludeReservedGemPortIdFromThePool(t *testing.T) {
 			return
 		}
 		// get a gem port id from the pool
-		nextID, err := PONRMgr.GenerateNextID(resource)
+		nextID, err := PONRMgr.GenerateNextID(ctx, resource)
 		if err != nil {
 			t.Error("Failed to get gem port id from the pool", err)
 			return
