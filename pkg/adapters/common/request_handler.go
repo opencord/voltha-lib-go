@@ -16,6 +16,7 @@
 package common
 
 import (
+	"context"
 	"errors"
 
 	"github.com/golang/protobuf/ptypes"
@@ -58,9 +59,9 @@ func (rhp *RequestHandlerProxy) Health() (*voltha.HealthStatus, error) {
 	return nil, nil
 }
 
-func (rhp *RequestHandlerProxy) Adopt_device(args []*ic.Argument) (*empty.Empty, error) {
+func (rhp *RequestHandlerProxy) Adopt_device(ctx context.Context, args []*ic.Argument) (*empty.Empty, error) {
 	if len(args) < 3 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -71,23 +72,23 @@ func (rhp *RequestHandlerProxy) Adopt_device(args []*ic.Argument) (*empty.Empty,
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.FromTopic:
 			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
-				logger.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-from-topic", log.Fields{"error": err})
 				return nil, err
 			}
 		}
 	}
 
-	logger.Debugw("Adopt_device", log.Fields{"deviceId": device.Id})
+	logger.Debugw(ctx, "Adopt_device", log.Fields{"deviceId": device.Id})
 
 	//Update the core reference for that device
 	rhp.coreProxy.UpdateCoreReference(device.Id, fromTopic.Val)
@@ -100,9 +101,9 @@ func (rhp *RequestHandlerProxy) Adopt_device(args []*ic.Argument) (*empty.Empty,
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Reconcile_device(args []*ic.Argument) (*empty.Empty, error) {
+func (rhp *RequestHandlerProxy) Reconcile_device(ctx context.Context, args []*ic.Argument) (*empty.Empty, error) {
 	if len(args) < 3 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -114,17 +115,17 @@ func (rhp *RequestHandlerProxy) Reconcile_device(args []*ic.Argument) (*empty.Em
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.FromTopic:
 			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
-				logger.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-from-topic", log.Fields{"error": err})
 				return nil, err
 			}
 		}
@@ -143,9 +144,9 @@ func (rhp *RequestHandlerProxy) Abandon_device(args []*ic.Argument) (*empty.Empt
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Disable_device(args []*ic.Argument) (*empty.Empty, error) {
+func (rhp *RequestHandlerProxy) Disable_device(ctx context.Context, args []*ic.Argument) (*empty.Empty, error) {
 	if len(args) < 3 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -157,17 +158,17 @@ func (rhp *RequestHandlerProxy) Disable_device(args []*ic.Argument) (*empty.Empt
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.FromTopic:
 			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
-				logger.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-from-topic", log.Fields{"error": err})
 				return nil, err
 			}
 		}
@@ -181,9 +182,9 @@ func (rhp *RequestHandlerProxy) Disable_device(args []*ic.Argument) (*empty.Empt
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Reenable_device(args []*ic.Argument) (*empty.Empty, error) {
+func (rhp *RequestHandlerProxy) Reenable_device(ctx context.Context, args []*ic.Argument) (*empty.Empty, error) {
 	if len(args) < 3 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -195,17 +196,17 @@ func (rhp *RequestHandlerProxy) Reenable_device(args []*ic.Argument) (*empty.Emp
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.FromTopic:
 			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
-				logger.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-from-topic", log.Fields{"error": err})
 				return nil, err
 			}
 		}
@@ -219,9 +220,9 @@ func (rhp *RequestHandlerProxy) Reenable_device(args []*ic.Argument) (*empty.Emp
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Reboot_device(args []*ic.Argument) (*empty.Empty, error) {
+func (rhp *RequestHandlerProxy) Reboot_device(ctx context.Context, args []*ic.Argument) (*empty.Empty, error) {
 	if len(args) < 3 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -233,17 +234,17 @@ func (rhp *RequestHandlerProxy) Reboot_device(args []*ic.Argument) (*empty.Empty
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.FromTopic:
 			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
-				logger.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-from-topic", log.Fields{"error": err})
 				return nil, err
 			}
 		}
@@ -262,9 +263,9 @@ func (rhp *RequestHandlerProxy) Self_test_device(args []*ic.Argument) (*empty.Em
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Delete_device(args []*ic.Argument) (*empty.Empty, error) {
+func (rhp *RequestHandlerProxy) Delete_device(ctx context.Context, args []*ic.Argument) (*empty.Empty, error) {
 	if len(args) < 3 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -276,17 +277,17 @@ func (rhp *RequestHandlerProxy) Delete_device(args []*ic.Argument) (*empty.Empty
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.FromTopic:
 			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
-				logger.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-from-topic", log.Fields{"error": err})
 				return nil, err
 			}
 		}
@@ -304,10 +305,10 @@ func (rhp *RequestHandlerProxy) Get_device_details(args []*ic.Argument) (*empty.
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Update_flows_bulk(args []*ic.Argument) (*empty.Empty, error) {
-	logger.Debug("Update_flows_bulk")
+func (rhp *RequestHandlerProxy) Update_flows_bulk(ctx context.Context, args []*ic.Argument) (*empty.Empty, error) {
+	logger.Debug(ctx, "Update_flows_bulk")
 	if len(args) < 5 {
-		logger.Warn("Update_flows_bulk-invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "Update_flows_bulk-invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -320,32 +321,32 @@ func (rhp *RequestHandlerProxy) Update_flows_bulk(args []*ic.Argument) (*empty.E
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case "flows":
 			if err := ptypes.UnmarshalAny(arg.Value, flows); err != nil {
-				logger.Warnw("cannot-unmarshal-flows", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-flows", log.Fields{"error": err})
 				return nil, err
 			}
 		case "groups":
 			if err := ptypes.UnmarshalAny(arg.Value, groups); err != nil {
-				logger.Warnw("cannot-unmarshal-groups", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-groups", log.Fields{"error": err})
 				return nil, err
 			}
 		case "flow_metadata":
 			if err := ptypes.UnmarshalAny(arg.Value, flowMetadata); err != nil {
-				logger.Warnw("cannot-unmarshal-metadata", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-metadata", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		}
 	}
-	logger.Debugw("Update_flows_bulk", log.Fields{"flows": flows, "groups": groups})
+	logger.Debugw(ctx, "Update_flows_bulk", log.Fields{"flows": flows, "groups": groups})
 	//Invoke the bulk flow update API of the adapter
 	if err := rhp.adapter.Update_flows_bulk(device, flows, groups, flowMetadata); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
@@ -353,10 +354,10 @@ func (rhp *RequestHandlerProxy) Update_flows_bulk(args []*ic.Argument) (*empty.E
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Update_flows_incrementally(args []*ic.Argument) (*empty.Empty, error) {
-	logger.Debug("Update_flows_incrementally")
+func (rhp *RequestHandlerProxy) Update_flows_incrementally(ctx context.Context, args []*ic.Argument) (*empty.Empty, error) {
+	logger.Debug(ctx, "Update_flows_incrementally")
 	if len(args) < 5 {
-		logger.Warn("Update_flows_incrementally-invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "Update_flows_incrementally-invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -369,32 +370,32 @@ func (rhp *RequestHandlerProxy) Update_flows_incrementally(args []*ic.Argument) 
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case "flow_changes":
 			if err := ptypes.UnmarshalAny(arg.Value, flows); err != nil {
-				logger.Warnw("cannot-unmarshal-flows", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-flows", log.Fields{"error": err})
 				return nil, err
 			}
 		case "group_changes":
 			if err := ptypes.UnmarshalAny(arg.Value, groups); err != nil {
-				logger.Warnw("cannot-unmarshal-groups", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-groups", log.Fields{"error": err})
 				return nil, err
 			}
 		case "flow_metadata":
 			if err := ptypes.UnmarshalAny(arg.Value, flowMetadata); err != nil {
-				logger.Warnw("cannot-unmarshal-metadata", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-metadata", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		}
 	}
-	logger.Debugw("Update_flows_incrementally", log.Fields{"flows": flows, "groups": groups})
+	logger.Debugw(ctx, "Update_flows_incrementally", log.Fields{"flows": flows, "groups": groups})
 	//Invoke the incremental flow update API of the adapter
 	if err := rhp.adapter.Update_flows_incrementally(device, flows, groups, flowMetadata); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
@@ -402,10 +403,10 @@ func (rhp *RequestHandlerProxy) Update_flows_incrementally(args []*ic.Argument) 
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Update_pm_config(args []*ic.Argument) (*empty.Empty, error) {
-	logger.Debug("Update_pm_config")
+func (rhp *RequestHandlerProxy) Update_pm_config(ctx context.Context, args []*ic.Argument) (*empty.Empty, error) {
+	logger.Debug(ctx, "Update_pm_config")
 	if len(args) < 2 {
-		logger.Warn("Update_pm_config-invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "Update_pm_config-invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -416,22 +417,22 @@ func (rhp *RequestHandlerProxy) Update_pm_config(args []*ic.Argument) (*empty.Em
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case "pm_configs":
 			if err := ptypes.UnmarshalAny(arg.Value, pmConfigs); err != nil {
-				logger.Warnw("cannot-unmarshal-pm-configs", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-pm-configs", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		}
 	}
-	logger.Debugw("Update_pm_config", log.Fields{"deviceId": device.Id, "pmConfigs": pmConfigs})
+	logger.Debugw(ctx, "Update_pm_config", log.Fields{"deviceId": device.Id, "pmConfigs": pmConfigs})
 	//Invoke the pm config update API of the adapter
 	if err := rhp.adapter.Update_pm_config(device, pmConfigs); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
@@ -439,10 +440,10 @@ func (rhp *RequestHandlerProxy) Update_pm_config(args []*ic.Argument) (*empty.Em
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Receive_packet_out(args []*ic.Argument) (*empty.Empty, error) {
-	logger.Debugw("Receive_packet_out", log.Fields{"args": args})
+func (rhp *RequestHandlerProxy) Receive_packet_out(ctx context.Context, args []*ic.Argument) (*empty.Empty, error) {
+	logger.Debugw(ctx, "Receive_packet_out", log.Fields{"args": args})
 	if len(args) < 3 {
-		logger.Warn("Receive_packet_out-invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "Receive_packet_out-invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -454,27 +455,27 @@ func (rhp *RequestHandlerProxy) Receive_packet_out(args []*ic.Argument) (*empty.
 		switch arg.Key {
 		case "deviceId":
 			if err := ptypes.UnmarshalAny(arg.Value, deviceId); err != nil {
-				logger.Warnw("cannot-unmarshal-deviceId", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-deviceId", log.Fields{"error": err})
 				return nil, err
 			}
 		case "outPort":
 			if err := ptypes.UnmarshalAny(arg.Value, egressPort); err != nil {
-				logger.Warnw("cannot-unmarshal-egressPort", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-egressPort", log.Fields{"error": err})
 				return nil, err
 			}
 		case "packet":
 			if err := ptypes.UnmarshalAny(arg.Value, packet); err != nil {
-				logger.Warnw("cannot-unmarshal-packet", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-packet", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		}
 	}
-	logger.Debugw("Receive_packet_out", log.Fields{"deviceId": deviceId.Val, "outPort": egressPort, "packet": packet})
+	logger.Debugw(ctx, "Receive_packet_out", log.Fields{"deviceId": deviceId.Val, "outPort": egressPort, "packet": packet})
 	//Invoke the adopt device on the adapter
 	if err := rhp.adapter.Receive_packet_out(deviceId.Val, int(egressPort.Val), packet); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
@@ -490,9 +491,9 @@ func (rhp *RequestHandlerProxy) Unsuppress_alarm(args []*ic.Argument) (*empty.Em
 	return new(empty.Empty), nil
 }
 
-func (rhp *RequestHandlerProxy) Get_ofp_device_info(args []*ic.Argument) (*ic.SwitchCapability, error) {
+func (rhp *RequestHandlerProxy) Get_ofp_device_info(ctx context.Context, args []*ic.Argument) (*ic.SwitchCapability, error) {
 	if len(args) < 2 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -502,31 +503,31 @@ func (rhp *RequestHandlerProxy) Get_ofp_device_info(args []*ic.Argument) (*ic.Sw
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		}
 	}
 
-	logger.Debugw("Get_ofp_device_info", log.Fields{"deviceId": device.Id})
+	logger.Debugw(ctx, "Get_ofp_device_info", log.Fields{"deviceId": device.Id})
 
 	var cap *ic.SwitchCapability
 	var err error
 	if cap, err = rhp.adapter.Get_ofp_device_info(device); err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
-	logger.Debugw("Get_ofp_device_info", log.Fields{"cap": cap})
+	logger.Debugw(ctx, "Get_ofp_device_info", log.Fields{"cap": cap})
 	return cap, nil
 }
 
-func (rhp *RequestHandlerProxy) Get_ofp_port_info(args []*ic.Argument) (*ic.PortCapability, error) {
+func (rhp *RequestHandlerProxy) Get_ofp_port_info(ctx context.Context, args []*ic.Argument) (*ic.PortCapability, error) {
 	if len(args) < 3 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -537,22 +538,22 @@ func (rhp *RequestHandlerProxy) Get_ofp_port_info(args []*ic.Argument) (*ic.Port
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case "port_no":
 			if err := ptypes.UnmarshalAny(arg.Value, pNo); err != nil {
-				logger.Warnw("cannot-unmarshal-port-no", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-port-no", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		}
 	}
-	logger.Debugw("Get_ofp_port_info", log.Fields{"deviceId": device.Id, "portNo": pNo.Val})
+	logger.Debugw(ctx, "Get_ofp_port_info", log.Fields{"deviceId": device.Id, "portNo": pNo.Val})
 	var cap *ic.PortCapability
 	var err error
 	if cap, err = rhp.adapter.Get_ofp_port_info(device, pNo.Val); err != nil {
@@ -561,9 +562,9 @@ func (rhp *RequestHandlerProxy) Get_ofp_port_info(args []*ic.Argument) (*ic.Port
 	return cap, nil
 }
 
-func (rhp *RequestHandlerProxy) Process_inter_adapter_message(args []*ic.Argument) (*empty.Empty, error) {
+func (rhp *RequestHandlerProxy) Process_inter_adapter_message(ctx context.Context, args []*ic.Argument) (*empty.Empty, error) {
 	if len(args) < 2 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -573,18 +574,18 @@ func (rhp *RequestHandlerProxy) Process_inter_adapter_message(args []*ic.Argumen
 		switch arg.Key {
 		case "msg":
 			if err := ptypes.UnmarshalAny(arg.Value, iaMsg); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case kafka.TransactionKey:
 			if err := ptypes.UnmarshalAny(arg.Value, transactionID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return nil, err
 			}
 		}
 	}
 
-	logger.Debugw("Process_inter_adapter_message", log.Fields{"msgId": iaMsg.Header.Id})
+	logger.Debugw(ctx, "Process_inter_adapter_message", log.Fields{"msgId": iaMsg.Header.Id})
 
 	//Invoke the inter adapter API on the handler
 	if err := rhp.adapter.Process_inter_adapter_message(iaMsg); err != nil {
@@ -614,30 +615,30 @@ func (rhp *RequestHandlerProxy) Revert_image_update(args []*ic.Argument) (*volth
 	return &voltha.ImageDownload{}, nil
 }
 
-func (rhp *RequestHandlerProxy) Enable_port(args []*ic.Argument) error {
-	logger.Debugw("enable_port", log.Fields{"args": args})
-	deviceId, port, err := rhp.getEnableDisableParams(args)
+func (rhp *RequestHandlerProxy) Enable_port(ctx context.Context, args []*ic.Argument) error {
+	logger.Debugw(ctx, "enable_port", log.Fields{"args": args})
+	deviceId, port, err := rhp.getEnableDisableParams(ctx, args)
 	if err != nil {
-		logger.Warnw("enable_port", log.Fields{"args": args, "deviceId": deviceId, "port": port})
+		logger.Warnw(ctx, "enable_port", log.Fields{"args": args, "deviceId": deviceId, "port": port})
 		return err
 	}
 	return rhp.adapter.Enable_port(deviceId, port)
 }
 
-func (rhp *RequestHandlerProxy) Disable_port(args []*ic.Argument) error {
-	logger.Debugw("disable_port", log.Fields{"args": args})
-	deviceId, port, err := rhp.getEnableDisableParams(args)
+func (rhp *RequestHandlerProxy) Disable_port(ctx context.Context, args []*ic.Argument) error {
+	logger.Debugw(ctx, "disable_port", log.Fields{"args": args})
+	deviceId, port, err := rhp.getEnableDisableParams(ctx, args)
 	if err != nil {
-		logger.Warnw("disable_port", log.Fields{"args": args, "deviceId": deviceId, "port": port})
+		logger.Warnw(ctx, "disable_port", log.Fields{"args": args, "deviceId": deviceId, "port": port})
 		return err
 	}
 	return rhp.adapter.Disable_port(deviceId, port)
 }
 
-func (rhp *RequestHandlerProxy) getEnableDisableParams(args []*ic.Argument) (string, *voltha.Port, error) {
-	logger.Debugw("getEnableDisableParams", log.Fields{"args": args})
+func (rhp *RequestHandlerProxy) getEnableDisableParams(ctx context.Context, args []*ic.Argument) (string, *voltha.Port, error) {
+	logger.Debugw(ctx, "getEnableDisableParams", log.Fields{"args": args})
 	if len(args) < 3 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		return "", nil, errors.New("invalid-number-of-args")
 	}
 	deviceId := &ic.StrType{}
@@ -646,12 +647,12 @@ func (rhp *RequestHandlerProxy) getEnableDisableParams(args []*ic.Argument) (str
 		switch arg.Key {
 		case "deviceId":
 			if err := ptypes.UnmarshalAny(arg.Value, deviceId); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return "", nil, err
 			}
 		case "port":
 			if err := ptypes.UnmarshalAny(arg.Value, port); err != nil {
-				logger.Warnw("cannot-unmarshal-port", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-port", log.Fields{"error": err})
 				return "", nil, err
 			}
 		}
@@ -659,9 +660,9 @@ func (rhp *RequestHandlerProxy) getEnableDisableParams(args []*ic.Argument) (str
 	return deviceId.Val, port, nil
 }
 
-func (rhp *RequestHandlerProxy) Child_device_lost(args []*ic.Argument) error {
+func (rhp *RequestHandlerProxy) Child_device_lost(ctx context.Context, args []*ic.Argument) error {
 	if len(args) < 4 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		return errors.New("invalid-number-of-args")
 	}
 
@@ -673,22 +674,22 @@ func (rhp *RequestHandlerProxy) Child_device_lost(args []*ic.Argument) error {
 		switch arg.Key {
 		case "pDeviceId":
 			if err := ptypes.UnmarshalAny(arg.Value, pDeviceId); err != nil {
-				logger.Warnw("cannot-unmarshal-parent-deviceId", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-parent-deviceId", log.Fields{"error": err})
 				return err
 			}
 		case "pPortNo":
 			if err := ptypes.UnmarshalAny(arg.Value, pPortNo); err != nil {
-				logger.Warnw("cannot-unmarshal-port", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-port", log.Fields{"error": err})
 				return err
 			}
 		case "onuID":
 			if err := ptypes.UnmarshalAny(arg.Value, onuID); err != nil {
-				logger.Warnw("cannot-unmarshal-transaction-ID", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-transaction-ID", log.Fields{"error": err})
 				return err
 			}
 		case kafka.FromTopic:
 			if err := ptypes.UnmarshalAny(arg.Value, fromTopic); err != nil {
-				logger.Warnw("cannot-unmarshal-from-topic", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-from-topic", log.Fields{"error": err})
 				return err
 			}
 		}
@@ -702,9 +703,9 @@ func (rhp *RequestHandlerProxy) Child_device_lost(args []*ic.Argument) error {
 	return nil
 }
 
-func (rhp *RequestHandlerProxy) Start_omci_test(args []*ic.Argument) (*ic.TestResponse, error) {
+func (rhp *RequestHandlerProxy) Start_omci_test(ctx context.Context, args []*ic.Argument) (*ic.TestResponse, error) {
 	if len(args) < 2 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		err := errors.New("invalid-number-of-args")
 		return nil, err
 	}
@@ -718,26 +719,26 @@ func (rhp *RequestHandlerProxy) Start_omci_test(args []*ic.Argument) (*ic.TestRe
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case "omcitestrequest":
 			if err := ptypes.UnmarshalAny(arg.Value, request); err != nil {
-				logger.Warnw("cannot-unmarshal-omcitestrequest", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-omcitestrequest", log.Fields{"error": err})
 				return nil, err
 			}
 		}
 	}
-	logger.Debugw("Start_omci_test", log.Fields{"device-id": device.Id, "req": request})
+	logger.Debugw(ctx, "Start_omci_test", log.Fields{"device-id": device.Id, "req": request})
 	result, err := rhp.adapter.Start_omci_test(device, request)
 	if err != nil {
 		return nil, status.Errorf(codes.NotFound, "%s", err.Error())
 	}
 	return result, nil
 }
-func (rhp *RequestHandlerProxy) Get_ext_value(args []*ic.Argument) (*voltha.ReturnValues, error) {
+func (rhp *RequestHandlerProxy) Get_ext_value(ctx context.Context, args []*ic.Argument) (*voltha.ReturnValues, error) {
 	if len(args) < 3 {
-		logger.Warn("invalid-number-of-args", log.Fields{"args": args})
+		logger.Warn(ctx, "invalid-number-of-args", log.Fields{"args": args})
 		return nil, errors.New("invalid-number-of-args")
 	}
 
@@ -748,21 +749,21 @@ func (rhp *RequestHandlerProxy) Get_ext_value(args []*ic.Argument) (*voltha.Retu
 		switch arg.Key {
 		case "device":
 			if err := ptypes.UnmarshalAny(arg.Value, device); err != nil {
-				logger.Warnw("cannot-unmarshal-device", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-device", log.Fields{"error": err})
 				return nil, err
 			}
 		case "pDeviceId":
 			if err := ptypes.UnmarshalAny(arg.Value, pDeviceId); err != nil {
-				logger.Warnw("cannot-unmarshal-parent-deviceId", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-parent-deviceId", log.Fields{"error": err})
 				return nil, err
 			}
 		case "valuetype":
 			if err := ptypes.UnmarshalAny(arg.Value, valuetype); err != nil {
-				logger.Warnw("cannot-unmarshal-valuetype", log.Fields{"error": err})
+				logger.Warnw(ctx, "cannot-unmarshal-valuetype", log.Fields{"error": err})
 				return nil, err
 			}
 		default:
-			logger.Warnw("key-not-found", log.Fields{"arg.Key": arg.Key})
+			logger.Warnw(ctx, "key-not-found", log.Fields{"arg.Key": arg.Key})
 		}
 	}
 
