@@ -72,7 +72,7 @@ func TestWithHealthFuncOnly(t *testing.T) {
 func TestRegisterOneService(t *testing.T) {
 	p := &Probe{}
 
-	p.RegisterService("one")
+	p.RegisterService(context.Background(), "one")
 
 	assert.Equal(t, 1, len(p.status), "wrong number of services")
 
@@ -83,7 +83,7 @@ func TestRegisterOneService(t *testing.T) {
 func TestRegisterMultipleServices(t *testing.T) {
 	p := &Probe{}
 
-	p.RegisterService("one", "two", "three", "four")
+	p.RegisterService(context.Background(), "one", "two", "three", "four")
 
 	assert.Equal(t, 4, len(p.status), "wrong number of services")
 
@@ -99,10 +99,10 @@ func TestRegisterMultipleServices(t *testing.T) {
 
 func TestRegisterMultipleServicesIncremental(t *testing.T) {
 	p := &Probe{}
-
-	p.RegisterService("one")
-	p.RegisterService("two")
-	p.RegisterService("three", "four")
+	ctx := context.Background()
+	p.RegisterService(ctx, "one")
+	p.RegisterService(ctx, "two")
+	p.RegisterService(ctx, "three", "four")
 
 	assert.Equal(t, 4, len(p.status), "wrong number of services")
 
@@ -119,7 +119,7 @@ func TestRegisterMultipleServicesIncremental(t *testing.T) {
 func TestRegisterMultipleServicesDuplicates(t *testing.T) {
 	p := &Probe{}
 
-	p.RegisterService("one", "one", "one", "two")
+	p.RegisterService(context.Background(), "one", "one", "one", "two")
 
 	assert.Equal(t, 2, len(p.status), "wrong number of services")
 
@@ -131,10 +131,10 @@ func TestRegisterMultipleServicesDuplicates(t *testing.T) {
 
 func TestRegisterMultipleServicesDuplicatesIncremental(t *testing.T) {
 	p := &Probe{}
-
-	p.RegisterService("one")
-	p.RegisterService("one")
-	p.RegisterService("one", "two")
+	ctx := context.Background()
+	p.RegisterService(ctx, "one")
+	p.RegisterService(ctx, "one")
+	p.RegisterService(ctx, "one", "two")
 
 	assert.Equal(t, 2, len(p.status), "wrong number of services")
 
@@ -146,9 +146,9 @@ func TestRegisterMultipleServicesDuplicatesIncremental(t *testing.T) {
 
 func TestUpdateStatus(t *testing.T) {
 	p := &Probe{}
-
-	p.RegisterService("one", "two")
-	p.UpdateStatus("one", ServiceStatusRunning)
+	ctx := context.Background()
+	p.RegisterService(ctx, "one", "two")
+	p.UpdateStatus(ctx, "one", ServiceStatusRunning)
 
 	assert.Equal(t, ServiceStatusRunning, p.status["one"], "status not set")
 	assert.Equal(t, ServiceStatusUnknown, p.status["two"], "status set")
@@ -156,14 +156,14 @@ func TestUpdateStatus(t *testing.T) {
 
 func TestRegisterOverwriteStatus(t *testing.T) {
 	p := &Probe{}
-
-	p.RegisterService("one", "two")
-	p.UpdateStatus("one", ServiceStatusRunning)
+	ctx := context.Background()
+	p.RegisterService(ctx, "one", "two")
+	p.UpdateStatus(ctx, "one", ServiceStatusRunning)
 
 	assert.Equal(t, ServiceStatusRunning, p.status["one"], "status not set")
 	assert.Equal(t, ServiceStatusUnknown, p.status["two"], "status set")
 
-	p.RegisterService("one", "three")
+	p.RegisterService(ctx, "one", "three")
 	assert.Equal(t, 3, len(p.status), "wrong number of services")
 	assert.Equal(t, ServiceStatusRunning, p.status["one"], "status overridden")
 	assert.Equal(t, ServiceStatusUnknown, p.status["two"], "status set")
@@ -172,7 +172,7 @@ func TestRegisterOverwriteStatus(t *testing.T) {
 
 func TestDetailzWithServies(t *testing.T) {
 	p := (&Probe{}).WithReadyFunc(AlwaysTrue).WithHealthFunc(AlwaysTrue)
-	p.RegisterService("one", "two")
+	p.RegisterService(context.Background(), "one", "two")
 
 	req := httptest.NewRequest("GET", "http://example.com/detailz", nil)
 	w := httptest.NewRecorder()
@@ -201,7 +201,7 @@ func TestReadzNoServices(t *testing.T) {
 
 func TestReadzWithServicesWithTrue(t *testing.T) {
 	p := (&Probe{}).WithReadyFunc(AlwaysTrue).WithHealthFunc(AlwaysTrue)
-	p.RegisterService("one", "two")
+	p.RegisterService(context.Background(), "one", "two")
 
 	req := httptest.NewRequest("GET", "http://example.com/readz", nil)
 	w := httptest.NewRecorder()
@@ -212,7 +212,7 @@ func TestReadzWithServicesWithTrue(t *testing.T) {
 
 func TestReadzWithServicesWithDefault(t *testing.T) {
 	p := &Probe{}
-	p.RegisterService("one", "two")
+	p.RegisterService(context.Background(), "one", "two")
 
 	req := httptest.NewRequest("GET", "http://example.com/readz", nil)
 	w := httptest.NewRecorder()
@@ -233,9 +233,10 @@ func TestReadzNpServicesDefault(t *testing.T) {
 
 func TestReadzWithServicesDefault(t *testing.T) {
 	p := &Probe{}
-	p.RegisterService("one", "two")
-	p.UpdateStatus("one", ServiceStatusRunning)
-	p.UpdateStatus("two", ServiceStatusRunning)
+	ctx := context.Background()
+	p.RegisterService(ctx, "one", "two")
+	p.UpdateStatus(ctx, "one", ServiceStatusRunning)
+	p.UpdateStatus(ctx, "two", ServiceStatusRunning)
 
 	req := httptest.NewRequest("GET", "http://example.com/readz", nil)
 	w := httptest.NewRecorder()
@@ -246,8 +247,8 @@ func TestReadzWithServicesDefault(t *testing.T) {
 
 func TestReadzWithServicesDefaultOne(t *testing.T) {
 	p := &Probe{}
-	p.RegisterService("one", "two")
-	p.UpdateStatus("one", ServiceStatusRunning)
+	p.RegisterService(context.Background(), "one", "two")
+	p.UpdateStatus(context.Background(), "one", ServiceStatusRunning)
 
 	req := httptest.NewRequest("GET", "http://example.com/readz", nil)
 	w := httptest.NewRecorder()
@@ -268,7 +269,7 @@ func TestHealthzNoServices(t *testing.T) {
 
 func TestHealthzWithServicesWithTrue(t *testing.T) {
 	p := (&Probe{}).WithReadyFunc(AlwaysTrue).WithHealthFunc(AlwaysTrue)
-	p.RegisterService("one", "two")
+	p.RegisterService(context.Background(), "one", "two")
 
 	req := httptest.NewRequest("GET", "http://example.com/healthz", nil)
 	w := httptest.NewRecorder()
@@ -279,7 +280,7 @@ func TestHealthzWithServicesWithTrue(t *testing.T) {
 
 func TestHealthzWithServicesWithDefault(t *testing.T) {
 	p := &Probe{}
-	p.RegisterService("one", "two")
+	p.RegisterService(context.Background(), "one", "two")
 
 	req := httptest.NewRequest("GET", "http://example.com/healthz", nil)
 	w := httptest.NewRecorder()
@@ -300,9 +301,9 @@ func TestHealthzNoServicesDefault(t *testing.T) {
 
 func TestHealthzWithServicesDefault(t *testing.T) {
 	p := &Probe{}
-	p.RegisterService("one", "two")
-	p.UpdateStatus("one", ServiceStatusRunning)
-	p.UpdateStatus("two", ServiceStatusRunning)
+	p.RegisterService(context.Background(), "one", "two")
+	p.UpdateStatus(context.Background(), "one", ServiceStatusRunning)
+	p.UpdateStatus(context.Background(), "two", ServiceStatusRunning)
 
 	req := httptest.NewRequest("GET", "http://example.com/healthz", nil)
 	w := httptest.NewRecorder()
@@ -313,8 +314,8 @@ func TestHealthzWithServicesDefault(t *testing.T) {
 
 func TestHealthzWithServicesDefaultFailed(t *testing.T) {
 	p := &Probe{}
-	p.RegisterService("one", "two")
-	p.UpdateStatus("one", ServiceStatusFailed)
+	p.RegisterService(context.Background(), "one", "two")
+	p.UpdateStatus(context.Background(), "one", ServiceStatusFailed)
 
 	req := httptest.NewRequest("GET", "http://example.com/healthz", nil)
 	w := httptest.NewRecorder()
@@ -332,7 +333,7 @@ func TestSetFuncsToNil(t *testing.T) {
 
 func TestGetProbeFromContext(t *testing.T) {
 	p := &Probe{}
-	p.RegisterService("one")
+	p.RegisterService(context.Background(), "one")
 	ctx := context.WithValue(context.Background(), ProbeContextKey, p)
 	pc := GetProbeFromContext(ctx)
 	assert.Equal(t, p, pc, "Probe from context was not identical to original probe")
@@ -347,7 +348,7 @@ func TestGetProbeFromContextMssing(t *testing.T) {
 
 func TestUpdateStatusFromContext(t *testing.T) {
 	p := &Probe{}
-	p.RegisterService("one")
+	p.RegisterService(context.Background(), "one")
 	ctx := context.WithValue(context.Background(), ProbeContextKey, p)
 	UpdateStatusFromContext(ctx, "one", ServiceStatusRunning)
 
@@ -359,7 +360,7 @@ func TestUpdateStatusFromContext(t *testing.T) {
 
 func TestUpdateStatusFromNilContext(t *testing.T) {
 	p := &Probe{}
-	p.RegisterService("one")
+	p.RegisterService(context.Background(), "one")
 	// nolint: staticcheck
 	UpdateStatusFromContext(nil, "one", ServiceStatusRunning)
 
@@ -372,7 +373,7 @@ func TestUpdateStatusFromNilContext(t *testing.T) {
 
 func TestUpdateStatusFromContextWithoutProbe(t *testing.T) {
 	p := &Probe{}
-	p.RegisterService("one")
+	p.RegisterService(context.Background(), "one")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	UpdateStatusFromContext(ctx, "one", ServiceStatusRunning)
@@ -386,7 +387,7 @@ func TestUpdateStatusFromContextWithoutProbe(t *testing.T) {
 
 func TestUpdateStatusFromContextWrongType(t *testing.T) {
 	p := &Probe{}
-	p.RegisterService("one")
+	p.RegisterService(context.Background(), "one")
 	ctx := context.WithValue(context.Background(), ProbeContextKey, "Teapot")
 	UpdateStatusFromContext(ctx, "one", ServiceStatusRunning)
 
@@ -399,7 +400,7 @@ func TestUpdateStatusFromContextWrongType(t *testing.T) {
 func TestUpdateStatusNoRegistered(t *testing.T) {
 	p := (&Probe{}).WithReadyFunc(AlwaysTrue).WithHealthFunc(AlwaysFalse)
 
-	p.UpdateStatus("one", ServiceStatusRunning)
+	p.UpdateStatus(context.Background(), "one", ServiceStatusRunning)
 	assert.Equal(t, 1, len(p.status), "wrong number of services")
 	_, ok := p.status["one"]
 	assert.True(t, ok, "unable to find registered service")
@@ -409,7 +410,7 @@ func TestUpdateStatusNoRegistered(t *testing.T) {
 func TestIsReadyTrue(t *testing.T) {
 	p := (&Probe{}).WithReadyFunc(AlwaysTrue).WithHealthFunc(AlwaysFalse)
 
-	p.RegisterService("SomeService")
+	p.RegisterService(context.Background(), "SomeService")
 
 	assert.True(t, p.IsReady(), "IsReady should have been true")
 }
@@ -417,7 +418,7 @@ func TestIsReadyTrue(t *testing.T) {
 func TestIsReadyFalse(t *testing.T) {
 	p := (&Probe{}).WithReadyFunc(AlwaysFalse).WithHealthFunc(AlwaysFalse)
 
-	p.RegisterService("SomeService")
+	p.RegisterService(context.Background(), "SomeService")
 
 	assert.False(t, p.IsReady(), "IsReady should have been false")
 }
@@ -425,8 +426,8 @@ func TestIsReadyFalse(t *testing.T) {
 func TestGetStatus(t *testing.T) {
 	p := &Probe{}
 
-	p.RegisterService("one", "two")
-	p.UpdateStatus("one", ServiceStatusRunning)
+	p.RegisterService(context.Background(), "one", "two")
+	p.UpdateStatus(context.Background(), "one", ServiceStatusRunning)
 
 	ss := p.GetStatus("one")
 	assert.Equal(t, ServiceStatusRunning, ss, "Service status should have been ServiceStatusRunning")
@@ -435,7 +436,7 @@ func TestGetStatus(t *testing.T) {
 func TestGetStatusMissingService(t *testing.T) {
 	p := &Probe{}
 
-	p.RegisterService("one", "two")
+	p.RegisterService(context.Background(), "one", "two")
 
 	ss := p.GetStatus("three")
 	assert.Equal(t, ServiceStatusUnknown, ss, "Service status should have been ServiceStatusUnknown")

@@ -16,6 +16,7 @@
 package kafka
 
 import (
+	"context"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -24,7 +25,7 @@ func TestSaramaClientEnableLivenessChannel(t *testing.T) {
 	// Note: This doesn't actually start the client
 	client := NewSaramaClient()
 
-	ch := client.EnableLivenessChannel(true)
+	ch := client.EnableLivenessChannel(context.Background(), true)
 
 	// The channel should have one "true" message on it
 	assert.NotEmpty(t, ch)
