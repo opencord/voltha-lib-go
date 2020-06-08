@@ -16,6 +16,7 @@
 package kafka
 
 import (
+	"context"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -73,7 +74,7 @@ func TestKafkaProxyEnableLivenessChannel(t *testing.T) {
 		MsgClient(client),
 	)
 
-	ch := probe.EnableLivenessChannel(true)
+	ch := probe.EnableLivenessChannel(context.Background(), true)
 
 	// The channel should have one "true" message on it
 	assert.NotEmpty(t, ch)
