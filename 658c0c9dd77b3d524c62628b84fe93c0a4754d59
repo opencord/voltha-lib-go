@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5c36e86e_1aa2e2f0",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-06-10T18:04:24Z",
+      "side": 1,
+      "message": "likely need to have this set via the environment so that each component that uses tracing does not supply a command line option. we do this for another setting, but i can\u0027t remember which one.",
+      "parentUuid": "48fb628a_8c189e79",
+      "range": {
+        "startLine": 58,
+        "startChar": 61,
+        "endLine": 58,
+        "endChar": 85
+      },
+      "revId": "658c0c9dd77b3d524c62628b84fe93c0a4754d59",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d58fb15b_d1f1df9f",
         "filename": "pkg/log/utils.go",
         "patchSetId": 1
