@@ -25,10 +25,23 @@ import (
 	"github.com/opentracing/opentracing-go"
 	jtracing "github.com/uber/jaeger-client-go"
 	jcfg "github.com/uber/jaeger-client-go/config"
-	jmetrics "github.com/uber/jaeger-lib/metrics"
 	"io"
 	"os"
 )
+
+// Jaeger complaint Logger instance to redirect logs to Default Logger
+type traceLogger struct {
+	logger *clogger
+}
+
+func (tl traceLogger) Error(msg string) {
+	tl.logger.Error(context.Background(), msg)
+}
+
+func (tl traceLogger) Infof(msg string, args ...interface{}) {
+	// Tracing logs should be performed only at Debug Verbosity
+	tl.logger.Debugf(context.Background(), msg, args...)
+}
 
 // This method will start the Tracing for a component using Component name injected from the Chart
 // The close() method on returned Closer instance should be called in defer mode to gracefully
@@ -42,10 +55,19 @@ func StartTracing() (io.Closer, error) {
 	// Use basic configuration to start with; will extend later to support dynamic config updates
 	cfg := jcfg.Configuration{}
 
-	jLoggerCfgOption := jcfg.Logger(jtracing.StdLogger)
-	jMetricsFactoryCfgOption := jcfg.Metrics(jmetrics.NullFactory)
+	jReporterConfig := jcfg.ReporterConfig{LocalAgentHostPort: "tracing-voltha-tracing-jaeger-agent.voltha.svc:6831", LogSpans: true}
+	jReporterCfgOption, err := jReporterConfig.NewReporter(componentName, jtracing.NewNullMetrics(), traceLogger{logger: defaultLogger})
+	if err != nil {
+		return nil, errors.New("Unable to create Reporter : " + err.Error())
+	}
 
-	return cfg.InitGlobalTracer(componentName, jLoggerCfgOption, jMetricsFactoryCfgOption)
+	jSamplerConfig := jcfg.SamplerConfig{Type: "const", Param: 1}
+	jSamplerCfgOption, err := jSamplerConfig.NewSampler(componentName, jtracing.NewNullMetrics())
+	if err != nil {
+		return nil, errors.New("Unable to create Sampler : " + err.Error())
+	}
+
+	return cfg.InitGlobalTracer(componentName, jcfg.Reporter(jReporterCfgOption), jcfg.Sampler(jSamplerCfgOption))
 }
 
 // Extracts details of Execution Context as log fields from the Tracing Span injected into the
