@@ -75,7 +75,10 @@ type logger struct {
 }
 
 func AddPackage(outputType string, level LogLevel, defaultFields Fields, pkgNames ...string) (Logger, error) {
-	clg, err := RegisterPackage(outputType, level, defaultFields, pkgNames...)
+	// Get package name of caller method and pass further; else this method is considered caller
+	pkgName, _, _, _ := getCallerInfo()
+
+	clg, err := RegisterPackage(outputType, level, defaultFields, pkgName)
 	if err != nil {
 		return nil, err
 	}
