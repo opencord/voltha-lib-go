@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48fb628a_8c189e79",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-06-10T17:46:46Z",
+      "side": 1,
+      "message": "This needs to be configurable as I may deploy Jaeger in a different namespace",
+      "range": {
+        "startLine": 58,
+        "startChar": 61,
+        "endLine": 58,
+        "endChar": 85
+      },
+      "revId": "658c0c9dd77b3d524c62628b84fe93c0a4754d59",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d58fb15b_d1f1df9f",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-06-10T17:46:46Z",
+      "side": 1,
+      "message": "can we make this configurable? we may need different sampling configs in different type of deployments (eg: development. ci, prod) https://www.jaegertracing.io/docs/1.18/sampling/#client-sampling-configuration",
+      "range": {
+        "startLine": 64,
+        "startChar": 45,
+        "endLine": 64,
+        "endChar": 50
+      },
+      "revId": "658c0c9dd77b3d524c62628b84fe93c0a4754d59",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
