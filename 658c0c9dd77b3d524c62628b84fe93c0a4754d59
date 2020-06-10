@@ -45,6 +45,30 @@
       "revId": "658c0c9dd77b3d524c62628b84fe93c0a4754d59",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b1f4abf_be2b16f0",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000596
+      },
+      "writtenOn": "2020-06-10T17:48:56Z",
+      "side": 1,
+      "message": "I\u0027m happy to see the remote options here so that we can control the sampling rate for all applications at the same time.",
+      "parentUuid": "d58fb15b_d1f1df9f",
+      "range": {
+        "startLine": 64,
+        "startChar": 45,
+        "endLine": 64,
+        "endChar": 50
+      },
+      "revId": "658c0c9dd77b3d524c62628b84fe93c0a4754d59",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
