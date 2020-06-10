@@ -36,7 +36,7 @@ require (
 	github.com/spf13/pflag v1.0.3 // indirect
 	github.com/stretchr/testify v1.4.0
 	github.com/uber/jaeger-client-go v2.23.1+incompatible
-	github.com/uber/jaeger-lib v2.2.0+incompatible
+	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	go.etcd.io/etcd v0.0.0-20190930204107-236ac2a90522
 	go.uber.org/atomic v1.4.0 // indirect
 	go.uber.org/multierr v1.2.0 // indirect
