@@ -25,15 +25,29 @@ import (
 	"github.com/opentracing/opentracing-go"
 	jtracing "github.com/uber/jaeger-client-go"
 	jcfg "github.com/uber/jaeger-client-go/config"
-	jmetrics "github.com/uber/jaeger-lib/metrics"
 	"io"
 	"os"
+	"strings"
 )
+
+// Jaeger complaint Logger instance to redirect logs to Default Logger
+type traceLogger struct {
+	logger *clogger
+}
+
+func (tl traceLogger) Error(msg string) {
+	tl.logger.Error(context.Background(), msg)
+}
+
+func (tl traceLogger) Infof(msg string, args ...interface{}) {
+	// Tracing logs should be performed only at Debug Verbosity
+	tl.logger.Debugf(context.Background(), msg, args...)
+}
 
 // This method will start the Tracing for a component using Component name injected from the Chart
 // The close() method on returned Closer instance should be called in defer mode to gracefully
 // terminate tracing on component shutdown
-func StartTracing() (io.Closer, error) {
+func StartTracing(traceEnabled bool, traceAgentAddress string) (io.Closer, error) {
 	componentName := os.Getenv("COMPONENT_NAME")
 	if componentName == "" {
 		return nil, errors.New("Unable to retrieve PoD Component Name from Runtime env")
@@ -42,10 +56,37 @@ func StartTracing() (io.Closer, error) {
 	// Use basic configuration to start with; will extend later to support dynamic config updates
 	cfg := jcfg.Configuration{}
 
-	jLoggerCfgOption := jcfg.Logger(jtracing.StdLogger)
-	jMetricsFactoryCfgOption := jcfg.Metrics(jmetrics.NullFactory)
+	jReporterConfig := jcfg.ReporterConfig{LocalAgentHostPort: traceAgentAddress, LogSpans: true}
+	jReporterCfgOption, err := jReporterConfig.NewReporter(componentName, jtracing.NewNullMetrics(), traceLogger{logger: defaultLogger})
+	if err != nil {
+		defaultLogger.Warnw(context.Background(), "Unable to create Reporter with given Trace Agent address",
+			Fields{"error": err, "address": traceAgentAddress})
 
-	return cfg.InitGlobalTracer(componentName, jLoggerCfgOption, jMetricsFactoryCfgOption)
+		// The Reporter initialization may fail due to Invalid Agent address or non-existent Agent (DNS lookup failure).
+		// It is essential for Tracer Instance to still start for correct Span propagation needed for log correlation.
+		// Thus, use localhost IP for Reporter initialization before throwing back any error
+		jReporterConfig.LocalAgentHostPort = "127.0.0.1:6831"
+		jReporterCfgOption, err = jReporterConfig.NewReporter(componentName, jtracing.NewNullMetrics(), traceLogger{logger: defaultLogger})
+		if err != nil {
+			return nil, errors.New("Failed to initialize Jaeger Tracing due to Reporter creation error : " + err.Error())
+		}
+
+		// Disable publishing of tracing when using fallback localhost IP
+		traceEnabled = false
+	}
+
+	// To start with, we are using Constant Sampling type
+	samplerParam := 0 // 0: Do not publish span, 1: Publish
+	if traceEnabled {
+		samplerParam = 1
+	}
+	jSamplerConfig := jcfg.SamplerConfig{Type: "const", Param: float64(samplerParam)}
+	jSamplerCfgOption, err := jSamplerConfig.NewSampler(componentName, jtracing.NewNullMetrics())
+	if err != nil {
+		return nil, errors.New("Unable to create Sampler : " + err.Error())
+	}
+
+	return cfg.InitGlobalTracer(componentName, jcfg.Reporter(jReporterCfgOption), jcfg.Sampler(jSamplerCfgOption))
 }
 
 // Extracts details of Execution Context as log fields from the Tracing Span injected into the
@@ -69,6 +110,11 @@ func ExtractContextAttributes(ctx context.Context) []interface{} {
 				attrMap["op-name"] = opname
 
 				for k, v := range jspan.Tags() {
+					// Ignore the sampler tags (sampler.type, sampler.param) present in the span
+					if strings.HasPrefix(k, "sampler.") {
+						continue
+					}
+
 					attrMap[k] = v
 				}
 			}
