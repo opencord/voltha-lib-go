@@ -476,18 +476,58 @@ func GetMeterId(flow *ofp.OfpFlowStats) uint32 {
 	return 0
 }
 
-func GetVlanVid(flow *ofp.OfpFlowStats) *uint32 {
+func GetVlanVid(flow *ofp.OfpFlowStats) (uint32, bool) {
 	if flow == nil {
-		return nil
+		return 0, false
 	}
 	for _, field := range GetOfbFields(flow) {
 		if field.Type == VLAN_VID {
-			ret := field.GetVlanVid()
-			return &ret
+			return field.GetVlanVid(), true
 		}
 	}
-	// Dont return 0 if the field is missing as vlan id value 0 has meaning and cannot be overloaded as "not found"
-	return nil
+	return 0, false
+}
+
+func GetSetVlanVid(flow *ofp.OfpFlowStats) (uint32, bool) {
+	if flow == nil {
+		return 0, false
+	}
+	for _, instruction := range flow.Instructions {
+		if instruction.Type == uint32(APPLY_ACTIONS) {
+			actions := instruction.GetActions()
+			for _, action := range actions.GetActions() {
+				if action.Type == SET_FIELD {
+					setField := action.GetSetField()
+					if setField.Field.GetOfbField().Type == VLAN_VID {
+						return setField.Field.GetOfbField().GetVlanVid(), true
+					}
+				}
+			}
+			return 0, false
+		}
+	}
+	return 0, false
+}
+
+func GetSetVlanPcp(flow *ofp.OfpFlowStats) (uint32, bool) {
+	if flow == nil {
+		return 0, false
+	}
+	for _, instruction := range flow.Instructions {
+		if instruction.Type == uint32(APPLY_ACTIONS) {
+			actions := instruction.GetActions()
+			for _, action := range actions.GetActions() {
+				if action.Type == SET_FIELD {
+					setField := action.GetSetField()
+					if setField.Field.GetOfbField().Type == VLAN_PCP {
+						return setField.Field.GetOfbField().GetVlanPcp(), true
+					}
+				}
+			}
+			return 0, false
+		}
+	}
+	return 0, false
 }
 
 func GetTunnelId(flow *ofp.OfpFlowStats) uint64 {
