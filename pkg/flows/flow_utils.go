@@ -490,6 +490,54 @@ func GetVlanVid(flow *ofp.OfpFlowStats) *uint32 {
 	return nil
 }
 
+func GetSetVlanVid(flow *ofp.OfpFlowStats) *uint32 {
+	if flow == nil {
+		return nil
+	}
+outerLoop:
+	for _, instruction := range flow.Instructions {
+		if instruction.Type == uint32(APPLY_ACTIONS) {
+			actions := instruction.GetActions()
+			for _, action := range actions.GetActions() {
+				if action.Type == SET_FIELD {
+					setField := action.GetSetField()
+					if setField.Field.GetOfbField().Type == VLAN_VID {
+						ret := setField.Field.GetOfbField().GetVlanVid()
+						return &ret
+					}
+					break outerLoop
+				}
+			}
+			break
+		}
+	}
+	return nil
+}
+
+func GetSetVlanPcp(flow *ofp.OfpFlowStats) *uint32 {
+	if flow == nil {
+		return nil
+	}
+outerLoop:
+	for _, instruction := range flow.Instructions {
+		if instruction.Type == uint32(APPLY_ACTIONS) {
+			actions := instruction.GetActions()
+			for _, action := range actions.GetActions() {
+				if action.Type == SET_FIELD {
+					setField := action.GetSetField()
+					if setField.Field.GetOfbField().Type == VLAN_PCP {
+						ret := setField.Field.GetOfbField().GetVlanPcp()
+						return &ret
+					}
+					break outerLoop
+				}
+			}
+			break
+		}
+	}
+	return nil
+}
+
 func GetTunnelId(flow *ofp.OfpFlowStats) uint64 {
 	if flow == nil {
 		return 0
