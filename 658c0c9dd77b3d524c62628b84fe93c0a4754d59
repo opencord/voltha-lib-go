@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "705b6ee3_768dae4a",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-11T13:23:31Z",
+      "side": 1,
+      "message": "Agree that this needs to be configurable. I have created a new JIRA VOL-3218 to achieve it next. Currently, hardcoding to make it work with standard kind-voltha deployment.",
+      "parentUuid": "5c36e86e_1aa2e2f0",
+      "range": {
+        "startLine": 58,
+        "startChar": 61,
+        "endLine": 58,
+        "endChar": 85
+      },
+      "revId": "658c0c9dd77b3d524c62628b84fe93c0a4754d59",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d58fb15b_d1f1df9f",
         "filename": "pkg/log/utils.go",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "I\u0027m happy to see the remote options here so that we can control the sampling rate for all applications at the same time.",
       "parentUuid": "d58fb15b_d1f1df9f",
+      "range": {
+        "startLine": 64,
+        "startChar": 45,
+        "endLine": 64,
+        "endChar": 50
+      },
+      "revId": "658c0c9dd77b3d524c62628b84fe93c0a4754d59",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5284f1a9_0c7b5386",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-11T13:23:31Z",
+      "side": 1,
+      "message": "I am not sure if we should support all sampling configs; but definitely the usual ones should be configurable. I have created a new JIRA VOL-3218 to achieve it next. Currently, hardcoding to make it work with standard kind-voltha deployment.",
+      "parentUuid": "0b1f4abf_be2b16f0",
       "range": {
         "startLine": 64,
         "startChar": 45,
