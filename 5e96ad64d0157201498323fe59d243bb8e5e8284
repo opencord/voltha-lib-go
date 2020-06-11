@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7e4eb97_2c4527f7",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-11T20:55:30Z",
+      "side": 1,
+      "message": "GetSetVlanVid should be GetVlanVid?",
+      "range": {
+        "startLine": 493,
+        "startChar": 5,
+        "endLine": 493,
+        "endChar": 18
+      },
+      "revId": "5e96ad64d0157201498323fe59d243bb8e5e8284",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cd53483_98fa89fc",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-11T20:55:30Z",
+      "side": 1,
+      "message": "Better to return (uint32, bool) with bool\u003dtrue if the field was found.",
+      "range": {
+        "startLine": 493,
+        "startChar": 43,
+        "endLine": 493,
+        "endChar": 50
+      },
+      "revId": "5e96ad64d0157201498323fe59d243bb8e5e8284",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7a6956d_0563ebda",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-11T20:55:30Z",
+      "side": 1,
+      "message": "Can just \"return nil\"?",
+      "range": {
+        "startLine": 508,
+        "startChar": 5,
+        "endLine": 508,
+        "endChar": 20
+      },
+      "revId": "5e96ad64d0157201498323fe59d243bb8e5e8284",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "106a6f0e_f2330996",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-11T20:55:30Z",
+      "side": 1,
+      "message": "GetVlanPcp?",
+      "range": {
+        "startLine": 517,
+        "startChar": 5,
+        "endLine": 517,
+        "endChar": 18
+      },
+      "revId": "5e96ad64d0157201498323fe59d243bb8e5e8284",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a36115c2_d83e936d",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-11T20:55:30Z",
+      "side": 1,
+      "message": "(uint32, bool)?",
+      "range": {
+        "startLine": 517,
+        "startChar": 43,
+        "endLine": 517,
+        "endChar": 50
+      },
+      "revId": "5e96ad64d0157201498323fe59d243bb8e5e8284",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
