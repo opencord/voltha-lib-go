@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "545607d6_f86e8304",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-06-11T21:18:35Z",
+      "side": 1,
+      "message": "I was trying to replicate GetVlanVid function (line 479).\nI can change it to what you suggest. Let me know.",
+      "parentUuid": "9cd53483_98fa89fc",
+      "range": {
+        "startLine": 493,
+        "startChar": 43,
+        "endLine": 493,
+        "endChar": 50
+      },
+      "revId": "5e96ad64d0157201498323fe59d243bb8e5e8284",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b168d34_be8371b1",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-06-11T21:18:35Z",
+      "side": 1,
+      "message": "No, this is different. GetVlanVid function already exists\nGetSetVlanVid returns the SET VLAN VID action from the OpenFlow instructions. While GetVlanVid returns the VLAN VID from from OpenFlow match fields.",
+      "parentUuid": "d7e4eb97_2c4527f7",
+      "range": {
+        "startLine": 493,
+        "startChar": 5,
+        "endLine": 493,
+        "endChar": 18
+      },
+      "revId": "5e96ad64d0157201498323fe59d243bb8e5e8284",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7a6956d_0563ebda",
         "filename": "pkg/flows/flow_utils.go",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2020-06-11T20:55:30Z",
       "side": 1,
       "message": "Can just \"return nil\"?",
+      "range": {
+        "startLine": 508,
+        "startChar": 5,
+        "endLine": 508,
+        "endChar": 20
+      },
+      "revId": "5e96ad64d0157201498323fe59d243bb8e5e8284",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f059359_39f754af",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-06-11T21:18:35Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "a7a6956d_0563ebda",
       "range": {
         "startLine": 508,
         "startChar": 5,
@@ -105,6 +177,54 @@
       "writtenOn": "2020-06-11T20:55:30Z",
       "side": 1,
       "message": "(uint32, bool)?",
+      "range": {
+        "startLine": 517,
+        "startChar": 43,
+        "endLine": 517,
+        "endChar": 50
+      },
+      "revId": "5e96ad64d0157201498323fe59d243bb8e5e8284",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2cd73620_d08ae357",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-06-11T21:18:35Z",
+      "side": 1,
+      "message": "Same comments as above.",
+      "parentUuid": "106a6f0e_f2330996",
+      "range": {
+        "startLine": 517,
+        "startChar": 5,
+        "endLine": 517,
+        "endChar": 18
+      },
+      "revId": "5e96ad64d0157201498323fe59d243bb8e5e8284",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "856c5efb_08cccb13",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-06-11T21:18:35Z",
+      "side": 1,
+      "message": "Same comments as above. let me know, I can change.",
+      "parentUuid": "a36115c2_d83e936d",
       "range": {
         "startLine": 517,
         "startChar": 43,
