@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73ea3ecf_ce7e75ec",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-15T19:20:11Z",
+      "side": 1,
+      "message": "This was passing a context.Background() before, even though ctx was available.\n\nIs there a process created here that might outlive the caller?  Does a new ctx need to be created and passed?\n\n(Several more like this.)",
+      "range": {
+        "startLine": 149,
+        "startChar": 46,
+        "endLine": 149,
+        "endChar": 49
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dce5d9d8_6d0ee7b1",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-15T19:20:11Z",
+      "side": 1,
+      "message": "Must use a new context.",
+      "range": {
+        "startLine": 187,
+        "startChar": 33,
+        "endLine": 187,
+        "endChar": 36
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25c728bc_d7f4a0c9",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-15T19:20:11Z",
+      "side": 1,
+      "message": "Was previously context.Background() even though ctx was available, does this need a new context?",
+      "range": {
+        "startLine": 194,
+        "startChar": 15,
+        "endLine": 195,
+        "endChar": 25
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89531ea0_09af5020",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-15T19:20:11Z",
+      "side": 1,
+      "message": "Was previously context.Background() even though ctx was available.  Does this need a new context?",
+      "range": {
+        "startLine": 463,
+        "startChar": 19,
+        "endLine": 463,
+        "endChar": 22
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "667f55ae_87119095",
+        "filename": "pkg/kafka/endpoint_manager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-15T19:20:11Z",
+      "side": 1,
+      "message": "Previously used context.Background(), does this need a new context?",
+      "range": {
+        "startLine": 230,
+        "startChar": 31,
+        "endLine": 230,
+        "endChar": 34
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "615e4cd7_93d0cad6",
+        "filename": "pkg/kafka/endpoint_manager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-15T19:20:11Z",
+      "side": 1,
+      "message": "Previously used context.Background(), does this need a new context?",
+      "range": {
+        "startLine": 260,
+        "startChar": 30,
+        "endLine": 260,
+        "endChar": 33
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "437af84d_93910485",
+        "filename": "pkg/probe/probe.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-15T19:20:11Z",
+      "side": 1,
+      "message": "In cases where a new context is created (and does not contain a span), will the log call create a span \u0026 add it to the context?  Should it?\n\n(Alternatively, should create a new span for each new context.)  \n\nSeems like doing this automatically would be a nice convenience.",
+      "range": {
+        "startLine": 236,
+        "startChar": 16,
+        "endLine": 236,
+        "endChar": 19
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
