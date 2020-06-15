@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "474a4793_a8c89cfb",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-06-15T15:04:45Z",
+      "side": 1,
+      "message": "If required code changes in the Core and Adapters below are in similar places as the ones using the new functions below then it makes sense to change the function return signature.  Otherwise, I would do it in a separate Jira.   Trying to limit the amount of code changes needed, especially, since this code has been used and ran fine.",
+      "revId": "9d7f2ccae13a8a3d90e84d097fd407ae808eea57",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
