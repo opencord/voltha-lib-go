@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c39ae205_d3e197ad",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-16T14:16:20Z",
+      "side": 1,
+      "message": "Should still be passing the span?  \n\nPull the span out of the old context, create a new context with the span, and pass the new context.\n\n(Wouldn\u0027t need to add the span if none is found?)\n\n(Would it be beneficial to have a helper for this?)",
+      "range": {
+        "startLine": 187,
+        "startChar": 33,
+        "endLine": 187,
+        "endChar": 53
+      },
+      "revId": "0d8068546109f6e700231cb088b5acbcb479007d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
