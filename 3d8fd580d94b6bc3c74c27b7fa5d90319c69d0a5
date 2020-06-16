@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4d26be58_dbf41e91",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000675
+      },
+      "writtenOn": "2020-06-16T08:39:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dce5d9d8_6d0ee7b1",
+      "range": {
+        "startLine": 187,
+        "startChar": 33,
+        "endLine": 187,
+        "endChar": 36
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25c728bc_d7f4a0c9",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 3
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4a8c38d5_f73793a5",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000675
+      },
+      "writtenOn": "2020-06-16T08:39:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25c728bc_d7f4a0c9",
+      "range": {
+        "startLine": 194,
+        "startChar": 15,
+        "endLine": 195,
+        "endChar": 25
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89531ea0_09af5020",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 3
@@ -106,6 +154,30 @@
       "writtenOn": "2020-06-15T19:20:11Z",
       "side": 1,
       "message": "Was previously context.Background() even though ctx was available.  Does this need a new context?",
+      "range": {
+        "startLine": 463,
+        "startChar": 19,
+        "endLine": 463,
+        "endChar": 22
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a57f5ab3_eba47197",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000675
+      },
+      "writtenOn": "2020-06-16T08:39:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89531ea0_09af5020",
       "range": {
         "startLine": 463,
         "startChar": 19,
