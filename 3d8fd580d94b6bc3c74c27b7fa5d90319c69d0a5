@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "2241a9f4_8cbe9807",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-16T16:21:10Z",
+      "side": 1,
+      "message": "OK. Will use the same approach here. Get span from upstream Context and create a new Context enhanced with the span",
+      "parentUuid": "267d2472_6ead9920",
+      "range": {
+        "startLine": 149,
+        "startChar": 46,
+        "endLine": 149,
+        "endChar": 49
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dce5d9d8_6d0ee7b1",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 3
