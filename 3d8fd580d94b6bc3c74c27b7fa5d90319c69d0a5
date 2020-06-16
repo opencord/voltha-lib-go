@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "267d2472_6ead9920",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-16T15:52:39Z",
+      "side": 1,
+      "message": "For whatever reason, this method was given a new context instead of using the available ctx, i.e. - it should not be canceled if the available ctx is canceled.\n\nOn the other hand, the ctx\u0027s span should be passed through for logging, so the span should be pulled out of the old ctx, and a new ctx created with the span (or a sub-span).\n\nPassing the existing ctx and creating a new context are both incomplete solutions.",
+      "parentUuid": "c51e4571_b05dadea",
+      "range": {
+        "startLine": 149,
+        "startChar": 46,
+        "endLine": 149,
+        "endChar": 49
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dce5d9d8_6d0ee7b1",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 3
@@ -511,6 +535,30 @@
       "side": 1,
       "message": "To start with, we will cover only the execution flow related to external API calls. The idea of span is to trace the execution flow across voltha components and external API calls are most critical to cover.\n\nThe tracing of initial startup and various background maintenance flows will be done next; after 2.4 release.",
       "parentUuid": "324289bb_b697c630",
+      "range": {
+        "startLine": 236,
+        "startChar": 16,
+        "endLine": 236,
+        "endChar": 19
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c61ab53c_443cca96",
+        "filename": "pkg/probe/probe.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-16T15:52:39Z",
+      "side": 1,
+      "message": "It doesn\u0027t seem very difficult to support these cases, just a find \u0026 replace on any remaining `context.Background()`s.\n\nI suppose it\u0027s fine to do this later.",
+      "parentUuid": "a6e6cda3_2a3dca10",
       "range": {
         "startLine": 236,
         "startChar": 16,
