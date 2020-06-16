@@ -22,6 +22,30 @@
       "revId": "0d8068546109f6e700231cb088b5acbcb479007d",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2320642d_1d103e03",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-16T14:58:07Z",
+      "side": 1,
+      "message": "We can pass the span but as the further code flow is internal to etcdclient library it is not going to add any value.",
+      "parentUuid": "c39ae205_d3e197ad",
+      "range": {
+        "startLine": 187,
+        "startChar": 33,
+        "endLine": 187,
+        "endChar": 53
+      },
+      "revId": "0d8068546109f6e700231cb088b5acbcb479007d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
