@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "c51e4571_b05dadea",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-16T14:58:07Z",
+      "side": 1,
+      "message": "Sorry, I am unable to follow you. Earlier, we were passing context.Background() to this method which does not involve any timeout/cancel function.\n\nPlease elaborate",
+      "parentUuid": "40ccb5a8_181b5db6",
+      "range": {
+        "startLine": 149,
+        "startChar": 46,
+        "endLine": 149,
+        "endChar": 49
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dce5d9d8_6d0ee7b1",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 3
@@ -285,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "3f63f9e0_1fde06a6",
+        "filename": "pkg/kafka/endpoint_manager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-16T14:58:07Z",
+      "side": 1,
+      "message": "OK. We can use this approach. We will pass context.Background() in these etcd calls and and enhance it with span extracted from upstream context",
+      "parentUuid": "10a43d0b_e9e6d73e",
+      "range": {
+        "startLine": 230,
+        "startChar": 31,
+        "endLine": 230,
+        "endChar": 34
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "615e4cd7_93d0cad6",
         "filename": "pkg/kafka/endpoint_manager.go",
         "patchSetId": 3
@@ -356,6 +404,30 @@
     },
     {
       "key": {
+        "uuid": "a540ec13_5fbed292",
+        "filename": "pkg/kafka/endpoint_manager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-16T14:58:07Z",
+      "side": 1,
+      "message": "OK. Will do",
+      "parentUuid": "31e7da12_765b79be",
+      "range": {
+        "startLine": 260,
+        "startChar": 30,
+        "endLine": 260,
+        "endChar": 33
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "437af84d_93910485",
         "filename": "pkg/probe/probe.go",
         "patchSetId": 3
@@ -415,6 +487,30 @@
       "side": 1,
       "message": "So in cases where a new context (`ctx :\u003d context.Background()`) is required, should a new span not be generated as well, to trace the internal request?",
       "parentUuid": "53fdb2d8_1f77561a",
+      "range": {
+        "startLine": 236,
+        "startChar": 16,
+        "endLine": 236,
+        "endChar": 19
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6e6cda3_2a3dca10",
+        "filename": "pkg/probe/probe.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-16T14:58:07Z",
+      "side": 1,
+      "message": "To start with, we will cover only the execution flow related to external API calls. The idea of span is to trace the execution flow across voltha components and external API calls are most critical to cover.\n\nThe tracing of initial startup and various background maintenance flows will be done next; after 2.4 release.",
+      "parentUuid": "324289bb_b697c630",
       "range": {
         "startLine": 236,
         "startChar": 16,
