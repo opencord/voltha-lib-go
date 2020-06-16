@@ -46,6 +46,30 @@
       "revId": "0d8068546109f6e700231cb088b5acbcb479007d",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b6b56ec_bccfaed4",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-16T15:52:39Z",
+      "side": 1,
+      "message": "Ok, it\u0027s probably fine then; unless we want to pass span for consistency.",
+      "parentUuid": "2320642d_1d103e03",
+      "range": {
+        "startLine": 187,
+        "startChar": 33,
+        "endLine": 187,
+        "endChar": 53
+      },
+      "revId": "0d8068546109f6e700231cb088b5acbcb479007d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
