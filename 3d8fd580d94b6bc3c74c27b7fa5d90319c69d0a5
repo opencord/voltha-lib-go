@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "40ccb5a8_181b5db6",
+        "filename": "pkg/adapters/common/core_proxy.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-16T14:16:20Z",
+      "side": 1,
+      "message": "While I agree that the span must be passed on, this method was accepting a ctx specifically so that it could be canceled or time out.  Even if no timeout/cancellation is defined in the voltha-go code, the original grpc client (voltctl, ofagent, etc.) is expected to use a timeout.\n\nThis function previously worked with these timeouts, and should continue to support them.",
+      "parentUuid": "ab6a60be_7a007240",
+      "range": {
+        "startLine": 149,
+        "startChar": 46,
+        "endLine": 149,
+        "endChar": 49
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dce5d9d8_6d0ee7b1",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 3
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "10a43d0b_e9e6d73e",
+        "filename": "pkg/kafka/endpoint_manager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-16T14:16:20Z",
+      "side": 1,
+      "message": "See previous comment: should assume that this was using context.Background() instead of accepting ctx for good reason.  Should generate a new ctx \u0026 pass the span to it.\n\nUnless there\u0027s been some discussion \u0026 agreement that this should be changed, a logging patch should not be altering cancellation behavior.",
+      "parentUuid": "fcad18b0_b81a0ad4",
+      "range": {
+        "startLine": 230,
+        "startChar": 31,
+        "endLine": 230,
+        "endChar": 34
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "615e4cd7_93d0cad6",
         "filename": "pkg/kafka/endpoint_manager.go",
         "patchSetId": 3
@@ -284,6 +332,30 @@
     },
     {
       "key": {
+        "uuid": "31e7da12_765b79be",
+        "filename": "pkg/kafka/endpoint_manager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-16T14:16:20Z",
+      "side": 1,
+      "message": "(See previous comment.)",
+      "parentUuid": "cee30908_33c34e86",
+      "range": {
+        "startLine": 260,
+        "startChar": 30,
+        "endLine": 260,
+        "endChar": 33
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "437af84d_93910485",
         "filename": "pkg/probe/probe.go",
         "patchSetId": 3
@@ -319,6 +391,30 @@
       "side": 1,
       "message": "No the logger does not add any span. It looks up for span associated with passed ctx and logs operation name and operation id from span as log fields. If no span is found associated with ctx, standard log statement will be generated without the operation name and operation id fields.",
       "parentUuid": "437af84d_93910485",
+      "range": {
+        "startLine": 236,
+        "startChar": 16,
+        "endLine": 236,
+        "endChar": 19
+      },
+      "revId": "3d8fd580d94b6bc3c74c27b7fa5d90319c69d0a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "324289bb_b697c630",
+        "filename": "pkg/probe/probe.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-16T14:16:20Z",
+      "side": 1,
+      "message": "So in cases where a new context (`ctx :\u003d context.Background()`) is required, should a new span not be generated as well, to trace the internal request?",
+      "parentUuid": "53fdb2d8_1f77561a",
       "range": {
         "startLine": 236,
         "startChar": 16,
