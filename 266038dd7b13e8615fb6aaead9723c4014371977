@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72bae30b_389189f8",
+        "filename": "pkg/log/log_classic.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-17T19:29:03Z",
+      "side": 1,
+      "message": "Shouldn\u0027t need to do this.  I believe `append(\u003cnil\u003e, value)` is valid.",
+      "range": {
+        "startLine": 80,
+        "startChar": 1,
+        "endLine": 82,
+        "endChar": 2
+      },
+      "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d72580b_b693f150",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-17T19:29:03Z",
+      "side": 1,
+      "message": "Is this connection established once \u0026 re-used?",
+      "range": {
+        "startLine": 59,
+        "startChar": 60,
+        "endLine": 60,
+        "endChar": 55
+      },
+      "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3ccc823_195c9a7a",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-17T19:29:03Z",
+      "side": 1,
+      "message": "Is this just connecting to a localhost port as a backup?\n\nWould it make more sense to just fail fast in this case?",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 3
+      },
+      "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
