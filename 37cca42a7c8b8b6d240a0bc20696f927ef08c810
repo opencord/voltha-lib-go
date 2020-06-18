@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c0283db_d80ea585",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-06-18T17:11:38Z",
+      "side": 1,
+      "message": "if tracing is disabled then this method should not even be called.",
+      "range": {
+        "startLine": 50,
+        "startChar": 18,
+        "endLine": 50,
+        "endChar": 30
+      },
+      "revId": "37cca42a7c8b8b6d240a0bc20696f927ef08c810",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
