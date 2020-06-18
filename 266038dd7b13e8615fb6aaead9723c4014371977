@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e0da72b2_9b37c504",
+        "filename": "pkg/log/log_classic.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-18T07:00:27Z",
+      "side": 1,
+      "message": "Right. Changed this",
+      "parentUuid": "72bae30b_389189f8",
+      "range": {
+        "startLine": 80,
+        "startChar": 1,
+        "endLine": 82,
+        "endChar": 2
+      },
+      "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d72580b_b693f150",
         "filename": "pkg/log/utils.go",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "99964dcd_2f0e3d92",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-18T07:00:27Z",
+      "side": 1,
+      "message": "No connection is established here because Jaeger clients sends spans over UDP in fire-and-forget manner. But, wrong IP address or invalid FQDN will cause issue",
+      "parentUuid": "5d72580b_b693f150",
+      "range": {
+        "startLine": 59,
+        "startChar": 60,
+        "endLine": 60,
+        "endChar": 55
+      },
+      "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3ccc823_195c9a7a",
         "filename": "pkg/log/utils.go",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2020-06-17T19:29:03Z",
       "side": 1,
       "message": "Is this just connecting to a localhost port as a backup?\n\nWould it make more sense to just fail fast in this case?",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 3
+      },
+      "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f98e3ca_dcfce243",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-18T07:00:27Z",
+      "side": 1,
+      "message": "Please refer to my comments above. Log correlation is driven by span propagation through the ctx; the attributes embedded in span/ctx are used by logging framework for adding fields into logs.\n\nYes, it is connecting to 127.0.0.1 as a backup. We cannot fail here because the span creation won\u0027t work when Jaeger Tracer is not created. This will lead to noop Span to be created by opentracing which will not carry any data and hence log correlation would also not work.",
+      "parentUuid": "e3ccc823_195c9a7a",
       "range": {
         "startLine": 65,
         "startChar": 2,
