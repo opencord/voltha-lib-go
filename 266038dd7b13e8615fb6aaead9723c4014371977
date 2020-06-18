@@ -140,6 +140,30 @@
       "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f7f422a_ba7ea7cb",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-06-18T21:15:51Z",
+      "side": 1,
+      "message": "My questions is, if we \"can\u0027t fail here\", then is it not more appropriate to panic? Then Kubernetes will restart, hopefully the DNS will work by then. IF not, K8s will keep restarting the pod until it succeeds.",
+      "parentUuid": "7f98e3ca_dcfce243",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 3
+      },
+      "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
