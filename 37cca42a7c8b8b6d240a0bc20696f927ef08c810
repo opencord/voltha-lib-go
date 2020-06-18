@@ -22,6 +22,30 @@
       "revId": "37cca42a7c8b8b6d240a0bc20696f927ef08c810",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d85fa9fb_79f71943",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-18T17:53:25Z",
+      "side": 1,
+      "message": "Not Really.\n\nThe tracing capability provided by opentracing/jaeger is being used for two purposes now. \n1) Start of Span object by StartSpanFromContext and propagation through ctx across method calls \n2) Publishing of Span object over UDP protocol to tracing agent PoD.\n\nThe Log correlation is driven by span propagation through the ctx; the attributes embedded in span/ctx are used by logging framework for adding fields into logs. So, first part of tracing capability (start of span) is always needed for log correlation to work.\n\nSpan creation won\u0027t work when Jaeger Tracer is not created. This will lead to noop Span to be created by opentracing which will not carry any data and hence log correlation would also not work.\n\nThe TraceEnabled flag is essentially controlling whether to the publish the span over network. We are disabling it by using Param as 0 in SamplerConfig",
+      "parentUuid": "3c0283db_d80ea585",
+      "range": {
+        "startLine": 50,
+        "startChar": 18,
+        "endLine": 50,
+        "endChar": 30
+      },
+      "revId": "37cca42a7c8b8b6d240a0bc20696f927ef08c810",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
