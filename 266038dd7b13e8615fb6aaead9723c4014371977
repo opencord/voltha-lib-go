@@ -236,6 +236,30 @@
       "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "599b5fd8_240122a5",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-19T16:49:51Z",
+      "side": 1,
+      "message": "Hm... makes sense w/ the use of UDP.",
+      "parentUuid": "95f73873_99413036",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 3
+      },
+      "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
