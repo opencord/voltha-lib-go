@@ -188,6 +188,30 @@
       "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cd04ea6_52a3f6de",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-19T15:17:26Z",
+      "side": 1,
+      "message": "In the scenario where a tracing agent is specified, but is not reachable, it would be incorrect to continue without tracing.\n\nIf the tracing agent \u0026 this component were started around the same time, this component has a 50/50 chance of running without tracing, even though it should be enabled.\n\nIn such a scenario, it is better to fail fast \u0026 restart correctly, than to ignore the specified config.\n\n(Also consider retrying for a bit before failing \u0026 crashing the component.)",
+      "parentUuid": "05c57962_14761cc4",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 3
+      },
+      "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
