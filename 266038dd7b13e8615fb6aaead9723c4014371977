@@ -164,6 +164,30 @@
       "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05c57962_14761cc4",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-19T04:18:52Z",
+      "side": 1,
+      "message": "Not really. We cannot completely fail here because the tracing agent (whose DNS Lookup is being done) is not a essential infra component like etcd/kafka and voltha should still continue to work if tracing agent could not be reached. In kind-voltha setup, tracing agent will be deployed only when it is started with WITH_TRACING\u003dyes flag. When WITH_TRACING is no, tracing agent will not be deployed and this DNS lookup will fail. So, it does not make sense to retry again and again by failing the PoD.",
+      "parentUuid": "0f7f422a_ba7ea7cb",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 3
+      },
+      "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
