@@ -212,6 +212,30 @@
       "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95f73873_99413036",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-19T15:54:25Z",
+      "side": 1,
+      "message": "Tracing Agent is not an essential dependency like etcd/kafka for voltha components to operate correctly. In my view, we should log an warning and continue the initialization of Jaeger tracing with disabling of publishing.\n\nIn fact, one of the design principles of such Tracing solutions is that the un-availability of tracing-agent should affect the availability of main App (in our case voltha). That is the very reason, traces are published over connection-less UDP protocol. The application even does not know if it is being received by tracing agent on the other end correctly.\n\nWe aim to enhance this tracing approach to retry in a background mode (every 1 minute) using go routine for dns lookup again so that we start publishing the traces when tracing agent is discoverable. But that is FUTURE JIRA. I can probably log this JIRA",
+      "parentUuid": "1cd04ea6_52a3f6de",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 3
+      },
+      "revId": "266038dd7b13e8615fb6aaead9723c4014371977",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
