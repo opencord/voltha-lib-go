@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3c6b276_834b358e",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-06-22T18:36:51Z",
+      "side": 1,
+      "message": "if tracing is disabled should it just be assumed that traceAgentAddress is invalid and not even try this?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 94
+      },
+      "revId": "f983ac359b1fb9f538870506c0cee52ef4e6284a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e37f1808_658d15e0",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-06-22T18:36:51Z",
+      "side": 1,
+      "message": "With Jaeger there is always a local agent started? I thought for log correlation only all the information was passed in the GRPC context. If so, they why is a local agent requried? If not, what is this local agent used for?",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 55
+      },
+      "revId": "f983ac359b1fb9f538870506c0cee52ef4e6284a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
