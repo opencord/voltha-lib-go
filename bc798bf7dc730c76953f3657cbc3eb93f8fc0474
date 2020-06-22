@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b735217_93a8623f",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-22T17:29:43Z",
+      "side": 1,
+      "message": "It would be simpler to use a single lock here, are multiple really needed?  \n\nDoes GetResourceID() make an external call, or does it work in-memory?  If just in-memory, multiple locks probably aren\u0027t needed.",
+      "range": {
+        "startLine": 221,
+        "startChar": 1,
+        "endLine": 222,
+        "endChar": 31
+      },
+      "revId": "bc798bf7dc730c76953f3657cbc3eb93f8fc0474",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63ff1049_e2b31461",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-22T17:29:43Z",
+      "side": 1,
+      "message": "consider using pattern like:\n\nlock()\nval, err:\u003dfoo()\nunlock()\nif err!\u003dnil {\n\nThis makes the locking easier to read (and less error-prone), since the unlock calls aren\u0027t spread across multiple execution paths.",
+      "range": {
+        "startLine": 442,
+        "startChar": 2,
+        "endLine": 448,
+        "endChar": 28
+      },
+      "revId": "bc798bf7dc730c76953f3657cbc3eb93f8fc0474",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc2d1ee4_95ca551c",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-06-22T17:29:43Z",
+      "side": 1,
+      "message": "If GetResourceID() is the call that\u0027s being protected, consider putting the locking within this function.",
+      "range": {
+        "startLine": 470,
+        "startChar": 34,
+        "endLine": 470,
+        "endChar": 47
+      },
+      "revId": "bc798bf7dc730c76953f3657cbc3eb93f8fc0474",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
