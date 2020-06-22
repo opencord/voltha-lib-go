@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a906207d_2776aa98",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-06-22T19:29:30Z",
+      "side": 1,
+      "message": "should this be elevated to an error?",
+      "range": {
+        "startLine": 84,
+        "startChar": 17,
+        "endLine": 84,
+        "endChar": 22
+      },
+      "revId": "5509c4f3876b81df2fe2c5d096a41fbfa78e3422",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
