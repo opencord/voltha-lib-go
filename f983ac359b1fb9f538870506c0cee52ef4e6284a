@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "49468ac9_ae310e3c",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-22T18:51:17Z",
+      "side": 1,
+      "message": "I guess it may be assumed that traceAgentAddress and I can use localhost url directly. However, Jaeger trace is still needed to be initialized",
+      "parentUuid": "f3c6b276_834b358e",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 94
+      },
+      "revId": "f983ac359b1fb9f538870506c0cee52ef4e6284a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e37f1808_658d15e0",
         "filename": "pkg/log/utils.go",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "f983ac359b1fb9f538870506c0cee52ef4e6284a",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d140e24_42a9e04c",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-06-22T18:51:17Z",
+      "side": 1,
+      "message": "Yes, we need a Jaeger Agent/Tracer to be started for Log Correlation to work. Only when Jaeger tracer is created, normal Span should be created by Tracer. That span would contain the name/id and carried by ctx into logger module.\n\nWhen Tracer is not created, the opentracing lib creates a noopSpan instance as defined in following file \nhttps://github.com/opentracing/opentracing-go/blob/master/noop.go",
+      "parentUuid": "e37f1808_658d15e0",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 55
+      },
+      "revId": "f983ac359b1fb9f538870506c0cee52ef4e6284a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
