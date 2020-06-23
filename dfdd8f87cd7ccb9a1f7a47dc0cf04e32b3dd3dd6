@@ -16,6 +16,24 @@
       "revId": "dfdd8f87cd7ccb9a1f7a47dc0cf04e32b3dd3dd6",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9e61965_e009746a",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-06-23T20:47:18Z",
+      "side": 0,
+      "message": "i compiled the olt adapter against this and it didn\u0027t seem to require a change. this interface is private.",
+      "parentUuid": "f5c5d840_3e0b113f",
+      "revId": "dfdd8f87cd7ccb9a1f7a47dc0cf04e32b3dd3dd6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
