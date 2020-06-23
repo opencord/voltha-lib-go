@@ -16,7 +16,6 @@
 package common
 
 import (
-	"context"
 	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
@@ -73,12 +72,12 @@ func TestGetMacAddress(t *testing.T) {
 }
 
 func TestICProxyErrorCodeToGrpcErrorCode(t *testing.T) {
-	unsupported := ICProxyErrorCodeToGrpcErrorCode(context.Background(), ic.ErrorCode_UNSUPPORTED_REQUEST)
+	unsupported := ICProxyErrorCodeToGrpcErrorCode(ic.ErrorCode_UNSUPPORTED_REQUEST)
 	assert.Equal(t, unsupported, codes.Unavailable)
 
-	invalid := ICProxyErrorCodeToGrpcErrorCode(context.Background(), ic.ErrorCode_INVALID_PARAMETERS)
+	invalid := ICProxyErrorCodeToGrpcErrorCode(ic.ErrorCode_INVALID_PARAMETERS)
 	assert.Equal(t, invalid, codes.InvalidArgument)
 
-	timeout := ICProxyErrorCodeToGrpcErrorCode(context.Background(), ic.ErrorCode_DEADLINE_EXCEEDED)
+	timeout := ICProxyErrorCodeToGrpcErrorCode(ic.ErrorCode_DEADLINE_EXCEEDED)
 	assert.Equal(t, timeout, codes.DeadlineExceeded)
 }

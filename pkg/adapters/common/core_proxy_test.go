@@ -45,7 +45,7 @@ func TestCoreProxy_RegisterAdapter_default(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	adapter := &voltha.Adapter{
 		Id:      "testAdapter",
@@ -88,7 +88,7 @@ func TestCoreProxy_RegisterAdapter_multiple(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	adapter := &voltha.Adapter{
 		Id:             "testAdapter",
@@ -128,7 +128,7 @@ func TestCoreProxy_GetChildDevice_sn(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	kwargs := make(map[string]interface{})
 	kwargs["serial_number"] = "TEST00000000001"
@@ -159,7 +159,7 @@ func TestCoreProxy_GetChildDevice_id(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	kwargs := make(map[string]interface{})
 	kwargs["onu_id"] = uint32(1234)
@@ -190,7 +190,7 @@ func TestCoreProxy_GetChildDevice_fail_timeout(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	kwargs := make(map[string]interface{})
 	kwargs["onu_id"] = uint32(1234)
@@ -213,7 +213,7 @@ func TestCoreProxy_GetChildDevice_fail_unmarhsal(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	kwargs := make(map[string]interface{})
 	kwargs["onu_id"] = uint32(1234)
@@ -241,7 +241,7 @@ func TestCoreProxy_GetChildDevices_success(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	parentDeviceId := "aabbcc"
 	devices, error := proxy.GetChildDevices(context.TODO(), parentDeviceId)
@@ -268,7 +268,7 @@ func TestCoreProxy_GetChildDevices_fail_unmarhsal(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	parentDeviceId := "aabbcc"
 	devices, error := proxy.GetChildDevices(context.TODO(), parentDeviceId)
@@ -288,7 +288,7 @@ func TestCoreProxy_GetChildDevices_fail_timeout(t *testing.T) {
 		},
 	}
 
-	proxy := NewCoreProxy(context.Background(), &mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
+	proxy := NewCoreProxy(&mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic")
 
 	parentDeviceId := "aabbcc"
 	devices, error := proxy.GetChildDevices(context.TODO(), parentDeviceId)
