@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "62634771_b95ca6a8",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-06-23T03:40:11Z",
+      "side": 1,
+      "message": "Multiple locks are needed because they are two different resources. While one user is operating GemPortID resource another user could operate on the AllocID resource. They are mutually exclusive.\nGetResourceID makes external calls (to etcd).",
+      "parentUuid": "3b735217_93a8623f",
+      "range": {
+        "startLine": 221,
+        "startChar": 1,
+        "endLine": 222,
+        "endChar": 31
+      },
+      "revId": "bc798bf7dc730c76953f3657cbc3eb93f8fc0474",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63ff1049_e2b31461",
         "filename": "pkg/techprofile/tech_profile.go",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "39664cfb_11543bb4",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-06-23T03:40:11Z",
+      "side": 1,
+      "message": "Sure, let me make the change",
+      "parentUuid": "63ff1049_e2b31461",
+      "range": {
+        "startLine": 442,
+        "startChar": 2,
+        "endLine": 448,
+        "endChar": 28
+      },
+      "revId": "bc798bf7dc730c76953f3657cbc3eb93f8fc0474",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fc2d1ee4_95ca551c",
         "filename": "pkg/techprofile/tech_profile.go",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2020-06-22T17:29:43Z",
       "side": 1,
       "message": "If GetResourceID() is the call that\u0027s being protected, consider putting the locking within this function.",
+      "range": {
+        "startLine": 470,
+        "startChar": 34,
+        "endLine": 470,
+        "endChar": 47
+      },
+      "revId": "bc798bf7dc730c76953f3657cbc3eb93f8fc0474",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c35c4c9f_e86c20d8",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-06-23T03:40:11Z",
+      "side": 1,
+      "message": "That API is coming from the PONResourceManager module. That module is not thread-safe, and any other component making use of that library has to ensure thread-safety.",
+      "parentUuid": "fc2d1ee4_95ca551c",
       "range": {
         "startLine": 470,
         "startChar": 34,
