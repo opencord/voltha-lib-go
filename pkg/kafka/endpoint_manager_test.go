@@ -42,7 +42,6 @@ type EPTest struct {
 }
 
 func newEPTest(minReplicas, maxReplicas int) *EPTest {
-	ctx := context.Background()
 	test := &EPTest{
 		minReplicas: minReplicas,
 		maxReplicas: maxReplicas,
@@ -50,18 +49,17 @@ func newEPTest(minReplicas, maxReplicas int) *EPTest {
 
 	// Create backend
 	if err := test.initBackend(); err != nil {
-		logger.Fatalw(ctx, "setting-backend-failed", log.Fields{"error": err})
+		logger.Fatalw("setting-backend-failed", log.Fields{"error": err})
 	}
 
 	// Populate backend with data
 	if err := test.populateBackend(); err != nil {
-		logger.Fatalw(ctx, "populating-db-failed", log.Fields{"error": err})
+		logger.Fatalw("populating-db-failed", log.Fields{"error": err})
 	}
 	return test
 }
 
 func (ep *EPTest) initBackend() error {
-	ctx := context.Background()
 	configName := "voltha-lib.kafka.ep.test"
 	storageDir := "voltha-lib.kafka.ep.etcd"
 	logLevel := "error"
@@ -75,18 +73,18 @@ func (ep *EPTest) initBackend() error {
 	if err != nil {
 		return err
 	}
-	ep.etcdServer = etcd.StartEtcdServer(ctx, etcd.MKConfig(ctx, configName, kvClientPort, peerPort, storageDir, logLevel))
+	ep.etcdServer = etcd.StartEtcdServer(etcd.MKConfig(configName, kvClientPort, peerPort, storageDir, logLevel))
 	if ep.etcdServer == nil {
 		return status.Error(codes.Internal, "Embedded server failed to start")
 	}
 
-	ep.backend = db.NewBackend(ctx, "etcd", "127.0.0.1"+":"+strconv.Itoa(kvClientPort), timeout, "service/voltha")
+	ep.backend = db.NewBackend("etcd", "127.0.0.1"+":"+strconv.Itoa(kvClientPort), timeout, "service/voltha")
 	return nil
 }
 
 func (ep *EPTest) stopAll() {
 	if ep.etcdServer != nil {
-		ep.etcdServer.Stop(context.Background())
+		ep.etcdServer.Stop()
 	}
 }
 
@@ -187,21 +185,20 @@ func getMeanAndStdDeviation(val []int, replicas int) (float64, float64) {
 }
 
 func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serviceType string, deviceType string, replicas int) {
-	ctx := context.Background()
 	// Map of device ids to topic
 	deviceIDs := make(map[string]Endpoint)
 	numDevices := 1000
 	total := make([]int, replicas)
 	for i := 0; i < numDevices; i++ {
 		deviceID := uuid.New().String()
-		endpoint, err := tm.GetEndpoint(ctx, deviceID, serviceType)
+		endpoint, err := tm.GetEndpoint(deviceID, serviceType)
 		if err != nil {
-			logger.Fatalw(ctx, "error-getting-endpoint", log.Fields{"error": err})
+			logger.Fatalw("error-getting-endpoint", log.Fields{"error": err})
 		}
 		deviceIDs[deviceID] = endpoint
-		replicaID, err := tm.GetReplicaAssignment(ctx, deviceID, serviceType)
+		replicaID, err := tm.GetReplicaAssignment(deviceID, serviceType)
 		if err != nil {
-			logger.Fatalw(ctx, "error-getting-endpoint", log.Fields{"error": err})
+			logger.Fatalw("error-getting-endpoint", log.Fields{"error": err})
 		}
 		total[replicaID] += 1
 	}
@@ -213,9 +210,9 @@ func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serv
 	numIterations := 10
 	for i := 0; i < numIterations; i++ {
 		for deviceID, expectedEndpoint := range deviceIDs {
-			endpointByServiceType, err := tm.GetEndpoint(ctx, deviceID, serviceType)
+			endpointByServiceType, err := tm.GetEndpoint(deviceID, serviceType)
 			if err != nil {
-				logger.Fatalw(ctx, "error-getting-endpoint", log.Fields{"error": err})
+				logger.Fatalw("error-getting-endpoint", log.Fields{"error": err})
 			}
 			assert.Equal(t, expectedEndpoint, endpointByServiceType)
 		}
@@ -223,14 +220,14 @@ func (ep *EPTest) testEndpointManagerAPIs(t *testing.T, tm EndpointManager, serv
 
 	// Verify that a device belong to the correct node
 	for deviceID := range deviceIDs {
-		replicaID, err := tm.GetReplicaAssignment(ctx, deviceID, serviceType)
+		replicaID, err := tm.GetReplicaAssignment(deviceID, serviceType)
 		if err != nil {
-			logger.Fatalw(ctx, "error-getting-topic", log.Fields{"error": err})
+			logger.Fatalw("error-getting-topic", log.Fields{"error": err})
 		}
 		for k := 0; k < replicas; k++ {
-			owned, err := tm.IsDeviceOwnedByService(ctx, deviceID, serviceType, int32(k))
+			owned, err := tm.IsDeviceOwnedByService(deviceID, serviceType, int32(k))
 			if err != nil {
-				logger.Fatalw(ctx, "error-verifying-device-ownership", log.Fields{"error": err})
+				logger.Fatalw("error-verifying-device-ownership", log.Fields{"error": err})
 			}
 			assert.Equal(t, ReplicaID(k) == replicaID, owned)
 		}

@@ -39,11 +39,10 @@ var embedEtcdServerPort int
 
 func init() {
 
-	ctx := context.Background()
 	var err error
 	embedEtcdServerPort, err = freeport.GetFreePort()
 	if err != nil {
-		logger.Fatal(ctx, "Cannot get freeport for KvClient")
+		logger.Fatal("Cannot get freeport for KvClient")
 	}
 }
 
@@ -55,8 +54,8 @@ func TestNewAdapterProxy(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
-	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	backend := db.NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
+	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
 	assert.NotNil(t, adapter)
 }
@@ -69,9 +68,9 @@ func TestSendInterAdapterMessage(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
+	backend := db.NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
-	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
 	adapter.endpointMgr = mocks.NewEndpointManager()
 
@@ -113,9 +112,9 @@ func TestHeaderId(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
+	backend := db.NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
-	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
 	adapter.endpointMgr = mocks.NewEndpointManager()
 
@@ -141,9 +140,9 @@ func TestInvalidProtoMessage(t *testing.T) {
 			Response: &voltha.Device{Id: "testDeviceId"},
 		},
 	}
-	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
+	backend := db.NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
-	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	adapter := NewAdapterProxy(mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
 
 	adapter.endpointMgr = mocks.NewEndpointManager()
 

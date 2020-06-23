@@ -51,8 +51,9 @@ type ComponentLogController struct {
 	initialLogLevel     string // Initial default log level set by helm chart
 }
 
-func NewComponentLogController(ctx context.Context, cm *ConfigManager) (*ComponentLogController, error) {
-	logger.Debug(ctx, "creating-new-component-log-controller")
+func NewComponentLogController(cm *ConfigManager) (*ComponentLogController, error) {
+
+	logger.Debug("creating-new-component-log-controller")
 	componentName := os.Getenv("COMPONENT_NAME")
 	if componentName == "" {
 		return nil, errors.New("Unable to retrieve PoD Component Name from Runtime env")
@@ -79,17 +80,17 @@ func NewComponentLogController(ctx context.Context, cm *ConfigManager) (*Compone
 // Then, it persists initial default Loglevels into Config Store before
 // starting the loading and processing of all Log Configuration
 func StartLogLevelConfigProcessing(cm *ConfigManager, ctx context.Context) {
-	cc, err := NewComponentLogController(ctx, cm)
+	cc, err := NewComponentLogController(cm)
 	if err != nil {
-		logger.Errorw(ctx, "unable-to-construct-component-log-controller-instance-for-log-config-monitoring", log.Fields{"error": err})
+		logger.Errorw("unable-to-construct-component-log-controller-instance-for-log-config-monitoring", log.Fields{"error": err})
 		return
 	}
 
 	cc.GlobalConfig = cm.InitComponentConfig(globalConfigRootNode, ConfigTypeLogLevel)
-	logger.Debugw(ctx, "global-log-config", log.Fields{"cc-global-config": cc.GlobalConfig})
+	logger.Debugw("global-log-config", log.Fields{"cc-global-config": cc.GlobalConfig})
 
 	cc.componentNameConfig = cm.InitComponentConfig(cc.ComponentName, ConfigTypeLogLevel)
-	logger.Debugw(ctx, "component-log-config", log.Fields{"cc-component-name-config": cc.componentNameConfig})
+	logger.Debugw("component-log-config", log.Fields{"cc-component-name-config": cc.componentNameConfig})
 
 	cc.persistInitialDefaultLogConfigs(ctx)
 
@@ -104,21 +105,21 @@ func (c *ComponentLogController) persistInitialDefaultLogConfigs(ctx context.Con
 
 	_, err := c.GlobalConfig.Retrieve(ctx, defaultLogLevelKey)
 	if err != nil {
-		logger.Debugw(ctx, "failed-to-retrieve-global-default-log-config-at-startup", log.Fields{"error": err})
+		logger.Debugw("failed-to-retrieve-global-default-log-config-at-startup", log.Fields{"error": err})
 
 		err = c.GlobalConfig.Save(ctx, defaultLogLevelKey, initialGlobalDefaultLogLevelValue)
 		if err != nil {
-			logger.Errorw(ctx, "failed-to-persist-global-default-log-config-at-startup", log.Fields{"error": err, "loglevel": initialGlobalDefaultLogLevelValue})
+			logger.Errorw("failed-to-persist-global-default-log-config-at-startup", log.Fields{"error": err, "loglevel": initialGlobalDefaultLogLevelValue})
 		}
 	}
 
 	_, err = c.componentNameConfig.Retrieve(ctx, defaultLogLevelKey)
 	if err != nil {
-		logger.Debugw(ctx, "failed-to-retrieve-component-default-log-config-at-startup", log.Fields{"error": err})
+		logger.Debugw("failed-to-retrieve-component-default-log-config-at-startup", log.Fields{"error": err})
 
 		err = c.componentNameConfig.Save(ctx, defaultLogLevelKey, c.initialLogLevel)
 		if err != nil {
-			logger.Errorw(ctx, "failed-to-persist-component-default-log-config-at-startup", log.Fields{"error": err, "loglevel": c.initialLogLevel})
+			logger.Errorw("failed-to-persist-component-default-log-config-at-startup", log.Fields{"error": err, "loglevel": c.initialLogLevel})
 		}
 	}
 }
@@ -128,7 +129,7 @@ func (c *ComponentLogController) persistInitialDefaultLogConfigs(ctx context.Con
 func (c *ComponentLogController) persistRegisteredLogPackageList(ctx context.Context) {
 
 	componentMetadataConfig := c.configManager.InitComponentConfig(c.ComponentName, ConfigTypeMetadata)
-	logger.Debugw(ctx, "component-metadata-config", log.Fields{"component-metadata-config": componentMetadataConfig})
+	logger.Debugw("component-metadata-config", log.Fields{"component-metadata-config": componentMetadataConfig})
 
 	packageList := log.GetPackageNames()
 	packageList = append(packageList, defaultLogLevelKey)
@@ -136,12 +137,12 @@ func (c *ComponentLogController) persistRegisteredLogPackageList(ctx context.Con
 
 	packageNames, err := json.Marshal(packageList)
 	if err != nil {
-		logger.Errorw(ctx, "failed-to-marshal-log-package-list-for-storage", log.Fields{"error": err, "packageList": packageList})
+		logger.Errorw("failed-to-marshal-log-package-list-for-storage", log.Fields{"error": err, "packageList": packageList})
 		return
 	}
 
 	if err := componentMetadataConfig.Save(ctx, logPackagesListKey, string(packageNames)); err != nil {
-		logger.Errorw(ctx, "failed-to-persist-component-registered-log-package-list-at-startup", log.Fields{"error": err, "packageNames": packageNames})
+		logger.Errorw("failed-to-persist-component-registered-log-package-list-at-startup", log.Fields{"error": err, "packageNames": packageNames})
 	}
 }
 
@@ -154,10 +155,10 @@ func (c *ComponentLogController) processLogConfig(ctx context.Context) {
 	// Load and apply Log Config for first time
 	initialLogConfig, err := c.buildUpdatedLogConfig(ctx)
 	if err != nil {
-		logger.Warnw(ctx, "unable-to-load-log-config-at-startup", log.Fields{"error": err})
+		logger.Warnw("unable-to-load-log-config-at-startup", log.Fields{"error": err})
 	} else {
-		if err := c.loadAndApplyLogConfig(ctx, initialLogConfig); err != nil {
-			logger.Warnw(ctx, "unable-to-apply-log-config-at-startup", log.Fields{"error": err})
+		if err := c.loadAndApplyLogConfig(initialLogConfig); err != nil {
+			logger.Warnw("unable-to-apply-log-config-at-startup", log.Fields{"error": err})
 		}
 	}
 
@@ -173,25 +174,25 @@ func (c *ComponentLogController) processLogConfig(ctx context.Context) {
 		case configEvent = <-componentConfigEventChan:
 
 		}
-		logger.Debugw(ctx, "processing-log-config-change", log.Fields{"ChangeType": configEvent.ChangeType, "Package": configEvent.ConfigAttribute})
+		logger.Debugw("processing-log-config-change", log.Fields{"ChangeType": configEvent.ChangeType, "Package": configEvent.ConfigAttribute})
 
 		updatedLogConfig, err := c.buildUpdatedLogConfig(ctx)
 		if err != nil {
-			logger.Warnw(ctx, "unable-to-fetch-updated-log-config", log.Fields{"error": err})
+			logger.Warnw("unable-to-fetch-updated-log-config", log.Fields{"error": err})
 			continue
 		}
 
-		logger.Debugw(ctx, "applying-updated-log-config", log.Fields{"updated-log-config": updatedLogConfig})
+		logger.Debugw("applying-updated-log-config", log.Fields{"updated-log-config": updatedLogConfig})
 
-		if err := c.loadAndApplyLogConfig(ctx, updatedLogConfig); err != nil {
-			logger.Warnw(ctx, "unable-to-load-and-apply-log-config", log.Fields{"error": err})
+		if err := c.loadAndApplyLogConfig(updatedLogConfig); err != nil {
+			logger.Warnw("unable-to-load-and-apply-log-config", log.Fields{"error": err})
 		}
 	}
 
 }
 
 // get active loglevel from the zap logger
-func getActiveLogLevels(ctx context.Context) map[string]string {
+func getActiveLogLevels() map[string]string {
 	loglevels := make(map[string]string)
 
 	// now do the default log level
@@ -203,7 +204,7 @@ func getActiveLogLevels(ctx context.Context) map[string]string {
 	for _, packageName := range log.GetPackageNames() {
 		level, err := log.GetPackageLogLevel(packageName)
 		if err != nil {
-			logger.Warnw(ctx, "unable-to-fetch-current-active-loglevel-for-package-name", log.Fields{"package-name": packageName, "error": err})
+			logger.Warnw("unable-to-fetch-current-active-loglevel-for-package-name", log.Fields{"package-name": packageName, "error": err})
 			continue
 		}
 
@@ -212,7 +213,7 @@ func getActiveLogLevels(ctx context.Context) map[string]string {
 		}
 	}
 
-	logger.Debugw(ctx, "retreived-log-levels-from-zap-logger", log.Fields{"loglevels": loglevels})
+	logger.Debugw("retreived-log-levels-from-zap-logger", log.Fields{"loglevels": loglevels})
 
 	return loglevels
 }
@@ -227,16 +228,16 @@ func (c *ComponentLogController) getGlobalLogConfig(ctx context.Context) (string
 	// Handle edge cases when global default loglevel is deleted directly from etcd or set to a invalid value
 	// We should use hard-coded initial default value in such cases
 	if globalDefaultLogLevel == "" {
-		logger.Warn(ctx, "global-default-loglevel-not-found-in-config-store")
+		logger.Warn("global-default-loglevel-not-found-in-config-store")
 		globalDefaultLogLevel = initialGlobalDefaultLogLevelValue
 	}
 
 	if _, err := log.StringToLogLevel(globalDefaultLogLevel); err != nil {
-		logger.Warnw(ctx, "unsupported-loglevel-config-defined-at-global-default", log.Fields{"log-level": globalDefaultLogLevel})
+		logger.Warnw("unsupported-loglevel-config-defined-at-global-default", log.Fields{"log-level": globalDefaultLogLevel})
 		globalDefaultLogLevel = initialGlobalDefaultLogLevelValue
 	}
 
-	logger.Debugw(ctx, "retrieved-global-default-loglevel", log.Fields{"level": globalDefaultLogLevel})
+	logger.Debugw("retrieved-global-default-loglevel", log.Fields{"level": globalDefaultLogLevel})
 
 	return globalDefaultLogLevel, nil
 }
@@ -250,7 +251,7 @@ func (c *ComponentLogController) getComponentLogConfig(ctx context.Context, glob
 	effectiveDefaultLogLevel := ""
 	for logConfigKey, logConfigValue := range componentLogConfig {
 		if _, err := log.StringToLogLevel(logConfigValue); err != nil || logConfigKey == "" {
-			logger.Warnw(ctx, "unsupported-loglevel-config-defined-at-component-context", log.Fields{"package-name": logConfigKey, "log-level": logConfigValue})
+			logger.Warnw("unsupported-loglevel-config-defined-at-component-context", log.Fields{"package-name": logConfigKey, "log-level": logConfigValue})
 			delete(componentLogConfig, logConfigKey)
 		} else {
 			if logConfigKey == defaultLogLevelKey {
@@ -267,7 +268,7 @@ func (c *ComponentLogController) getComponentLogConfig(ctx context.Context, glob
 
 	componentLogConfig[defaultLogLevelKey] = effectiveDefaultLogLevel
 
-	logger.Debugw(ctx, "retrieved-component-log-config", log.Fields{"component-log-level": componentLogConfig})
+	logger.Debugw("retrieved-component-log-config", log.Fields{"component-log-level": componentLogConfig})
 
 	return componentLogConfig, nil
 }
@@ -281,7 +282,7 @@ func (c *ComponentLogController) getComponentLogConfig(ctx context.Context, glob
 func (c *ComponentLogController) buildUpdatedLogConfig(ctx context.Context) (map[string]string, error) {
 	globalLogLevel, err := c.getGlobalLogConfig(ctx)
 	if err != nil {
-		logger.Errorw(ctx, "unable-to-retrieve-global-log-config", log.Fields{"err": err})
+		logger.Errorw("unable-to-retrieve-global-log-config", log.Fields{"err": err})
 	}
 
 	componentLogConfig, err := c.getComponentLogConfig(ctx, globalLogLevel)
@@ -301,17 +302,17 @@ func (c *ComponentLogController) buildUpdatedLogConfig(ctx context.Context) (map
 // create hash of loaded configuration using GenerateLogConfigHash
 // if there is previous hash stored, compare the hash to stored hash
 // if there is any change will call UpdateLogLevels
-func (c *ComponentLogController) loadAndApplyLogConfig(ctx context.Context, logConfig map[string]string) error {
+func (c *ComponentLogController) loadAndApplyLogConfig(logConfig map[string]string) error {
 	currentLogHash, err := GenerateLogConfigHash(logConfig)
 	if err != nil {
 		return err
 	}
 
 	if c.logHash != currentLogHash {
-		updateLogLevels(ctx, logConfig)
+		UpdateLogLevels(logConfig)
 		c.logHash = currentLogHash
 	} else {
-		logger.Debug(ctx, "effective-loglevel-config-same-as-currently-active")
+		logger.Debug("effective-loglevel-config-same-as-currently-active")
 	}
 
 	return nil
@@ -321,7 +322,7 @@ func (c *ComponentLogController) loadAndApplyLogConfig(ctx context.Context, logC
 // to identify and create map of modified Log Levels of 2 types:
 // - Packages for which log level has been changed
 // - Packages for which log level config has been cleared - set to default log level
-func createModifiedLogLevels(ctx context.Context, activeLogLevels, updatedLogLevels map[string]string) map[string]string {
+func createModifiedLogLevels(activeLogLevels, updatedLogLevels map[string]string) map[string]string {
 	defaultLevel := updatedLogLevels[defaultLogLevelKey]
 
 	modifiedLogLevels := make(map[string]string)
@@ -338,7 +339,7 @@ func createModifiedLogLevels(ctx context.Context, activeLogLevels, updatedLogLev
 	// Log warnings for all invalid packages for which log config has been set
 	for key, value := range updatedLogLevels {
 		if _, exist := activeLogLevels[key]; !exist {
-			logger.Warnw(ctx, "ignoring-loglevel-set-for-invalid-package", log.Fields{"package": key, "log-level": value})
+			logger.Warnw("ignoring-loglevel-set-for-invalid-package", log.Fields{"package": key, "log-level": value})
 		}
 	}
 
@@ -348,18 +349,18 @@ func createModifiedLogLevels(ctx context.Context, activeLogLevels, updatedLogLev
 // updateLogLevels update the loglevels for the component
 // retrieve active confguration from logger
 // compare with entries one by one and apply
-func updateLogLevels(ctx context.Context, updatedLogConfig map[string]string) {
+func UpdateLogLevels(updatedLogConfig map[string]string) {
 
-	activeLogLevels := getActiveLogLevels(ctx)
-	changedLogLevels := createModifiedLogLevels(ctx, activeLogLevels, updatedLogConfig)
+	activeLogLevels := getActiveLogLevels()
+	changedLogLevels := createModifiedLogLevels(activeLogLevels, updatedLogConfig)
 
 	// If no changed log levels are found, just return. It may happen on configuration of a invalid package
 	if len(changedLogLevels) == 0 {
-		logger.Debug(ctx, "no-change-in-effective-loglevel-config")
+		logger.Debug("no-change-in-effective-loglevel-config")
 		return
 	}
 
-	logger.Debugw(ctx, "applying-log-level-for-modified-packages", log.Fields{"changed-log-levels": changedLogLevels})
+	logger.Debugw("applying-log-level-for-modified-packages", log.Fields{"changed-log-levels": changedLogLevels})
 	for key, level := range changedLogLevels {
 		if key == defaultLogLevelKey {
 			if l, err := log.StringToLogLevel(level); err == nil {
