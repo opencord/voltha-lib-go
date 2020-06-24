@@ -52,6 +52,29 @@
       "revId": "dfdd8f87cd7ccb9a1f7a47dc0cf04e32b3dd3dd6",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf1cd7a7_c99035e9",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-06-24T21:32:28Z",
+      "side": 0,
+      "message": "I doubt if components of SEBA read this message to be aware of a new device added to the system.",
+      "range": {
+        "startLine": 203,
+        "startChar": 31,
+        "endLine": 203,
+        "endChar": 47
+      },
+      "revId": "dfdd8f87cd7ccb9a1f7a47dc0cf04e32b3dd3dd6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
