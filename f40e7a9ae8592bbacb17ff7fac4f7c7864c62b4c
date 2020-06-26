@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd86b44e_7bf5a087",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-06-26T14:48:16Z",
+      "side": 1,
+      "message": "This will timeout since this context is no longer valid.  See comments on waitForMessages()",
+      "revId": "f40e7a9ae8592bbacb17ff7fac4f7c7864c62b4c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae9817b1_adcfc768",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-06-26T14:48:16Z",
+      "side": 1,
+      "message": "The context passed in is when a request handler has been created to listen for messages from kafka.   In handleMessage() the same context is passed around to handle a request which will timed out since that context is no longer valid.  The callee\u0027s context is not sent over kafka (something that is possible with gRPC).",
+      "revId": "f40e7a9ae8592bbacb17ff7fac4f7c7864c62b4c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
