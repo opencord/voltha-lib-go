@@ -374,9 +374,8 @@ type EponProfile struct {
 }
 
 const (
-	xgspon      = "xgspon"
-	xgsponBbsim = "XGS-PON"
-	gpon        = "gpon"
+	xgspon      = "XGS-PON"
+	gpon        = "GPON"
 	epon        = "EPON"
 )
 
@@ -450,7 +449,7 @@ func (t *TechProfileMgr) GetTPInstanceFromKVStore(ctx context.Context, techProfi
 	// is broken into ["XGS-PON" "64" ...]
 	pathSlice := regexp.MustCompile(`/`).Split(path, -1)
 	switch pathSlice[0] {
-	case xgspon, xgsponBbsim, gpon:
+	case xgspon, gpon:
 		resPtr = &KvTpIns
 	case epon:
 		resPtr = &KvEponIns
@@ -1367,7 +1366,7 @@ func (t *TechProfileMgr) FindAllTpInstances(ctx context.Context, techProfiletblI
 
 		for kvPath, kvPair := range kvPairs {
 			if value, err := kvstore.ToByte(kvPair.Value); err == nil {
-				if tech == xgspon || tech == xgsponBbsim || tech == gpon {
+				if tech == xgspon || tech == gpon {
 					if err = json.Unmarshal(value, &tpTech); err != nil {
 						logger.Errorw("error-unmarshal-kv-pair", log.Fields{"kvPath": kvPath, "value": value})
 						continue
@@ -1386,7 +1385,7 @@ func (t *TechProfileMgr) FindAllTpInstances(ctx context.Context, techProfiletblI
 		}
 
 		switch tech {
-		case xgspon, xgsponBbsim, gpon:
+		case xgspon, gpon:
 			return tpInstancesTech
 		case epon:
 			return tpInstancesEpon
