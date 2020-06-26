@@ -41,35 +41,37 @@ var (
 )
 
 func TestMain(m *testing.M) {
+	ctx := context.Background()
 	var err error
 	embedEtcdServerPort, err = freeport.GetFreePort()
 	if err != nil {
-		logger.Fatal(err)
+		logger.Fatal(ctx, err)
 	}
 	dummyEtcdServerPort, err = freeport.GetFreePort()
 	if err != nil {
-		logger.Fatal(err)
+		logger.Fatal(ctx, err)
 	}
 	peerPort, err := freeport.GetFreePort()
 	if err != nil {
-		logger.Fatal(err)
+		logger.Fatal(ctx, err)
 	}
-	etcdServer := mocks.StartEtcdServer(mocks.MKConfig("voltha.db.test", embedEtcdServerPort, peerPort, "voltha.lib.db", "error"))
+	etcdServer := mocks.StartEtcdServer(ctx, mocks.MKConfig(ctx, "voltha.db.test", embedEtcdServerPort, peerPort, "voltha.lib.db", "error"))
 	res := m.Run()
 
-	etcdServer.Stop()
+	etcdServer.Stop(ctx)
 	os.Exit(res)
 }
 
 func provisionBackendWithEmbeddedEtcdServer(t *testing.T) *Backend {
-	backend := NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
+	ctx := context.Background()
+	backend := NewBackend(ctx, "etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 	assert.NotNil(t, backend)
 	assert.NotNil(t, backend.Client)
 	return backend
 }
 
 func provisionBackendWithDummyEtcdServer(t *testing.T) *Backend {
-	backend := NewBackend("etcd", embedEtcdServerHost+":"+strconv.Itoa(dummyEtcdServerPort), defaultTimeout, defaultPathPrefix)
+	backend := NewBackend(context.Background(), "etcd", embedEtcdServerHost+":"+strconv.Itoa(dummyEtcdServerPort), defaultTimeout, defaultPathPrefix)
 	assert.NotNil(t, backend)
 	assert.NotNil(t, backend.Client)
 	return backend
@@ -78,7 +80,7 @@ func provisionBackendWithDummyEtcdServer(t *testing.T) *Backend {
 // Create instance using Etcd Kvstore
 func TestNewBackend_EtcdKvStore(t *testing.T) {
 	address := embedEtcdServerHost + ":" + strconv.Itoa(embedEtcdServerPort)
-	backend := NewBackend("etcd", address, defaultTimeout, defaultPathPrefix)
+	backend := NewBackend(context.Background(), "etcd", address, defaultTimeout, defaultPathPrefix)
 
 	// Verify all attributes of backend have got set correctly
 	assert.NotNil(t, backend)
@@ -94,7 +96,7 @@ func TestNewBackend_EtcdKvStore(t *testing.T) {
 
 // Create instance using Consul Kvstore
 func TestNewBackend_ConsulKvStore(t *testing.T) {
-	backend := NewBackend("consul", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
+	backend := NewBackend(context.Background(), "consul", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
 	// Verify kvstore type attribute of backend has got set correctly
 	assert.NotNil(t, backend)
@@ -104,7 +106,7 @@ func TestNewBackend_ConsulKvStore(t *testing.T) {
 
 // Create instance using Invalid Kvstore; instance creation should fail
 func TestNewBackend_InvalidKvstore(t *testing.T) {
-	backend := NewBackend("unknown", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
+	backend := NewBackend(context.Background(), "unknown", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
 	assert.NotNil(t, backend)
 	assert.Nil(t, backend.Client)
@@ -112,7 +114,7 @@ func TestNewBackend_InvalidKvstore(t *testing.T) {
 
 func TestMakePath(t *testing.T) {
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	path := backend.makePath("Suffix")
+	path := backend.makePath(context.Background(), "Suffix")
 	assert.Equal(t, defaultPathPrefix+"/Suffix", path)
 }
 
@@ -138,7 +140,7 @@ func TestPerformLivenessCheck_DummyEtcdServer(t *testing.T) {
 func TestEnableLivenessChannel_EmbeddedEtcdServer_BeforeLivenessCheck(t *testing.T) {
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
 
-	alive := backend.EnableLivenessChannel()
+	alive := backend.EnableLivenessChannel(context.Background())
 	assert.NotNil(t, alive)
 	assert.Equal(t, 1, len(alive))
 	assert.Equal(t, false, <-alive)
@@ -152,7 +154,7 @@ func TestEnableLivenessChannel_EmbeddedEtcdServer_AfterLivenessCheck(t *testing.
 	defer cancel()
 	backend.PerformLivenessCheck(ctx)
 
-	alive := backend.EnableLivenessChannel()
+	alive := backend.EnableLivenessChannel(ctx)
 	assert.NotNil(t, alive)
 	assert.Equal(t, 1, len(alive))
 	assert.Equal(t, true, <-alive)
@@ -163,14 +165,14 @@ func TestEnableLivenessChannel_EmbeddedEtcdServer_AfterLivenessCheck(t *testing.
 func TestUpdateLiveness_AliveStatusChange(t *testing.T) {
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
 	// Enable Liveness Channel and verify initial state is not-alive
-	aliveState := backend.EnableLivenessChannel()
+	aliveState := backend.EnableLivenessChannel(context.Background())
 	assert.NotNil(t, aliveState)
 	assert.Equal(t, 1, len(backend.liveness))
 	assert.Equal(t, false, <-backend.liveness)
 	lastUpdateTime := backend.lastLivenessTime
 
 	// Update with changed alive state. Verify alive state push & liveness time update
-	backend.updateLiveness(true)
+	backend.updateLiveness(context.Background(), true)
 	assert.Equal(t, 1, len(backend.liveness))
 	assert.Equal(t, true, <-backend.liveness)
 	assert.NotEqual(t, lastUpdateTime, backend.lastLivenessTime)
@@ -180,13 +182,13 @@ func TestUpdateLiveness_AliveStatusChange(t *testing.T) {
 func TestUpdateLiveness_AliveStatusUnchanged(t *testing.T) {
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
 	// Enable Liveness Channel and verify initial state is not-alive
-	aliveState := backend.EnableLivenessChannel()
+	aliveState := backend.EnableLivenessChannel(context.Background())
 	assert.NotNil(t, aliveState)
 	assert.Equal(t, false, <-backend.liveness)
 	lastUpdateTime := backend.lastLivenessTime
 
 	// Update with same alive state. Verify no further alive state push
-	backend.updateLiveness(false)
+	backend.updateLiveness(context.Background(), false)
 	assert.Equal(t, 0, len(backend.liveness))
 	assert.Equal(t, lastUpdateTime, backend.lastLivenessTime)
 
@@ -195,7 +197,7 @@ func TestUpdateLiveness_AliveStatusUnchanged(t *testing.T) {
 	backend.lastLivenessTime = time.Now().Add(-tenMinDuration)
 	lastUpdateTime = backend.lastLivenessTime
 
-	backend.updateLiveness(false)
+	backend.updateLiveness(context.Background(), false)
 	assert.Equal(t, 1, len(backend.liveness))
 	assert.Equal(t, false, <-backend.liveness)
 	assert.NotEqual(t, lastUpdateTime, backend.lastLivenessTime)
@@ -223,7 +225,7 @@ func TestIsErrorIndicatingAliveKvstore(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if backend.isErrorIndicatingAliveKvstore(tt.arg) != tt.want {
+			if backend.isErrorIndicatingAliveKvstore(context.Background(), tt.arg) != tt.want {
 				t.Errorf("isErrorIndicatingAliveKvstore failed for %s: expected %t but got %t", tt.name, tt.want, !tt.want)
 			}
 		})
@@ -411,7 +413,7 @@ func TestCreateWatch_EmbeddedEtcdServer(t *testing.T) {
 	time.Sleep(time.Millisecond * 100)
 	assert.Equal(t, 1, len(eventChan))
 
-	backend.DeleteWatch("key5", eventChan)
+	backend.DeleteWatch(context.Background(), "key5", eventChan)
 }
 
 // Test Create and Delete Watch with prefix for Embedded Etcd Server
@@ -432,5 +434,5 @@ func TestCreateWatch_With_Prefix_EmbeddedEtcdServer(t *testing.T) {
 	time.Sleep(time.Millisecond * 100)
 	assert.Equal(t, 1, len(eventChan))
 
-	backend.DeleteWatch("key6", eventChan)
+	backend.DeleteWatch(context.Background(), "key6", eventChan)
 }
