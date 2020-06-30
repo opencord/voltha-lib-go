@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d2313992_81889d49",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-06-30T12:57:00Z",
+      "side": 1,
+      "message": "See comments added waitForMessages().    \n\nThis change will need end-to-end testing (i.e. with both the Core and openOLT using this library), preferably with scale testing, before it can be merged.",
+      "parentUuid": "0fae515e_13a610d4",
+      "revId": "f40e7a9ae8592bbacb17ff7fac4f7c7864c62b4c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ae9817b1_adcfc768",
         "filename": "pkg/kafka/kafka_inter_container_library.go",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "I don\u0027t think context passed to this method is enhanced with deadline. So here it should be safe to use it in further call.",
       "parentUuid": "ae9817b1_adcfc768",
+      "revId": "f40e7a9ae8592bbacb17ff7fac4f7c7864c62b4c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36e38c51_c4033d8d",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-06-30T12:57:00Z",
+      "side": 1,
+      "message": "Neha, check the SubscribeWithRequestHandlerInterface() for instance.   The callee passes its context to that method and then that method invokes waitForMessages() with that same context. And in turn the same context is being used by handleMessage() and so on so forth.     This library code cannot guarantee that the callee\u0027s context has a timeout or not.  As such it would be better to invoke the internal method waitForMessages() with a background context instead of the callee\u0027s context.",
+      "parentUuid": "b1afa303_73d0d6da",
       "revId": "f40e7a9ae8592bbacb17ff7fac4f7c7864c62b4c",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
