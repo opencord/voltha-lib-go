@@ -105,6 +105,24 @@
       "revId": "f40e7a9ae8592bbacb17ff7fac4f7c7864c62b4c",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9de32022_639f8ece",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1000675
+      },
+      "writtenOn": "2020-07-06T14:17:05Z",
+      "side": 1,
+      "message": "For now, we have just done the changes for adding the ctx in the logger and passing the ctx across the methods. \nYes we will be handling such cases in further jiras and  we will be using the method \"CopySpanIntoNewContext()\" added as apart of VOL-3142 changes for the same. https://gerrit.opencord.org/c/voltha-lib-go/+/19243/15/pkg/log/utils.go#235",
+      "parentUuid": "36e38c51_c4033d8d",
+      "revId": "f40e7a9ae8592bbacb17ff7fac4f7c7864c62b4c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
