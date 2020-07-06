@@ -141,6 +141,24 @@
       "revId": "f40e7a9ae8592bbacb17ff7fac4f7c7864c62b4c",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "930ea653_c3744c8c",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1000675
+      },
+      "writtenOn": "2020-07-06T15:27:38Z",
+      "side": 1,
+      "message": "Sure, will do the change and update another patch.",
+      "parentUuid": "9248da01_905b0c36",
+      "revId": "f40e7a9ae8592bbacb17ff7fac4f7c7864c62b4c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
