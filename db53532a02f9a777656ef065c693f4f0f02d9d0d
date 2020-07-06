@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fbee544_7a03b3a1",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-06T17:33:12Z",
+      "side": 1,
+      "message": "\"With\" seems to be the recommended prefix for functions that augment a context.\n\nhttps://golang.org/pkg/context/#WithCancel / opentracing.ContextWithSpan()",
+      "range": {
+        "startLine": 235,
+        "startChar": 5,
+        "endLine": 235,
+        "endChar": 24
+      },
+      "revId": "db53532a02f9a777656ef065c693f4f0f02d9d0d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
