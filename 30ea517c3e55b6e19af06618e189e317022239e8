@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a773e40c_13add206",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-06T15:07:53Z",
+      "side": 1,
+      "message": "Consider accepting a \"base\" ctx, with a signature similar to:\n\nWithSpanFromCtx(ctx, spanCtx context.Context) context.Context\n\nThis would be used like:\n\nnewCtx :\u003d WithSpanFromCtx(context.Background(), ctx)\n\nThis future-proofs the function so that the span can be pulled out and added to any context, rather than only to context.Background()\n\n(This would likely propagate up through the other helpers as well, allowing them to accept a \"base\" context as well.)",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 1
+      },
+      "revId": "30ea517c3e55b6e19af06618e189e317022239e8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
