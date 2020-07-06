@@ -22,6 +22,30 @@
       "revId": "30ea517c3e55b6e19af06618e189e317022239e8",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02b20859_6ee12ab4",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-07-06T16:23:35Z",
+      "side": 1,
+      "message": "Sure. Valid comment. I noticed context.Background() being used everywhere so went with that.\n\nChanged the signature of method to following\nfunc CopySpanFromContext(targetCtx, sourceCtx context.Context) context.Context {",
+      "parentUuid": "a773e40c_13add206",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 1
+      },
+      "revId": "30ea517c3e55b6e19af06618e189e317022239e8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
