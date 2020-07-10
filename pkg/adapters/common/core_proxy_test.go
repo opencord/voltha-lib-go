@@ -17,6 +17,8 @@ package common
 
 import (
 	"context"
+	"testing"
+
 	adapterIf "github.com/opencord/voltha-lib-go/v3/pkg/adapters/adapterif"
 	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
 	mocks "github.com/opencord/voltha-lib-go/v3/pkg/mocks/kafka"
@@ -25,7 +27,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"testing"
 )
 
 func TestCoreProxyImplementsAdapterIfCoreProxy(t *testing.T) {
@@ -228,11 +229,10 @@ func TestCoreProxy_GetChildDevice_fail_unmarhsal(t *testing.T) {
 }
 
 func TestCoreProxy_GetChildDevices_success(t *testing.T) {
-
-	devicesResponse := &voltha.Devices{}
-
-	devicesResponse.Items = append(devicesResponse.Items, &voltha.Device{Id: "testDevice1"})
-	devicesResponse.Items = append(devicesResponse.Items, &voltha.Device{Id: "testDevice2"})
+	devicesResponse := &voltha.Devices{Items: []*voltha.Device{
+		{Id: "testDevice1"},
+		{Id: "testDevice2"},
+	}}
 
 	var mockKafkaIcProxy = mocks.MockKafkaICProxy{
 		InvokeRpcSpy: mocks.InvokeRpcSpy{
