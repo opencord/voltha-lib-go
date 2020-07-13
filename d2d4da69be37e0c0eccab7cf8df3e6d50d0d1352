@@ -16,6 +16,24 @@
       "revId": "d2d4da69be37e0c0eccab7cf8df3e6d50d0d1352",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eefccb81_150124d5",
+        "filename": "pkg/adapters/adapterif/core_proxy_if.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-13T15:39:24Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you mean.  \"All\" is only used as the zero/default value (in which case all ports of all types will be updated), but specifying a port type other than \"All\" will cause only ports of that type to be updated.",
+      "parentUuid": "0b62c537_34328f6e",
+      "revId": "d2d4da69be37e0c0eccab7cf8df3e6d50d0d1352",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
