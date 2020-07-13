@@ -52,6 +52,24 @@
       "revId": "d2d4da69be37e0c0eccab7cf8df3e6d50d0d1352",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8cd0e3c_c10b0e03",
+        "filename": "pkg/adapters/adapterif/core_proxy_if.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-13T19:30:27Z",
+      "side": 1,
+      "message": "The idea was to augment PortsStateUpdate with a \"port type\" filter, so only ports of the specified type are updated (or all ports if \"ALL\" is specified).\n\nThis is done for the \"DisableDevice\" case, where all PON_OLT ports should be disabled, but others should be left alone. \n\nDid you mean to say that PortType is no longer needed for PortStateUpdate()?",
+      "parentUuid": "a3788745_248af9ae",
+      "revId": "d2d4da69be37e0c0eccab7cf8df3e6d50d0d1352",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
