@@ -34,6 +34,24 @@
       "revId": "d2d4da69be37e0c0eccab7cf8df3e6d50d0d1352",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3788745_248af9ae",
+        "filename": "pkg/adapters/adapterif/core_proxy_if.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-07-13T15:43:41Z",
+      "side": 1,
+      "message": "There is a PortStateUpdate API which is used to refer to one specific port on the device and this \"PortsStateUpdate()\" API which refers to ALL ports.",
+      "parentUuid": "eefccb81_150124d5",
+      "revId": "d2d4da69be37e0c0eccab7cf8df3e6d50d0d1352",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
