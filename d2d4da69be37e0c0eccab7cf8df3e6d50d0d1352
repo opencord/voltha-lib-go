@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b62c537_34328f6e",
+        "filename": "pkg/adapters/adapterif/core_proxy_if.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-07-13T15:33:53Z",
+      "side": 1,
+      "message": "If \"ALL\" (as a port type) is added for filtering then in this scenario this is not needed as \"PortsStateUpdate\" is used to refer to all ports on that device.",
+      "revId": "d2d4da69be37e0c0eccab7cf8df3e6d50d0d1352",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
