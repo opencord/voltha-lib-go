@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f54ada6b_34fd2477",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-14T19:57:40Z",
+      "side": 1,
+      "message": "would it not be cleaner to have the caller create the new context, and pass the new context to the new function?  Like:\n\ngo foo(WithSpanFromContext(context.Background(), ctx), ...)\n\nWhat are the use cases for CreateAsyncSpan vs WithSpanFromContext?  These seem to solve the same problem in different ways.",
+      "range": {
+        "startLine": 211,
+        "startChar": 54,
+        "endLine": 212,
+        "endChar": 59
+      },
+      "revId": "5c1f99d01ec7cd0e995eb9b92293368e477a35e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ab3de10_cf49f435",
         "filename": "pkg/log/utils.go",
         "patchSetId": 17
@@ -13,6 +36,29 @@
       "writtenOn": "2020-07-14T19:15:22Z",
       "side": 1,
       "message": "Is it expected for this library utils to terminate the callee component instead of the callee making that decision?",
+      "revId": "5c1f99d01ec7cd0e995eb9b92293368e477a35e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61cee68b_5180b14f",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-14T19:57:40Z",
+      "side": 1,
+      "message": "\"soan\" should be \"span\"",
+      "range": {
+        "startLine": 218,
+        "startChar": 51,
+        "endLine": 218,
+        "endChar": 55
+      },
       "revId": "5c1f99d01ec7cd0e995eb9b92293368e477a35e5",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
