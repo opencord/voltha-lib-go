@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "09166ba8_ee403b63",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-07-15T19:34:02Z",
+      "side": 1,
+      "message": "CreateAsyncSpan and WithSpanFromContext are serving different purpose. Let me try to explain all 3 methods:\n\n1. When we create a Child Span using CreateChildSpan, Parent span is dependent on outcome of child span and is shown encapsulating the Child span (and its further child spans) for synchronous code execution in Tracing GUI.\n\n2. CreateAsyncSpan allows to break that relationship by creating a Follows-From span. Parent span is not dependent on outcome of Follows-From span and I felt it is mostly true for go routine sort of execution. Hence, named the method as CreateAsyncSpan\n\nRefer to following diagram to see how Jaeger GUI would represent these 2 types of Spans:\nhttps://user-images.githubusercontent.com/3801683/76114954-38823c80-5fb5-11ea-9529-173fbfb62573.png\n\n3. In case of WithSpanFromContext, the same Span continues to ride on a new Context. So, there is no break in Span as it will be visible in case of CreateAsyncSpan() method call to clearly indicate when the go routine started and ended.\n\nHope it clarifies.",
+      "parentUuid": "f54ada6b_34fd2477",
+      "range": {
+        "startLine": 211,
+        "startChar": 54,
+        "endLine": 212,
+        "endChar": 59
+      },
+      "revId": "5c1f99d01ec7cd0e995eb9b92293368e477a35e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ab3de10_cf49f435",
         "filename": "pkg/log/utils.go",
         "patchSetId": 17
@@ -62,6 +86,48 @@
       "revId": "5c1f99d01ec7cd0e995eb9b92293368e477a35e5",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3f7bd97_dfe5086c",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-07-15T19:34:02Z",
+      "side": 1,
+      "message": "I also felt lately that log.Fatal is not appropriate, a infra/utility feature should not terminate the process. Hence, changed to warning in updated patch and falling back to Child Span creation",
+      "parentUuid": "6ab3de10_cf49f435",
+      "revId": "5c1f99d01ec7cd0e995eb9b92293368e477a35e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a5782e7_935dbb3a",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-07-15T19:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61cee68b_5180b14f",
+      "range": {
+        "startLine": 218,
+        "startChar": 51,
+        "endLine": 218,
+        "endChar": 55
+      },
+      "revId": "5c1f99d01ec7cd0e995eb9b92293368e477a35e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
