@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f3ee32ac_618d06f2",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-15T20:05:16Z",
+      "side": 1,
+      "message": "Ok, with a better understanding of this, it seems like a follows-from span is not really relevant to our use case.  I would expect to see follows-from if there was a repeating background job, or a this-then-than relationship.  But when we create new goroutines, they tend to run in parallel with the caller, thus being a \"sub\"-task, not a \"next\" task.\n\nHave situations been defined (code guidelines) where each of these should be used yet?  I would expect to see a new span created in cases that currently use the \"go\" keyword with context.Background(), but I don\u0027t see another obvious delimiter that could be used when looking at the code.\n\nThoughts on this?",
+      "parentUuid": "09166ba8_ee403b63",
+      "range": {
+        "startLine": 211,
+        "startChar": 54,
+        "endLine": 212,
+        "endChar": 59
+      },
+      "revId": "5c1f99d01ec7cd0e995eb9b92293368e477a35e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ab3de10_cf49f435",
         "filename": "pkg/log/utils.go",
         "patchSetId": 17
