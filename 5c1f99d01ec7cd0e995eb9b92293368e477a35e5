@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "087029bc_3d18f96a",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-16T18:24:12Z",
+      "side": 1,
+      "message": "Ok, this makes sense to me.\n\nOne last suggestion: Does any caller need direct access to the span?  Would it make more sense to return just the new context in CreateChildSpan/CreateAsyncSpan?",
+      "parentUuid": "1a134723_6333f93d",
+      "range": {
+        "startLine": 211,
+        "startChar": 54,
+        "endLine": 212,
+        "endChar": 59
+      },
+      "revId": "5c1f99d01ec7cd0e995eb9b92293368e477a35e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ab3de10_cf49f435",
         "filename": "pkg/log/utils.go",
         "patchSetId": 17
