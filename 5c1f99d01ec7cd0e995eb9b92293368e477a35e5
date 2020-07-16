@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1a134723_6333f93d",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-07-16T15:36:16Z",
+      "side": 1,
+      "message": "Yeah, you have a valid point. The go routines are asynchronous but starts right away in parallel with parent execution flow. Let us use Child Span for them.\n\nAs of now, I see just a couple of cases where the Async span would make sense.\n1. When Async Kafka RPC call is made with WaitForResponse as false (I guess that is not done anywhere)\n2. When Channel is used as Data Transfer pipe across Go Routines. Need to check if any such case is there in code.\n\nAs of now, I have defined the guidelines on usage of these methods in code comments only. Updated it further based on this discussion. I will be updating and finetuning them as we explore the voltha codebase further to identify other unique scenarios to be handled. Any suggestions are welcome.\n\nAs I tested it further today, found that this method was creating new Span in dual relationship with Parent span (both ChildOf and FollowFrom). Made minor fix for that.",
+      "parentUuid": "f3ee32ac_618d06f2",
+      "range": {
+        "startLine": 211,
+        "startChar": 54,
+        "endLine": 212,
+        "endChar": 59
+      },
+      "revId": "5c1f99d01ec7cd0e995eb9b92293368e477a35e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ab3de10_cf49f435",
         "filename": "pkg/log/utils.go",
         "patchSetId": 17
