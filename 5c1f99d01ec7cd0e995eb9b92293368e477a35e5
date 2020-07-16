@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "027a09d3_0fce496b",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-07-16T18:33:11Z",
+      "side": 1,
+      "message": "Yes, caller needs the span. Each caller will have \"defer span.Finish()\" as the next statement to terminate the span on method completion. I guess there is no generic solution to meet this requirement; is there any?",
+      "parentUuid": "087029bc_3d18f96a",
+      "range": {
+        "startLine": 211,
+        "startChar": 54,
+        "endLine": 212,
+        "endChar": 59
+      },
+      "revId": "5c1f99d01ec7cd0e995eb9b92293368e477a35e5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ab3de10_cf49f435",
         "filename": "pkg/log/utils.go",
         "patchSetId": 17
