@@ -46,6 +46,30 @@
       "revId": "446274fe4aa849af98ed329c8fe08bb0cc65bb13",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33c656b9_4531b500",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-22T16:54:53Z",
+      "side": 1,
+      "message": "I suppose it works, I just like reducing the complexity that the caller has to deal with as much as possible.\n\nAlternative is to have a helper that accepts a closer and returns a close func.\n\nfunc closeHelper(c io.Closer) func() {\n\treturn func(){\n\t\tif err :\u003d c.Close(); err !\u003d nil {\n\t\t\tdefaultLogger.Error(context.Background(), \"error-while-closing-jaeger-tracer\", Fields{\"err\": err})\n\t\t}\n\t}\n}\n\nAnd `return closeHelper(closer)` anywhere that io.Closer is currently returned.\n\nI\u0027ve given a +1, so you can choose to keep the current implementation.",
+      "parentUuid": "4190c4df_50d45f95",
+      "range": {
+        "startLine": 61,
+        "startChar": 115,
+        "endLine": 61,
+        "endChar": 124
+      },
+      "revId": "446274fe4aa849af98ed329c8fe08bb0cc65bb13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
