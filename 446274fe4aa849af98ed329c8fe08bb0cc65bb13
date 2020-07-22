@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c560ad66_73d82044",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-22T14:57:33Z",
+      "side": 1,
+      "message": "Rather than returning io.Closer, consider returning a close function of type func().\n\nAnd put the logic for TerminateTracing in this func.  Something like:\n\nreturn func(){\n\tif err :\u003d c.Close(); err !\u003d nil {\n\t\tdefaultLogger.Error(context.Background(), \"error-while-closing-jaeger-tracer\", Fields{\"err\": err})\n\t}\n}",
+      "range": {
+        "startLine": 61,
+        "startChar": 115,
+        "endLine": 61,
+        "endChar": 124
+      },
+      "revId": "446274fe4aa849af98ed329c8fe08bb0cc65bb13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
