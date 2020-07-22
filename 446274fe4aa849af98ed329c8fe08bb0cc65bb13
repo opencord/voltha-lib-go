@@ -22,6 +22,30 @@
       "revId": "446274fe4aa849af98ed329c8fe08bb0cc65bb13",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4190c4df_50d45f95",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-07-22T16:04:42Z",
+      "side": 1,
+      "message": "I had considered this as well earlier. But as I am returning from multiple places in this method, I will have to either:\n- Put duplicate definition of this method at each return statement having ip.Closer instance\n- Or, refactor this method to add if/else blocks to perform a single return at the end\n\nBoth of these will reduce readability of this code. I hope it is OK to continue with this approach of a named function.",
+      "parentUuid": "c560ad66_73d82044",
+      "range": {
+        "startLine": 61,
+        "startChar": 115,
+        "endLine": 61,
+        "endChar": 124
+      },
+      "revId": "446274fe4aa849af98ed329c8fe08bb0cc65bb13",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
