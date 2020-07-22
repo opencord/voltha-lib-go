@@ -120,6 +120,13 @@ func InitTracingAndLogCorrelation(tracePublishEnabled bool, traceAgentAddress st
 	return cfg.InitGlobalTracer(componentName, jcfg.Reporter(jReporterCfgOption), jcfg.Sampler(jSamplerCfgOption))
 }
 
+func TerminateTracing(c io.Closer) {
+	err := c.Close()
+	if err != nil {
+		defaultLogger.Error(context.Background(), "error-while-closing-jaeger-tracer", Fields{"err": err})
+	}
+}
+
 // Extracts details of Execution Context as log fields from the Tracing Span injected into the
 // context instance. Following log fields are extracted:
 // 1. Operation Name : key as 'op-name' and value as Span operation name
