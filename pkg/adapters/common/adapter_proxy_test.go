@@ -56,7 +56,7 @@ func TestNewAdapterProxy(t *testing.T) {
 		},
 	}
 	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
-	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testCoreTopic", backend)
 
 	assert.NotNil(t, adapter)
 }
@@ -71,7 +71,7 @@ func TestSendInterAdapterMessage(t *testing.T) {
 	}
 	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
-	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testCoreTopic", backend)
 
 	adapter.endpointMgr = mocks.NewEndpointManager()
 
@@ -115,7 +115,7 @@ func TestHeaderId(t *testing.T) {
 	}
 	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
-	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testCoreTopic", backend)
 
 	adapter.endpointMgr = mocks.NewEndpointManager()
 
@@ -143,7 +143,7 @@ func TestInvalidProtoMessage(t *testing.T) {
 	}
 	backend := db.NewBackend(context.Background(), "etcd", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
 
-	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testAdapterTopic", "testCoreTopic", backend)
+	adapter := NewAdapterProxy(context.Background(), mockKafkaIcProxy, "testCoreTopic", backend)
 
 	adapter.endpointMgr = mocks.NewEndpointManager()
 

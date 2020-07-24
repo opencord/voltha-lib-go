@@ -30,19 +30,17 @@ import (
 
 type AdapterProxy struct {
 	kafkaICProxy kafka.InterContainerProxy
-	adapterTopic string
 	coreTopic    string
 	endpointMgr  kafka.EndpointManager
 }
 
-func NewAdapterProxy(ctx context.Context, kafkaProxy kafka.InterContainerProxy, adapterTopic string, coreTopic string, backend *db.Backend) *AdapterProxy {
+func NewAdapterProxy(ctx context.Context, kafkaProxy kafka.InterContainerProxy, coreTopic string, backend *db.Backend) *AdapterProxy {
 	proxy := AdapterProxy{
 		kafkaICProxy: kafkaProxy,
-		adapterTopic: adapterTopic,
 		coreTopic:    coreTopic,
 		endpointMgr:  kafka.NewEndpointManager(backend),
 	}
-	logger.Debugw(ctx, "topics", log.Fields{"core": proxy.coreTopic, "adapter": proxy.adapterTopic})
+	logger.Debugw(ctx, "topics", log.Fields{"core": proxy.coreTopic})
 	return &proxy
 }
 
@@ -65,11 +63,17 @@ func (ap *AdapterProxy) SendInterAdapterMessage(ctx context.Context,
 		return err
 	}
 
+	// Set up the required rpc arguments
+	endpoint, err := ap.endpointMgr.GetEndpoint(ctx, toDeviceId, toAdapter)
+	if err != nil {
+		return err
+	}
+
 	//Build the inter adapter message
 	header := &ic.InterAdapterHeader{
 		Type:          msgType,
 		FromTopic:     fromAdapter,
-		ToTopic:       toAdapter,
+		ToTopic:       string(endpoint),
 		ToDeviceId:    toDeviceId,
 		ProxyDeviceId: proxyDeviceId,
 	}
@@ -89,11 +93,6 @@ func (ap *AdapterProxy) SendInterAdapterMessage(ctx context.Context,
 		Value: iaMsg,
 	}
 
-	// Set up the required rpc arguments
-	endpoint, err := ap.endpointMgr.GetEndpoint(ctx, toDeviceId, toAdapter)
-	if err != nil {
-		return err
-	}
 	topic := kafka.Topic{Name: string(endpoint)}
 	replyToTopic := kafka.Topic{Name: fromAdapter}
 	rpc := "process_inter_adapter_message"
