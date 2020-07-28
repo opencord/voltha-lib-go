@@ -21,6 +21,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
 	"regexp"
 	"strconv"
 	"sync"
@@ -380,12 +381,21 @@ const (
 )
 
 func (t *TechProfileMgr) SetKVClient(ctx context.Context) *db.Backend {
+	var tpkvStorePrefix string
+	if prefix, present := os.LookupEnv("KV_STORE_DATAPATH_PREFIX"); present {
+		tpkvStorePrefix = prefix + "/technology_profiles"
+		logger.Infow(ctx, "KV_STORE_DATAPATH_PREFIX env variable is set, ", log.Fields{"tpkvStoreDataPathPrefix": tpkvStorePrefix})
+	} else {
+		tpkvStorePrefix = t.config.TPKVPathPrefix
+		logger.Infow(ctx, "KV_STORE_DATAPATH_PREFIX env variable is not set, using default", log.Fields{"tpkvStoreDataPathPrefix": t.config.TPKVPathPrefix})
+	}
+
 	kvClient, err := newKVClient(ctx, t.config.KVStoreType, t.config.KVStoreAddress, t.config.KVStoreTimeout)
 	if err != nil {
 		logger.Errorw(ctx, "failed-to-create-kv-client",
 			log.Fields{
 				"type": t.config.KVStoreType, "address": t.config.KVStoreAddress,
-				"timeout": t.config.KVStoreTimeout, "prefix": t.config.TPKVPathPrefix,
+				"timeout": t.config.KVStoreTimeout, "prefix": tpkvStorePrefix,
 				"error": err.Error(),
 			})
 		return nil
@@ -395,7 +405,7 @@ func (t *TechProfileMgr) SetKVClient(ctx context.Context) *db.Backend {
 		StoreType:  t.config.KVStoreType,
 		Address:    t.config.KVStoreAddress,
 		Timeout:    t.config.KVStoreTimeout,
-		PathPrefix: t.config.TPKVPathPrefix}
+		PathPrefix: tpkvStorePrefix}
 
 	/* TODO : Make sure direct call to NewBackend is working fine with backend , currently there is some
 		  issue between kv store and backend , core is not calling NewBackend directly
