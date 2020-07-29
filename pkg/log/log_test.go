@@ -28,7 +28,7 @@ var testLogger Logger
 
 func TestInit(t *testing.T) {
 	var err error
-	testLogger, err = AddPackage(JSON, ErrorLevel, nil)
+	testLogger, err = AddPackage(JSON, ErrorLevel)
 	assert.NotNil(t, testLogger)
 	assert.Nil(t, err)
 }
@@ -72,7 +72,7 @@ func TestUpdateLogLevel(t *testing.T) {
 	myLoggers := make(map[string]Logger)
 	pkgNames := []string{"/rw_core/core", "/db/model", "/kafka"}
 	for _, name := range pkgNames {
-		myLoggers[name], _ = AddPackage(JSON, ErrorLevel, nil, []string{name}...)
+		myLoggers[name], _ = AddPackage(JSON, ErrorLevel, []string{name}...)
 	}
 	//Test updates to log levels
 	levels := []LogLevel{DebugLevel, InfoLevel, WarnLevel, ErrorLevel, FatalLevel}

@@ -265,7 +265,7 @@ func SetDefaultLogger(outputType string, level LogLevel, defaultFields Fields) (
 // be available to it, notably log tracing with filename.functionname.linenumber annotation.
 //
 // pkgNames parameter should be used for testing only as this function detects the caller's package.
-func RegisterPackage(outputType string, level LogLevel, defaultFields Fields, pkgNames ...string) (CLogger, error) {
+func RegisterPackage(outputType string, level LogLevel, pkgNames ...string) (CLogger, error) {
 	if cfgs == nil {
 		cfgs = make(map[string]zp.Config)
 	}
@@ -286,7 +286,7 @@ func RegisterPackage(outputType string, level LogLevel, defaultFields Fields, pk
 		return loggers[pkgName], nil
 	}
 
-	cfgs[pkgName] = getDefaultConfig(outputType, level, defaultFields)
+	cfgs[pkgName] = getDefaultConfig(outputType, level, nil)
 
 	l, err := cfgs[pkgName].Build(zp.AddCallerSkip(1))
 	if err != nil {
