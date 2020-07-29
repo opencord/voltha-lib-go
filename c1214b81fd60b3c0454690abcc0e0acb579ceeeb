@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15544bbb_c205f0c9",
+        "filename": "VERSION",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-29T16:21:53Z",
+      "side": 1,
+      "message": "Shouldn\u0027t generally use -dev versions for the voltha-lib-go repo, since this prevents the version from being used in dependent repos.",
+      "revId": "c1214b81fd60b3c0454690abcc0e0acb579ceeeb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
