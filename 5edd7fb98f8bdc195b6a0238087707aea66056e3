@@ -22,6 +22,30 @@
       "revId": "5edd7fb98f8bdc195b6a0238087707aea66056e3",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "958e24cc_7dc3fcba",
+        "filename": "VERSION",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-07-30T21:37:04Z",
+      "side": 1,
+      "message": "i left it as dev as i suspect there will be more changes coming around race conditions and figured i would try to get most of them in before flipping to a release and updating the dependency in voltha-go. any particularly reasons this is not a good way forward? thoughts?",
+      "parentUuid": "a09ef5cb_6599567f",
+      "range": {
+        "startLine": 1,
+        "startChar": 5,
+        "endLine": 1,
+        "endChar": 9
+      },
+      "revId": "5edd7fb98f8bdc195b6a0238087707aea66056e3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
