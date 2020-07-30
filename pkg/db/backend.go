@@ -20,6 +20,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/opencord/voltha-lib-go/v3/pkg/db/kvstore"
@@ -40,7 +41,8 @@ type Backend struct {
 	Timeout                 time.Duration
 	Address                 string
 	PathPrefix              string
-	alive                   bool          // Is this backend connection alive?
+	alive                   bool // Is this backend connection alive?
+	livenessMutex           sync.RWMutex
 	liveness                chan bool     // channel to post alive state
 	LivenessChannelInterval time.Duration // regularly push alive state beyond this interval
 	lastLivenessTime        time.Time     // Instant of last alive state push
@@ -91,8 +93,9 @@ func (b *Backend) updateLiveness(ctx context.Context, alive bool) {
 	// so that in a live state, the core does not timeout and
 	// send a forced liveness message. Push alive state if the
 	// last push to channel was beyond livenessChannelInterval
+	b.livenessMutex.RLock()
+	defer b.livenessMutex.RUnlock()
 	if b.liveness != nil {
-
 		if b.alive != alive {
 			logger.Debug(ctx, "update-liveness-channel-reason-change")
 			b.liveness <- alive
@@ -128,14 +131,13 @@ func (b *Backend) PerformLivenessCheck(ctx context.Context) bool {
 // and/or take other actions.
 func (b *Backend) EnableLivenessChannel(ctx context.Context) chan bool {
 	logger.Debug(ctx, "enable-kvstore-liveness-channel")
-
-	if b.liveness == nil {
-		logger.Debug(ctx, "create-kvstore-liveness-channel")
-
-		// Channel size of 10 to avoid any possibility of blocking in Load conditions
+	b.livenessMutex.RLock()
+	isEnabled := b.liveness != nil
+	b.livenessMutex.RUnlock()
+	if !isEnabled {
+		b.livenessMutex.Lock()
+		defer b.livenessMutex.Unlock()
 		b.liveness = make(chan bool, 10)
-
-		// Post initial alive state
 		b.liveness <- b.alive
 		b.lastLivenessTime = time.Now()
 	}
