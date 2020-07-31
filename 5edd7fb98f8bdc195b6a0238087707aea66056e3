@@ -46,6 +46,30 @@
       "revId": "5edd7fb98f8bdc195b6a0238087707aea66056e3",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4f0d810_2f33897c",
+        "filename": "VERSION",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-07-31T17:15:56Z",
+      "side": 1,
+      "message": "I suppose this is fine.  I suppose I have a tendency to keep changes locally until I\u0027m ready to bump a version number.",
+      "parentUuid": "958e24cc_7dc3fcba",
+      "range": {
+        "startLine": 1,
+        "startChar": 5,
+        "endLine": 1,
+        "endChar": 9
+      },
+      "revId": "5edd7fb98f8bdc195b6a0238087707aea66056e3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
