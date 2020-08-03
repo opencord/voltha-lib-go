@@ -184,15 +184,15 @@ func (c *EtcdClient) Reserve(ctx context.Context, key string, value interface{},
 	reservationSuccessful := false
 	defer func() {
 		if !reservationSuccessful {
-			if err = c.ReleaseReservation(context.Background(), key); err != nil {
+			if err = c.ReleaseReservation(log.WithSpanFromContext(context.Background(), ctx), key); err != nil {
 				logger.Error(ctx, "cannot-release-lease")
 			}
 		}
 	}()
 
 	// Try to grap the Key with the above lease
-	c.ectdAPI.Txn(context.Background())
-	txn := c.ectdAPI.Txn(context.Background())
+	c.ectdAPI.Txn(log.WithSpanFromContext(context.Background(), ctx))
+	txn := c.ectdAPI.Txn(log.WithSpanFromContext(context.Background(), ctx))
 	txn = txn.If(v3Client.Compare(v3Client.Version(key), "=", 0))
 	txn = txn.Then(v3Client.OpPut(key, val, v3Client.WithLease(resp.ID)))
 	txn = txn.Else(v3Client.OpGet(key))
@@ -460,7 +460,7 @@ func (c *EtcdClient) getLock(lockName string) (*v3Concurrency.Mutex, *v3Concurre
 func (c *EtcdClient) AcquireLock(ctx context.Context, lockName string, timeout time.Duration) error {
 	session, _ := v3Concurrency.NewSession(c.ectdAPI, v3Concurrency.WithContext(ctx))
 	mu := v3Concurrency.NewMutex(session, "/devicelock_"+lockName)
-	if err := mu.Lock(context.Background()); err != nil {
+	if err := mu.Lock(log.WithSpanFromContext(context.Background(), ctx)); err != nil {
 		//cancel()
 		return err
 	}

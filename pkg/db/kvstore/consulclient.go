@@ -367,7 +367,7 @@ func (c *ConsulClient) Watch(ctx context.Context, key string, withPrefix bool) c
 	ch := make(chan *Event, maxClientChannelBufferSize)
 
 	// Create a context to track this request
-	watchContext, cFunc := context.WithCancel(context.Background())
+	watchContext, cFunc := context.WithCancel(log.WithSpanFromContext(context.Background(), ctx))
 
 	// Save the channel and context reference for later
 	c.writeLock.Lock()

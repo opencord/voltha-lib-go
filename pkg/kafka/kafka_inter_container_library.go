@@ -968,7 +968,7 @@ func (kp *interContainerProxy) waitForMessages(ctx context.Context, ch <-chan *i
 	//	Wait for messages
 	for msg := range ch {
 		//logger.Debugw(ctx, "request-received", log.Fields{"msg": msg, "topic": topic.Name, "target": targetInterface})
-		go kp.handleMessage(context.Background(), msg, targetInterface)
+		go kp.handleMessage(log.WithSpanFromContext(context.Background(), ctx), msg, targetInterface)
 	}
 }
 
