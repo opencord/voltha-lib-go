@@ -127,6 +127,17 @@ func TerminateTracing(c io.Closer) {
 	}
 }
 
+func SetLogCorrelation(ctx context.Context, status bool) {
+	defaultLogger.Debugw(ctx, "set-log-correlation-status", Fields{"status": status})
+	if status == true {
+		defaultLogger.Debugw(ctx, "log-correlation-status-enabled", Fields{"status": status})
+		extractLogFieldsFromContext = true
+	} else {
+		defaultLogger.Debugw(ctx, "log-correlation-status-disabled", Fields{"status": status})
+		extractLogFieldsFromContext = false
+	}
+}
+
 // Extracts details of Execution Context as log fields from the Tracing Span injected into the
 // context instance. Following log fields are extracted:
 // 1. Operation Name : key as 'op-name' and value as Span operation name
@@ -187,8 +198,7 @@ func ExtractContextAttributes(ctx context.Context) []interface{} {
 			}
 		}
 	}
-
-	return serializeMap(attrMap)
+ 	return serializeMap(attrMap)
 }
 
 // Method to inject additional log fields into Span e.g. device-id
