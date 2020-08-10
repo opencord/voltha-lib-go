@@ -127,6 +127,20 @@ func TerminateTracing(c io.Closer) {
 	}
 }
 
+func SetLogCorrelation(ctx context.Context, logCorrelationConfig map[string]string) {
+	defaultLogger.Debug(ctx, "set-log-correlation")
+	for _, status := range logCorrelationConfig {
+		defaultLogger.Debugw(ctx, "log-correlation-status", Fields{"status": status})
+		if status == "ENABLED" {
+			defaultLogger.Debugw(ctx, "log-correlation-status-enabled", Fields{"status": status})
+			extractLogFieldsFromContext = true
+		} else if status == "DISABLED" {
+			defaultLogger.Debugw(ctx, "log-correlation-status-disabled", Fields{"status": status})
+			extractLogFieldsFromContext = false
+		}
+	}
+}
+
 // Extracts details of Execution Context as log fields from the Tracing Span injected into the
 // context instance. Following log fields are extracted:
 // 1. Operation Name : key as 'op-name' and value as Span operation name

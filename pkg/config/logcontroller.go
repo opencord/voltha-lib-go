@@ -51,6 +51,15 @@ type ComponentLogController struct {
 	initialLogLevel     string // Initial default log level set by helm chart
 }
 
+// StartLogCorrelationConfigProcessiong initialize compoment config
+type ComponentLogCorrelationController struct {
+	ComponentName         string
+	componentNameConfig   *ComponentConfig
+	configManager         *ConfigManager
+	logHash               [16]byte
+	initialLogCorrelation string // Initial default log correlation
+}
+
 func NewComponentLogController(ctx context.Context, cm *ConfigManager) (*ComponentLogController, error) {
 	logger.Debug(ctx, "creating-new-component-log-controller")
 	componentName := os.Getenv("COMPONENT_NAME")
@@ -96,6 +105,82 @@ func StartLogLevelConfigProcessing(cm *ConfigManager, ctx context.Context) {
 	cc.persistRegisteredLogPackageList(ctx)
 
 	cc.processLogConfig(ctx)
+}
+
+func NewComponentLogCorrelationController(ctx context.Context, cm *ConfigManager) (*ComponentLogCorrelationController, error) {
+	logger.Debug(ctx, "creating-new-component-log-correlation-controller")
+	componentName := os.Getenv("COMPONENT_NAME")
+	if componentName == "" {
+		return nil, errors.New("Unable to retrieve PoD Component Name from Runtime env")
+	}
+
+	return &ComponentLogCorrelationController{
+		ComponentName:         componentName,
+		componentNameConfig:   nil,
+		configManager:         cm,
+		initialLogCorrelation: "enabled",
+	}, nil
+}
+
+func StartLogCorrelationConfigProcessing(cm *ConfigManager, ctx context.Context) {
+	cc, err := NewComponentLogCorrelationController(ctx, cm)
+	if err != nil {
+		logger.Errorw(ctx, "unable-to-construct-component-log-controller-instance-for-log-correlation-config-monitoring", log.Fields{"error": err})
+		return
+	}
+
+	cc.componentNameConfig = cm.InitComponentConfig(cc.ComponentName, ConfigTypeLogCorrelation)
+	logger.Debugw(ctx, "component-log-correlation-config", log.Fields{"cc-component-name-config": cc.componentNameConfig})
+
+	cc.processLogCorrelationConfig(ctx)
+}
+
+func (c *ComponentLogCorrelationController) processLogCorrelationConfig(ctx context.Context) {
+
+	componentConfigEventChan := c.componentNameConfig.MonitorForConfigChange(ctx)
+
+	// process the events for componentName
+	var configEvent *ConfigChangeEvent
+	for {
+		configEvent = <-componentConfigEventChan
+		logger.Debugw(ctx, "processing-log-config-change", log.Fields{"ChangeType": configEvent.ChangeType, "Package": configEvent.ConfigAttribute})
+
+		logCorrelationConfig, err := c.getLogCorrelationStatus(ctx)
+		if err != nil {
+			logger.Warnw(ctx, "unable-to-get-log-correlation-status", log.Fields{"error": err})
+			continue
+		}
+
+		if err := c.updateLogCorrelationStatus(ctx, logCorrelationConfig); err != nil {
+			logger.Warnw(ctx, "unable-to-update-log-correlation-status", log.Fields{"error": err})
+		}
+	}
+}
+
+func (c *ComponentLogCorrelationController) getLogCorrelationStatus(ctx context.Context) (map[string]string, error) {
+	logger.Debug(ctx, "get-log-correlation-status")
+	componentLogCorrelationConfig, err := c.componentNameConfig.RetrieveAll(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return componentLogCorrelationConfig, nil
+}
+
+func (c *ComponentLogCorrelationController) updateLogCorrelationStatus(ctx context.Context, logCorrelationConfig map[string]string) error {
+	logger.Debug(ctx, "update-log-correlation-status")
+	currentLogHash, err := GenerateLogConfigHash(logCorrelationConfig)
+	if err != nil {
+		return err
+	}
+
+	if c.logHash != currentLogHash {
+		log.SetLogCorrelation(ctx, logCorrelationConfig)
+		c.logHash = currentLogHash
+	} else {
+		logger.Debug(ctx, "logcorrelation-status-same-as-currently-active")
+	}
+	return nil
 }
 
 // Method to persist Global default loglevel into etcd, if not set yet
