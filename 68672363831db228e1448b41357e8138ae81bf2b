@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc63500e_f16b8936",
+        "filename": "pkg/db/kvstore/consulclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-11T06:15:19Z",
+      "side": 1,
+      "message": "No need for this change; we are not anyway using consul db",
+      "revId": "68672363831db228e1448b41357e8138ae81bf2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "812ad925_f57e42e5",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-11T06:15:19Z",
+      "side": 1,
+      "message": "No need for changes to this file. This context need not be propagated to etcd and there are no log statements as well; so why do we need to propagate span",
+      "revId": "68672363831db228e1448b41357e8138ae81bf2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "613396ab_3f3bdcb3",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-11T06:15:19Z",
+      "side": 1,
+      "message": "No need for this change. As handle message will start processing of a incoming new request, let it start with a clean context",
+      "revId": "68672363831db228e1448b41357e8138ae81bf2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
