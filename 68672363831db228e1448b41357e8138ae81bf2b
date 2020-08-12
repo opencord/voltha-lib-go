@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "21ef3b6c_3d6b8946",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-08-12T12:18:21Z",
+      "side": 1,
+      "message": "It was decided to create a child span whenever a call is happening to third party library. https://github.com/opencord/voltha-lib-go/blob/master/pkg/log/utils.go#L230",
+      "parentUuid": "859be680_2702c970",
+      "revId": "68672363831db228e1448b41357e8138ae81bf2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc63500e_f16b8936",
         "filename": "pkg/db/kvstore/consulclient.go",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2020-08-11T06:15:19Z",
       "side": 1,
       "message": "No need for this change; we are not anyway using consul db",
+      "revId": "68672363831db228e1448b41357e8138ae81bf2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5a14326_d3faff5c",
+        "filename": "pkg/db/kvstore/consulclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-08-12T12:18:21Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "cc63500e_f16b8936",
       "revId": "68672363831db228e1448b41357e8138ae81bf2b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5d3983ff_e0b698c9",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-08-12T12:18:21Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "812ad925_f57e42e5",
+      "revId": "68672363831db228e1448b41357e8138ae81bf2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "613396ab_3f3bdcb3",
         "filename": "pkg/kafka/kafka_inter_container_library.go",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2020-08-11T06:15:19Z",
       "side": 1,
       "message": "No need for this change. As handle message will start processing of a incoming new request, let it start with a clean context",
+      "revId": "68672363831db228e1448b41357e8138ae81bf2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d315d52_85e08a91",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1000612
+      },
+      "writtenOn": "2020-08-12T12:18:21Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "613396ab_3f3bdcb3",
       "revId": "68672363831db228e1448b41357e8138ae81bf2b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
