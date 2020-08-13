@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f541bd8_511b8b05",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T07:35:28Z",
+      "side": 1,
+      "message": "can we rename this as LogTracing (and etcd path as \"logtracing\"). I guess we can keep config related to log correlation and tracing under the same config tree",
+      "revId": "bd17c8f7e586a68aeb1ffb114d784d9b7a002145",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3446c1b4_e9378964",
+        "filename": "pkg/config/logcorrelationcontroller.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T07:35:28Z",
+      "side": 1,
+      "message": "If you are keeping initial LogCorrelation status here, what is the need of initialLogCorrelation variable in ComponentLogCorrelationController  struct?",
+      "revId": "bd17c8f7e586a68aeb1ffb114d784d9b7a002145",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84f09075_c214e115",
+        "filename": "pkg/config/logcorrelationcontroller.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T07:35:28Z",
+      "side": 1,
+      "message": "Name the key as log_correlation",
+      "revId": "bd17c8f7e586a68aeb1ffb114d784d9b7a002145",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24baed6b_be3e5318",
+        "filename": "pkg/config/logcorrelationcontroller.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T07:35:28Z",
+      "side": 1,
+      "message": "This initial Log Correlation status should be coming from component configuration",
+      "revId": "bd17c8f7e586a68aeb1ffb114d784d9b7a002145",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcf4f3fa_bf8d9cf6",
+        "filename": "pkg/config/logcorrelationcontroller.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T07:35:28Z",
+      "side": 1,
+      "message": "I guess we can avoid one Retrieve call by combining this method with getInitialLogCorrelationStatus() method; may be name it as synchronizeInitialLogCorrelationStatus",
+      "revId": "bd17c8f7e586a68aeb1ffb114d784d9b7a002145",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f45cbda_8fe631e5",
+        "filename": "pkg/config/logcorrelationcontroller.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T07:35:28Z",
+      "side": 1,
+      "message": "Why do we need a map as the return type in this method?",
+      "revId": "bd17c8f7e586a68aeb1ffb114d784d9b7a002145",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "863a6e94_4589eef9",
+        "filename": "pkg/config/logcorrelationcontroller.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T07:35:28Z",
+      "side": 1,
+      "message": "Why do we need a for loop here when there is only key stored under this component config",
+      "revId": "bd17c8f7e586a68aeb1ffb114d784d9b7a002145",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2088a585_281e83eb",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T07:35:28Z",
+      "side": 1,
+      "message": "I guess we can attempt changes to log configuration as a separate JIRA. More analysis and testing is needed to verify runtime change of this config",
+      "revId": "bd17c8f7e586a68aeb1ffb114d784d9b7a002145",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
