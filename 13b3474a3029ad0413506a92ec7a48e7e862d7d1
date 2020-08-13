@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfa5db1e_98689ccc",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-08-13T18:57:20Z",
+      "side": 1,
+      "message": "would log-create-watch be more consistent?",
+      "range": {
+        "startLine": 244,
+        "startChar": 45,
+        "endLine": 244,
+        "endChar": 50
+      },
+      "revId": "13b3474a3029ad0413506a92ec7a48e7e862d7d1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
