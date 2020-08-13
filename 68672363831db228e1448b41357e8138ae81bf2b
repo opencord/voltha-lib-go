@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1c674043_9b8928d4",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T19:13:58Z",
+      "side": 1,
+      "message": "Set to resolved",
+      "parentUuid": "21ef3b6c_3d6b8946",
+      "revId": "68672363831db228e1448b41357e8138ae81bf2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc63500e_f16b8936",
         "filename": "pkg/db/kvstore/consulclient.go",
         "patchSetId": 4
@@ -69,6 +87,24 @@
       "revId": "68672363831db228e1448b41357e8138ae81bf2b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dcc3083_0bb7d103",
+        "filename": "pkg/db/kvstore/consulclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T19:13:58Z",
+      "side": 1,
+      "message": "Set to resolved",
+      "parentUuid": "e5a14326_d3faff5c",
+      "revId": "68672363831db228e1448b41357e8138ae81bf2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "50f2d671_e85702b4",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T19:13:58Z",
+      "side": 1,
+      "message": "Set to resolved",
+      "parentUuid": "5d3983ff_e0b698c9",
+      "revId": "68672363831db228e1448b41357e8138ae81bf2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "613396ab_3f3bdcb3",
         "filename": "pkg/kafka/kafka_inter_container_library.go",
         "patchSetId": 4
@@ -139,6 +193,24 @@
       "revId": "68672363831db228e1448b41357e8138ae81bf2b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "490d2b2f_0ff86bdd",
+        "filename": "pkg/kafka/kafka_inter_container_library.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-13T19:13:58Z",
+      "side": 1,
+      "message": "Set to resolved",
+      "parentUuid": "3d315d52_85e08a91",
+      "revId": "68672363831db228e1448b41357e8138ae81bf2b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
