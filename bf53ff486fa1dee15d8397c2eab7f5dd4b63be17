@@ -22,6 +22,47 @@
       "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60e480d2_4937008a",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T19:11:42Z",
+      "side": 1,
+      "message": "Disagree in this case @David.  This would expose the Lock() / Unlock() methods to the caller, but they should only be called internally.\n\nNit: Variable can just be called \"lock\" or \"mutex\".  (variables can probably have much shorter names and still be sufficiently descriptive, since they are no longer global.)",
+      "parentUuid": "196a4f83_6813cbdb",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c7b50d6_37510927",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T19:11:42Z",
+      "side": 1,
+      "message": "Nit: If possible, consider using `const`, or making the variable name lowercase.",
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }

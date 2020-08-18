@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "699d36f6_f9ac58be",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T19:11:42Z",
+      "side": 1,
+      "message": "Since defer is used by the caller, the linter will complain about an unhandled error value (leading to a messy defer func(){...} in order to handle this.)\n\nIt will be cleaner to just return a close `func()` instead of this custom traceCloser, and handle any error logging within the function.  (Unless there\u0027s a specific requirement to implement io.Closer?)",
+      "parentUuid": "32b1ff9f_24bff000",
+      "range": {
+        "startLine": 90,
+        "startChar": 29,
+        "endLine": 90,
+        "endChar": 34
+      },
+      "revId": "aa16838b0279a2863a58865cf5b44c65106eb2a3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f54db9c0_34ce99a8",
         "filename": "pkg/log/utils.go",
         "patchSetId": 2
