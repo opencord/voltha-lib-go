@@ -63,6 +63,47 @@
       "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4123a3d9_2b6353fc",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T19:19:26Z",
+      "side": 1,
+      "message": "Whoops, misread this somehow, thought it was uppercase.  nvm.",
+      "parentUuid": "8c7b50d6_37510927",
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "913727b0_53ed40e8",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T19:19:26Z",
+      "side": 1,
+      "message": "functions which need access to the global variable should be implemented on the LogFeaturesManager struct.\n\ni.e.:\n\nfunc (lfm *LogFeaturesManager) foo() {...}\n\nOtherwise there\u0027s not much encapsulation provided by the struct.\n\nCallers should either create their own instance of LogFeaturesManager, or call like package.GlobalVariable.Foo()",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
