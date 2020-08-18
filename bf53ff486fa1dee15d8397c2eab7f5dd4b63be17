@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f023c591_9519d409",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-08-18T20:56:07Z",
+      "side": 1,
+      "message": "is LogFeaturesManager used outside this file/package? could it be private? if so then using sync.Mutex w/o a var would work. it seems its only purpose is to control access to this struct.",
+      "parentUuid": "60e480d2_4937008a",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c7b50d6_37510927",
         "filename": "pkg/log/utils.go",
         "patchSetId": 3
