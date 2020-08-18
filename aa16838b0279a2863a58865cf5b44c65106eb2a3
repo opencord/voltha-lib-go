@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "e64cd618_c943f12f",
+        "filename": "pkg/config/logfeaturescontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T17:28:11Z",
+      "side": 1,
+      "message": "Cleaner to pass in only the specific config vars that are needed, rather than the whole config object.",
+      "range": {
+        "startLine": 40,
+        "startChar": 60,
+        "endLine": 40,
+        "endChar": 77
+      },
+      "revId": "aa16838b0279a2863a58865cf5b44c65106eb2a3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7f12e73_d670c850",
+        "filename": "pkg/config/logfeaturescontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T17:28:11Z",
+      "side": 1,
+      "message": "Probably better to let the caller pass in this config, rather than reading directly from env var?",
+      "range": {
+        "startLine": 42,
+        "startChar": 17,
+        "endLine": 42,
+        "endChar": 45
+      },
+      "revId": "aa16838b0279a2863a58865cf5b44c65106eb2a3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76dd7d92_e6577b0e",
+        "filename": "pkg/config/logfeaturescontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T17:28:11Z",
+      "side": 1,
+      "message": "Better to save only specific config vars that need to be persisted for later re-use.",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 15
+      },
+      "revId": "aa16838b0279a2863a58865cf5b44c65106eb2a3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59d899f_ba054d4c",
+        "filename": "pkg/config/logfeaturescontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T17:28:11Z",
+      "side": 1,
+      "message": "This will loop forever, should be able to stop cleanly.\n\nPerhaps also listen for `ctx.Done()`?",
+      "range": {
+        "startLine": 103,
+        "startChar": 1,
+        "endLine": 103,
+        "endChar": 6
+      },
+      "revId": "aa16838b0279a2863a58865cf5b44c65106eb2a3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3482b232_ae7529a9",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T17:28:11Z",
+      "side": 1,
+      "message": "Close() functions are often called using defer.  Is this the use case that\u0027s expected?  (are there some examples where this function is called?)\n\nIf this is the case, it would be much cleaner to log any errors here rather than returning the error.",
+      "range": {
+        "startLine": 90,
+        "startChar": 29,
+        "endLine": 90,
+        "endChar": 34
+      },
+      "revId": "aa16838b0279a2863a58865cf5b44c65106eb2a3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f54db9c0_34ce99a8",
         "filename": "pkg/log/utils.go",
         "patchSetId": 2
@@ -13,6 +128,30 @@
       "writtenOn": "2020-08-18T16:22:19Z",
       "side": 1,
       "message": "have to admit, using global vars here makes me nervous. i sort of want encapsulation so that when a traceCloser is declared it contains the tracer it is meant to close. concerned that using globals so much will lead to errors down the line.\n\nI am aware that the public functions seemed to be governed by the \"configLock\" mutex, but just wondering if some encapsulation may help with supportability going forward.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 1
+      },
+      "revId": "aa16838b0279a2863a58865cf5b44c65106eb2a3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16744300_53883632",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T17:28:11Z",
+      "side": 1,
+      "message": "I agree with this.  Using global variables is not generally recommended.\n\nIt may be the case that a global variable is actually required here, but even if that\u0027s the case, a struct containing all the current global vars as fields should be created, with current functions acting on this struct.  Then a single instance of this struct can be created \u0026 assigned to a single global variable.",
+      "parentUuid": "f54db9c0_34ce99a8",
       "range": {
         "startLine": 90,
         "startChar": 0,
@@ -41,6 +180,29 @@
         "startChar": 8,
         "endLine": 144,
         "endChar": 31
+      },
+      "revId": "aa16838b0279a2863a58865cf5b44c65106eb2a3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5125c59d_03e5360f",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-18T17:28:11Z",
+      "side": 1,
+      "message": "Nit: can do this all together:\n\nif _, ok :\u003d \u003c...\u003e; !ok \u0026\u0026 !isTrace\u003c...\u003e {",
+      "range": {
+        "startLine": 174,
+        "startChar": 2,
+        "endLine": 175,
+        "endChar": 39
       },
       "revId": "aa16838b0279a2863a58865cf5b44c65106eb2a3",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
