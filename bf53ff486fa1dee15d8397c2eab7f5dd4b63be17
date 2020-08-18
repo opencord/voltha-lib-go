@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "196a4f83_6813cbdb",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-08-18T18:51:32Z",
+      "side": 1,
+      "message": "fwiw, the mutex could be done as \ntype LogFeaturesManager struct {\n        sync.Mutex\n        isTtacePubl ...\n\nthen the usage would be to just\n\nlfm :\u003d \u0026LogFeaturesManger{}\nlfm.Lock()",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
