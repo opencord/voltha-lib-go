@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "f2909ac3_d52c8bff",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-19T06:12:23Z",
+      "side": 1,
+      "message": "No, LogFeaturesManager is not used outside this file. Changed to put sync.Mutex as the first attribute and using lfm.Lock directly.",
+      "parentUuid": "f023c591_9519d409",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c7b50d6_37510927",
         "filename": "pkg/log/utils.go",
         "patchSetId": 3
@@ -152,6 +176,30 @@
       "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "814b869a_099234ad",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-19T06:12:23Z",
+      "side": 1,
+      "message": "I understand the concern but it is unavoidable to have Global methods in this file. All tracing and log correlation methods present in this file are being used across the codebase.\n\nThe best I can do is to create a getter method for Singleton LogFeaturesManager instance and make these Global methods part of LogFeaturesManager. But that would again need changes across the codebase wherever we are using CreateAsyncSpan(), WithSpanFromContext() methods.",
+      "parentUuid": "a17d0ab3_ffa6809a",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
