@@ -224,6 +224,30 @@
       "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f1f31da_3e858960",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-19T18:32:59Z",
+      "side": 1,
+      "message": "I feel the current approach to not export the LogFeaturesManager beyond the package seems more suitable. With only the Global method exposed, it is impossible to tweak with singleton instance of LogFeaturesManager and cause any un-intended operation.\n\nBy creating a Global Getter method for LogFeaturesManager and invoking same functions on it, I don\u0027t see any additional benefit unless we are planning to support creation of multiple LogFeaturesManager instances\n\n@David, any comment",
+      "parentUuid": "2e9d70e2_6c4ac62b",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
