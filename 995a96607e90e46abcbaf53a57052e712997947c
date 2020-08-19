@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d884afcb_2ab97416",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-19T15:40:59Z",
+      "side": 1,
+      "message": "Personally I\u0027m of the mind that the lfm variable, as well as the logFeaturesManager should be exported. (see my other comment)",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 7
+      },
+      "revId": "995a96607e90e46abcbaf53a57052e712997947c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}

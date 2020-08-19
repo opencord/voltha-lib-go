@@ -200,6 +200,30 @@
       "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e9d70e2_6c4ac62b",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-19T15:40:59Z",
+      "side": 1,
+      "message": "Either having a getter for the singleton, or just allowing access to the global var directly, would be fine in my opinion.\n\nIn either case, still think these global methods should become part of LogFeaturesManager.  There\u0027s not much point avoiding the global vars if all the functions that use them are global anyways. (Currently we\u0027ve just moved the \"don\u0027t use globals\" issue up a level; better to treat LogFeaturesManager like it\u0027s not global, then create a singleton for it as a final step.)",
+      "parentUuid": "814b869a_099234ad",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
