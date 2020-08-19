@@ -60,14 +60,14 @@ func (tl traceLogger) Infof(msg string, args ...interface{}) {
 // terminate tracing on component shutdown
 func InitTracingAndLogCorrelation(tracePublishEnabled bool, traceAgentAddress string, logCorrelationEnabled bool) (io.Closer, error) {
 	if !tracePublishEnabled && !logCorrelationEnabled {
-		defaultLogger.Info(context.Background(), "Skipping Global Tracer initialization as both Trace publish and Log correlation are configured as disabled")
+		logger.Info(context.Background(), "Skipping Global Tracer initialization as both Trace publish and Log correlation are configured as disabled")
 		extractLogFieldsFromContext = false
 		processSpanOperations = false
 		return ioutil.NopCloser(strings.NewReader("")), nil
 	}
 
 	if !logCorrelationEnabled {
-		defaultLogger.Info(context.Background(), "Disabling Log Fields extraction from context as configured")
+		logger.Info(context.Background(), "Disabling Log Fields extraction from context as configured")
 		extractLogFieldsFromContext = false
 	}
 
@@ -86,10 +86,10 @@ func InitTracingAndLogCorrelation(tracePublishEnabled bool, traceAgentAddress st
 	// Attempt Trace Agent Address only if Trace Publishing is enabled; else directly use Loopback IP
 	if tracePublishEnabled {
 		jReporterConfig = jcfg.ReporterConfig{LocalAgentHostPort: traceAgentAddress, LogSpans: true}
-		jReporterCfgOption, err = jReporterConfig.NewReporter(componentName, jtracing.NewNullMetrics(), traceLogger{logger: defaultLogger})
+		jReporterCfgOption, err = jReporterConfig.NewReporter(componentName, jtracing.NewNullMetrics(), traceLogger{logger: logger.(*clogger)})
 
 		if err != nil {
-			defaultLogger.Errorw(context.Background(), "Unable to create Reporter with given Trace Agent address",
+			logger.Errorw(context.Background(), "Unable to create Reporter with given Trace Agent address",
 				Fields{"error": err, "address": traceAgentAddress})
 			// The Reporter initialization may fail due to Invalid Agent address or non-existent Agent (DNS lookup failure).
 			// It is essential for Tracer Instance to still start for correct Span propagation needed for log correlation.
@@ -100,7 +100,7 @@ func InitTracingAndLogCorrelation(tracePublishEnabled bool, traceAgentAddress st
 
 	if !tracePublishEnabled {
 		jReporterConfig.LocalAgentHostPort = "127.0.0.1:6831"
-		jReporterCfgOption, err = jReporterConfig.NewReporter(componentName, jtracing.NewNullMetrics(), traceLogger{logger: defaultLogger})
+		jReporterCfgOption, err = jReporterConfig.NewReporter(componentName, jtracing.NewNullMetrics(), traceLogger{logger: logger.(*clogger)})
 		if err != nil {
 			return nil, errors.New("Failed to initialize Jaeger Tracing due to Reporter creation error : " + err.Error())
 		}
@@ -123,7 +123,7 @@ func InitTracingAndLogCorrelation(tracePublishEnabled bool, traceAgentAddress st
 func TerminateTracing(c io.Closer) {
 	err := c.Close()
 	if err != nil {
-		defaultLogger.Error(context.Background(), "error-while-closing-jaeger-tracer", Fields{"err": err})
+		logger.Error(context.Background(), "error-while-closing-jaeger-tracer", Fields{"err": err})
 	}
 }
 
@@ -265,7 +265,7 @@ func CreateAsyncSpan(ctx context.Context, taskName string, keyAndValues ...Field
 
 	// We should always be creating Aysnc span from a Valid parent span. If not, create a Child span instead
 	if parentSpan == nil {
-		defaultLogger.Warn(context.Background(), "Async span must be created with a Valid parent span only")
+		logger.Warn(context.Background(), "Async span must be created with a Valid parent span only")
 		asyncSpan, newCtx = opentracing.StartSpanFromContext(ctx, taskName)
 	} else {
 		// Use Background context as the base for Follows-from case; else new span is getting both Child and FollowsFrom relationship
