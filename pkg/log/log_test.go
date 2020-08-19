@@ -24,11 +24,11 @@ import (
 Prerequite:  Start the kafka/zookeeper containers.
 */
 
-var testLogger Logger
+var testLogger CLogger
 
 func TestInit(t *testing.T) {
 	var err error
-	testLogger, err = AddPackage(JSON, ErrorLevel, nil)
+	testLogger, err = RegisterPackage(JSON, ErrorLevel, nil)
 	assert.NotNil(t, testLogger)
 	assert.Nil(t, err)
 }
@@ -69,10 +69,10 @@ func TestUpdateLoggers(t *testing.T) {
 
 func TestUpdateLogLevel(t *testing.T) {
 	//	Let's create a bunch of logger each with a separate package
-	myLoggers := make(map[string]Logger)
+	myLoggers := make(map[string]CLogger)
 	pkgNames := []string{"/rw_core/core", "/db/model", "/kafka"}
 	for _, name := range pkgNames {
-		myLoggers[name], _ = AddPackage(JSON, ErrorLevel, nil, []string{name}...)
+		myLoggers[name], _ = RegisterPackage(JSON, ErrorLevel, nil, []string{name}...)
 	}
 	//Test updates to log levels
 	levels := []LogLevel{DebugLevel, InfoLevel, WarnLevel, ErrorLevel, FatalLevel}
