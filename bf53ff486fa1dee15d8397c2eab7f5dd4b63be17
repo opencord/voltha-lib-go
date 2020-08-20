@@ -248,6 +248,30 @@
       "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fba8765_85208406",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-08-20T17:18:20Z",
+      "side": 1,
+      "message": "I like the idea of encapsulating the functionality behind a LogFeatureManager type and then having the methods defined for that type. In general I am not in favor of global variables, even those not made public as i think it leads to difficulties in maintaining code long term.\n\nhave all required data as part of the methods receiver provides a nice clean encapsulation and also means that there is allocation of resource unless they are being used.\n\nIn terms of the singleton issue, I prefer the concept of a singleton to be based on factories to lookups as opposed to a global variable. In most cases I would prefer to not use a singleton, i.e. create the instance and then inject it into the functions that need it. This again keeps encapsulation clean, imo.\n\nThe argument above seems to indicate that replacing global methods with an allocated and injected LGM instance is at minimum complicated and maximum not possible without significant code churn. It may be possible to borrow a patterns from several Go packages in this case (e.g. flag is one of them).\n\nI can either call `flag.Parse` or create a parser instance and call `inst.Parse` on it. Essentially there is a default instance implicitly created, but i have the option of not using it and using instead creating an instance an injecting it where needed.",
+      "parentUuid": "4f1f31da_3e858960",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
