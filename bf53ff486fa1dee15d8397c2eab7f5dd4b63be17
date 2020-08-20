@@ -272,6 +272,30 @@
       "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94d54d50_3c118d9a",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-20T17:46:32Z",
+      "side": 1,
+      "message": "Thanks David and Kent for your inputs. Based on your comments above, I will perform following set of changes to the approach:\n\n1. Make all relevant public methods part of LogFunctionManager\n2. Create a GetGlobalLFM() method to create and return a singleton instance.\n\nHope this way forward would be acceptable",
+      "parentUuid": "8fba8765_85208406",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "bf53ff486fa1dee15d8397c2eab7f5dd4b63be17",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
