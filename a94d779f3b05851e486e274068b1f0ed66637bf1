@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a3b52d2_2ab0d3a6",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-21T13:48:00Z",
+      "side": 1,
+      "message": "Can simply assign directly to the global variable at startup, no need for sync.Once:\n\nvar globalLFM *LogFeaturesManager \u003d \u0026LogFeaturesManager{}",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 3
+      },
+      "revId": "a94d779f3b05851e486e274068b1f0ed66637bf1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
