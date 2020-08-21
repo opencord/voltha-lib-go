@@ -22,6 +22,30 @@
       "revId": "a94d779f3b05851e486e274068b1f0ed66637bf1",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b63d24dc_95548f63",
+        "filename": "pkg/log/utils.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-21T16:03:11Z",
+      "side": 1,
+      "message": "Alright; switched to direct initialization. Removed the sync.Once",
+      "parentUuid": "6a3b52d2_2ab0d3a6",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 3
+      },
+      "revId": "a94d779f3b05851e486e274068b1f0ed66637bf1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
