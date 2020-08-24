@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6988af8_9abc809c",
+        "filename": "pkg/log/log.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-24T17:07:28Z",
+      "side": 1,
+      "message": "Should clogger have a pointer to a lfm instance?  `l.lmf.Foo()`?  (simply assigned globalLFM by default?)",
+      "range": {
+        "startLine": 522,
+        "startChar": 8,
+        "endLine": 522,
+        "endChar": 15
+      },
+      "revId": "86edbf78f647c182d7a30879d7bdf149d867b6d4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
