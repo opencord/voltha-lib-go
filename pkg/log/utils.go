@@ -155,7 +155,7 @@ func (lfm *LogFeaturesManager) SetLogCorrelationStatus(isEnabled bool) {
 	defer lfm.lock.Unlock()
 
 	if isEnabled == lfm.isLogCorrelationEnabled {
-		defaultLogger.Debugf(context.Background(), "Ignoring Log Correlation Set operation with value %t; current Status same as desired", isEnabled)
+		logger.Debugf(context.Background(), "Ignoring Log Correlation Set operation with value %t; current Status same as desired", isEnabled)
 		return
 	}
 
@@ -165,7 +165,7 @@ func (lfm *LogFeaturesManager) SetLogCorrelationStatus(isEnabled bool) {
 		if _, ok := opentracing.GlobalTracer().(opentracing.NoopTracer); ok {
 			tracer, _, err := lfm.constructJaegerTracer(lfm.isTracePublishingEnabled, lfm.activeTraceAgentAddress, false)
 			if err != nil {
-				defaultLogger.Warnf(context.Background(), "Log Correlation Enable operation failed with error: %s", err.Error())
+				logger.Warnf(context.Background(), "Log Correlation Enable operation failed with error: %s", err.Error())
 				return
 			}
 
@@ -173,7 +173,7 @@ func (lfm *LogFeaturesManager) SetLogCorrelationStatus(isEnabled bool) {
 		}
 
 		lfm.isLogCorrelationEnabled = true
-		defaultLogger.Info(context.Background(), "Log Correlation has been enabled")
+		logger.Info(context.Background(), "Log Correlation has been enabled")
 
 	} else {
 		// Switch to NoopTracer when Log Correlation has been disabled and Tracing Publish is already disabled
@@ -182,7 +182,7 @@ func (lfm *LogFeaturesManager) SetLogCorrelationStatus(isEnabled bool) {
 		}
 
 		lfm.isLogCorrelationEnabled = false
-		defaultLogger.Info(context.Background(), "Log Correlation has been disabled")
+		logger.Info(context.Background(), "Log Correlation has been disabled")
 	}
 }
 
@@ -198,7 +198,7 @@ func (lfm *LogFeaturesManager) SetTracePublishingStatus(isEnabled bool) {
 	defer lfm.lock.Unlock()
 
 	if isEnabled == lfm.isTracePublishingEnabled {
-		defaultLogger.Debugf(context.Background(), "Ignoring Trace Publishing Set operation with value %t; current Status same as desired", isEnabled)
+		logger.Debugf(context.Background(), "Ignoring Trace Publishing Set operation with value %t; current Status same as desired", isEnabled)
 		return
 	}
 
@@ -208,13 +208,13 @@ func (lfm *LogFeaturesManager) SetTracePublishingStatus(isEnabled bool) {
 		// Disable-Enable of Tracing
 		tracer, _, err := lfm.constructJaegerTracer(isEnabled, lfm.activeTraceAgentAddress, false)
 		if err != nil {
-			defaultLogger.Warnf(context.Background(), "Trace Publishing Enable operation failed with error: %s", err.Error())
+			logger.Warnf(context.Background(), "Trace Publishing Enable operation failed with error: %s", err.Error())
 			return
 		}
 		lfm.replaceActiveTracer(tracer)
 
 		lfm.isTracePublishingEnabled = true
-		defaultLogger.Info(context.Background(), "Tracing Publishing has been enabled")
+		logger.Info(context.Background(), "Tracing Publishing has been enabled")
 	} else {
 		// Switch to NoopTracer when Tracing Publish has been disabled and Log Correlation is already disabled
 		if !lfm.isLogCorrelationEnabled {
@@ -223,14 +223,14 @@ func (lfm *LogFeaturesManager) SetTracePublishingStatus(isEnabled bool) {
 			// Else construct a new Jaeger Instance with publishing disabled
 			tracer, _, err := lfm.constructJaegerTracer(isEnabled, lfm.activeTraceAgentAddress, false)
 			if err != nil {
-				defaultLogger.Warnf(context.Background(), "Trace Publishing Disable operation failed with error: %s", err.Error())
+				logger.Warnf(context.Background(), "Trace Publishing Disable operation failed with error: %s", err.Error())
 				return
 			}
 			lfm.replaceActiveTracer(tracer)
 		}
 
 		lfm.isTracePublishingEnabled = false
-		defaultLogger.Info(context.Background(), "Tracing Publishing has been disabled")
+		logger.Info(context.Background(), "Tracing Publishing has been disabled")
 	}
 }
 
@@ -249,7 +249,7 @@ func (lfm *LogFeaturesManager) constructJaegerTracer(tracePublishEnabled bool, t
 
 	// Attempt Trace Agent Address first; will fallback to Loopback IP if it fails
 	jReporterConfig = jcfg.ReporterConfig{LocalAgentHostPort: traceAgentAddress, LogSpans: true}
-	jReporterCfgOption, err = jReporterConfig.NewReporter(lfm.componentName, jtracing.NewNullMetrics(), traceLogger{logger: defaultLogger})
+	jReporterCfgOption, err = jReporterConfig.NewReporter(lfm.componentName, jtracing.NewNullMetrics(), traceLogger{logger: logger.(*clogger)})
 
 	if err != nil {
 		if !fallbackToLoopbackAllowed {
@@ -299,8 +299,8 @@ func TerminateTracing(c io.Closer) {
 // Additionally, any tags present in Span are also extracted to use as log fields e.g. device-id.
 //
 // If no Span is found associated with context, blank slice is returned without any log fields
-func ExtractContextAttributes(ctx context.Context) []interface{} {
-	if !GetGlobalLFM().GetLogCorrelationStatus() {
+func (lfm *LogFeaturesManager) ExtractContextAttributes(ctx context.Context) []interface{} {
+	if !lfm.isLogCorrelationEnabled {
 		return make([]interface{}, 0)
 	}
 
