@@ -520,134 +520,134 @@ func (l clogger) With(keysAndValues Fields) CLogger {
 
 // Debug logs a message at level Debug on the standard logger.
 func (l clogger) Debug(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Debug(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Debug(args...)
 }
 
 // Debugln logs a message at level Debug on the standard logger with a line feed. Default in any case.
 func (l clogger) Debugln(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Debug(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Debug(args...)
 }
 
 // Debugw logs a message at level Debug on the standard logger.
 func (l clogger) Debugf(ctx context.Context, format string, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Debugf(format, args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Debugf(format, args...)
 }
 
 // Debugw logs a message with some additional context. The variadic key-value
 // pairs are treated as they are in With.
 func (l clogger) Debugw(ctx context.Context, msg string, keysAndValues Fields) {
 	if l.V(DebugLevel) {
-		l.log.With(ExtractContextAttributes(ctx)...).Debugw(msg, serializeMap(keysAndValues)...)
+		l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Debugw(msg, serializeMap(keysAndValues)...)
 	}
 }
 
 // Info logs a message at level Info on the standard logger.
 func (l clogger) Info(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Info(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Info(args...)
 }
 
 // Infoln logs a message at level Info on the standard logger with a line feed. Default in any case.
 func (l clogger) Infoln(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Info(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Info(args...)
 	//msg := fmt.Sprintln(args...)
 	//l.sourced().Info(msg[:len(msg)-1])
 }
 
 // Infof logs a message at level Info on the standard logger.
 func (l clogger) Infof(ctx context.Context, format string, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Infof(format, args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Infof(format, args...)
 }
 
 // Infow logs a message with some additional context. The variadic key-value
 // pairs are treated as they are in With.
 func (l clogger) Infow(ctx context.Context, msg string, keysAndValues Fields) {
 	if l.V(InfoLevel) {
-		l.log.With(ExtractContextAttributes(ctx)...).Infow(msg, serializeMap(keysAndValues)...)
+		l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Infow(msg, serializeMap(keysAndValues)...)
 	}
 }
 
 // Warn logs a message at level Warn on the standard logger.
 func (l clogger) Warn(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Warn(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Warn(args...)
 }
 
 // Warnln logs a message at level Warn on the standard logger with a line feed. Default in any case.
 func (l clogger) Warnln(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Warn(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Warn(args...)
 }
 
 // Warnf logs a message at level Warn on the standard logger.
 func (l clogger) Warnf(ctx context.Context, format string, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Warnf(format, args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Warnf(format, args...)
 }
 
 // Warnw logs a message with some additional context. The variadic key-value
 // pairs are treated as they are in With.
 func (l clogger) Warnw(ctx context.Context, msg string, keysAndValues Fields) {
 	if l.V(WarnLevel) {
-		l.log.With(ExtractContextAttributes(ctx)...).Warnw(msg, serializeMap(keysAndValues)...)
+		l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Warnw(msg, serializeMap(keysAndValues)...)
 	}
 }
 
 // Error logs a message at level Error on the standard logger.
 func (l clogger) Error(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Error(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Error(args...)
 }
 
 // Errorln logs a message at level Error on the standard logger with a line feed. Default in any case.
 func (l clogger) Errorln(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Error(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Error(args...)
 }
 
 // Errorf logs a message at level Error on the standard logger.
 func (l clogger) Errorf(ctx context.Context, format string, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Errorf(format, args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Errorf(format, args...)
 }
 
 // Errorw logs a message with some additional context. The variadic key-value
 // pairs are treated as they are in With.
 func (l clogger) Errorw(ctx context.Context, msg string, keysAndValues Fields) {
 	if l.V(ErrorLevel) {
-		l.log.With(ExtractContextAttributes(ctx)...).Errorw(msg, serializeMap(keysAndValues)...)
+		l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Errorw(msg, serializeMap(keysAndValues)...)
 	}
 }
 
 // Fatal logs a message at level Fatal on the standard logger.
 func (l clogger) Fatal(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Fatal(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Fatal(args...)
 }
 
 // Fatalln logs a message at level Fatal on the standard logger with a line feed. Default in any case.
 func (l clogger) Fatalln(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Fatal(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Fatal(args...)
 }
 
 // Fatalf logs a message at level Fatal on the standard logger.
 func (l clogger) Fatalf(ctx context.Context, format string, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Fatalf(format, args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Fatalf(format, args...)
 }
 
 // Fatalw logs a message with some additional context. The variadic key-value
 // pairs are treated as they are in With.
 func (l clogger) Fatalw(ctx context.Context, msg string, keysAndValues Fields) {
 	if l.V(FatalLevel) {
-		l.log.With(ExtractContextAttributes(ctx)...).Fatalw(msg, serializeMap(keysAndValues)...)
+		l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Fatalw(msg, serializeMap(keysAndValues)...)
 	}
 }
 
 // Warning logs a message at level Warn on the standard logger.
 func (l clogger) Warning(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Warn(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Warn(args...)
 }
 
 // Warningln logs a message at level Warn on the standard logger with a line feed. Default in any case.
 func (l clogger) Warningln(ctx context.Context, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Warn(args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Warn(args...)
 }
 
 // Warningf logs a message at level Warn on the standard logger.
 func (l clogger) Warningf(ctx context.Context, format string, args ...interface{}) {
-	l.log.With(ExtractContextAttributes(ctx)...).Warnf(format, args...)
+	l.log.With(globalLFM.ExtractContextAttributes(ctx)...).Warnf(format, args...)
 }
 
 // V reports whether verbosity level l is at least the requested verbose level.
