@@ -46,6 +46,30 @@
       "revId": "4ad9a1dd4a3a8113cee2ba1879374f55cb126a11",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "705d69ea_33caa6d7",
+        "filename": "pkg/config/logfeaturescontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2020-08-25T17:46:11Z",
+      "side": 1,
+      "message": "what would be the benefit ? avoid calling log.GetGlobalLFM() all the time ? if that is the case I think we can skip.",
+      "parentUuid": "b0bbaeb1_423d0839",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "4ad9a1dd4a3a8113cee2ba1879374f55cb126a11",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
