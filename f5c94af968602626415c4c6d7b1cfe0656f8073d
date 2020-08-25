@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb39cd43_c9603b19",
+        "filename": "pkg/config/logfeaturescontroller.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2020-08-25T12:20:42Z",
+      "side": 1,
+      "message": "I woudl add to this log also the state where the system is left in after an unsuccessful update. so logger.Warnw(ctx, \"unsupported-log-correlation-status-configured-in-config-store\", log.Fields{\"failed-log-correlation\": desiredLogCorrelationStatus, \"log-correlation-status\": log.GetGlobalLFM().GetLogCorrelationStatus})\nif possible",
+      "revId": "f5c94af968602626415c4c6d7b1cfe0656f8073d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e1564f5_2fd5f26d",
+        "filename": "pkg/config/logfeaturescontroller.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2020-08-25T12:20:42Z",
+      "side": 1,
+      "message": "this is because the SetLogCorrelationStatus accepts a boolean ?",
+      "revId": "f5c94af968602626415c4c6d7b1cfe0656f8073d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
