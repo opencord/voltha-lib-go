@@ -70,6 +70,30 @@
       "revId": "4ad9a1dd4a3a8113cee2ba1879374f55cb126a11",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74629434_f1ba3db4",
+        "filename": "pkg/config/logfeaturescontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-25T18:17:51Z",
+      "side": 1,
+      "message": "To avoid accessing the global from many places, allowing for a more easy migration in the future when there may be multiple LFMs.\n\n(multiple-components one-executable scenario)",
+      "parentUuid": "705d69ea_33caa6d7",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "4ad9a1dd4a3a8113cee2ba1879374f55cb126a11",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
