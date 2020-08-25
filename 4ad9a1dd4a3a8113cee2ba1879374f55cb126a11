@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0bbaeb1_423d0839",
+        "filename": "pkg/config/logfeaturescontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2020-08-25T14:27:26Z",
+      "side": 1,
+      "message": "Should this struct contain a *LFM?",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "4ad9a1dd4a3a8113cee2ba1879374f55cb126a11",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
