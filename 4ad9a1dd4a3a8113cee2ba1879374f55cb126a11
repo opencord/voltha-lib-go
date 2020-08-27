@@ -94,6 +94,30 @@
       "revId": "4ad9a1dd4a3a8113cee2ba1879374f55cb126a11",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73931623_a9208e08",
+        "filename": "pkg/config/logfeaturescontroller.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000526
+      },
+      "writtenOn": "2020-08-27T09:40:28Z",
+      "side": 1,
+      "message": "Kent, the design of LFM does not permit multiple LFM within a executable. LFM is currently controlling the Tracing and Log Correlation feature across the code packages and it should be just 1 per executable. It is designed in that manner; it is internally passing the Tracer instance to initialize the opentracing GlobalTracer instance which is shared by whole executable. Even, Opentracing API considers that whole application is using same Global Tracer instance for creating spans.\n\nEven if we combine rw-core, ofagent and openolt-adapter into a single binary (which I guess should only be done if we are hosting it directly within OLT), we should have a single LFM driving the whole binary. In order to have a part of executable use its own LFM instance,  significant design changes are needed (by utilizing some Jaeger internals) and it will be a over-kill unless needed.\n\nAs for including LFM pointer in this struct, that can be done. However, as this logic will be called sparingly (when someone use voltctl log tracing or voltctl log correlation command), we can leave log.GetGlobalLFM() as it is.",
+      "parentUuid": "74629434_f1ba3db4",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "4ad9a1dd4a3a8113cee2ba1879374f55cb126a11",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
