@@ -317,7 +317,7 @@ func (lfm *LogFeaturesManager) ExtractContextAttributes(ctx context.Context) []i
 				taskName := jspan.OperationName()
 
 				if opName == "" {
-					span.SetBaggageItem(RootSpanNameKey, taskName)
+					jspan.SetBaggageItem(RootSpanNameKey, taskName)
 					opName = taskName
 				}
 
