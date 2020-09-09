@@ -154,21 +154,10 @@ type PONResourceManager struct {
 	Globalorlocal      string
 }
 
-func newKVClient(ctx context.Context, storeType string, address string, timeout time.Duration) (kvstore.Client, error) {
-	logger.Infow(ctx, "kv-store-type", log.Fields{"store": storeType})
-	switch storeType {
-	case "consul":
-		return kvstore.NewConsulClient(ctx, address, timeout)
-	case "etcd":
-		return kvstore.NewEtcdClient(ctx, address, timeout, log.WarnLevel)
-	}
-	return nil, errors.New("unsupported-kv-store")
-}
-
 func SetKVClient(ctx context.Context, Technology string, Backend string, Addr string, configClient bool) *db.Backend {
 	// TODO : Make sure direct call to NewBackend is working fine with backend , currently there is some
 	// issue between kv store and backend , core is not calling NewBackend directly
-	kvClient, err := newKVClient(ctx, Backend, Addr, KVSTORE_RETRY_TIMEOUT)
+	kvClient, err := kvstore.NewEtcdClient(ctx, Addr, KVSTORE_RETRY_TIMEOUT, log.WarnLevel)
 	if err != nil {
 		logger.Fatalw(ctx, "Failed to init KV client\n", log.Fields{"err": err})
 		return nil

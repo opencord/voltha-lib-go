@@ -80,6 +80,7 @@ type Client interface {
 	Get(ctx context.Context, key string) (*KVPair, error)
 	Put(ctx context.Context, key string, value interface{}) error
 	Delete(ctx context.Context, key string) error
+	BulkUpdate(ctx context.Context, puts map[string]string, deletes map[string]struct{}) error
 	Reserve(ctx context.Context, key string, value interface{}, ttl time.Duration) (interface{}, error)
 	ReleaseReservation(ctx context.Context, key string) error
 	ReleaseAllReservations(ctx context.Context) error

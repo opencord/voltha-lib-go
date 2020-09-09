@@ -20,13 +20,14 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"strings"
+	"testing"
+	"time"
+
 	"github.com/opencord/voltha-lib-go/v3/pkg/db"
 	"github.com/opencord/voltha-lib-go/v3/pkg/db/kvstore"
 	"github.com/opencord/voltha-lib-go/v3/pkg/log"
 	"github.com/stretchr/testify/assert"
-	"strings"
-	"testing"
-	"time"
 )
 
 const (
@@ -85,6 +86,11 @@ func (kvclient *MockResKVClient) Put(ctx context.Context, key string, value inte
 
 // Delete mock function implementation for KVClient
 func (kvclient *MockResKVClient) Delete(ctx context.Context, key string) error {
+	return nil
+}
+
+// BulkUpdate mock function implementation for KVClient
+func (kvclient *MockResKVClient) BulkUpdate(ctx context.Context, puts map[string]string, deletes map[string]struct{}) error {
 	return nil
 }
 

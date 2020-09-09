@@ -18,8 +18,6 @@ package db
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"time"
 
 	"github.com/opencord/voltha-lib-go/v3/pkg/db/kvstore"
@@ -59,7 +57,7 @@ func NewBackend(ctx context.Context, storeType string, address string, timeout t
 		alive:                   false, // connection considered down at start
 	}
 
-	if b.Client, err = b.newClient(ctx, address, timeout); err != nil {
+	if b.Client, err = kvstore.NewEtcdClient(ctx, address, timeout, log.WarnLevel); err != nil {
 		logger.Errorw(ctx, "failed-to-create-kv-client",
 			log.Fields{
 				"type": storeType, "address": address,
@@ -71,19 +69,8 @@ func NewBackend(ctx context.Context, storeType string, address string, timeout t
 	return b
 }
 
-func (b *Backend) newClient(ctx context.Context, address string, timeout time.Duration) (kvstore.Client, error) {
-	switch b.StoreType {
-	case "consul":
-		return kvstore.NewConsulClient(ctx, address, timeout)
-	case "etcd":
-		return kvstore.NewEtcdClient(ctx, address, timeout, log.WarnLevel)
-	}
-	return nil, errors.New("unsupported-kv-store")
-}
-
-func (b *Backend) makePath(ctx context.Context, key string) string {
-	path := fmt.Sprintf("%s/%s", b.PathPrefix, key)
-	return path
+func (b *Backend) makePath(key string) string {
+	return b.PathPrefix + "/" + key
 }
 
 func (b *Backend) updateLiveness(ctx context.Context, alive bool) {
@@ -182,7 +169,7 @@ func (b *Backend) isErrorIndicatingAliveKvstore(ctx context.Context, err error) 
 
 // List retrieves one or more items that match the specified key
 func (b *Backend) List(ctx context.Context, key string) (map[string]*kvstore.KVPair, error) {
-	formattedPath := b.makePath(ctx, key)
+	formattedPath := b.makePath(key)
 	logger.Debugw(ctx, "listing-key", log.Fields{"key": key, "path": formattedPath})
 
 	pair, err := b.Client.List(ctx, formattedPath)
@@ -194,7 +181,7 @@ func (b *Backend) List(ctx context.Context, key string) (map[string]*kvstore.KVP
 
 // Get retrieves an item that matches the specified key
 func (b *Backend) Get(ctx context.Context, key string) (*kvstore.KVPair, error) {
-	formattedPath := b.makePath(ctx, key)
+	formattedPath := b.makePath(key)
 	logger.Debugw(ctx, "getting-key", log.Fields{"key": key, "path": formattedPath})
 
 	pair, err := b.Client.Get(ctx, formattedPath)
@@ -206,7 +193,7 @@ func (b *Backend) Get(ctx context.Context, key string) (*kvstore.KVPair, error) 
 
 // Put stores an item value under the specifed key
 func (b *Backend) Put(ctx context.Context, key string, value interface{}) error {
-	formattedPath := b.makePath(ctx, key)
+	formattedPath := b.makePath(key)
 	logger.Debugw(ctx, "putting-key", log.Fields{"key": key, "path": formattedPath})
 
 	err := b.Client.Put(ctx, formattedPath, value)
@@ -218,7 +205,7 @@ func (b *Backend) Put(ctx context.Context, key string, value interface{}) error 
 
 // Delete removes an item under the specified key
 func (b *Backend) Delete(ctx context.Context, key string) error {
-	formattedPath := b.makePath(ctx, key)
+	formattedPath := b.makePath(key)
 	logger.Debugw(ctx, "deleting-key", log.Fields{"key": key, "path": formattedPath})
 
 	err := b.Client.Delete(ctx, formattedPath)
@@ -228,9 +215,21 @@ func (b *Backend) Delete(ctx context.Context, key string) error {
 	return err
 }
 
+func (b *Backend) BulkUpdate(ctx context.Context, puts map[string]string, deletes map[string]struct{}) error {
+	for k, v := range puts {
+		delete(puts, k)
+		puts[b.makePath(k)] = v
+	}
+	for k := range deletes {
+		delete(deletes, k)
+		deletes[b.makePath(k)] = struct{}{}
+	}
+	return b.Client.BulkUpdate(ctx, puts, deletes)
+}
+
 // CreateWatch starts watching events for the specified key
 func (b *Backend) CreateWatch(ctx context.Context, key string, withPrefix bool) chan *kvstore.Event {
-	formattedPath := b.makePath(ctx, key)
+	formattedPath := b.makePath(key)
 	logger.Debugw(ctx, "creating-key-watch", log.Fields{"key": key, "path": formattedPath})
 
 	return b.Client.Watch(ctx, formattedPath, withPrefix)
@@ -238,7 +237,7 @@ func (b *Backend) CreateWatch(ctx context.Context, key string, withPrefix bool) 
 
 // DeleteWatch stops watching events for the specified key
 func (b *Backend) DeleteWatch(ctx context.Context, key string, ch chan *kvstore.Event) {
-	formattedPath := b.makePath(ctx, key)
+	formattedPath := b.makePath(key)
 	logger.Debugw(ctx, "deleting-key-watch", log.Fields{"key": key, "path": formattedPath})
 
 	b.Client.CloseWatch(ctx, formattedPath, ch)

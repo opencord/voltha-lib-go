@@ -24,7 +24,6 @@ import (
 	"regexp"
 	"strconv"
 	"sync"
-	"time"
 
 	"github.com/opencord/voltha-lib-go/v3/pkg/db"
 
@@ -380,7 +379,7 @@ const (
 )
 
 func (t *TechProfileMgr) SetKVClient(ctx context.Context) *db.Backend {
-	kvClient, err := newKVClient(ctx, t.config.KVStoreType, t.config.KVStoreAddress, t.config.KVStoreTimeout)
+	kvClient, err := kvstore.NewEtcdClient(ctx, t.config.KVStoreAddress, t.config.KVStoreTimeout, log.WarnLevel)
 	if err != nil {
 		logger.Errorw(ctx, "failed-to-create-kv-client",
 			log.Fields{
@@ -402,18 +401,6 @@ func (t *TechProfileMgr) SetKVClient(ctx context.Context) *db.Backend {
 	 kv := model.NewBackend(t.config.KVStoreType, t.config.KVStoreHost, t.config.KVStorePort,
 								  t.config.KVStoreTimeout,  kvStoreTechProfilePathPrefix)
 	*/
-}
-
-func newKVClient(ctx context.Context, storeType string, address string, timeout time.Duration) (kvstore.Client, error) {
-
-	logger.Infow(ctx, "kv-store", log.Fields{"storeType": storeType, "address": address})
-	switch storeType {
-	case "consul":
-		return kvstore.NewConsulClient(ctx, address, timeout)
-	case "etcd":
-		return kvstore.NewEtcdClient(ctx, address, timeout, log.WarnLevel)
-	}
-	return nil, errors.New("unsupported-kv-store")
 }
 
 func NewTechProfile(ctx context.Context, resourceMgr iPonResourceMgr, KVStoreType string, KVStoreAddress string) (*TechProfileMgr, error) {

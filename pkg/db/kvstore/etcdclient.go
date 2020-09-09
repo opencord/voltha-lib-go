@@ -147,13 +147,32 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 // Delete removes a key from the KV store. Timeout defines how long the function will
 // wait for a response
 func (c *EtcdClient) Delete(ctx context.Context, key string) error {
-
 	// delete the key
 	if _, err := c.ectdAPI.Delete(ctx, key); err != nil {
 		logger.Errorw(ctx, "failed-to-delete-key", log.Fields{"key": key, "error": err})
 		return err
 	}
 	logger.Debugw(ctx, "key(s)-deleted", log.Fields{"key": key})
+	return nil
+}
+
+// BulkUpdate performs a number of puts and deletes at once, and either all updates succeed, or none are written.
+func (c *EtcdClient) BulkUpdate(ctx context.Context, puts map[string]string, deletes map[string]struct{}) error {
+	ctr, ops := 0, make([]v3Client.Op, len(puts)+len(deletes))
+	for key, value := range puts {
+		ops[ctr] = v3Client.OpPut(key, value)
+		ctr++
+	}
+	for key := range deletes {
+		ops[ctr] = v3Client.OpDelete(key)
+		ctr++
+	}
+	// push all changes together in a single transaction
+	if _, err := c.ectdAPI.Txn(ctx).Then(ops...).Commit(); err != nil {
+		logger.Errorw(ctx, "bulk-update-failed", log.Fields{"error": err})
+		return err
+	}
+	logger.Debug(ctx, "bulk-update-succeeded")
 	return nil
 }
 

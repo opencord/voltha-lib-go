@@ -104,17 +104,9 @@ func TestNewBackend_ConsulKvStore(t *testing.T) {
 	assert.Equal(t, backend.StoreType, "consul")
 }
 
-// Create instance using Invalid Kvstore; instance creation should fail
-func TestNewBackend_InvalidKvstore(t *testing.T) {
-	backend := NewBackend(context.Background(), "unknown", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
-
-	assert.NotNil(t, backend)
-	assert.Nil(t, backend.Client)
-}
-
 func TestMakePath(t *testing.T) {
 	backend := provisionBackendWithEmbeddedEtcdServer(t)
-	path := backend.makePath(context.Background(), "Suffix")
+	path := backend.makePath("Suffix")
 	assert.Equal(t, defaultPathPrefix+"/Suffix", path)
 }
 
