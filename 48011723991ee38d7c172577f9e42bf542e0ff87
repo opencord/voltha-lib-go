@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf8dcf45_256cd1dd",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-09-16T21:54:00Z",
+      "side": 1,
+      "message": "nit:  both new functions search for the set field from the actions in the instructions.  A helper function taking in a flow and an ofb field type could be used in both cases.  As I mention, just a nit.",
+      "revId": "48011723991ee38d7c172577f9e42bf542e0ff87",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
