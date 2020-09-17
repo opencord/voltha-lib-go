@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42ec8f96_685a6a37",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-09-17T12:26:57Z",
+      "side": 1,
+      "message": "my annoying nit (feel free to ignore):  I like the idea of having function requesting specific data (e.g. GetTunnelId, GetVlanVid, etc). I see the GetSetActionField more as an internal helper function that returns setField.Field.GetOfbField() field and then having separate GetSetFieldVlanPcp() and GetSetFieldVlanVid() that are exposed outside the library.   As this is really an implementation preference, I will still do a +1 on the review.",
+      "revId": "03fd36ce6daef1d15ddced6403bd9e90bf47efd6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
