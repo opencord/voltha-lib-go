@@ -16,6 +16,24 @@
       "revId": "48011723991ee38d7c172577f9e42bf542e0ff87",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5cfdaca_9e355028",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2020-09-17T00:52:38Z",
+      "side": 1,
+      "message": "Ok, I addressed this in subsequent patch",
+      "parentUuid": "cf8dcf45_256cd1dd",
+      "revId": "48011723991ee38d7c172577f9e42bf542e0ff87",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
