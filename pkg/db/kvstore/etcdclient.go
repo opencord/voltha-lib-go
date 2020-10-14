@@ -22,7 +22,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/opencord/voltha-lib-go/v3/pkg/log"
+	"github.com/opencord/voltha-lib-go/v4/pkg/log"
 	v3Client "go.etcd.io/etcd/clientv3"
 	v3Concurrency "go.etcd.io/etcd/clientv3/concurrency"
 	v3rpcTypes "go.etcd.io/etcd/etcdserver/api/v3rpc/rpctypes"

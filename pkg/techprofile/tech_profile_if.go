@@ -19,8 +19,8 @@ package techprofile
 import (
 	"context"
 
-	"github.com/opencord/voltha-lib-go/v3/pkg/db"
-	tp_pb "github.com/opencord/voltha-protos/v3/go/tech_profile"
+	"github.com/opencord/voltha-lib-go/v4/pkg/db"
+	tp_pb "github.com/opencord/voltha-protos/v4/go/tech_profile"
 )
 
 type TechProfileIf interface {

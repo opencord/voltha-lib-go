@@ -20,7 +20,7 @@ import (
 	"context"
 
 	"github.com/golang/protobuf/proto"
-	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
+	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
 )
 
 // AdapterProxy interface for AdapterProxy implementation.

@@ -49,8 +49,8 @@ local-protos:
 	@mkdir -p python/local_imports
 ifdef LOCAL_PROTOS
 	rm -rf vendor/github.com/opencord/voltha-protos
-	mkdir -p vendor/github.com/opencord/voltha-protos/v3/go
-	cp -r ${LOCAL_PROTOS}/go/* vendor/github.com/opencord/voltha-protos/v3/go
+	mkdir -p vendor/github.com/opencord/voltha-protos/v4/go
+	cp -r ${LOCAL_PROTOS}/go/* vendor/github.com/opencord/voltha-protos/v4/go
 	rm -rf python/local_imports/voltha-protos
 	mkdir -p python/local_imports/voltha-protos/dist
 	cp ${LOCAL_PROTOS}/dist/*.tar.gz python/local_imports/voltha-protos/dist/

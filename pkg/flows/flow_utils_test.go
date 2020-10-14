@@ -20,7 +20,7 @@ import (
 	"strings"
 	"testing"
 
-	ofp "github.com/opencord/voltha-protos/v3/go/openflow_13"
+	ofp "github.com/opencord/voltha-protos/v4/go/openflow_13"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

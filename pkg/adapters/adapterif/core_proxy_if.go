@@ -19,7 +19,7 @@ package adapterif
 import (
 	"context"
 
-	"github.com/opencord/voltha-protos/v3/go/voltha"
+	"github.com/opencord/voltha-protos/v4/go/voltha"
 )
 
 // CoreProxy interface for voltha-go coreproxy.

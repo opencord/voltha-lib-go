@@ -17,7 +17,7 @@
 package common
 
 import (
-	"github.com/opencord/voltha-protos/v3/go/voltha"
+	"github.com/opencord/voltha-protos/v4/go/voltha"
 )
 
 type PmMetrics struct {

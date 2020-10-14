@@ -18,8 +18,8 @@ package common
 import (
 	"context"
 	"fmt"
-	"github.com/opencord/voltha-lib-go/v3/pkg/log"
-	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
+	"github.com/opencord/voltha-lib-go/v4/pkg/log"
+	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
 	"google.golang.org/grpc/codes"
 	"math/rand"
 	"time"

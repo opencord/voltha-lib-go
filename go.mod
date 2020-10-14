@@ -1,4 +1,4 @@
-module github.com/opencord/voltha-lib-go/v3
+module github.com/opencord/voltha-lib-go/v4
 
 go 1.13
 
@@ -29,7 +29,7 @@ require (
 	github.com/hashicorp/serf v0.8.4 // indirect
 	github.com/jcmturner/gofork v1.0.0 // indirect
 	github.com/onsi/gomega v1.4.2 // indirect
-	github.com/opencord/voltha-protos/v3 v3.4.1
+	github.com/opencord/voltha-protos/v4 v4.0.2
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
 	github.com/pierrec/lz4 v2.3.0+incompatible // indirect

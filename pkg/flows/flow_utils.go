@@ -26,8 +26,8 @@ import (
 
 	"github.com/cevaris/ordered_map"
 	"github.com/gogo/protobuf/proto"
-	"github.com/opencord/voltha-lib-go/v3/pkg/log"
-	ofp "github.com/opencord/voltha-protos/v3/go/openflow_13"
+	"github.com/opencord/voltha-lib-go/v4/pkg/log"
+	ofp "github.com/opencord/voltha-protos/v4/go/openflow_13"
 )
 
 var (

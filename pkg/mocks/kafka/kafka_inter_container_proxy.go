@@ -22,8 +22,8 @@ import (
 	"github.com/gogo/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
-	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
-	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
+	"github.com/opencord/voltha-lib-go/v4/pkg/kafka"
+	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
 )
 
 type InvokeRpcArgs struct {

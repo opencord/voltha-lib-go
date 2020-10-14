@@ -18,7 +18,7 @@ package adapterif
 
 import (
 	"context"
-	"github.com/opencord/voltha-protos/v3/go/voltha"
+	"github.com/opencord/voltha-protos/v4/go/voltha"
 )
 
 // EventProxy interface for eventproxy

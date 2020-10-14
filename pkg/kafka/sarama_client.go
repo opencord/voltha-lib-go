@@ -29,8 +29,8 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/google/uuid"
-	"github.com/opencord/voltha-lib-go/v3/pkg/log"
-	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
+	"github.com/opencord/voltha-lib-go/v4/pkg/log"
+	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
 )
 
 // consumerChannels represents one or more consumers listening on a kafka topic.  Once a message is received on that

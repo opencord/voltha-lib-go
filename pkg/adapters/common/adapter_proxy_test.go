@@ -18,11 +18,11 @@ package common
 
 import (
 	"context"
-	"github.com/opencord/voltha-lib-go/v3/pkg/db"
-	"github.com/opencord/voltha-lib-go/v3/pkg/kafka"
-	mocks "github.com/opencord/voltha-lib-go/v3/pkg/mocks/kafka"
-	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
-	"github.com/opencord/voltha-protos/v3/go/voltha"
+	"github.com/opencord/voltha-lib-go/v4/pkg/db"
+	"github.com/opencord/voltha-lib-go/v4/pkg/kafka"
+	mocks "github.com/opencord/voltha-lib-go/v4/pkg/mocks/kafka"
+	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
+	"github.com/opencord/voltha-protos/v4/go/voltha"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
 	"strconv"

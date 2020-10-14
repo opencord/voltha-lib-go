@@ -17,7 +17,7 @@ package common
 
 import (
 	"context"
-	ic "github.com/opencord/voltha-protos/v3/go/inter_container"
+	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
 	"strconv"
