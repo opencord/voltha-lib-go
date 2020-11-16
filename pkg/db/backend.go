@@ -239,6 +239,21 @@ func (b *Backend) Delete(ctx context.Context, key string) error {
 	return err
 }
 
+// DeleteWithPrefix removes items having prefix key
+func (b *Backend) DeleteWithPrefix(ctx context.Context, prefixKey string) error {
+	span, ctx := log.CreateChildSpan(ctx, "etcd-delete-with-prefix")
+	defer span.Finish()
+
+	formattedPath := b.makePath(ctx, prefixKey)
+	logger.Debugw(ctx, "deleting-prefix-key", log.Fields{"key": prefixKey, "path": formattedPath})
+
+	err := b.Client.DeleteWithPrefix(ctx, formattedPath)
+
+	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(ctx, err))
+
+	return err
+}
+
 // CreateWatch starts watching events for the specified key
 func (b *Backend) CreateWatch(ctx context.Context, key string, withPrefix bool) chan *kvstore.Event {
 	span, ctx := log.CreateChildSpan(ctx, "etcd-create-watch")
