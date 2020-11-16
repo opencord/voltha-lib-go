@@ -88,6 +88,10 @@ func (kvclient *MockResKVClient) Delete(ctx context.Context, key string) error {
 	return nil
 }
 
+func (c *MockResKVClient) DeleteWithPrefix(ctx context.Context, prefixKey string) error {
+	return nil
+}
+
 // Reserve mock function implementation for KVClient
 func (kvclient *MockResKVClient) Reserve(ctx context.Context, key string, value interface{}, ttl time.Duration) (interface{}, error) {
 	return nil, errors.New("key didn't find")
