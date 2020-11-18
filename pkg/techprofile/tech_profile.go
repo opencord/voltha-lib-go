@@ -171,7 +171,7 @@ const (
 	defaultMaxQueueSize      = "auto"
 	defaultdropPolicy        = DiscardPolicy_TailDrop
 	defaultSchedulePolicy    = SchedulingPolicy_WRR
-	defaultIsMulticast       = "False"
+	defaultIsMulticast       = false
 	defaultAccessControlList = "224.0.0.0-239.255.255.255"
 	defaultMcastGemID        = 4069
 )
@@ -185,7 +185,7 @@ type GemPortAttribute struct {
 	Weight           uint32        `json:"weight"`
 	DiscardPolicy    string        `json:"discard_policy"`
 	DiscardConfig    DiscardConfig `json:"discard_config"`
-	IsMulticast      string        `json:"is_multicast"`
+	IsMulticast      bool        `json:"is_multicast"`
 	DControlList     string        `json:"dynamic_access_control_list"`
 	SControlList     string        `json:"static_access_control_list"`
 	McastGemID       uint32        `json:"multicast_gem_id"`
@@ -212,7 +212,7 @@ type IGemPortAttribute struct {
 	Weight           uint32        `json:"weight"`
 	DiscardPolicy    string        `json:"discard_policy"`
 	DiscardConfig    DiscardConfig `json:"discard_config"`
-	IsMulticast      string        `json:"is_multicast"`
+	IsMulticast      bool        `json:"is_multicast"`
 	DControlList     string        `json:"dynamic_access_control_list"`
 	SControlList     string        `json:"static_access_control_list"`
 	McastGemID       uint32        `json:"multicast_gem_id"`
@@ -1232,9 +1232,8 @@ func (tpm *TechProfileMgr) GetTrafficQueues(ctx context.Context, tp *TechProfile
 }
 
 //isMulticastGem returns true if isMulticast attribute value of a GEM port is true; false otherwise
-func isMulticastGem(isMulticastAttrValue string) bool {
-	return isMulticastAttrValue != "" &&
-		(isMulticastAttrValue == "True" || isMulticastAttrValue == "true" || isMulticastAttrValue == "TRUE")
+func isMulticastGem(isMulticastAttrValue bool) bool {
+	return isMulticastAttrValue != false && isMulticastAttrValue == true
 }
 
 func (tpm *TechProfileMgr) GetMulticastTrafficQueues(ctx context.Context, tp *TechProfile) []*tp_pb.TrafficQueue {
