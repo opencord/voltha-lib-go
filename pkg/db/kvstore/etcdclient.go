@@ -116,32 +116,49 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 		return fmt.Errorf("unexpected-type-%T", value)
 	}
 
-	var err error
 	// Check if there is already a lease for this key - if there is then use it, otherwise a PUT will make
 	// that KV key permanent instead of automatically removing it after a lease expiration
 	c.keyReservationsLock.RLock()
 	leaseID, ok := c.keyReservations[key]
 	c.keyReservationsLock.RUnlock()
-	if ok {
-		_, err = c.ectdAPI.Put(ctx, key, val, v3Client.WithLease(*leaseID))
-	} else {
-		_, err = c.ectdAPI.Put(ctx, key, val)
-	}
 
-	if err != nil {
-		switch err {
-		case context.Canceled:
-			logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
-		case context.DeadlineExceeded:
-			logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err})
-		case v3rpcTypes.ErrEmptyKey:
-			logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
-		default:
-			logger.Warnw(ctx, "bad-endpoints", log.Fields{"error": err})
+	attempt := 0
+startLoop:
+	for {
+		var err error
+		if ok {
+			_, err = c.ectdAPI.Put(ctx, key, val, v3Client.WithLease(*leaseID))
+		} else {
+			_, err = c.ectdAPI.Put(ctx, key, val)
 		}
-		return err
+		if err != nil {
+			switch err {
+			case context.Canceled:
+				logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
+			case context.DeadlineExceeded:
+				logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err, "context": ctx})
+			case v3rpcTypes.ErrEmptyKey:
+				logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
+			case v3rpcTypes.ErrLeaderChanged,
+				v3rpcTypes.ErrGRPCNoLeader,
+				v3rpcTypes.ErrTimeout,
+				v3rpcTypes.ErrTimeoutDueToLeaderFail,
+				v3rpcTypes.ErrTimeoutDueToConnectionLost:
+				// Retry for these server errors
+				attempt += 1
+				if er := backoff(context.Background(), attempt); er != nil {
+					logger.Warnw(ctx, "put-retries-failed", log.Fields{"key": key, "error": er, "attempt": attempt})
+					return err
+				}
+				logger.Warnw(ctx, "retrying-put", log.Fields{"key": key, "error": err, "attempt": attempt})
+				goto startLoop
+			default:
+				logger.Warnw(ctx, "etcd-server-error", log.Fields{"error": err})
+			}
+			return err
+		}
+		return nil
 	}
-	return nil
 }
 
 // Delete removes a key from the KV store. Timeout defines how long the function will
