@@ -37,10 +37,13 @@ type EtcdClient struct {
 	lockToMutexMap      map[string]*v3Concurrency.Mutex
 	lockToSessionMap    map[string]*v3Concurrency.Session
 	lockToMutexLock     sync.Mutex
+	writeThroughCacheEnabled bool
+	writeThroughCache        map[string]interface{}
+	writeThroughCacheLock    sync.Mutex
 }
 
 // NewEtcdClient returns a new client for the Etcd KV store
-func NewEtcdClient(ctx context.Context, addr string, timeout time.Duration, level log.LogLevel) (*EtcdClient, error) {
+func NewEtcdClient(ctx context.Context, addr string, timeout time.Duration, level log.LogLevel, writeThroughCacheEnabled bool) (*EtcdClient, error) {
 	logconfig := log.ConstructZapConfig(log.JSON, level, log.Fields{})
 
 	c, err := v3Client.New(v3Client.Config{
@@ -56,9 +59,10 @@ func NewEtcdClient(ctx context.Context, addr string, timeout time.Duration, leve
 	reservations := make(map[string]*v3Client.LeaseID)
 	lockMutexMap := make(map[string]*v3Concurrency.Mutex)
 	lockSessionMap := make(map[string]*v3Concurrency.Session)
+	writeThroughCache := make(map[string]interface{})
 
 	return &EtcdClient{ectdAPI: c, keyReservations: reservations, lockToMutexMap: lockMutexMap,
-		lockToSessionMap: lockSessionMap}, nil
+		lockToSessionMap: lockSessionMap, writeThroughCache:writeThroughCache, writeThroughCacheEnabled:writeThroughCacheEnabled}, nil
 }
 
 // IsConnectionUp returns whether the connection to the Etcd KV store is up.  If a timeout occurs then
@@ -75,6 +79,10 @@ func (c *EtcdClient) IsConnectionUp(ctx context.Context) bool {
 // List returns an array of key-value pairs with key as a prefix.  Timeout defines how long the function will
 // wait for a response
 func (c *EtcdClient) List(ctx context.Context, key string) (map[string]*KVPair, error) {
+	// Note: read from cache is currently not supported for 'List' operation because 'List' operation passes
+	// a key prefix and it is a complex operation to Get Values from a Golang map associated with Key prefix.
+	// 'List' operation is rarely used in voltha and for now it Ok to not implement this. If required,
+	// let's revisit this support later.
 	resp, err := c.ectdAPI.Get(ctx, key, v3Client.WithPrefix())
 	if err != nil {
 		logger.Error(ctx, err)
@@ -90,6 +98,12 @@ func (c *EtcdClient) List(ctx context.Context, key string) (map[string]*KVPair, 
 // Get returns a key-value pair for a given key. Timeout defines how long the function will
 // wait for a response
 func (c *EtcdClient) Get(ctx context.Context, key string) (*KVPair, error) {
+	if val := c.readFromCache(key); val != nil {
+		// TODO: the session, lease and version are filled with dummy values here.
+		// Currently no one reads these values, but do we envisage these need to have right values in future?
+		kvPair := NewKVPair(key, val, "", 0, 0)
+		return kvPair, nil
+	}
 
 	resp, err := c.ectdAPI.Get(ctx, key)
 
@@ -97,7 +111,9 @@ func (c *EtcdClient) Get(ctx context.Context, key string) (*KVPair, error) {
 		logger.Error(ctx, err)
 		return nil, err
 	}
+
 	for _, ev := range resp.Kvs {
+		c.writeToCache(key, ev.Value)
 		// Only one value is returned
 		return NewKVPair(string(ev.Key), ev.Value, "", ev.Lease, ev.Version), nil
 	}
@@ -117,6 +133,10 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 	}
 
 	var err error
+
+	// Update cache
+	oldVal := c.writeToCache(key, value)
+
 	// Check if there is already a lease for this key - if there is then use it, otherwise a PUT will make
 	// that KV key permanent instead of automatically removing it after a lease expiration
 	c.keyReservationsLock.RLock()
@@ -129,6 +149,7 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 	}
 
 	if err != nil {
+		c.writeToCache(key, oldVal)
 		switch err {
 		case context.Canceled:
 			logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
@@ -148,11 +169,18 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 // wait for a response
 func (c *EtcdClient) Delete(ctx context.Context, key string) error {
 
+	// Remove the data from write through cache first
+	val := c.removeFromCache(key)
+
 	// delete the key
 	if _, err := c.ectdAPI.Delete(ctx, key); err != nil {
 		logger.Errorw(ctx, "failed-to-delete-key", log.Fields{"key": key, "error": err})
+		// Put the data back to cache on failure to remove from KV store
+		c.writeToCache(key, val)
 		return err
 	}
+
+
 	logger.Debugw(ctx, "key(s)-deleted", log.Fields{"key": key})
 	return nil
 }
@@ -484,4 +512,43 @@ func (c *EtcdClient) ReleaseLock(lockName string) error {
 	c.deleteLockName(lockName)
 
 	return err
+}
+
+func (c *EtcdClient) writeToCache(key string, value interface{}) interface{}{
+	var oldVal interface{}
+	if c.writeThroughCacheEnabled {
+		c.writeThroughCacheLock.Lock()
+		defer c.writeThroughCacheLock.Unlock()
+		if value != nil {
+			oldVal = c.writeThroughCache[key]
+			c.writeThroughCache[key] = value
+		}
+		return oldVal
+	}
+	return nil
+}
+
+func (c *EtcdClient) readFromCache(key string) interface{} {
+	if c.writeThroughCacheEnabled {
+		// Do not use RLock for Get Requests to ensure data consistency purposes.
+		// For ex: Assume a case where multiple requests are trying to get PON resource pool.
+		// Each request would get a copy of the resource pool and allocate the same set of free
+		// resources assuming it is free.
+		c.writeThroughCacheLock.Lock()
+		defer c.writeThroughCacheLock.Unlock()
+		val := c.writeThroughCache[key]
+		return val
+	}
+	return nil
+}
+
+func (c *EtcdClient) removeFromCache(key string) interface{} {
+	if c.writeThroughCacheEnabled {
+		c.writeThroughCacheLock.Lock()
+		defer c.writeThroughCacheLock.Unlock()
+		val := c.writeThroughCache[key]
+		delete(c.writeThroughCache, key)
+		return val
+	}
+	return nil
 }

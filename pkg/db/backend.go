@@ -78,7 +78,7 @@ func (b *Backend) newClient(ctx context.Context, address string, timeout time.Du
 	case "consul":
 		return kvstore.NewConsulClient(ctx, address, timeout)
 	case "etcd":
-		return kvstore.NewEtcdClient(ctx, address, timeout, log.WarnLevel)
+		return kvstore.NewEtcdClient(ctx, address, timeout, log.WarnLevel, false)
 	}
 	return nil, errors.New("unsupported-kv-store")
 }
