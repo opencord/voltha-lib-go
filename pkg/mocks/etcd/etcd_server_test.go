@@ -46,7 +46,7 @@ func setup() {
 		logger.Fatal(ctx, "Embedded server failed to start")
 	}
 	clientAddr := fmt.Sprintf("localhost:%d", clientPort)
-	client, err = kvstore.NewEtcdClient(ctx, clientAddr, 10*time.Second, log.WarnLevel)
+	client, err = kvstore.NewEtcdClient(ctx, clientAddr, 10*time.Second, log.WarnLevel, false)
 	if err != nil || client == nil {
 		etcdServer.Stop(ctx)
 		logger.Fatal(ctx, "Failed to create an Etcd client")
