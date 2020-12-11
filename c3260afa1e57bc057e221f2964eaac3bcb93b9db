@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cac6bfb9_23acf1df",
+        "filename": "pkg/adapters/adapterif/events_proxy_if.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-12-11T14:49:20Z",
+      "side": 1,
+      "message": "Is this interface removed because it\u0027s not being used at all by any components?",
+      "revId": "c3260afa1e57bc057e221f2964eaac3bcb93b9db",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
