@@ -16,6 +16,24 @@
       "revId": "c3260afa1e57bc057e221f2964eaac3bcb93b9db",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cae5ed85_08c12eb6",
+        "filename": "pkg/adapters/adapterif/events_proxy_if.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2020-12-16T11:45:03Z",
+      "side": 1,
+      "message": "I have added the interface but changed the location to events package.",
+      "parentUuid": "cac6bfb9_23acf1df",
+      "revId": "c3260afa1e57bc057e221f2964eaac3bcb93b9db",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
