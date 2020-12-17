@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c542075f_de000c1f",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2020-12-17T11:38:59Z",
+      "side": 1,
+      "message": "why is this a pointer now ?",
+      "revId": "9128a4ea7b7c9462da4a6d11886b430d6ca3deb9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
