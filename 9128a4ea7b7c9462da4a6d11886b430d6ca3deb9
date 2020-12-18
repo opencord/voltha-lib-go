@@ -16,6 +16,57 @@
       "revId": "9128a4ea7b7c9462da4a6d11886b430d6ca3deb9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fed8e1cc_c60e3e9f",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-12-18T21:28:58Z",
+      "side": 1,
+      "message": "nit: Can this be simplified with event.EventType \u003d voltha.Event_RpcEvent{RpcEvent: rpcEvent} or something similar to avoid to create var rpce?",
+      "revId": "9128a4ea7b7c9462da4a6d11886b430d6ca3deb9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fecd5a22_01661668",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-12-18T21:28:58Z",
+      "side": 1,
+      "message": "Debug?",
+      "revId": "9128a4ea7b7c9462da4a6d11886b430d6ca3deb9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0912eaff_4e3f2a8d",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-12-18T21:28:58Z",
+      "side": 1,
+      "message": "Debug?",
+      "revId": "9128a4ea7b7c9462da4a6d11886b430d6ca3deb9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
