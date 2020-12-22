@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5f8eb7e9_45c6bb4f",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2020-12-22T09:51:35Z",
+      "side": 1,
+      "message": "To make it optional.",
+      "parentUuid": "c542075f_de000c1f",
+      "revId": "9128a4ea7b7c9462da4a6d11886b430d6ca3deb9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fed8e1cc_c60e3e9f",
         "filename": "pkg/events/events_proxy.go",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "9128a4ea7b7c9462da4a6d11886b430d6ca3deb9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0bac4f3_65727f49",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2020-12-22T09:51:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fed8e1cc_c60e3e9f",
+      "revId": "9128a4ea7b7c9462da4a6d11886b430d6ca3deb9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "20a7f6a7_4cd4d844",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2020-12-22T09:51:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fecd5a22_01661668",
+      "revId": "9128a4ea7b7c9462da4a6d11886b430d6ca3deb9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0912eaff_4e3f2a8d",
         "filename": "pkg/events/events_proxy.go",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "9128a4ea7b7c9462da4a6d11886b430d6ca3deb9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f5acdfe_2872bcab",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2020-12-22T09:51:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0912eaff_4e3f2a8d",
+      "revId": "9128a4ea7b7c9462da4a6d11886b430d6ca3deb9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
