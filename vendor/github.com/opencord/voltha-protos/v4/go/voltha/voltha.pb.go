@@ -91,8 +91,6 @@ const AdminState_PREPROVISIONED = AdminState_Types(common.AdminState_PREPROVISIO
 const AdminState_ENABLED = AdminState_Types(common.AdminState_ENABLED)
 const AdminState_DISABLED = AdminState_Types(common.AdminState_DISABLED)
 const AdminState_DOWNLOADING_IMAGE = AdminState_Types(common.AdminState_DOWNLOADING_IMAGE)
-const AdminState_DELETED = AdminState_Types(common.AdminState_DELETED)
-const AdminState_DELETING = AdminState_Types(common.AdminState_DELETING)
 
 // OperStatus_Types from public import voltha_protos/common.proto
 type OperStatus_Types = common.OperStatus_Types
@@ -505,6 +503,7 @@ type PacketOut = openflow_13.PacketOut
 // ChangeEvent from public import voltha_protos/openflow_13.proto
 type ChangeEvent = openflow_13.ChangeEvent
 type ChangeEvent_PortStatus = openflow_13.ChangeEvent_PortStatus
+type ChangeEvent_Error = openflow_13.ChangeEvent_Error
 
 // OfpPortNo from public import voltha_protos/openflow_13.proto
 type OfpPortNo = openflow_13.OfpPortNo
