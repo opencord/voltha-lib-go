@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88978e06_a209bfc0",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2021-01-05T08:42:03Z",
+      "side": 1,
+      "message": "The log string does not seem to be correct",
+      "revId": "04cae3598089d3cf94d8149c27f5d3b7b54bd195",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
