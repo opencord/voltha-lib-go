@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2b0d9a1_fd7c74d3",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-01-05T21:22:24Z",
+      "side": 1,
+      "message": "check number of args",
+      "revId": "f63a7cba8ae017d41b6728f48dcb4b350d05a87a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "195389eb_5f197245",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-01-05T21:22:24Z",
+      "side": 1,
+      "message": "can you put this in a single line for good readability.",
+      "range": {
+        "startLine": 742,
+        "startChar": 12,
+        "endLine": 743,
+        "endChar": 84
+      },
+      "revId": "f63a7cba8ae017d41b6728f48dcb4b350d05a87a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
