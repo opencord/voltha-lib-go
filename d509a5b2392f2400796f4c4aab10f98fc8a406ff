@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3d28c43_cb18f18a",
+        "filename": "go.mod",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2021-01-06T18:09:40Z",
+      "side": 1,
+      "message": "do we need 4.0.8?",
+      "range": {
+        "startLine": 32,
+        "startChar": 38,
+        "endLine": 32,
+        "endChar": 44
+      },
+      "revId": "d509a5b2392f2400796f4c4aab10f98fc8a406ff",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
