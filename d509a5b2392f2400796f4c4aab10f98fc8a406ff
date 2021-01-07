@@ -22,6 +22,30 @@
       "revId": "d509a5b2392f2400796f4c4aab10f98fc8a406ff",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddf58421_b4e6e0bb",
+        "filename": "go.mod",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2021-01-07T06:55:15Z",
+      "side": 1,
+      "message": "updated to 4.0.8",
+      "parentUuid": "a3d28c43_cb18f18a",
+      "range": {
+        "startLine": 32,
+        "startChar": 38,
+        "endLine": 32,
+        "endChar": 44
+      },
+      "revId": "d509a5b2392f2400796f4c4aab10f98fc8a406ff",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
