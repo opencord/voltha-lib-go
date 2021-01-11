@@ -16,6 +16,23 @@
       "revId": "46a9f01ade07e5772e1cf1ac61779de89564f734",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b728cf97_37f0450d",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-01-11T15:09:08Z",
+      "side": 1,
+      "message": "nit: Since you are looking for only 1 argument, would it be helpful to break from the for loop once the argument is obtained?",
+      "revId": "46a9f01ade07e5772e1cf1ac61779de89564f734",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
