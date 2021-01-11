@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f52bfa8f_a8510576",
+        "filename": "VERSION",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-01-11T08:55:07Z",
+      "side": 1,
+      "message": "given that we have done the release on 4.0.3 I\u0027d say here we go to 4.1.0",
+      "revId": "46a9f01ade07e5772e1cf1ac61779de89564f734",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
