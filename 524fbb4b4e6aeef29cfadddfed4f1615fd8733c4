@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "491156ad_1d5b79f2",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-01-14T16:34:09Z",
+      "side": 1,
+      "message": "There are lots of duplicates of the same code in these methods.   Consider adding a helper function to extract the input params.",
+      "revId": "524fbb4b4e6aeef29cfadddfed4f1615fd8733c4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
