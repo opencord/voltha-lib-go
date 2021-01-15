@@ -16,6 +16,24 @@
       "revId": "524fbb4b4e6aeef29cfadddfed4f1615fd8733c4",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfb4da66_5f6e7e5c",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-01-15T10:18:55Z",
+      "side": 1,
+      "message": "agreed, I\u0027ve taken a look and the issue is that all the \"refactorable\" code has return call within, thus rendering effectively difficult to refactor it and avoid duplication, because you would still have to check the error and return it. \n\nThoughts ?",
+      "parentUuid": "491156ad_1d5b79f2",
+      "revId": "524fbb4b4e6aeef29cfadddfed4f1615fd8733c4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
