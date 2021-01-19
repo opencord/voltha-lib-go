@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5611ef59_4bf7fa6c",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2021-01-19T20:05:33Z",
+      "side": 1,
+      "message": "delete-with-prefix?",
+      "range": {
+        "startLine": 243,
+        "startChar": 40,
+        "endLine": 243,
+        "endChar": 51
+      },
+      "revId": "bb08f3a4fac3237667590f33401899e40e02693a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe3ccc7b_87f2d6bc",
         "filename": "pkg/db/kvstore/consulclient.go",
         "patchSetId": 2
@@ -13,6 +36,24 @@
       "writtenOn": "2021-01-19T19:04:07Z",
       "side": 1,
       "message": "should be implemented or is it time to remove the consul implementation all together. i think we should do one or the other and not leave it in limbo with something implemented and others not.",
+      "revId": "bb08f3a4fac3237667590f33401899e40e02693a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3114e1d0_b3167b15",
+        "filename": "pkg/db/kvstore/consulclient.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2021-01-19T20:05:33Z",
+      "side": 1,
+      "message": "Agreed. But if we decide to remove Consul support we should do it in a different patch.\nAre we aware of anyone using Consul?",
+      "parentUuid": "fe3ccc7b_87f2d6bc",
       "revId": "bb08f3a4fac3237667590f33401899e40e02693a",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
