@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe3ccc7b_87f2d6bc",
+        "filename": "pkg/db/kvstore/consulclient.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-01-19T19:04:07Z",
+      "side": 1,
+      "message": "should be implemented or is it time to remove the consul implementation all together. i think we should do one or the other and not leave it in limbo with something implemented and others not.",
+      "revId": "bb08f3a4fac3237667590f33401899e40e02693a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
