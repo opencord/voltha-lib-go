@@ -16,6 +16,24 @@
       "revId": "637b47ed771e528c72afe72fd9772542b765282d",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06d7411_c15a41ed",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-19T21:36:17Z",
+      "side": 1,
+      "message": "No idea. https://etcd.io/docs/v3.3.12/learning/api/#delete-range it says returns the number of keys deleted but doesn\u0027t mention about if any failures occur.",
+      "parentUuid": "2a95764a_c1b06ae1",
+      "revId": "637b47ed771e528c72afe72fd9772542b765282d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
