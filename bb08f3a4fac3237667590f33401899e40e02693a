@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e8f37999_45023e8b",
+        "filename": "pkg/db/backend.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-19T20:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5611ef59_4bf7fa6c",
+      "range": {
+        "startLine": 243,
+        "startChar": 40,
+        "endLine": 243,
+        "endChar": 51
+      },
+      "revId": "bb08f3a4fac3237667590f33401899e40e02693a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe3ccc7b_87f2d6bc",
         "filename": "pkg/db/kvstore/consulclient.go",
         "patchSetId": 2
