@@ -81,6 +81,24 @@
       "revId": "bb08f3a4fac3237667590f33401899e40e02693a",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db09c1b3_97ab799e",
+        "filename": "pkg/db/kvstore/consulclient.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-01-20T08:26:18Z",
+      "side": 1,
+      "message": "I do not think anybody is using it ATM",
+      "parentUuid": "3114e1d0_b3167b15",
+      "revId": "bb08f3a4fac3237667590f33401899e40e02693a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
