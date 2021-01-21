@@ -34,6 +34,24 @@
       "revId": "637b47ed771e528c72afe72fd9772542b765282d",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2802da2_80922a25",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-01-21T14:58:38Z",
+      "side": 1,
+      "message": "This is tricky as the link shows what the Etcd client will receive (a grpc response) but does not explicitly say what the Ectd client will return back in the Delete response.  Is there a way to verify that?  If no errors are returned for partial deletion then that will result in silent errors leading to Etcd growing in size.   If there are no errors returned by the etcd client then getting the number of keys to before deletion may help to check the result back.  Thoughts?",
+      "parentUuid": "f06d7411_c15a41ed",
+      "revId": "637b47ed771e528c72afe72fd9772542b765282d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
