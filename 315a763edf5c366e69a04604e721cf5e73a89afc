@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "e485f5f1_1f9a495a",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-01-28T11:40:50Z",
+      "side": 1,
+      "message": "Actually I have to change it to 4, \nthis is:\n1) Device proto\n2) ImageDownload proto\n3) TransactionKey\n4) FromTopic\n\nit\u0027s always the same for all.",
+      "parentUuid": "135d72a1_eddfd705",
+      "revId": "315a763edf5c366e69a04604e721cf5e73a89afc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "90513230_211519c6",
         "filename": "pkg/adapters/common/request_handler.go",
         "patchSetId": 4
@@ -50,6 +68,24 @@
       "revId": "315a763edf5c366e69a04604e721cf5e73a89afc",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a316543_80aebcee",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-01-28T11:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90513230_211519c6",
+      "revId": "315a763edf5c366e69a04604e721cf5e73a89afc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
