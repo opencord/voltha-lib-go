@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7efa866_8c7bb933",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1000666
+      },
+      "writtenOn": "2021-01-28T12:17:18Z",
+      "side": 1,
+      "message": "Yes, the function makes the processing a bit clearer, but it now also exposes the question, why TransactionKey and FromTopic are evaluated here if they are in any way not anymore used for processing. They are checked just for formal parameter verification?",
+      "revId": "26ccc88a2d1f21a2feeea61a5d06122759715ff6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
