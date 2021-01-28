@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30c1e157_f7a56c94",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000666
+      },
+      "writtenOn": "2021-01-28T09:31:36Z",
+      "side": 1,
+      "message": "?? one line to much?",
+      "revId": "315a763edf5c366e69a04604e721cf5e73a89afc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "135d72a1_eddfd705",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000666
+      },
+      "writtenOn": "2021-01-28T09:31:36Z",
+      "side": 1,
+      "message": "I\u0027m not sure if that same check is correct for all the immage commands implemented here. At least the number of required arguments differs between the commands - so maybe this check needs some finer resolution throughout the commands.",
+      "revId": "315a763edf5c366e69a04604e721cf5e73a89afc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90513230_211519c6",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000666
+      },
+      "writtenOn": "2021-01-28T09:31:36Z",
+      "side": 1,
+      "message": "looks like lines 570.. 597 are the same for all image functions, so they might as well be considered to be collected into a single utility function that could be called from all these functions",
+      "revId": "315a763edf5c366e69a04604e721cf5e73a89afc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
