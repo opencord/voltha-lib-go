@@ -21,8 +21,6 @@ import (
 )
 
 const (
-	// Default timeout in seconds when making a kvstore request
-	defaultKVGetTimeout = 5 * time.Second
 	// Maximum channel buffer between publisher/subscriber goroutines
 	maxClientChannelBufferSize = 10
 )

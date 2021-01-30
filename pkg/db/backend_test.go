@@ -18,15 +18,16 @@ package db
 
 import (
 	"context"
+	"os"
+	"strconv"
+	"testing"
+	"time"
+
 	mocks "github.com/opencord/voltha-lib-go/v4/pkg/mocks/etcd"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"os"
-	"strconv"
-	"testing"
-	"time"
 )
 
 const (
@@ -92,16 +93,6 @@ func TestNewBackend_EtcdKvStore(t *testing.T) {
 	assert.Equal(t, backend.alive, false) // backend is not alive at start
 	assert.Nil(t, backend.liveness)       // no liveness channel is created at start
 	assert.Equal(t, backend.LivenessChannelInterval, DefaultLivenessChannelInterval)
-}
-
-// Create instance using Consul Kvstore
-func TestNewBackend_ConsulKvStore(t *testing.T) {
-	backend := NewBackend(context.Background(), "consul", embedEtcdServerHost+":"+strconv.Itoa(embedEtcdServerPort), defaultTimeout, defaultPathPrefix)
-
-	// Verify kvstore type attribute of backend has got set correctly
-	assert.NotNil(t, backend)
-	assert.NotNil(t, backend.Client)
-	assert.Equal(t, backend.StoreType, "consul")
 }
 
 // Create instance using Invalid Kvstore; instance creation should fail
