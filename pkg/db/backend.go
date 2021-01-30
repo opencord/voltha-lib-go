@@ -75,8 +75,6 @@ func NewBackend(ctx context.Context, storeType string, address string, timeout t
 
 func (b *Backend) newClient(ctx context.Context, address string, timeout time.Duration) (kvstore.Client, error) {
 	switch b.StoreType {
-	case "consul":
-		return kvstore.NewConsulClient(ctx, address, timeout)
 	case "etcd":
 		return kvstore.NewEtcdClient(ctx, address, timeout, log.WarnLevel)
 	}
@@ -170,9 +168,6 @@ func (b *Backend) isErrorIndicatingAliveKvstore(ctx context.Context, err error) 
 			case codes.DataLoss:
 				alive = false
 			}
-
-			//} else {
-			// TODO: Implement for consul backend; would it be needed ever?
 		}
 	}
 
