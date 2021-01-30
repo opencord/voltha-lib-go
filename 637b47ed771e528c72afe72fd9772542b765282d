@@ -52,6 +52,24 @@
       "revId": "637b47ed771e528c72afe72fd9772542b765282d",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41d293a9_e6fdbcf6",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-30T20:37:32Z",
+      "side": 1,
+      "message": "Unfortunately I could not find any information how etcd behaves about partial deletion. \nhttps://github.com/etcd-io/etcd/blob/cf2153d44b0eb59e52062c8a59a6ac39d2a4225c/server/proxy/grpcproxy/kv.go#L82 I believe etcd behaves all or nothing.",
+      "parentUuid": "a2802da2_80922a25",
+      "revId": "637b47ed771e528c72afe72fd9772542b765282d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
