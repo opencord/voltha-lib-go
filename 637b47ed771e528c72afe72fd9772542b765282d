@@ -70,6 +70,24 @@
       "revId": "637b47ed771e528c72afe72fd9772542b765282d",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5b9be72_af87988b",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-02-01T14:30:03Z",
+      "side": 1,
+      "message": "ok, then it\u0027s something we can address if we see this error scenario occurring which will clarify etcd responses.",
+      "parentUuid": "41d293a9_e6fdbcf6",
+      "revId": "637b47ed771e528c72afe72fd9772542b765282d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
