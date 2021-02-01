@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73e43bb8_1d2956da",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2021-02-01T16:47:52Z",
+      "side": 1,
+      "message": "what is the reason for this? That the value that is temporarily set by `kind-voltha` while using the new charts, once we\u0027ll migrate to the `helm-chart` based installation it will be `service/voltha/{{ .Release.Name }}_{{ .Values.global.stack_name }}`, but regardless of the format, why do we need to change the default?",
+      "range": {
+        "startLine": 32,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 54
+      },
+      "revId": "cf5c120da7e2821e8d25c9b8812af78a8bc8461e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
