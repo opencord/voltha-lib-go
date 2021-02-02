@@ -22,6 +22,30 @@
       "revId": "cf5c120da7e2821e8d25c9b8812af78a8bc8461e",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d00b824d_922ed004",
+        "filename": "pkg/config/configmanager.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000729
+      },
+      "writtenOn": "2021-02-02T03:45:05Z",
+      "side": 1,
+      "message": "While using voltctl command like getting or setting log level was not working as the default path prefix used is \"service/voltha\" and etcd paths to store log levels are now changed to \"service/{{ .Values.global.stack_name }}_voltha\" as a part of helm chart changes which is \"service/voltha_voltha\" in default case.",
+      "parentUuid": "73e43bb8_1d2956da",
+      "range": {
+        "startLine": 32,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 54
+      },
+      "revId": "cf5c120da7e2821e8d25c9b8812af78a8bc8461e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
