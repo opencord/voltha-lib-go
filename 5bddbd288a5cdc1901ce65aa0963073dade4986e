@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cab626dc_fc3db033",
+        "filename": "pkg/events/onu/device_events.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000617
+      },
+      "writtenOn": "2021-02-05T16:31:14Z",
+      "side": 1,
+      "message": "These class ID definitions are available as constants from the OpenOMCI-lib-go library.   If you import that library you can drop these consts and use the library versions below.",
+      "range": {
+        "startLine": 37,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 61
+      },
+      "revId": "5bddbd288a5cdc1901ce65aa0963073dade4986e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
