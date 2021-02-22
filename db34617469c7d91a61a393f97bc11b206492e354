@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "627d55a6_9040d068",
+        "filename": "pkg/db/kvstore/client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T17:47:56Z",
+      "side": 0,
+      "message": "would have thought this was required independent of implementation. are we not using a default timeout for etcd calls?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 38
+      },
+      "revId": "db34617469c7d91a61a393f97bc11b206492e354",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
