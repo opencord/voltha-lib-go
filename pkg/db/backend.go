@@ -75,8 +75,10 @@ func NewBackend(ctx context.Context, storeType string, address string, timeout t
 
 func (b *Backend) newClient(ctx context.Context, address string, timeout time.Duration) (kvstore.Client, error) {
 	switch b.StoreType {
-	case "consul":
-		return kvstore.NewConsulClient(ctx, address, timeout)
+	case "redis":
+		return kvstore.NewRedisClient(address, timeout, false)
+	case "redis-sentinel":
+		return kvstore.NewRedisClient(address, timeout, true)
 	case "etcd":
 		return kvstore.NewEtcdClient(ctx, address, timeout, log.WarnLevel)
 	}
@@ -170,9 +172,6 @@ func (b *Backend) isErrorIndicatingAliveKvstore(ctx context.Context, err error) 
 			case codes.DataLoss:
 				alive = false
 			}
-
-			//} else {
-			// TODO: Implement for consul backend; would it be needed ever?
 		}
 	}
 
@@ -181,7 +180,7 @@ func (b *Backend) isErrorIndicatingAliveKvstore(ctx context.Context, err error) 
 
 // List retrieves one or more items that match the specified key
 func (b *Backend) List(ctx context.Context, key string) (map[string]*kvstore.KVPair, error) {
-	span, ctx := log.CreateChildSpan(ctx, "etcd-list")
+	span, ctx := log.CreateChildSpan(ctx, "kvs-list")
 	defer span.Finish()
 
 	formattedPath := b.makePath(ctx, key)
@@ -196,7 +195,7 @@ func (b *Backend) List(ctx context.Context, key string) (map[string]*kvstore.KVP
 
 // Get retrieves an item that matches the specified key
 func (b *Backend) Get(ctx context.Context, key string) (*kvstore.KVPair, error) {
-	span, ctx := log.CreateChildSpan(ctx, "etcd-get")
+	span, ctx := log.CreateChildSpan(ctx, "kvs-get")
 	defer span.Finish()
 
 	formattedPath := b.makePath(ctx, key)
@@ -211,7 +210,7 @@ func (b *Backend) Get(ctx context.Context, key string) (*kvstore.KVPair, error) 
 
 // Put stores an item value under the specifed key
 func (b *Backend) Put(ctx context.Context, key string, value interface{}) error {
-	span, ctx := log.CreateChildSpan(ctx, "etcd-put")
+	span, ctx := log.CreateChildSpan(ctx, "kvs-put")
 	defer span.Finish()
 
 	formattedPath := b.makePath(ctx, key)
@@ -226,7 +225,7 @@ func (b *Backend) Put(ctx context.Context, key string, value interface{}) error 
 
 // Delete removes an item under the specified key
 func (b *Backend) Delete(ctx context.Context, key string) error {
-	span, ctx := log.CreateChildSpan(ctx, "etcd-delete")
+	span, ctx := log.CreateChildSpan(ctx, "kvs-delete")
 	defer span.Finish()
 
 	formattedPath := b.makePath(ctx, key)
@@ -239,9 +238,23 @@ func (b *Backend) Delete(ctx context.Context, key string) error {
 	return err
 }
 
+func (b *Backend) DeleteWithPrefix(ctx context.Context, prefixKey string) error {
+	span, ctx := log.CreateChildSpan(ctx, "kvs-delete-with-prefix")
+	defer span.Finish()
+
+	formattedPath := b.makePath(ctx, prefixKey)
+	logger.Debugw(ctx, "deleting-prefix-key", log.Fields{"key": prefixKey, "path": formattedPath})
+
+	err := b.Client.DeleteWithPrefix(ctx, formattedPath)
+
+	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(ctx, err))
+
+	return err
+}
+
 // CreateWatch starts watching events for the specified key
 func (b *Backend) CreateWatch(ctx context.Context, key string, withPrefix bool) chan *kvstore.Event {
-	span, ctx := log.CreateChildSpan(ctx, "etcd-create-watch")
+	span, ctx := log.CreateChildSpan(ctx, "kvs-create-watch")
 	defer span.Finish()
 
 	formattedPath := b.makePath(ctx, key)
@@ -252,7 +265,7 @@ func (b *Backend) CreateWatch(ctx context.Context, key string, withPrefix bool) 
 
 // DeleteWatch stops watching events for the specified key
 func (b *Backend) DeleteWatch(ctx context.Context, key string, ch chan *kvstore.Event) {
-	span, ctx := log.CreateChildSpan(ctx, "etcd-delete-watch")
+	span, ctx := log.CreateChildSpan(ctx, "kvs-delete-watch")
 	defer span.Finish()
 
 	formattedPath := b.makePath(ctx, key)

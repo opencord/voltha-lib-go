@@ -411,10 +411,12 @@ func newKVClient(ctx context.Context, storeType string, address string, timeout 
 
 	logger.Infow(ctx, "kv-store", log.Fields{"storeType": storeType, "address": address})
 	switch storeType {
-	case "consul":
-		return kvstore.NewConsulClient(ctx, address, timeout)
 	case "etcd":
 		return kvstore.NewEtcdClient(ctx, address, timeout, log.WarnLevel)
+	case "redis":
+		return kvstore.NewRedisClient(address, timeout, false)
+	case "redis-sentinel":
+		return kvstore.NewRedisClient(address, timeout, true)
 	}
 	return nil, errors.New("unsupported-kv-store")
 }
