@@ -16,6 +16,24 @@
       "revId": "fa079ddc046037dfbc6946816efe02b40a7ff94c",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29ee0a9a_6baba4e5",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 1000405
+      },
+      "writtenOn": "2021-02-26T12:00:12Z",
+      "side": 1,
+      "message": "type can be IGemPortAttribute for TechProfile and iUpstreamQueueAttribute or iDownstreamQueueAttribute for EponProfile.\nHow can I cover all of these without using interface{} ?",
+      "parentUuid": "a9cc425b_eac09b74",
+      "revId": "fa079ddc046037dfbc6946816efe02b40a7ff94c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
