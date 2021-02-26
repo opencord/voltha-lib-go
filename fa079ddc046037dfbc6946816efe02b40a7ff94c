@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9cc425b_eac09b74",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-02-26T11:53:47Z",
+      "side": 1,
+      "message": "Don’t we have a gem port type we can return here instead of interface ?",
+      "revId": "fa079ddc046037dfbc6946816efe02b40a7ff94c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
