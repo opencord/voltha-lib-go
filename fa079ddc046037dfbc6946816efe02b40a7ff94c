@@ -34,6 +34,24 @@
       "revId": "fa079ddc046037dfbc6946816efe02b40a7ff94c",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbaf9feb_05255698",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-02-26T12:52:51Z",
+      "side": 1,
+      "message": "I see, I though we had a generic attribute covering all of these, thanks for specifying.",
+      "parentUuid": "29ee0a9a_6baba4e5",
+      "revId": "fa079ddc046037dfbc6946816efe02b40a7ff94c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
