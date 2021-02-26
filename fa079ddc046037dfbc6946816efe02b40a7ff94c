@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ccda93de_f7e1e648",
+        "filename": "VERSION",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-02-26T19:23:21Z",
+      "side": 1,
+      "message": "Given that this is non-backward compatible API change I would normally update major version, but since this affects only tech-profile interface, at least a minor version update is fine.",
+      "revId": "fa079ddc046037dfbc6946816efe02b40a7ff94c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a9cc425b_eac09b74",
         "filename": "pkg/techprofile/tech_profile.go",
         "patchSetId": 2
