@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77a1df45_8064f127",
+        "filename": "pkg/meters/meter_utils_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-03-12T19:21:01Z",
+      "side": 1,
+      "message": "can you add few invalid meter configurations. Thanks.",
+      "revId": "397dd50b330a3d5eeb69dfb65bf298fb4d3d7b32",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
