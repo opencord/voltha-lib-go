@@ -21,9 +21,11 @@ import (
 	"sync"
 	"time"
 
+	"github.com/golang/protobuf/proto"
 	"github.com/opencord/voltha-lib-go/v4/pkg/kafka"
 	"github.com/opencord/voltha-lib-go/v4/pkg/log"
 	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
+	"github.com/opencord/voltha-protos/v4/go/voltha"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -118,8 +120,17 @@ func (kc *KafkaClient) SubscribeForMetadata(ctx context.Context, _ func(fromTopi
 }
 
 func (kc *KafkaClient) Send(ctx context.Context, msg interface{}, topic *kafka.Topic, keys ...string) error {
+	// Assert message is a proto message
+	// ascertain the value interface type is a proto.Message
+	if _, ok := msg.(proto.Message); !ok {
+		logger.Warnw(ctx, "message-not-a-proto-message", log.Fields{"msg": msg})
+		return status.Error(codes.InvalidArgument, "msg-not-a-proto-msg")
+	}
 	req, ok := msg.(*ic.InterContainerMessage)
 	if !ok {
+		if _, ok := msg.(*voltha.Event); ok {
+			return nil
+		}
 		return status.Error(codes.InvalidArgument, "msg-not-InterContainerMessage-type")
 	}
 	if req == nil {
