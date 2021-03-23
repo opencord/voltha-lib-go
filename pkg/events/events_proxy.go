@@ -22,6 +22,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/golang/protobuf/ptypes"
@@ -31,9 +32,34 @@ import (
 	"github.com/opencord/voltha-protos/v4/go/voltha"
 )
 
+type event struct {
+	prev, next       *event
+	event            *voltha.Event
+	notifyOnComplete chan<- struct{}
+}
+
+type eventQueue struct {
+	mutex sync.Mutex
+
+	last, current  *event
+	lastCompleteCh <-chan struct{}
+	eventChannel   chan *voltha.Event
+}
+
 type EventProxy struct {
 	kafkaClient kafka.Client
 	eventTopic  kafka.Topic
+	eventQueue  *eventQueue // Let there be queue per event proxy, irregardless of underlying messaging mechanism.
+	shutdown    chan struct{}
+	stopped     bool
+}
+
+func newEventQueue() *eventQueue {
+	ch := make(chan struct{})
+	close(ch) // assume the "current" event is already complete
+	// Start the routine to wait on the queue
+	eq := &eventQueue{lastCompleteCh: ch, eventChannel: make(chan (*voltha.Event))}
+	return eq
 }
 
 func NewEventProxy(opts ...EventProxyOption) *EventProxy {
@@ -41,6 +67,7 @@ func NewEventProxy(opts ...EventProxyOption) *EventProxy {
 	for _, option := range opts {
 		option(&proxy)
 	}
+	proxy.eventQueue = newEventQueue()
 	return &proxy
 }
 
@@ -112,15 +139,7 @@ func (ep *EventProxy) SendRPCEvent(ctx context.Context, id string, rpcEvent *vol
 		return err
 	}
 	event.EventType = &voltha.Event_RpcEvent{RpcEvent: rpcEvent}
-	if err := ep.sendEvent(ctx, &event); err != nil {
-		logger.Errorw(ctx, "Failed to send rpc event to KAFKA bus", log.Fields{"rpc-event": rpcEvent})
-		return err
-	}
-	logger.Debugw(ctx, "Successfully sent RPC event to KAFKA bus", log.Fields{"Id": event.Header.Id, "Category": event.Header.Category,
-		"SubCategory": event.Header.SubCategory, "Type": event.Header.Type, "TypeVersion": event.Header.TypeVersion,
-		"ReportedTs": event.Header.ReportedTs, "ResourceId": rpcEvent.ResourceId, "Context": rpcEvent.Context,
-		"RPCEventName": id})
-
+	ep.eventQueue.Push(ctx, &event)
 	return nil
 
 }
@@ -194,4 +213,73 @@ func (ep *EventProxy) EnableLivenessChannel(ctx context.Context, enable bool) ch
 
 func (ep *EventProxy) SendLiveness(ctx context.Context) error {
 	return ep.kafkaClient.SendLiveness(ctx)
+}
+
+func (ep *EventProxy) Start() {
+	eq := ep.eventQueue
+	for {
+		event, ok := <-eq.eventChannel
+		if ok {
+			eq.mutex.Lock()
+			if !ep.stopped {
+				ctx := context.Background()
+				if err := ep.sendEvent(ctx, event); err != nil {
+					logger.Errorw(ctx, "failed-to-send-event-to-kafka-bus", log.Fields{"event": event})
+				} else {
+					logger.Debugw(ctx, "successfully-sent-rpc-event-to-kafka-bus", log.Fields{"id": event.Header.Id, "category": event.Header.Category,
+						"sub-category": event.Header.SubCategory, "type": event.Header.Type, "type-version": event.Header.TypeVersion,
+						"reported-ts": event.Header.ReportedTs, "event-type": event.EventType})
+				}
+			}
+			// Notify the next waiting event.
+			close(eq.current.notifyOnComplete)
+			if eq.current.next != nil {
+				eq.current.next.prev = nil
+				eq.mutex.Unlock()
+			} else if ep.stopped { // event proxy is stopped and it was last event in the queue, we can notify the event proxy to close the channels.
+				eq.mutex.Unlock()
+				ep.shutdown <- struct{}{}
+			} else {
+				eq.mutex.Unlock()
+			}
+		}
+	}
+}
+
+func (ep *EventProxy) Stop() {
+	ep.stopped = true
+	go func() {
+		<-ep.shutdown
+		close(ep.eventQueue.eventChannel)
+	}()
+}
+
+func (eq *eventQueue) Push(ctx context.Context, ev *voltha.Event) {
+	// add event to the end of the queue and then wait for the turn
+	eq.mutex.Lock()
+	waitingOn := eq.lastCompleteCh
+
+	ch := make(chan struct{})
+	eq.lastCompleteCh = ch
+	r := &event{notifyOnComplete: ch, event: ev}
+
+	if eq.last != nil {
+		eq.last.next, r.prev = r, eq.last
+	}
+	eq.last = r
+	eq.mutex.Unlock()
+	go func() {
+		<-waitingOn
+		// Previous event has signaled that it is complete.
+		// This event now can proceed as the active
+		// event
+		eq.mutex.Lock()
+
+		eq.current = r
+		currentEvent := r.event
+		eq.mutex.Unlock()
+		// Send current event
+		eq.eventChannel <- currentEvent
+
+	}()
 }
