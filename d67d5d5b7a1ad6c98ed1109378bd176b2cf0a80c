@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97b6a4c3_b8c9cce0",
+        "filename": "pkg/meters/meter_utils.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-03-29T14:03:44Z",
+      "side": 1,
+      "message": "are we missing tcont type 4 best effort ? also the method does not return error, I think it would be valuable.",
+      "revId": "d67d5d5b7a1ad6c98ed1109378bd176b2cf0a80c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd137dc2_d1954ca5",
+        "filename": "pkg/meters/meter_utils.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-03-29T14:03:44Z",
+      "side": 1,
+      "message": "this is type 2 and line 42 is type 3 correct ? can you please put a comment ?",
+      "revId": "d67d5d5b7a1ad6c98ed1109378bd176b2cf0a80c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6914b61_c356a496",
+        "filename": "pkg/meters/meter_utils.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-03-29T14:03:44Z",
+      "side": 1,
+      "message": "return error here",
+      "revId": "d67d5d5b7a1ad6c98ed1109378bd176b2cf0a80c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46a53b98_996697c4",
+        "filename": "pkg/meters/meter_utils.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-03-29T14:03:44Z",
+      "side": 1,
+      "message": "and return error here",
+      "revId": "d67d5d5b7a1ad6c98ed1109378bd176b2cf0a80c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
