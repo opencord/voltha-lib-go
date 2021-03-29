@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15830235_fe4c5d5d",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-29T18:41:46Z",
+      "side": 1,
+      "message": "no reason to assign context.Background to a local var, can just pass it direction",
+      "range": {
+        "startLine": 222,
+        "startChar": 25,
+        "endLine": 222,
+        "endChar": 28
+      },
+      "revId": "83e15040132153ac18ba43c847d6020a6ee94e11",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
