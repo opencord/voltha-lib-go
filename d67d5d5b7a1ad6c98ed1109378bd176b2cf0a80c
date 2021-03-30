@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "230aa352_9e0b8ece",
+        "filename": "pkg/meters/meter_utils.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000405
+      },
+      "writtenOn": "2021-03-30T08:15:15Z",
+      "side": 1,
+      "message": "Tcont type 2 and 3 have pir and cir values. \nIf the additional bw is NONE, the tcont type will be 2 \nIf the additional bw is NON_ASSURED, the tcont type will be 3. \nSo we cant say that line 41/42 is tcont type 2 or 3.\nType can be identified by the agent by checking both these values and the additional bw value.",
+      "parentUuid": "dd137dc2_d1954ca5",
+      "revId": "d67d5d5b7a1ad6c98ed1109378bd176b2cf0a80c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6914b61_c356a496",
         "filename": "pkg/meters/meter_utils.go",
         "patchSetId": 4
