@@ -22,6 +22,30 @@
       "revId": "83e15040132153ac18ba43c847d6020a6ee94e11",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c599718_53f5e42a",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-03-30T08:09:11Z",
+      "side": 1,
+      "message": "I could but since it is at multiple places I assigned to local var",
+      "parentUuid": "15830235_fe4c5d5d",
+      "range": {
+        "startLine": 222,
+        "startChar": 25,
+        "endLine": 222,
+        "endChar": 28
+      },
+      "revId": "83e15040132153ac18ba43c847d6020a6ee94e11",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
