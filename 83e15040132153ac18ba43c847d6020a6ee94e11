@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "46eb6cc9_966cbea2",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-03-30T18:48:29Z",
+      "side": 1,
+      "message": "Where is this called to start the listening loop?   My eyes may be playing a trick on me.",
+      "revId": "83e15040132153ac18ba43c847d6020a6ee94e11",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b41237f_42da2b07",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-03-30T18:48:29Z",
+      "side": 1,
+      "message": "No provision for stopping event proxy and closing the eventChannel?",
+      "revId": "83e15040132153ac18ba43c847d6020a6ee94e11",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15830235_fe4c5d5d",
         "filename": "pkg/events/events_proxy.go",
         "patchSetId": 5
@@ -46,6 +80,23 @@
       "revId": "83e15040132153ac18ba43c847d6020a6ee94e11",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38e1c6cf_c48c5036",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-03-30T18:48:29Z",
+      "side": 1,
+      "message": "Please use the \"something-somethingelse-\" for logger message and all lowercase.",
+      "revId": "83e15040132153ac18ba43c847d6020a6ee94e11",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
