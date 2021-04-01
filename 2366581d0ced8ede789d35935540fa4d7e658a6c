@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc1de478_435a817c",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-01T13:37:36Z",
+      "side": 1,
+      "message": "Some functions and types are capitalized implying they are visible outside this package.   Is this the case?",
+      "revId": "2366581d0ced8ede789d35935540fa4d7e658a6c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce6d9845_52200db1",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-01T13:37:36Z",
+      "side": 1,
+      "message": "Would it be easier if we have only a EventProxy.Start() and EventProxy.Stop() and hide all the implementation details inside the library?",
+      "revId": "2366581d0ced8ede789d35935540fa4d7e658a6c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fcefbd0_881d396e",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-01T13:37:36Z",
+      "side": 1,
+      "message": "Will this case a fatal error if there are events still waiting to be processed (line 275 below)?  This won\u0027t affect functionality as the service is going down but it is not really a clean exit.",
+      "revId": "2366581d0ced8ede789d35935540fa4d7e658a6c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
