@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53350480_4e9b230f",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-09T12:49:10Z",
+      "side": 1,
+      "message": "nit.  Is NewEventQueue used about the package?",
+      "revId": "1cfc213e1114c4437930353bf727a0d5ab963156",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f78897b1_3bc82670",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-09T12:49:10Z",
+      "side": 1,
+      "message": "nit.  Since we are already in the event proxy file, then just Start() is sufficient.",
+      "revId": "1cfc213e1114c4437930353bf727a0d5ab963156",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f872fbef_c1de381a",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-09T12:49:10Z",
+      "side": 1,
+      "message": "could use: event, ok :\u003d \u003c-eq.eventChannel \n\nif the channel is closed then \"ok\" will be false",
+      "revId": "1cfc213e1114c4437930353bf727a0d5ab963156",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44998c1d_3df22379",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-09T12:49:10Z",
+      "side": 1,
+      "message": "If Stop() was invoked (and waiting on \u003c-ep.shutdown), we will go over the remaining events in the queue without sending them. Am I interpreting this correctly?",
+      "revId": "1cfc213e1114c4437930353bf727a0d5ab963156",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c988b34_bafb02e8",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-09T12:49:10Z",
+      "side": 1,
+      "message": "If current.next \u003d\u003d nil and ep.stopped \u003d\u003d false then the mutex.Unlock will not be invoked.",
+      "revId": "1cfc213e1114c4437930353bf727a0d5ab963156",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "629c0191_32a519ab",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-09T12:49:10Z",
+      "side": 1,
+      "message": "nit: Stop()",
+      "revId": "1cfc213e1114c4437930353bf727a0d5ab963156",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
