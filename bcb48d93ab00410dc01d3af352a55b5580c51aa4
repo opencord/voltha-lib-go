@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4322c0a1_4b8bce35",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2021-04-19T10:27:48Z",
+      "side": 1,
+      "message": "Where does this string \"deviceImageDownloadReq\" come from?",
+      "revId": "bcb48d93ab00410dc01d3af352a55b5580c51aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87ac6d3a_a6befa7e",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2021-04-19T10:27:48Z",
+      "side": 1,
+      "message": "I would assume that this function (maybe with a different name) getDeviceID already exists as there are other RPCs which take the common.ID as input argutmen",
+      "range": {
+        "startLine": 965,
+        "startChar": 1,
+        "endLine": 965,
+        "endChar": 2
+      },
+      "revId": "bcb48d93ab00410dc01d3af352a55b5580c51aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
