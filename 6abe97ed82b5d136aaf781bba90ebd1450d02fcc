@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51b52a12_40069917",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2021-04-19T19:56:04Z",
+      "side": 1,
+      "message": "should we add a \"default\" case for unsupported arguments?\nIf we don\u0027t this may silently fail (same for the other methods)",
+      "range": {
+        "startLine": 850,
+        "startChar": 2,
+        "endLine": 850,
+        "endChar": 32
+      },
+      "revId": "6abe97ed82b5d136aaf781bba90ebd1450d02fcc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
