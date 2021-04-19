@@ -86,7 +86,7 @@ github.com/matttproud/golang_protobuf_extensions/pbutil
 github.com/modern-go/concurrent
 # github.com/modern-go/reflect2 v1.0.1
 github.com/modern-go/reflect2
-# github.com/opencord/voltha-protos/v4 v4.0.12
+# github.com/opencord/voltha-protos/v4 v4.1.1
 github.com/opencord/voltha-protos/v4/go/common
 github.com/opencord/voltha-protos/v4/go/ext/config
 github.com/opencord/voltha-protos/v4/go/extension
