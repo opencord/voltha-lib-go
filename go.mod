@@ -21,7 +21,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.1-0.20190118093823-f849b5445de4
 	github.com/jcmturner/gofork v1.0.0 // indirect
 	github.com/onsi/gomega v1.4.2 // indirect
-	github.com/opencord/voltha-protos/v4 v4.0.12
+	github.com/opencord/voltha-protos/v4 v4.1.1
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
 	github.com/pierrec/lz4 v2.3.0+incompatible // indirect
