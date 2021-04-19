@@ -57,4 +57,10 @@ type IAdapter interface {
 	Start_omci_test(ctx context.Context, device *voltha.Device, request *voltha.OmciTestRequest) (*voltha.TestResponse, error)
 	Get_ext_value(ctx context.Context, deviceId string, device *voltha.Device, valueflag voltha.ValueType_Type) (*voltha.ReturnValues, error)
 	Single_get_value_request(ctx context.Context, request extension.SingleGetValueRequest) (*extension.SingleGetValueResponse, error)
+	Download_image_to_device(ctx context.Context, request *voltha.DeviceImageDownloadRequest) (*voltha.DeviceImageResponse, error)
+	Get_image_status(ctx context.Context, in *voltha.DeviceImageRequest) (*voltha.DeviceImageResponse, error)
+	Abort_image_upgrade_to_device(ctx context.Context, in *voltha.DeviceImageRequest) (*voltha.DeviceImageResponse, error)
+	Get_onu_images(ctx context.Context, deviceID string) (*voltha.OnuImages, error)
+	Activate_image(ctx context.Context, in *voltha.DeviceImageRequest) (*voltha.DeviceImageResponse, error)
+	Commit_image(ctx context.Context, in *voltha.DeviceImageRequest) (*voltha.DeviceImageResponse, error)
 }
