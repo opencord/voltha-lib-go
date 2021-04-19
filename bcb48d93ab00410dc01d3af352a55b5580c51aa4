@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "17446143_761521a3",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2021-04-19T10:48:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4322c0a1_4b8bce35",
+      "revId": "bcb48d93ab00410dc01d3af352a55b5580c51aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87ac6d3a_a6befa7e",
         "filename": "pkg/adapters/common/request_handler.go",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "bcb48d93ab00410dc01d3af352a55b5580c51aa4",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cffdfb8f_19effb89",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2021-04-19T10:48:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87ac6d3a_a6befa7e",
+      "range": {
+        "startLine": 965,
+        "startChar": 1,
+        "endLine": 965,
+        "endChar": 2
+      },
+      "revId": "bcb48d93ab00410dc01d3af352a55b5580c51aa4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
