@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5c8b2f51_3bb3e81e",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2021-04-20T08:00:42Z",
+      "side": 1,
+      "message": "added default case",
+      "parentUuid": "51b52a12_40069917",
+      "range": {
+        "startLine": 850,
+        "startChar": 2,
+        "endLine": 850,
+        "endChar": 32
+      },
+      "revId": "6abe97ed82b5d136aaf781bba90ebd1450d02fcc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0ae46db4_4a9695d7",
         "filename": "pkg/adapters/iAdapter.go",
         "patchSetId": 11
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7b30d663_6e4d60d8",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2021-04-20T08:00:42Z",
+      "side": 1,
+      "message": "There is another api with the name \"Download_image\"(this will be deprecated in future), so i have renamed the api to Download_onu_image",
+      "parentUuid": "0ae46db4_4a9695d7",
+      "range": {
+        "startLine": 60,
+        "startChar": 1,
+        "endLine": 60,
+        "endChar": 25
+      },
+      "revId": "6abe97ed82b5d136aaf781bba90ebd1450d02fcc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf40a317_b82138d0",
         "filename": "pkg/adapters/iAdapter.go",
         "patchSetId": 11
@@ -59,6 +107,30 @@
       "writtenOn": "2021-04-20T00:10:34Z",
       "side": 1,
       "message": "nit: same comment here. We can remove remove this \"_to_device\" suffix to be consistent.",
+      "range": {
+        "startLine": 62,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 30
+      },
+      "revId": "6abe97ed82b5d136aaf781bba90ebd1450d02fcc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59aa16ee_1dcfa462",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2021-04-20T08:00:42Z",
+      "side": 1,
+      "message": "removed the \"_to_device\" and renamed the apis to be consistent.",
+      "parentUuid": "bf40a317_b82138d0",
       "range": {
         "startLine": 62,
         "startChar": 1,
