@@ -22,6 +22,52 @@
       "revId": "6abe97ed82b5d136aaf781bba90ebd1450d02fcc",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ae46db4_4a9695d7",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-04-20T00:10:34Z",
+      "side": 1,
+      "message": "nit: Do we need the additional \"_to_device\" suffix in the API. To be consistent with other related image upgrade APIs which do not have this suffix - like Activate_image, Commit_image, Download_image, Get_onu_images etc.",
+      "range": {
+        "startLine": 60,
+        "startChar": 1,
+        "endLine": 60,
+        "endChar": 25
+      },
+      "revId": "6abe97ed82b5d136aaf781bba90ebd1450d02fcc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf40a317_b82138d0",
+        "filename": "pkg/adapters/iAdapter.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-04-20T00:10:34Z",
+      "side": 1,
+      "message": "nit: same comment here. We can remove remove this \"_to_device\" suffix to be consistent.",
+      "range": {
+        "startLine": 62,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 30
+      },
+      "revId": "6abe97ed82b5d136aaf781bba90ebd1450d02fcc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
