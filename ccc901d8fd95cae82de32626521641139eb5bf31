@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92ff3129_52368152",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-20T13:30:37Z",
+      "side": 1,
+      "message": "if !ok (i.e. a closed channel), this will loop forever?",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a21c952f_408a68e9",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-20T13:30:37Z",
+      "side": 1,
+      "message": "The Lock() can be placed only around part of the code that is reading/writing on the queue.  Having it earlier implies that event queuing will be blocked (i.e. any caller to send an event) until an event is actually sent on kafka.",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1ef0d2f_f7ac1bec",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-20T13:30:37Z",
+      "side": 1,
+      "message": "If \"ep\" is stopped, then the remaining events on the queue won\u0027t be sent. I would think all events must be sent before closing this loop.",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5e3ab61_24da8cd3",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-20T13:30:37Z",
+      "side": 1,
+      "message": "If there is a \"processed\" event still on the queue, is that a bug?",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8f822e2_2b4b7bda",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-20T13:30:37Z",
+      "side": 1,
+      "message": "nit:  should the unlock be after \"eq.eventChannel \u003c- currentEvent\"?   This would guarantee that the message in queue is the one being sent to the event channel (in an extreme race condition).",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "001e6a29_6d351e5a",
+        "filename": "pkg/events/events_proxy_test.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-20T13:30:37Z",
+      "side": 1,
+      "message": "Why would there be a delay in the event appearing on the queue?",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d80e0ed1_36ff1269",
+        "filename": "pkg/events/events_proxy_test.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-04-20T13:30:37Z",
+      "side": 1,
+      "message": "Should there be a check to see if the queue is nor empty?",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
