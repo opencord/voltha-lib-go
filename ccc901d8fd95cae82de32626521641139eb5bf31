@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "928a6215_6f50d5b8",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-04-21T09:59:32Z",
+      "side": 1,
+      "message": "sorry missed it.",
+      "parentUuid": "92ff3129_52368152",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a21c952f_408a68e9",
         "filename": "pkg/events/events_proxy.go",
         "patchSetId": 13
@@ -33,6 +51,24 @@
       "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d876b18f_f7c38be5",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-04-21T09:59:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a21c952f_408a68e9",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "0a4d3b03_8529b0ea",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-04-21T09:59:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a1ef0d2f_f7ac1bec",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5e3ab61_24da8cd3",
         "filename": "pkg/events/events_proxy.go",
         "patchSetId": 13
@@ -67,6 +121,24 @@
       "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b307ceb_88eaddf2",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-04-21T09:59:32Z",
+      "side": 1,
+      "message": "No This is required because we are never deleting the last event from the queue since we are dependent on the last event notification channel to be closed. So if all events are processed and current is same as last that means the queue is empty",
+      "parentUuid": "e5e3ab61_24da8cd3",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "fdfcc320_137da5d6",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-04-21T09:59:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b8f822e2_2b4b7bda",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "001e6a29_6d351e5a",
         "filename": "pkg/events/events_proxy_test.go",
         "patchSetId": 13
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "e2bb76aa_dba8b362",
+        "filename": "pkg/events/events_proxy_test.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-04-21T09:59:32Z",
+      "side": 1,
+      "message": "There wont be any delay on the event appearing in the queue. The condition below is checking whether the event has been processed and that will happen if the current event on the queue is the same event.",
+      "parentUuid": "001e6a29_6d351e5a",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d80e0ed1_36ff1269",
         "filename": "pkg/events/events_proxy_test.go",
         "patchSetId": 13
@@ -118,6 +226,24 @@
       "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc920d5d_05c5a318",
+        "filename": "pkg/events/events_proxy_test.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-04-21T09:59:32Z",
+      "side": 1,
+      "message": "No because we will never delete the last event from the queue",
+      "parentUuid": "d80e0ed1_36ff1269",
+      "revId": "ccc901d8fd95cae82de32626521641139eb5bf31",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
