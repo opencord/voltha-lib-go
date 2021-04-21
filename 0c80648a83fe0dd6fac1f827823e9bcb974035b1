@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73ec8d6d_a52fc031",
+        "filename": "VERSION",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-04-21T14:48:25Z",
+      "side": 1,
+      "message": "This is a change in the API and normally I would increase the minor version and not patch version.",
+      "revId": "0c80648a83fe0dd6fac1f827823e9bcb974035b1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
