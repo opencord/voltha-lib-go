@@ -52,6 +52,24 @@
       "revId": "0c80648a83fe0dd6fac1f827823e9bcb974035b1",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dbbe8e1_7bb6b28b",
+        "filename": "VERSION",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2021-04-22T08:14:13Z",
+      "side": 1,
+      "message": "changed version to 4.3.0",
+      "parentUuid": "6a63c2eb_670c0cd9",
+      "revId": "0c80648a83fe0dd6fac1f827823e9bcb974035b1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
