@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9c14266e_a76accfd",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-04-29T18:03:18Z",
+      "side": 1,
+      "message": "ok, looking again, it looks like the lock is always released, but wondering if defer is still a better solution",
+      "parentUuid": "39a777f0_701566d4",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 28
+      },
+      "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a95ca52b_9927573e",
         "filename": "pkg/events/events_proxy.go",
         "patchSetId": 19
