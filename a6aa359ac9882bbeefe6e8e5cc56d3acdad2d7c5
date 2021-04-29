@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39a777f0_701566d4",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-04-29T17:55:12Z",
+      "side": 1,
+      "message": "Need to add a \"defer ep.eventQueue.mutex.RUnlock()\" else there are cases where this method returns without releases the lock.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 28
+      },
+      "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a95ca52b_9927573e",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-04-29T17:55:12Z",
+      "side": 1,
+      "message": "replace with defer at top.",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 30
+      },
+      "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "959d7108_f9a349b2",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-04-29T17:55:12Z",
+      "side": 1,
+      "message": "given `ev` is `*voltha.Event` do we need to make a copy to insure the content of the event isn\u0027t modified after its is added to the queue?",
+      "range": {
+        "startLine": 276,
+        "startChar": 42,
+        "endLine": 276,
+        "endChar": 44
+      },
+      "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0989a6be_f2ea691f",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-04-29T17:55:12Z",
+      "side": 1,
+      "message": "do we have a throttle issue here? it seems like we create go routines for each event which can mean quite a few go routines if there are lots of events? given that most are in a \"blocked\" state can, can this be managed differently, such as in a single go routine like th eproxy start loop?",
+      "range": {
+        "startLine": 283,
+        "startChar": 1,
+        "endLine": 295,
+        "endChar": 4
+      },
+      "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
