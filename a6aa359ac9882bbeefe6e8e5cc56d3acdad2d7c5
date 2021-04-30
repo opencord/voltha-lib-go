@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "7fa5d427_ed193fc2",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-04-30T14:49:31Z",
+      "side": 1,
+      "message": "the issue is if we don\u0027t make a copy then we have to rely on people not changing it. If we make a copy that goes away. This could also be solved by passing ev in as a struct (copy in) as opposed to as a pointer and then put the address of the copy in parameter on the queue.",
+      "parentUuid": "b46a975b_d48d5111",
+      "range": {
+        "startLine": 276,
+        "startChar": 13,
+        "endLine": 276,
+        "endChar": 29
+      },
+      "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0989a6be_f2ea691f",
         "filename": "pkg/events/events_proxy.go",
         "patchSetId": 19
