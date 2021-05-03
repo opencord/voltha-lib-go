@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0f4e28ef_a4ba881a",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-05-03T06:59:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9c14266e_a76accfd",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 28
+      },
+      "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a95ca52b_9927573e",
         "filename": "pkg/events/events_proxy.go",
         "patchSetId": 19
@@ -69,6 +93,30 @@
       "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f09ca65_b35a04f4",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-05-03T06:59:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a95ca52b_9927573e",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 30
+      },
+      "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +187,54 @@
       "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "866e5658_8d70ad55",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-05-03T06:59:28Z",
+      "side": 1,
+      "message": "No need of changes, if we check SendRPCEvent function, we are creating a local copy from rpc event to type voltha.event, so no changes.",
+      "parentUuid": "7fa5d427_ed193fc2",
+      "range": {
+        "startLine": 276,
+        "startChar": 13,
+        "endLine": 276,
+        "endChar": 29
+      },
+      "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e26f11b6_ab8c0c7d",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000726
+      },
+      "writtenOn": "2021-05-03T06:59:28Z",
+      "side": 1,
+      "message": "Since we are not modifying event and just pushing it to the queue so that it can be send out on kafka, I think its okay to keep the actual event.",
+      "parentUuid": "959d7108_f9a349b2",
+      "range": {
+        "startLine": 276,
+        "startChar": 42,
+        "endLine": 276,
+        "endChar": 44
+      },
+      "revId": "a6aa359ac9882bbeefe6e8e5cc56d3acdad2d7c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     },
     {
       "key": {
