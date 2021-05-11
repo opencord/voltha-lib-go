@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c62459d_4dbfd2dc",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-05-11T14:19:57Z",
+      "side": 1,
+      "message": "Seems to make more sense to have in the \"(eq *EventQueue) stop()\".   The context cancellation would trigger the stop.  Is there another reason for the closing here?",
+      "revId": "b8a1b12e193a8dbb9ee0d591451a61825d786474",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb57c9e8_818adf08",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-05-11T14:19:57Z",
+      "side": 1,
+      "message": "nit: back",
+      "revId": "b8a1b12e193a8dbb9ee0d591451a61825d786474",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f62b43fd_929c4b93",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-05-11T14:19:57Z",
+      "side": 1,
+      "message": "nit: defer eq.mutex.Unlock()",
+      "revId": "b8a1b12e193a8dbb9ee0d591451a61825d786474",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
