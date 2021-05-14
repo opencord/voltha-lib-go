@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e50001db_816c807e",
+        "filename": "pkg/events/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-05-14T17:48:12Z",
+      "side": 1,
+      "message": "I believe we also need a timestamp, but that is part of the header - correct ?",
+      "revId": "a6cff411b5c621fe4a7fa7552c5c9131c87ee1fa",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
