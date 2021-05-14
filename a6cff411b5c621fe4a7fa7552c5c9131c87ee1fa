@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "fa3176fd_f52cea1f",
+        "filename": "pkg/events/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-05-14T17:49:48Z",
+      "side": 1,
+      "message": "Exported functions normally need a comment header. I do not think the sca is enforcing it here, but it is good have it.\n\n//PrepareDeviceStateEvent blah blah...",
+      "revId": "a6cff411b5c621fe4a7fa7552c5c9131c87ee1fa",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "558de709_5fd6bc33",
+        "filename": "pkg/events/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-05-14T17:49:48Z",
+      "side": 1,
+      "message": "PrepareDeviceStateEvent -\u003e PrepareDeviceStateChangeEvent ?",
+      "range": {
+        "startLine": 67,
+        "startChar": 5,
+        "endLine": 67,
+        "endChar": 28
+      },
+      "revId": "a6cff411b5c621fe4a7fa7552c5c9131c87ee1fa",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e50001db_816c807e",
         "filename": "pkg/events/common.go",
         "patchSetId": 4
