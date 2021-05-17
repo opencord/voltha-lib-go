@@ -87,6 +87,24 @@
       "revId": "d21946fd2d1314a26a2d88fc942d5fcded2bbb82",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfa69dbb_e540a27b",
+        "filename": "pkg/events/utils.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-05-17T20:58:25Z",
+      "side": 1,
+      "message": "Currently there isn\u0027t. I can remove it.",
+      "parentUuid": "d78d6bfa_c6d3a75f",
+      "revId": "d21946fd2d1314a26a2d88fc942d5fcded2bbb82",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
