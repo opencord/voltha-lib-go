@@ -70,6 +70,23 @@
       "revId": "d21946fd2d1314a26a2d88fc942d5fcded2bbb82",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d78d6bfa_c6d3a75f",
+        "filename": "pkg/events/utils.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-05-17T20:47:16Z",
+      "side": 1,
+      "message": "Is there anything from the incoming context (ctx) that would be useful to have in the device event context (e.g. operationId)?",
+      "revId": "d21946fd2d1314a26a2d88fc942d5fcded2bbb82",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
