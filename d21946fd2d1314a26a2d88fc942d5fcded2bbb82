@@ -46,6 +46,30 @@
       "revId": "d21946fd2d1314a26a2d88fc942d5fcded2bbb82",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f9fe2ea_c8610a1f",
+        "filename": "pkg/events/utils.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-05-17T19:01:10Z",
+      "side": 1,
+      "message": "This is an event sent to the external systems over kafka. It won\u0027t be checked anywhere in the module. So imho, for this case there is no need to define it as typed constant which adds complexity(string casting) when using it as a string key of the map in the function below.",
+      "parentUuid": "0bb1d551_e546e84c",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 5
+      },
+      "revId": "d21946fd2d1314a26a2d88fc942d5fcded2bbb82",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
