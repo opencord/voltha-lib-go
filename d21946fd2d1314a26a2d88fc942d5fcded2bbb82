@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "0715775c_f5000c20",
+        "filename": "pkg/events/utils.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-05-17T22:12:31Z",
+      "side": 1,
+      "message": "PrepareDeviceStateChangeEvent is a public function being called by someone with the parameter for things like prevAdminStatus being passed as an unchecked string. this can be a source of errors going forward if we don\u0027t enforce string typing. \n\nfwiw, the constants are all public as well. So people should not be string casting, but only using the typed constants.",
+      "parentUuid": "6f9fe2ea_c8610a1f",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 5
+      },
+      "revId": "d21946fd2d1314a26a2d88fc942d5fcded2bbb82",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d78d6bfa_c6d3a75f",
         "filename": "pkg/events/utils.go",
         "patchSetId": 5
