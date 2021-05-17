@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af12953a_744df06e",
+        "filename": "pkg/events/utils.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-05-17T18:17:35Z",
+      "side": 1,
+      "message": "Amy value in making this constants a \"type\" as opposed to just pass as strings, i.e.\n\ntype ContextType string\n\nconst (\n  ContextAdminState \u003d ContextType(\"admin-state\")\n...\n\nthen the parameters to the function are typed for better static checking and to ensure people use the constants ...",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 5
+      },
+      "revId": "d21946fd2d1314a26a2d88fc942d5fcded2bbb82",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
