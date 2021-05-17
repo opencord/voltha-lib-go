@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4674d56f_761fb326",
+        "filename": "pkg/events/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-05-17T03:45:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa3176fd_f52cea1f",
+      "revId": "a6cff411b5c621fe4a7fa7552c5c9131c87ee1fa",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "558de709_5fd6bc33",
         "filename": "pkg/events/common.go",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "14666cc1_0c604970",
+        "filename": "pkg/events/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-05-17T03:45:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "558de709_5fd6bc33",
+      "range": {
+        "startLine": 67,
+        "startChar": 5,
+        "endLine": 67,
+        "endChar": 28
+      },
+      "revId": "a6cff411b5c621fe4a7fa7552c5c9131c87ee1fa",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e50001db_816c807e",
         "filename": "pkg/events/common.go",
         "patchSetId": 4
@@ -53,6 +95,24 @@
       "writtenOn": "2021-05-14T17:48:12Z",
       "side": 1,
       "message": "I believe we also need a timestamp, but that is part of the header - correct ?",
+      "revId": "a6cff411b5c621fe4a7fa7552c5c9131c87ee1fa",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c583c7b2_a935653d",
+        "filename": "pkg/events/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-05-17T03:45:24Z",
+      "side": 1,
+      "message": "Yes, correct.",
+      "parentUuid": "e50001db_816c807e",
       "revId": "a6cff411b5c621fe4a7fa7552c5c9131c87ee1fa",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
