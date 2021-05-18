@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79f7b55d_8b2fa9ba",
+        "filename": "pkg/events/utils.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-05-18T06:10:26Z",
+      "side": 1,
+      "message": "Really a bit of a nit, but any reason why not remove the var declaration above and simply return\n\nreturn \u0026voltha.DeviceEvent {\n        Context: context,\n        ResourceId: deviceID,\n        DeviceEventName: fmt.Sprintf(\"%s_%s\", ...),\n}\n\nyou could even do the \"context\" map in line as well.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 11
+      },
+      "revId": "a827479c0f39cc0c3bfd5905c0913cfb5ec13a9e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
