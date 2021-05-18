@@ -22,6 +22,30 @@
       "revId": "a827479c0f39cc0c3bfd5905c0913cfb5ec13a9e",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bb25aeb_6db033cf",
+        "filename": "pkg/events/utils.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-05-18T07:28:10Z",
+      "side": 1,
+      "message": "No special reason. Putting context in line seems more complex to an old fashioned man like me 😊. But I can change it as you typed above.",
+      "parentUuid": "79f7b55d_8b2fa9ba",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 11
+      },
+      "revId": "a827479c0f39cc0c3bfd5905c0913cfb5ec13a9e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
