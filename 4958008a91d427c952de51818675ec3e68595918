@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1b6082f1_6223b89f",
+        "filename": "pkg/events/utils.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-05-18T21:02:35Z",
+      "side": 1,
+      "message": "Might want to think about just removing it until we need it.",
+      "parentUuid": "f89ce742_29273d83",
+      "revId": "4958008a91d427c952de51818675ec3e68595918",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e8e9866_a402c8b1",
         "filename": "pkg/events/utils.go",
         "patchSetId": 9
