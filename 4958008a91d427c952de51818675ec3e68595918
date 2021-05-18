@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1790dd4_f338e9de",
+        "filename": "pkg/events/utils.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-05-18T13:24:53Z",
+      "side": 1,
+      "message": "Is Clear used anywhere?  Or should an EventAction be passed as a parameter to PrepareDeviceStateChangeEvent?",
+      "revId": "4958008a91d427c952de51818675ec3e68595918",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e8e9866_a402c8b1",
+        "filename": "pkg/events/utils.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-05-18T13:24:53Z",
+      "side": 1,
+      "message": "Super nit:   For me the name is not very clear ... how about FormatDeviceEvent() or CreateDeviceEvent() or MakeDeviceEvent() ...  Like i said, just a super nit 😊",
+      "revId": "4958008a91d427c952de51818675ec3e68595918",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
