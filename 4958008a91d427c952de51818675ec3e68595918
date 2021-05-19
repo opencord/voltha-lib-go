@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "3c67011c_ea377bfb",
+        "filename": "pkg/events/utils.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-05-19T07:26:30Z",
+      "side": 1,
+      "message": "I think it makes sense to have it as a counterpart even if it\u0027s not used.",
+      "parentUuid": "1b6082f1_6223b89f",
+      "revId": "4958008a91d427c952de51818675ec3e68595918",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e8e9866_a402c8b1",
         "filename": "pkg/events/utils.go",
         "patchSetId": 9
