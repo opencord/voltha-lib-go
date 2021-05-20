@@ -33,6 +33,24 @@
       "revId": "15905af05d09b4c831fab4fbfc97adfc73782fbb",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dea7d018_f896ba34",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1000608
+      },
+      "writtenOn": "2021-05-20T18:17:12Z",
+      "side": 1,
+      "message": "As deviceImageReq is a complex struct which have slice of deviceIds, something like following we can do:\n\n        if len(deviceImageReq.GetDeviceId()) \u003d\u003d 0 || deviceImageReq.GetVersion() \u003d\u003d \"\" {\n\t\treturn nil, errors.New(\"invalid parameter\")\n\t}\n\n\tfor _, id :\u003d range deviceImageReq.DeviceId {\n\t\tif id.GetId() \u003d\u003d \"\" {\n\t\t\treturn nil, errors.New(\"invalid parameter\")\n\t\t}\n\t}\n\nPreviously I thought of leaving these checks for simplicity. \nKindly share your thoughts on this. \n\nRegards",
+      "parentUuid": "eaca5f9b_499d41f2",
+      "revId": "15905af05d09b4c831fab4fbfc97adfc73782fbb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
