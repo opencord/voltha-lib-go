@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35fb18fb_3e8b09d1",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-05-20T16:18:27Z",
+      "side": 1,
+      "message": "see below",
+      "revId": "15905af05d09b4c831fab4fbfc97adfc73782fbb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaca5f9b_499d41f2",
+        "filename": "pkg/adapters/common/request_handler.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-05-20T16:18:27Z",
+      "side": 1,
+      "message": "shoudl we have a similar check ? \n\n\tif deviceImageReq \u003d\u003d \"\" {\n\t\treturn \"\", errors.New(\"invalid argument\")\n\t}",
+      "revId": "15905af05d09b4c831fab4fbfc97adfc73782fbb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
