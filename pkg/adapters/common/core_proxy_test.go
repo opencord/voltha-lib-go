@@ -19,9 +19,9 @@ import (
 	"context"
 	"testing"
 
-	adapterIf "github.com/opencord/voltha-lib-go/v4/pkg/adapters/adapterif"
-	"github.com/opencord/voltha-lib-go/v4/pkg/kafka"
-	mocks "github.com/opencord/voltha-lib-go/v4/pkg/mocks/kafka"
+	adapterIf "github.com/opencord/voltha-lib-go/v5/pkg/adapters/adapterif"
+	"github.com/opencord/voltha-lib-go/v5/pkg/kafka"
+	mocks "github.com/opencord/voltha-lib-go/v5/pkg/mocks/kafka"
 	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
 	"github.com/opencord/voltha-protos/v4/go/voltha"
 	"github.com/stretchr/testify/assert"

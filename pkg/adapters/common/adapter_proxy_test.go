@@ -18,9 +18,9 @@ package common
 
 import (
 	"context"
-	"github.com/opencord/voltha-lib-go/v4/pkg/db"
-	"github.com/opencord/voltha-lib-go/v4/pkg/kafka"
-	mocks "github.com/opencord/voltha-lib-go/v4/pkg/mocks/kafka"
+	"github.com/opencord/voltha-lib-go/v5/pkg/db"
+	"github.com/opencord/voltha-lib-go/v5/pkg/kafka"
+	mocks "github.com/opencord/voltha-lib-go/v5/pkg/mocks/kafka"
 	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
 	"github.com/opencord/voltha-protos/v4/go/voltha"
 	"github.com/phayes/freeport"

@@ -23,7 +23,7 @@ import (
 	"testing"
 	"time"
 
-	mocks "github.com/opencord/voltha-lib-go/v4/pkg/mocks/etcd"
+	mocks "github.com/opencord/voltha-lib-go/v5/pkg/mocks/etcd"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"

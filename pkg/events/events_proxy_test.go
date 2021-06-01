@@ -19,9 +19,9 @@ package events
 import (
 	"context"
 	"github.com/golang/protobuf/ptypes"
-	"github.com/opencord/voltha-lib-go/v4/pkg/kafka"
-	"github.com/opencord/voltha-lib-go/v4/pkg/log"
-	mock_kafka "github.com/opencord/voltha-lib-go/v4/pkg/mocks/kafka"
+	"github.com/opencord/voltha-lib-go/v5/pkg/kafka"
+	"github.com/opencord/voltha-lib-go/v5/pkg/log"
+	mock_kafka "github.com/opencord/voltha-lib-go/v5/pkg/mocks/kafka"
 	"github.com/opencord/voltha-protos/v4/go/common"
 	"github.com/opencord/voltha-protos/v4/go/voltha"
 	"github.com/stretchr/testify/assert"

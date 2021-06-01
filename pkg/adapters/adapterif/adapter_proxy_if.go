@@ -33,4 +33,13 @@ type AdapterProxy interface {
 		toDeviceID string,
 		proxyDeviceID string,
 		messageID string) error
+	TechProfileInstanceRequest(ctx context.Context,
+		tpPath string,
+		ponIntfID uint32,
+		onuID uint32,
+		uniID uint32,
+		fromAdapter string,
+		toAdapter string,
+		toDeviceID string,
+		proxyDeviceID string) (*ic.InterAdapterTechProfileDownloadMessage, error)
 }

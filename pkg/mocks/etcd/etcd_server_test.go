@@ -19,8 +19,8 @@ package etcd
 import (
 	"context"
 	"fmt"
-	"github.com/opencord/voltha-lib-go/v4/pkg/db/kvstore"
-	"github.com/opencord/voltha-lib-go/v4/pkg/log"
+	"github.com/opencord/voltha-lib-go/v5/pkg/db/kvstore"
+	"github.com/opencord/voltha-lib-go/v5/pkg/log"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
 	"os"
