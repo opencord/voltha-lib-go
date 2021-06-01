@@ -25,10 +25,10 @@ import (
 	"time"
 
 	bitmap "github.com/boljen/go-bitmap"
-	"github.com/opencord/voltha-lib-go/v4/pkg/db"
-	"github.com/opencord/voltha-lib-go/v4/pkg/db/kvstore"
-	"github.com/opencord/voltha-lib-go/v4/pkg/log"
-	tp "github.com/opencord/voltha-lib-go/v4/pkg/techprofile"
+	"github.com/opencord/voltha-lib-go/v5/pkg/db"
+	"github.com/opencord/voltha-lib-go/v5/pkg/db/kvstore"
+	"github.com/opencord/voltha-lib-go/v5/pkg/log"
+	tp "github.com/opencord/voltha-lib-go/v5/pkg/techprofile"
 )
 
 const (
@@ -117,10 +117,6 @@ const (
 	FLOW_ID_INFO_PATH_INTF_ONU_PREFIX = "{%s}/flow_id_info/{%s}"
 	//Format: <device_id>/flow_id_info/<(pon_intf_id, onu_id)><flow_id>
 	FLOW_ID_INFO_PATH = FLOW_ID_INFO_PATH_PREFIX + "/{%s}/{%d}"
-
-	//path on the kvstore to store onugem info map
-	//format: <device-id>/onu_gem_info/<intfid>
-	ONU_GEM_INFO_PATH = "{%s}/onu_gem_info/{%d}" // onu_gem/<(intfid)>
 
 	//Constants for internal usage.
 	PON_INTF_ID     = "pon_intf_id"
@@ -428,6 +424,43 @@ func (PONRMgr *PONResourceManager) InitDeviceResourcePool(ctx context.Context) e
 	return err
 }
 
+func (PONRMgr *PONResourceManager) InitDeviceResourcePoolForIntf(ctx context.Context, intfID uint32) error {
+
+	logger.Debug(ctx, "Init resource ranges for intf %d", intfID)
+
+	var err error
+
+	if err = PONRMgr.InitResourceIDPool(ctx, intfID, ONU_ID,
+		PONRMgr.PonResourceRanges[ONU_ID_START_IDX].(uint32),
+		PONRMgr.PonResourceRanges[ONU_ID_END_IDX].(uint32)); err != nil {
+		logger.Error(ctx, "Failed to init ONU ID resource pool")
+		return err
+	}
+
+	if err = PONRMgr.InitResourceIDPool(ctx, intfID, ALLOC_ID,
+		PONRMgr.PonResourceRanges[ALLOC_ID_START_IDX].(uint32),
+		PONRMgr.PonResourceRanges[ALLOC_ID_END_IDX].(uint32)); err != nil {
+		logger.Error(ctx, "Failed to init ALLOC ID resource pool ")
+		return err
+	}
+
+	if err = PONRMgr.InitResourceIDPool(ctx, intfID, GEMPORT_ID,
+		PONRMgr.PonResourceRanges[GEMPORT_ID_START_IDX].(uint32),
+		PONRMgr.PonResourceRanges[GEMPORT_ID_END_IDX].(uint32)); err != nil {
+		logger.Error(ctx, "Failed to init GEMPORT ID resource pool")
+		return err
+	}
+
+	if err = PONRMgr.InitResourceIDPool(ctx, intfID, FLOW_ID,
+		PONRMgr.PonResourceRanges[FLOW_ID_START_IDX].(uint32),
+		PONRMgr.PonResourceRanges[FLOW_ID_END_IDX].(uint32)); err != nil {
+		logger.Error(ctx, "Failed to init FLOW ID resource pool")
+		return err
+	}
+
+	return nil
+}
+
 func (PONRMgr *PONResourceManager) ClearDeviceResourcePool(ctx context.Context) error {
 
 	//Clear resource pool for all PON ports.
@@ -488,6 +521,33 @@ func (PONRMgr *PONResourceManager) ClearDeviceResourcePool(ctx context.Context) 
 			break
 		}
 	}
+	return nil
+}
+
+func (PONRMgr *PONResourceManager) ClearDeviceResourcePoolForIntf(ctx context.Context, intfID uint32) error {
+
+	logger.Debugf(ctx, "Clear resource ranges for intf %d", intfID)
+
+	if status := PONRMgr.ClearResourceIDPool(ctx, intfID, ONU_ID); !status {
+		logger.Error(ctx, "Failed to clear ONU ID resource pool")
+		return errors.New("Failed to clear ONU ID resource pool")
+	}
+
+	if status := PONRMgr.ClearResourceIDPool(ctx, intfID, ALLOC_ID); !status {
+		logger.Error(ctx, "Failed to clear ALLOC ID resource pool ")
+		return errors.New("Failed to clear ALLOC ID resource pool")
+	}
+
+	if status := PONRMgr.ClearResourceIDPool(ctx, intfID, GEMPORT_ID); !status {
+		logger.Error(ctx, "Failed to clear GEMPORT ID resource pool")
+		return errors.New("Failed to clear GEMPORT ID resource pool")
+	}
+
+	if status := PONRMgr.ClearResourceIDPool(ctx, intfID, FLOW_ID); !status {
+		logger.Error(ctx, "Failed to clear FLOW ID resource pool")
+		return errors.New("Failed to clear FLOW ID resource pool")
+	}
+
 	return nil
 }
 
@@ -1304,70 +1364,4 @@ func ToString(value interface{}) (string, error) {
 	default:
 		return "", fmt.Errorf("unexpected-type-%T", t)
 	}
-}
-
-func (PONRMgr *PONResourceManager) AddOnuGemInfo(ctx context.Context, intfID uint32, onuGemData interface{}) error {
-	/*
-	   Update onugem info map,
-	   :param pon_intf_id: reference of PON interface id
-	   :param onuegmdata: onugem info map
-	*/
-	var Value []byte
-	var err error
-	Path := fmt.Sprintf(ONU_GEM_INFO_PATH, PONRMgr.DeviceID, intfID)
-	Value, err = json.Marshal(onuGemData)
-	if err != nil {
-		logger.Error(ctx, "failed to Marshal")
-		return err
-	}
-
-	if err = PONRMgr.KVStore.Put(ctx, Path, Value); err != nil {
-		logger.Errorf(ctx, "Failed to update resource %s", Path)
-		return err
-	}
-	return err
-}
-
-func (PONRMgr *PONResourceManager) GetOnuGemInfo(ctx context.Context, IntfId uint32, onuGemInfo interface{}) error {
-	/*
-	  Get onugeminfo map from kvstore
-	  :param intfid: refremce pon intfid
-	  :param onuGemInfo: onugem info to return from kv strore.
-	*/
-	var Val []byte
-
-	path := fmt.Sprintf(ONU_GEM_INFO_PATH, PONRMgr.DeviceID, IntfId)
-	value, err := PONRMgr.KVStore.Get(ctx, path)
-	if err != nil {
-		logger.Errorw(ctx, "Failed to get from kv store", log.Fields{"path": path})
-		return err
-	} else if value == nil {
-		logger.Debug(ctx, "No onuinfo for path", log.Fields{"path": path})
-		return nil // returning nil as this could happen if there are no onus for the interface yet
-	}
-	if Val, err = kvstore.ToByte(value.Value); err != nil {
-		logger.Error(ctx, "Failed to convert to byte array")
-		return err
-	}
-
-	if err = json.Unmarshal(Val, &onuGemInfo); err != nil {
-		logger.Error(ctx, "Failed to unmarshall")
-		return err
-	}
-	logger.Debugw(ctx, "found onuinfo from path", log.Fields{"path": path, "onuinfo": onuGemInfo})
-	return err
-}
-
-func (PONRMgr *PONResourceManager) DelOnuGemInfoForIntf(ctx context.Context, intfId uint32) error {
-	/*
-	   delete onugem info for an interface from kvstore
-	   :param intfid: refremce pon intfid
-	*/
-
-	path := fmt.Sprintf(ONU_GEM_INFO_PATH, PONRMgr.DeviceID, intfId)
-	if err := PONRMgr.KVStore.Delete(ctx, path); err != nil {
-		logger.Errorf(ctx, "Falied to remove resource %s", path)
-		return err
-	}
-	return nil
 }

@@ -18,7 +18,7 @@ package kafka
 
 import (
 	"context"
-	"github.com/opencord/voltha-lib-go/v4/pkg/kafka"
+	"github.com/opencord/voltha-lib-go/v5/pkg/kafka"
 )
 
 type EndpointManager struct{}
