@@ -22,7 +22,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/opencord/voltha-lib-go/v4/pkg/log"
+	"github.com/opencord/voltha-lib-go/v5/pkg/log"
 	v3Client "go.etcd.io/etcd/clientv3"
 
 	v3Concurrency "go.etcd.io/etcd/clientv3/concurrency"
@@ -144,6 +144,8 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 			logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err})
 		case v3rpcTypes.ErrEmptyKey:
 			logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
+		case v3rpcTypes.ErrTimeout:
+			logger.Warnw(ctx, "etcd-timeout-error", log.Fields{"error": err})
 		default:
 			logger.Warnw(ctx, "bad-endpoints", log.Fields{"error": err})
 		}

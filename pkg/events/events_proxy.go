@@ -27,9 +27,9 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/ptypes"
-	"github.com/opencord/voltha-lib-go/v4/pkg/events/eventif"
-	"github.com/opencord/voltha-lib-go/v4/pkg/kafka"
-	"github.com/opencord/voltha-lib-go/v4/pkg/log"
+	"github.com/opencord/voltha-lib-go/v5/pkg/events/eventif"
+	"github.com/opencord/voltha-lib-go/v5/pkg/kafka"
+	"github.com/opencord/voltha-lib-go/v5/pkg/log"
 	"github.com/opencord/voltha-protos/v4/go/voltha"
 )
 
