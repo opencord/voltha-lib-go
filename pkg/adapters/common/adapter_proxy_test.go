@@ -18,9 +18,9 @@ package common
 
 import (
 	"context"
-	"github.com/opencord/voltha-lib-go/v4/pkg/db"
-	"github.com/opencord/voltha-lib-go/v4/pkg/kafka"
-	mocks "github.com/opencord/voltha-lib-go/v4/pkg/mocks/kafka"
+	"github.com/opencord/voltha-lib-go/v5/pkg/db"
+	"github.com/opencord/voltha-lib-go/v5/pkg/kafka"
+	mocks "github.com/opencord/voltha-lib-go/v5/pkg/mocks/kafka"
 	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
 	"github.com/opencord/voltha-protos/v4/go/voltha"
 	"github.com/phayes/freeport"
@@ -75,7 +75,7 @@ func TestSendInterAdapterMessage(t *testing.T) {
 
 	adapter.endpointMgr = mocks.NewEndpointManager()
 
-	delGemPortMsg := &ic.InterAdapterDeleteGemPortMessage{UniId: 1, TpPath: "tpPath", GemPortId: 2}
+	delGemPortMsg := &ic.InterAdapterDeleteGemPortMessage{UniId: 1, TpInstancePath: "tpPath", GemPortId: 2}
 
 	err := adapter.SendInterAdapterMessage(context.TODO(), delGemPortMsg, ic.InterAdapterMessageType_DELETE_GEM_PORT_REQUEST, "Adapter1", "Adapter2", "testDeviceId", "testProxyDeviceId", "testMessage")
 
@@ -119,7 +119,7 @@ func TestHeaderId(t *testing.T) {
 
 	adapter.endpointMgr = mocks.NewEndpointManager()
 
-	delGemPortMsg := &ic.InterAdapterDeleteGemPortMessage{UniId: 1, TpPath: "tpPath", GemPortId: 2}
+	delGemPortMsg := &ic.InterAdapterDeleteGemPortMessage{UniId: 1, TpInstancePath: "tpPath", GemPortId: 2}
 
 	err := adapter.SendInterAdapterMessage(context.TODO(), delGemPortMsg, ic.InterAdapterMessageType_DELETE_GEM_PORT_REQUEST, "Adapter1", "Adapter2", "testDeviceId", "testProxyDeviceId", "")
 	call := mockKafkaIcProxy.InvokeRpcSpy.Calls[1]
