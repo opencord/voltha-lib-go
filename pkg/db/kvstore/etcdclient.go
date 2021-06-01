@@ -22,7 +22,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/opencord/voltha-lib-go/v4/pkg/log"
+	"github.com/opencord/voltha-lib-go/v5/pkg/log"
 	v3Client "go.etcd.io/etcd/clientv3"
 
 	v3Concurrency "go.etcd.io/etcd/clientv3/concurrency"
@@ -99,17 +99,46 @@ func (c *EtcdClient) List(ctx context.Context, key string) (map[string]*KVPair, 
 // wait for a response
 func (c *EtcdClient) Get(ctx context.Context, key string) (*KVPair, error) {
 
-	resp, err := c.ectdAPI.Get(ctx, key)
+	attempt := 0
+startLoop:
+	for {
+		_ctx, _cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		// resp, err := c.ectdAPI.Get(ctx, key)
+		resp, err := c.ectdAPI.Get(_ctx, key)
+		_cancel()
+		if err != nil {
+			switch err {
+			case context.Canceled:
+				logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
+			case context.DeadlineExceeded:
+				logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err, "context": ctx})
+			case v3rpcTypes.ErrEmptyKey:
+				logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
+			case v3rpcTypes.ErrLeaderChanged,
+				v3rpcTypes.ErrGRPCNoLeader,
+				v3rpcTypes.ErrTimeout,
+				v3rpcTypes.ErrTimeoutDueToLeaderFail,
+				v3rpcTypes.ErrTimeoutDueToConnectionLost:
+				// Retry for these server errors
+				attempt += 1
+				if er := backoff(context.Background(), attempt); er != nil {
+					logger.Warnw(ctx, "get-retries-failed", log.Fields{"key": key, "error": er, "attempt": attempt})
+					return nil, err
+				}
+				logger.Warnw(ctx, "retrying-get", log.Fields{"key": key, "error": err, "attempt": attempt})
+				goto startLoop
+			default:
+				logger.Warnw(ctx, "etcd-server-error", log.Fields{"error": err})
+			}
+			return nil, err
+		}
 
-	if err != nil {
-		logger.Error(ctx, err)
-		return nil, err
+		for _, ev := range resp.Kvs {
+			// Only one value is returned
+			return NewKVPair(string(ev.Key), ev.Value, "", ev.Lease, ev.Version), nil
+		}
+		return nil, nil
 	}
-	for _, ev := range resp.Kvs {
-		// Only one value is returned
-		return NewKVPair(string(ev.Key), ev.Value, "", ev.Lease, ev.Version), nil
-	}
-	return nil, nil
 }
 
 // Put writes a key-value pair to the KV store.  Value can only be a string or []byte since the etcd API
@@ -124,45 +153,94 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 		return fmt.Errorf("unexpected-type-%T", value)
 	}
 
-	var err error
 	// Check if there is already a lease for this key - if there is then use it, otherwise a PUT will make
 	// that KV key permanent instead of automatically removing it after a lease expiration
 	c.keyReservationsLock.RLock()
 	leaseID, ok := c.keyReservations[key]
 	c.keyReservationsLock.RUnlock()
-	if ok {
-		_, err = c.ectdAPI.Put(ctx, key, val, v3Client.WithLease(*leaseID))
-	} else {
-		_, err = c.ectdAPI.Put(ctx, key, val)
-	}
-
-	if err != nil {
-		switch err {
-		case context.Canceled:
-			logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
-		case context.DeadlineExceeded:
-			logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err})
-		case v3rpcTypes.ErrEmptyKey:
-			logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
-		default:
-			logger.Warnw(ctx, "bad-endpoints", log.Fields{"error": err})
+	attempt := 0
+startLoop:
+	for {
+		var err error
+		_ctx, _cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		if ok {
+		//	_, err = c.ectdAPI.Put(ctx, key, val, v3Client.WithLease(*leaseID))
+		_, err = c.ectdAPI.Put(_ctx, key, val, v3Client.WithLease(*leaseID))
+		} else {
+		//	_, err = c.ectdAPI.Put(ctx, key, val)
+		_, err = c.ectdAPI.Put(_ctx, key, val)
 		}
-		return err
+		_cancel()
+		if err != nil {
+			switch err {
+			case context.Canceled:
+				logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
+			case context.DeadlineExceeded:
+				logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err, "context": ctx})
+			case v3rpcTypes.ErrEmptyKey:
+				logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
+			case v3rpcTypes.ErrLeaderChanged,
+				v3rpcTypes.ErrGRPCNoLeader,
+				v3rpcTypes.ErrTimeout,
+				v3rpcTypes.ErrTimeoutDueToLeaderFail,
+				v3rpcTypes.ErrTimeoutDueToConnectionLost:
+				// Retry for these server errors
+				attempt += 1
+				if er := backoff(context.Background(), attempt); er != nil {
+					logger.Warnw(ctx, "put-retries-failed", log.Fields{"key": key, "error": er, "attempt": attempt})
+					return err
+				}
+				logger.Warnw(ctx, "retrying-put", log.Fields{"key": key, "error": err, "attempt": attempt})
+				goto startLoop
+			default:
+				logger.Warnw(ctx, "etcd-server-error", log.Fields{"error": err})
+			}
+			return err
+		}
+		return nil
 	}
-	return nil
 }
 
 // Delete removes a key from the KV store. Timeout defines how long the function will
 // wait for a response
 func (c *EtcdClient) Delete(ctx context.Context, key string) error {
 
-	// delete the key
-	if _, err := c.ectdAPI.Delete(ctx, key); err != nil {
-		logger.Errorw(ctx, "failed-to-delete-key", log.Fields{"key": key, "error": err})
-		return err
+	attempt := 0
+startLoop:
+	for {
+		_ctx, _cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		// _, err := c.ectdAPI.Delete(ctx, key)
+		_, err := c.ectdAPI.Delete(_ctx, key)
+		_cancel()
+		if err != nil {
+			switch err {
+			case context.Canceled:
+				logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
+			case context.DeadlineExceeded:
+				logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err, "context": ctx})
+			case v3rpcTypes.ErrEmptyKey:
+				logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
+			case v3rpcTypes.ErrLeaderChanged,
+				v3rpcTypes.ErrGRPCNoLeader,
+				v3rpcTypes.ErrTimeout,
+				v3rpcTypes.ErrTimeoutDueToLeaderFail,
+				v3rpcTypes.ErrTimeoutDueToConnectionLost:
+				// Retry for these server errors
+				attempt += 1
+				if er := backoff(context.Background(), attempt); er != nil {
+					logger.Warnw(ctx, "delete-retries-failed", log.Fields{"key": key, "error": er, "attempt": attempt})
+					return err
+				}
+				logger.Warnw(ctx, "retrying-delete", log.Fields{"key": key, "error": err, "attempt": attempt})
+				goto startLoop
+			default:
+				logger.Warnw(ctx, "etcd-server-error", log.Fields{"error": err})
+			}
+			return err
+		}
+		logger.Debugw(ctx, "key(s)-deleted", log.Fields{"key": key})
+		return nil
 	}
-	logger.Debugw(ctx, "key(s)-deleted", log.Fields{"key": key})
-	return nil
 }
 
 func (c *EtcdClient) DeleteWithPrefix(ctx context.Context, prefixKey string) error {

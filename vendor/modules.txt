@@ -93,6 +93,7 @@ github.com/opencord/voltha-protos/v4/go/extension
 github.com/opencord/voltha-protos/v4/go/inter_container
 github.com/opencord/voltha-protos/v4/go/omci
 github.com/opencord/voltha-protos/v4/go/openflow_13
+github.com/opencord/voltha-protos/v4/go/openolt
 github.com/opencord/voltha-protos/v4/go/tech_profile
 github.com/opencord/voltha-protos/v4/go/voltha
 # github.com/opentracing/opentracing-go v1.1.0

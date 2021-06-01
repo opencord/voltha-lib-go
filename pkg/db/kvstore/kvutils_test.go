@@ -16,8 +16,10 @@
 package kvstore
 
 import (
+	"context"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"time"
 )
 
 func TestToStringWithString(t *testing.T) {
@@ -57,4 +59,34 @@ func TestToStringForErrorCase(t *testing.T) {
 
 	assert.Equal(t, expectedResult, actualResult)
 	assert.NotEqual(t, error, nil)
+}
+
+
+func TestBackoffNoWait(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Millisecond)
+	defer cancel()
+	err := backoff(ctx, 0)
+	assert.Nil(t, err)
+}
+
+func TestBackoffSuccess(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 1000*time.Millisecond)
+	defer cancel()
+	previous := time.Duration(0)
+	for i := 1; i < 5; i++ {
+		start := time.Now()
+		err := backoff(ctx, i)
+		assert.Nil(t, err)
+		current := time.Since(start)
+		assert.Greater(t, current.Milliseconds(), previous.Milliseconds())
+		previous = current
+	}
+}
+
+func TestBackoffContextTimeout(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 1000*time.Millisecond)
+	defer cancel()
+	err := backoff(ctx, 10)
+	assert.NotNil(t, err)
+	assert.Equal(t, context.DeadlineExceeded, err)
 }
