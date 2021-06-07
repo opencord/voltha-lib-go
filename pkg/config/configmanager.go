@@ -115,6 +115,7 @@ func NewConfigManager(ctx context.Context, kvClient kvstore.Client, kvStoreType,
 			Address:    kvStoreAddress,
 			Timeout:    kvStoreTimeout,
 			PathPrefix: kvStorePrefix,
+			KeyMap:make(map[string]bool),
 		},
 	}
 }

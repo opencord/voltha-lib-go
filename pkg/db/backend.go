@@ -34,6 +34,10 @@ const (
 	DefaultLivenessChannelInterval = time.Second * 30
 )
 
+const (
+	uniqueParsePrefix = "abracadabra"
+)
+
 // Backend structure holds details for accessing the kv store
 type Backend struct {
 	Client                  kvstore.Client
@@ -46,6 +50,10 @@ type Backend struct {
 	liveness                chan bool     // channel to post alive state
 	LivenessChannelInterval time.Duration // regularly push alive state beyond this interval
 	lastLivenessTime        time.Time     // Instant of last alive state push
+	KeyMap     map[string]bool // path->bool
+	KeyMapLock sync.RWMutex
+	keyCnt     uint32
+	keyCntLock sync.RWMutex
 }
 
 // NewBackend creates a new instance of a Backend structure
@@ -59,6 +67,7 @@ func NewBackend(ctx context.Context, storeType string, address string, timeout t
 		LivenessChannelInterval: DefaultLivenessChannelInterval,
 		PathPrefix:              pathPrefix,
 		alive:                   false, // connection considered down at start
+		KeyMap:                  make(map[string]bool),
 	}
 
 	if b.Client, err = b.newClient(ctx, address, timeout); err != nil {
@@ -182,7 +191,14 @@ func (b *Backend) List(ctx context.Context, key string) (map[string]*kvstore.KVP
 	formattedPath := b.makePath(ctx, key)
 	logger.Debugw(ctx, "listing-key", log.Fields{"key": key, "path": formattedPath})
 
+	b.keyCntLock.RLock()
+	currKeyCnt := b.keyCnt
+	b.keyCntLock.RUnlock()
+	startTime := time.Now().UnixNano()
 	pair, err := b.Client.List(ctx, formattedPath)
+	// uniqueprefix, Name, pathprefixOfDb, Operation, CompleteTimeNanoSec, TotalTimeForOpNanoSec, KeyCount
+	compltTime := time.Now().UnixNano()
+	fmt.Printf("%v,%v,LIST,%v,%v,%v\n", uniqueParsePrefix,  b.PathPrefix, compltTime, compltTime-startTime, currKeyCnt)
 
 	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(ctx, err))
 
@@ -197,7 +213,14 @@ func (b *Backend) Get(ctx context.Context, key string) (*kvstore.KVPair, error) 
 	formattedPath := b.makePath(ctx, key)
 	logger.Debugw(ctx, "getting-key", log.Fields{"key": key, "path": formattedPath})
 
+	b.keyCntLock.RLock()
+	currKeyCnt := b.keyCnt
+	b.keyCntLock.RUnlock()
+	startTime := time.Now().UnixNano()
 	pair, err := b.Client.Get(ctx, formattedPath)
+	// uniqueprefix, Name, pathprefixOfDb, Operation, CompleteTimeNanoSec, TotalTimeForOpNanoSec, KeyCount
+	compltTime := time.Now().UnixNano()
+	fmt.Printf("%v,%v,GET,%v,%v,%v\n", uniqueParsePrefix,  b.PathPrefix, compltTime, compltTime-startTime, currKeyCnt)
 
 	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(ctx, err))
 
@@ -212,7 +235,23 @@ func (b *Backend) Put(ctx context.Context, key string, value interface{}) error 
 	formattedPath := b.makePath(ctx, key)
 	logger.Debugw(ctx, "putting-key", log.Fields{"key": key, "path": formattedPath})
 
+	b.KeyMapLock.Lock()
+	if _, ok := b.KeyMap[key]; !ok {
+		b.KeyMap[key] = true
+		b.keyCntLock.Lock()
+		b.keyCnt++
+		b.keyCntLock.Unlock()
+	}
+	b.KeyMapLock.Unlock()
+
+	b.keyCntLock.RLock()
+	currKeyCnt := b.keyCnt
+	b.keyCntLock.RUnlock()
+	startTime := time.Now().UnixNano()
 	err := b.Client.Put(ctx, formattedPath, value)
+	// uniqueprefix, Name, pathprefixOfDb, Operation, CompleteTimeNanoSec, TotalTimeForOpNanoSec, KeyCount
+	compltTime := time.Now().UnixNano()
+	fmt.Printf("%v,%v,PUT,%v,%v,%v\n", uniqueParsePrefix,  b.PathPrefix, compltTime, compltTime-startTime, currKeyCnt)
 
 	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(ctx, err))
 
@@ -227,7 +266,25 @@ func (b *Backend) Delete(ctx context.Context, key string) error {
 	formattedPath := b.makePath(ctx, key)
 	logger.Debugw(ctx, "deleting-key", log.Fields{"key": key, "path": formattedPath})
 
+	b.KeyMapLock.Lock()
+	if _, ok := b.KeyMap[key]; ok {
+		delete(b.KeyMap, key)
+		b.keyCntLock.Lock()
+		if b.keyCnt > 0 {
+			b.keyCnt--
+		}
+		b.keyCntLock.Unlock()
+	}
+	b.KeyMapLock.Unlock()
+
+	b.keyCntLock.RLock()
+	currKeyCnt := b.keyCnt
+	b.keyCntLock.RUnlock()
+	startTime := time.Now().UnixNano()
 	err := b.Client.Delete(ctx, formattedPath)
+	// uniqueprefix, Name, pathprefixOfDb, Operation, CompleteTimeNanoSec, TotalTimeForOpNanoSec, KeyCount
+	compltTime := time.Now().UnixNano()
+	fmt.Printf("%v,%v,DELETE,%v,%v,%v\n", uniqueParsePrefix,  b.PathPrefix, compltTime, compltTime-startTime, currKeyCnt)
 
 	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(ctx, err))
 
@@ -241,6 +298,9 @@ func (b *Backend) DeleteWithPrefix(ctx context.Context, prefixKey string) error 
 
 	formattedPath := b.makePath(ctx, prefixKey)
 	logger.Debugw(ctx, "deleting-prefix-key", log.Fields{"key": prefixKey, "path": formattedPath})
+
+	// FIXME: There is no instrumention here like in the case of PUT/DELETE/LIST/GET methods.
+	// This method isn;t used by anyone at the moment in voltha stack, so ok for now.
 
 	err := b.Client.DeleteWithPrefix(ctx, formattedPath)
 

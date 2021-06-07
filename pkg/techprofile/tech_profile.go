@@ -401,7 +401,9 @@ func (t *TechProfileMgr) SetKVClient(ctx context.Context, pathPrefix string) *db
 		StoreType:  t.config.KVStoreType,
 		Address:    t.config.KVStoreAddress,
 		Timeout:    t.config.KVStoreTimeout,
-		PathPrefix: pathPrefix}
+		PathPrefix: pathPrefix,
+		KeyMap:make(map[string]bool),
+	}
 
 	/* TODO : Make sure direct call to NewBackend is working fine with backend , currently there is some
 		  issue between kv store and backend , core is not calling NewBackend directly

@@ -189,7 +189,9 @@ func SetKVClient(ctx context.Context, Technology string, Backend string, Addr st
 		StoreType:  Backend,
 		Address:    Addr,
 		Timeout:    KVSTORE_RETRY_TIMEOUT,
-		PathPrefix: pathPrefix}
+		PathPrefix: pathPrefix,
+		KeyMap:make(map[string]bool),
+	}
 
 	return kvbackend
 }
