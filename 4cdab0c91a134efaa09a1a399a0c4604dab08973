@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "4838755b_2433280f",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-06-09T14:17:14Z",
+      "side": 1,
+      "message": "probably worth adding the particular timeout\n\ndiff --git a/pkg/db/kvstore/etcdclient.go b/pkg/db/kvstore/etcdclient.go\nindex 98f0559..b2a31cd 100644\n--- a/pkg/db/kvstore/etcdclient.go\n+++ b/pkg/db/kvstore/etcdclient.go\n@@ -144,6 +144,8 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err\n                        logger.Warnw(ctx, \"context-deadline-exceeded\", log.Fields{\"error\": err})\n                case v3rpcTypes.ErrEmptyKey:\n                        logger.Warnw(ctx, \"etcd-client-error\", log.Fields{\"error\": err})\n+               case v3rpcTypes.ErrTimeout\n+                       logger.Warnw(ctx, \"etcd-timeout-error\", log.Fields{\"error\": err})\n                default:\n                        logger.Warnw(ctx, \"bad-endpoints\", log.Fields{\"error\": err})\n                }",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d63b7665_675c986a",
         "filename": "pkg/techprofile/config.go",
         "patchSetId": 4
