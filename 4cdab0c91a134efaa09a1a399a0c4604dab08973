@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d63b7665_675c986a",
+        "filename": "pkg/techprofile/config.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-06-09T08:56:56Z",
+      "side": 1,
+      "message": "I have a little doubt about this, are we sure this is not creating problems in our workflows where we put the tech file in XGSPON/64/123 ? or has this been already addressed in the retrieval pieces of the code ?",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1eaa2e8e_8b8fc96d",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-06-09T08:56:56Z",
+      "side": 1,
+      "message": "move this to the protos if you want a single source of truth for this value, the downside is that it becomes a bit of a pain to change it.",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd08bbce_0cc8eb86",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-06-09T08:56:56Z",
+      "side": 1,
+      "message": "reconcile-tp-instance-cache-start",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f77e7c9_81378594",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-06-09T08:56:56Z",
+      "side": 1,
+      "message": "reconcile-tp-instance-cache-end",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c822911_02a9406b",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-06-09T08:56:56Z",
+      "side": 1,
+      "message": "use single - instead of --\ntp-instance-not-found-tp-path-%v",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e4700eb_d082cb1a",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-06-09T08:56:56Z",
+      "side": 1,
+      "message": "same",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7fb6488_9e197207",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-06-09T08:56:56Z",
+      "side": 1,
+      "message": "same",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a2acaf1_4d51037e",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-06-09T08:56:56Z",
+      "side": 1,
+      "message": "same",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
