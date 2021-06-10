@@ -296,6 +296,24 @@
       "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feaf852c_92e93fbb",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-06-10T23:22:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4a2acaf1_4d51037e",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
