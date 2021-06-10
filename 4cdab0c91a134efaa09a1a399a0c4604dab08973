@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "50e88427_82779443",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-06-10T23:21:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4838755b_2433280f",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d63b7665_675c986a",
         "filename": "pkg/techprofile/config.go",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2021-06-09T08:56:56Z",
       "side": 1,
       "message": "I have a little doubt about this, are we sure this is not creating problems in our workflows where we put the tech file in XGSPON/64/123 ? or has this been already addressed in the retrieval pieces of the code ?",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c75cf160_b7d4e688",
+        "filename": "pkg/techprofile/config.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-06-10T23:21:19Z",
+      "side": 1,
+      "message": "This is only the path prefix that is used to initialize the etcd client. The suffix path with all the details you mentioned is supplied and the complete key path is formed.",
+      "parentUuid": "d63b7665_675c986a",
       "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "53c8b153_500cd332",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-06-10T23:21:19Z",
+      "side": 1,
+      "message": "Let me leave this as is for now. We do not have any ONUs that have so many UNI ports (more than 16).",
+      "parentUuid": "1eaa2e8e_8b8fc96d",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd08bbce_0cc8eb86",
         "filename": "pkg/techprofile/tech_profile.go",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f435602e_9b2a8eda",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-06-10T23:21:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cd08bbce_0cc8eb86",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "a4cff394_d2df12cc",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-06-10T23:21:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1f77e7c9_81378594",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c822911_02a9406b",
         "filename": "pkg/techprofile/tech_profile.go",
         "patchSetId": 4
@@ -101,6 +191,24 @@
       "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "152124e6_be698143",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-06-10T23:21:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2c822911_02a9406b",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "268886c8_e3c61dca",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-06-10T23:21:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2e4700eb_d082cb1a",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7fb6488_9e197207",
         "filename": "pkg/techprofile/tech_profile.go",
         "patchSetId": 4
@@ -135,6 +261,24 @@
       "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e152f82_ed9344f3",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-06-10T23:21:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c7fb6488_9e197207",
+      "revId": "4cdab0c91a134efaa09a1a399a0c4604dab08973",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     },
     {
       "key": {
