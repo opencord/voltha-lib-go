@@ -1576,3 +1576,21 @@ func ConvertToMulticastMacBytes(ip uint32) []byte {
 	}
 	return b.Bytes()
 }
+
+func GetMeterIdFromWriteMetadata(ctx context.Context, flow *ofp.OfpFlowStats) uint32 {
+	/*
+			  Write metadata instruction value (metadata) is 8 bytes:
+		    	MS 2 bytes: C Tag
+		    	Next 2 bytes: Technology Profile Id
+		    	Next 4 bytes: Port number (uni or nni) or MeterId
+		    	This is set in the ONOS OltPipeline as a write metadata instruction
+	*/
+	var meterID uint32 = 0
+	md := GetMetadataFromWriteMetadataAction(ctx, flow)
+	logger.Debugw(ctx, "found-metadata-for-egress/uni-port", log.Fields{"metadata": md})
+	if md != 0 {
+		meterID = uint32(md & 0xFFFFFFFF)
+		logger.Debugw(ctx, "found-meterID-in-write-metadata-action", log.Fields{"meterID": meterID})
+	}
+	return meterID
+}
