@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e738db2_42209554",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-06-21T18:40:23Z",
+      "side": 1,
+      "message": "afaik context.Background() is never canceled even if the parent context is canceled. Is that what you want?",
+      "revId": "794a61ad1070c1a5cf798783dcc419b0a569e107",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cdd7e75_fbc8f336",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-06-21T18:40:23Z",
+      "side": 1,
+      "message": "Is this an infinite loop in case of Get failure?",
+      "revId": "794a61ad1070c1a5cf798783dcc419b0a569e107",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
