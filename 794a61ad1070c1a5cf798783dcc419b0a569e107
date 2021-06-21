@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d71e5d6f_63f69bba",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-06-21T18:48:16Z",
+      "side": 1,
+      "message": "I do not think that is what we want. Changed the code a bit and also some cleanup around line 105. Same fixes done in other functions as well.",
+      "parentUuid": "2e738db2_42209554",
+      "revId": "794a61ad1070c1a5cf798783dcc419b0a569e107",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0cdd7e75_fbc8f336",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2021-06-21T18:40:23Z",
       "side": 1,
       "message": "Is this an infinite loop in case of Get failure?",
+      "revId": "794a61ad1070c1a5cf798783dcc419b0a569e107",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3e2836a_71e4f063",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-06-21T18:48:16Z",
+      "side": 1,
+      "message": "Yes it is for the error codes mentioned in the case statement. Now that the original context is passed (in the subsequent patch), as soon as the context is cancelled the function should return.",
+      "parentUuid": "0cdd7e75_fbc8f336",
       "revId": "794a61ad1070c1a5cf798783dcc419b0a569e107",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
