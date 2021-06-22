@@ -67,15 +67,6 @@ func TestEtcdServerRW(t *testing.T) {
 	assert.Equal(t, value, val)
 }
 
-func TestEtcdServerReserve(t *testing.T) {
-	assert.NotNil(t, client)
-	txId := "tnxId-1"
-	val, err := client.Reserve(context.Background(), "transactions", txId, 10)
-	assert.Nil(t, err)
-	assert.NotNil(t, val)
-	assert.Equal(t, val, txId)
-}
-
 func shutdown() {
 	if client != nil {
 		client.Close(context.Background())
