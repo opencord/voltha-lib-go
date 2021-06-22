@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a905fbd_e3994afc",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-06-22T22:44:53Z",
+      "side": 1,
+      "message": "Good catch",
+      "parentUuid": "a656f044_4d24fdae",
+      "revId": "59dab47ecea3031bce10d23b0704dcb098ce52da",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25484e06_d56f39eb",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2021-06-22T22:28:30Z",
       "side": 1,
       "message": "What is the intention of just calling this but not using the returned values?",
+      "revId": "59dab47ecea3031bce10d23b0704dcb098ce52da",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddba9077_2a804e77",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-06-22T22:44:53Z",
+      "side": 1,
+      "message": "not sure ... need to check my local repo if I include the correct file.",
+      "parentUuid": "25484e06_d56f39eb",
       "revId": "59dab47ecea3031bce10d23b0704dcb098ce52da",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
