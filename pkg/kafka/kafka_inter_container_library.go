@@ -197,13 +197,15 @@ func (kp *interContainerProxy) GetDefaultTopic() *Topic {
 func (kp *interContainerProxy) InvokeAsyncRPC(ctx context.Context, rpc string, toTopic *Topic, replyToTopic *Topic,
 	waitForResponse bool, key string, kvArgs ...*KVArg) chan *RpcResponse {
 
-	logger.Debugw(ctx, "InvokeAsyncRPC", log.Fields{"rpc": rpc, "key": key})
-
 	spanArg, span, ctx := kp.embedSpanAsArg(ctx, rpc, !waitForResponse)
 	if spanArg != nil {
 		kvArgs = append(kvArgs, &spanArg[0])
 	}
-	defer span.Finish()
+	if span != nil {
+		defer span.Finish()
+	}
+
+	logger.Debugw(ctx, "InvokeAsyncRPC", log.Fields{"rpc": rpc, "key": key, "kvArgs": kvArgs})
 
 	//	If a replyToTopic is provided then we use it, otherwise just use the  default toTopic.  The replyToTopic is
 	// typically the device ID.
@@ -315,6 +317,13 @@ func (kp *interContainerProxy) embedSpanAsArg(ctx context.Context, rpc string, i
 	var newCtx context.Context
 	var spanToInject opentracing.Span
 
+	if !log.GetGlobalLFM().GetLogCorrelationStatus() && !log.GetGlobalLFM().GetTracePublishingStatus() {
+		// if both log correlation and trace publishing is disable do not generate the span
+		logger.Debugw(ctx, "not-embedding-span-in-KVArg-", log.Fields{"rpc": rpc,
+			"log-correlation-status": log.GetGlobalLFM().GetLogCorrelationStatus(), "trace-publishing-status": log.GetGlobalLFM().GetTracePublishingStatus()})
+		return nil, nil, ctx
+	}
+
 	var spanName strings.Builder
 	spanName.WriteString("kafka-")
 
@@ -366,7 +375,10 @@ func (kp *interContainerProxy) InvokeRPC(ctx context.Context, rpc string, toTopi
 	if spanArg != nil {
 		kvArgs = append(kvArgs, &spanArg[0])
 	}
-	defer span.Finish()
+	if span != nil {
+		defer span.Finish()
+	}
+	logger.Debugw(ctx, "InvokeRPC", log.Fields{"rpc": rpc, "key": key, "kvArgs": kvArgs})
 
 	//	If a replyToTopic is provided then we use it, otherwise just use the  default toTopic.  The replyToTopic is
 	// typically the device ID.
@@ -876,10 +888,10 @@ func (kp *interContainerProxy) handleMessage(ctx context.Context, msg *ic.InterC
 		if err = ptypes.UnmarshalAny(msg.Body, requestBody); err != nil {
 			logger.Warnw(ctx, "cannot-unmarshal-request", log.Fields{"error": err})
 		} else {
+			logger.Debugw(ctx, "received-request", log.Fields{"rpc": requestBody.Rpc, "header": msg.Header, "args": requestBody.Args})
 			span, ctx := kp.enrichContextWithSpan(ctx, requestBody.Rpc, requestBody.Args)
 			defer span.Finish()
 
-			logger.Debugw(ctx, "received-request", log.Fields{"rpc": requestBody.Rpc, "header": msg.Header})
 			// let the callee unpack the arguments as its the only one that knows the real proto type
 			// Augment the requestBody with the message Id as it will be used in scenarios where cores
 			// are set in pairs and competing
