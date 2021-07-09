@@ -321,7 +321,7 @@ func (kp *interContainerProxy) embedSpanAsArg(ctx context.Context, rpc string, i
 		// if both log correlation and trace publishing is disable do not generate the span
 		logger.Debugw(ctx, "not-embedding-span-in-KVArg-", log.Fields{"rpc": rpc,
 			"log-correlation-status": log.GetGlobalLFM().GetLogCorrelationStatus(), "trace-publishing-status": log.GetGlobalLFM().GetTracePublishingStatus()})
-		return nil, opentracing.SpanFromContext(ctx), ctx
+		return nil, opentracing.GlobalTracer().StartSpan(rpc), ctx
 	}
 
 	var spanName strings.Builder
