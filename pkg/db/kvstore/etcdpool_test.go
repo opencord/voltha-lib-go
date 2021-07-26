@@ -17,8 +17,8 @@ package kvstore
 
 import (
 	"context"
-	"github.com/opencord/voltha-lib-go/v5/pkg/log"
-	mocks "github.com/opencord/voltha-lib-go/v5/pkg/mocks/etcd"
+	"github.com/opencord/voltha-lib-go/v6/pkg/log"
+	mocks "github.com/opencord/voltha-lib-go/v6/pkg/mocks/etcd"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
 	"os"

@@ -18,7 +18,7 @@ package meters
 import (
 	"context"
 	"fmt"
-	"github.com/opencord/voltha-lib-go/v5/pkg/log"
+	"github.com/opencord/voltha-lib-go/v6/pkg/log"
 	ofp "github.com/opencord/voltha-protos/v4/go/openflow_13"
 	tp_pb "github.com/opencord/voltha-protos/v4/go/tech_profile"
 )
