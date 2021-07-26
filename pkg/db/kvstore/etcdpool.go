@@ -19,7 +19,7 @@ import (
 	"container/list"
 	"context"
 	"errors"
-	"github.com/opencord/voltha-lib-go/v5/pkg/log"
+	"github.com/opencord/voltha-lib-go/v6/pkg/log"
 	"go.etcd.io/etcd/clientv3"
 	"sync"
 	"time"

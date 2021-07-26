@@ -18,7 +18,7 @@ package techprofile
 
 import (
 	"context"
-	"github.com/opencord/voltha-lib-go/v5/pkg/db"
+	"github.com/opencord/voltha-lib-go/v6/pkg/db"
 	tp_pb "github.com/opencord/voltha-protos/v4/go/tech_profile"
 )
 

@@ -25,9 +25,9 @@ import (
 	"time"
 
 	bitmap "github.com/boljen/go-bitmap"
-	"github.com/opencord/voltha-lib-go/v5/pkg/db"
-	"github.com/opencord/voltha-lib-go/v5/pkg/db/kvstore"
-	"github.com/opencord/voltha-lib-go/v5/pkg/log"
+	"github.com/opencord/voltha-lib-go/v6/pkg/db"
+	"github.com/opencord/voltha-lib-go/v6/pkg/db/kvstore"
+	"github.com/opencord/voltha-lib-go/v6/pkg/log"
 )
 
 const (

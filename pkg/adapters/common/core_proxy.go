@@ -21,8 +21,8 @@ import (
 
 	"github.com/golang/protobuf/ptypes"
 	a "github.com/golang/protobuf/ptypes/any"
-	"github.com/opencord/voltha-lib-go/v5/pkg/kafka"
-	"github.com/opencord/voltha-lib-go/v5/pkg/log"
+	"github.com/opencord/voltha-lib-go/v6/pkg/kafka"
+	"github.com/opencord/voltha-lib-go/v6/pkg/log"
 	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
 	"github.com/opencord/voltha-protos/v4/go/voltha"
 	"google.golang.org/grpc/codes"
