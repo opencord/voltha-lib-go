@@ -1,47 +1,54 @@
 module github.com/opencord/voltha-lib-go/v6
 
-go 1.13
+go 1.16
+
+replace (
+	github.com/coreos/bbolt v1.3.4 => go.etcd.io/bbolt v1.3.4
+	github.com/opencord/voltha-protos/v4 => ../voltha-protos
+	go.etcd.io/bbolt v1.3.4 => github.com/coreos/bbolt v1.3.4
+	google.golang.org/grpc => google.golang.org/grpc v1.25.1
+)
 
 require (
-	github.com/DataDog/zstd v1.4.1 // indirect
-	github.com/Shopify/sarama v1.23.1
+	github.com/HdrHistogram/hdrhistogram-go v1.1.0 // indirect
+	github.com/Shopify/sarama v1.29.1
 	github.com/boljen/go-bitmap v0.0.0-20151001105940-23cd2fb0ce7d
 	github.com/bsm/sarama-cluster v2.1.15+incompatible
-	github.com/buraksezer/consistent v0.0.0-20191006190839-693edf70fd72
-	github.com/cespare/xxhash v1.1.0
 	github.com/cevaris/ordered_map v0.0.0-20190319150403-3adeae072e73
-	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
-	github.com/coreos/go-systemd v0.0.0-20190620071333-e64a0ec8b42a // indirect
-	github.com/coreos/pkg v0.0.0-20180108230652-97fdf19511ea // indirect
+	github.com/coreos/bbolt v1.3.4 // indirect
+	github.com/coreos/etcd v3.3.25+incompatible // indirect
+	github.com/coreos/go-semver v0.3.0 // indirect
+	github.com/coreos/go-systemd v0.0.0-20191104093116-d3cd4ed1dbcf // indirect
+	github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/eapache/go-resiliency v1.2.0
-	github.com/frankban/quicktest v1.5.0 // indirect
-	github.com/gogo/protobuf v1.3.0
-	github.com/golang/protobuf v1.3.2
-	github.com/google/uuid v1.1.1
-	github.com/grpc-ecosystem/go-grpc-middleware v1.0.1-0.20190118093823-f849b5445de4
-	github.com/jcmturner/gofork v1.0.0 // indirect
-	github.com/onsi/gomega v1.4.2 // indirect
-	github.com/opencord/voltha-protos/v4 v4.2.0
-	github.com/opentracing/opentracing-go v1.1.0
+	github.com/gogo/protobuf v1.3.2
+	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
+	github.com/golang/mock v1.6.0
+	github.com/golang/protobuf v1.5.2
+	github.com/google/btree v1.0.1 // indirect
+	github.com/google/uuid v1.3.0
+	github.com/gorilla/websocket v1.4.2 // indirect
+	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
+	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
+	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
+	github.com/jonboulle/clockwork v0.2.2 // indirect
+	github.com/onsi/gomega v1.14.0 // indirect
+	github.com/opencord/voltha-protos/v4 v4.3.0-dev
+	github.com/opentracing/opentracing-go v1.2.0
 	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
-	github.com/pierrec/lz4 v2.3.0+incompatible // indirect
-	github.com/pkg/errors v0.8.1 // indirect
-	github.com/rcrowley/go-metrics v0.0.0-20190826022208-cac0b30c2563 // indirect
-	github.com/spf13/pflag v1.0.3 // indirect
-	github.com/stretchr/testify v1.4.0
-	github.com/uber/jaeger-client-go v2.23.1+incompatible
-	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
-	go.etcd.io/etcd v0.0.0-20190930204107-236ac2a90522
-	go.uber.org/atomic v1.4.0 // indirect
-	go.uber.org/multierr v1.2.0 // indirect
-	go.uber.org/zap v1.10.0
-	golang.org/x/crypto v0.0.0-20191001170739-f9e2070545dc // indirect
-	golang.org/x/net v0.0.0-20190930134127-c5a3c61f89f3 // indirect
-	golang.org/x/sys v0.0.0-20191001151750-bb3f8db39f24 // indirect
-	golang.org/x/text v0.3.2 // indirect
-	google.golang.org/genproto v0.0.0-20190927181202-20e1ac93f88c // indirect
-	google.golang.org/grpc v1.24.0
-	gopkg.in/jcmturner/goidentity.v3 v3.0.0 // indirect
-	gopkg.in/jcmturner/gokrb5.v7 v7.3.0 // indirect
-	gopkg.in/yaml.v2 v2.2.3 // indirect
+	github.com/prometheus/client_golang v1.11.0 // indirect
+	github.com/soheilhy/cmux v0.1.5 // indirect
+	github.com/stretchr/testify v1.7.0
+	github.com/tmc/grpc-websocket-proxy v0.0.0-20201229170055-e5319fda7802 // indirect
+	github.com/uber/jaeger-client-go v2.29.1+incompatible
+	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
+	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
+	go.etcd.io/bbolt v1.3.4 // indirect
+	go.etcd.io/etcd v3.3.25+incompatible
+	go.uber.org/zap v1.18.1
+	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac // indirect
+	google.golang.org/grpc v1.39.1
+	sigs.k8s.io/yaml v1.2.0 // indirect
 )
