@@ -16,6 +16,9 @@
 package grpc
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/opencord/voltha-lib-go/v6/pkg/log"
 )
 
@@ -30,15 +33,44 @@ const (
 	 * useful.
 	 */
 
-	VOLTHA_LOGLEVEL = log.FatalLevel
+	volthaTestLogLevel = log.FatalLevel
+	retryInterval      = 50 * time.Millisecond
 )
+
+type isConditionSatisfied func() bool
 
 // Unit test initialization. This init() function handles all unit tests in
 // the current directory.
 func init() {
 	// Logger must be configured or bad things happen
-	_, err := log.SetDefaultLogger(log.JSON, VOLTHA_LOGLEVEL, log.Fields{"instanceId": 1})
+	_, err := log.SetDefaultLogger(log.JSON, volthaTestLogLevel, log.Fields{"instanceId": 1})
 	if err != nil {
 		panic(err)
+	}
+}
+
+func waitUntilCondition(timeout time.Duration, verificationFunction isConditionSatisfied) error {
+	ch := make(chan int, 1)
+	done := false
+	go func() {
+		for {
+			if verificationFunction() {
+				ch <- 1
+				break
+			}
+			if done {
+				break
+			}
+			time.Sleep(retryInterval)
+		}
+	}()
+	timer := time.NewTimer(timeout)
+	defer timer.Stop()
+	select {
+	case <-ch:
+		return nil
+	case <-timer.C:
+		done = true
+		return fmt.Errorf("timeout-waiting-for-condition")
 	}
 }
