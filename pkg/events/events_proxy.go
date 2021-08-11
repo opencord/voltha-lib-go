@@ -26,11 +26,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/golang/protobuf/ptypes"
-	"github.com/opencord/voltha-lib-go/v6/pkg/events/eventif"
-	"github.com/opencord/voltha-lib-go/v6/pkg/kafka"
-	"github.com/opencord/voltha-lib-go/v6/pkg/log"
-	"github.com/opencord/voltha-protos/v4/go/voltha"
+	"github.com/opencord/voltha-lib-go/v7/pkg/events/eventif"
+	"github.com/opencord/voltha-lib-go/v7/pkg/kafka"
+	"github.com/opencord/voltha-lib-go/v7/pkg/log"
+	"github.com/opencord/voltha-protos/v5/go/voltha"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // TODO: Make configurable through helm chart
@@ -97,17 +97,8 @@ func (ep *EventProxy) getEventHeader(eventName string,
 	header.TypeVersion = eventif.EventTypeVersion
 
 	// raisedTs is in seconds
-	timestamp, err := ptypes.TimestampProto(time.Unix(raisedTs, 0))
-	if err != nil {
-		return nil, err
-	}
-	header.RaisedTs = timestamp
-
-	timestamp, err = ptypes.TimestampProto(time.Now())
-	if err != nil {
-		return nil, err
-	}
-	header.ReportedTs = timestamp
+	header.RaisedTs = timestamppb.New(time.Unix(raisedTs, 0))
+	header.ReportedTs = timestamppb.New(time.Now())
 
 	return &header, nil
 }
@@ -201,7 +192,7 @@ func (ep *EventProxy) SendLiveness(ctx context.Context) error {
 }
 
 // Start the event proxy
-func (ep *EventProxy) Start() {
+func (ep *EventProxy) Start() error {
 	eq := ep.eventQueue
 	go eq.start(ep.queueCtx)
 	logger.Debugw(context.Background(), "event-proxy-starting...", log.Fields{"events-threashold": EVENT_THRESHOLD})
@@ -235,10 +226,13 @@ func (ep *EventProxy) Start() {
 				"reported-ts": event.Header.ReportedTs, "event-type": event.EventType})
 		}
 	}
+	return nil
 }
 
 func (ep *EventProxy) Stop() {
-	ep.eventQueue.stop()
+	if ep.eventQueue != nil {
+		ep.eventQueue.stop()
+	}
 }
 
 type EventQueue struct {

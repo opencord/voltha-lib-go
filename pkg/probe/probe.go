@@ -18,9 +18,10 @@ package probe
 import (
 	"context"
 	"fmt"
-	"github.com/opencord/voltha-lib-go/v6/pkg/log"
 	"net/http"
 	"sync"
+
+	"github.com/opencord/voltha-lib-go/v7/pkg/log"
 )
 
 // ProbeContextKey used to fetch the Probe instance from a context

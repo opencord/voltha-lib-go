@@ -17,8 +17,9 @@ package techprofile
 
 import (
 	"fmt"
-	"github.com/opencord/voltha-lib-go/v6/pkg/db"
 	"time"
+
+	"github.com/opencord/voltha-lib-go/v7/pkg/db"
 )
 
 // tech profile default constants
