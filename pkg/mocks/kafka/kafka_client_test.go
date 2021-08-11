@@ -50,9 +50,9 @@ func TestKafkaClientSubscribeSend(t *testing.T) {
 	assert.NotNil(t, ch)
 	testCh := make(chan bool)
 	maxWait := 5 * time.Millisecond
-	msg := &ic.InterContainerMessage{
-		Header: &ic.Header{Id: "1234", ToTopic: topic.Name},
-		Body:   nil,
+	msg := &ic.DeviceReason{
+		DeviceId: "1234",
+		Reason:   "mock",
 	}
 	timer := time.NewTimer(maxWait)
 	defer timer.Stop()
