@@ -21,19 +21,18 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/gogo/protobuf/proto"
-	"github.com/golang/protobuf/jsonpb"
-	"github.com/opencord/voltha-protos/v4/go/openolt"
 	"regexp"
 	"strconv"
 	"sync"
 	"time"
 
-	"github.com/opencord/voltha-lib-go/v6/pkg/db"
-
-	"github.com/opencord/voltha-lib-go/v6/pkg/db/kvstore"
-	"github.com/opencord/voltha-lib-go/v6/pkg/log"
-	tp_pb "github.com/opencord/voltha-protos/v4/go/tech_profile"
+	"github.com/golang/protobuf/jsonpb"
+	"github.com/golang/protobuf/proto"
+	"github.com/opencord/voltha-lib-go/v7/pkg/db"
+	"github.com/opencord/voltha-lib-go/v7/pkg/db/kvstore"
+	"github.com/opencord/voltha-lib-go/v7/pkg/log"
+	"github.com/opencord/voltha-protos/v5/go/openolt"
+	tp_pb "github.com/opencord/voltha-protos/v5/go/tech_profile"
 )
 
 // Interface to pon resource manager APIs
