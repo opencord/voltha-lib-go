@@ -17,15 +17,16 @@ package kvstore
 
 import (
 	"context"
-	"github.com/opencord/voltha-lib-go/v6/pkg/log"
-	mocks "github.com/opencord/voltha-lib-go/v6/pkg/mocks/etcd"
-	"github.com/phayes/freeport"
-	"github.com/stretchr/testify/assert"
 	"os"
 	"strconv"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/opencord/voltha-lib-go/v7/pkg/log"
+	mocks "github.com/opencord/voltha-lib-go/v7/pkg/mocks/etcd"
+	"github.com/phayes/freeport"
+	"github.com/stretchr/testify/assert"
 )
 
 const (

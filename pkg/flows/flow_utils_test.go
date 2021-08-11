@@ -20,7 +20,7 @@ import (
 	"strings"
 	"testing"
 
-	ofp "github.com/opencord/voltha-protos/v4/go/openflow_13"
+	ofp "github.com/opencord/voltha-protos/v5/go/openflow_13"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -258,8 +258,8 @@ func TestFlowsAndGroups_String(t *testing.T) {
 	str = fg.String()
 	assert.True(t, strings.Contains(str, "id: 11819684229970388353"))
 	assert.True(t, strings.Contains(str, "group_id: 10"))
-	assert.True(t, strings.Contains(str, "oxm_class: OFPXMC_OPENFLOW_BASICOFPXMC_OPENFLOW_BASIC"))
-	assert.True(t, strings.Contains(str, "type: OFPXMT_OFB_VLAN_VIDOFPXMT_OFB_VLAN_VID"))
+	assert.True(t, strings.Contains(str, "oxm_class: OFPXMC_OPENFLOW_BASIC"))
+	assert.True(t, strings.Contains(str, "type: OFPXMT_OFB_VLAN_VID"))
 	assert.True(t, strings.Contains(str, "vlan_vid: 4096"))
 	assert.True(t, strings.Contains(str, "buckets:"))
 }

@@ -19,10 +19,11 @@ import (
 	"container/list"
 	"context"
 	"errors"
-	"github.com/opencord/voltha-lib-go/v6/pkg/log"
-	"go.etcd.io/etcd/clientv3"
 	"sync"
 	"time"
+
+	"github.com/opencord/voltha-lib-go/v7/pkg/log"
+	"go.etcd.io/etcd/clientv3"
 )
 
 // EtcdClientAllocator represents a generic interface to allocate an Etcd Client

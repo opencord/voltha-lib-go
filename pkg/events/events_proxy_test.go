@@ -18,16 +18,16 @@ package events
 
 import (
 	"context"
-	"github.com/golang/protobuf/ptypes"
-	"github.com/opencord/voltha-lib-go/v6/pkg/kafka"
-	"github.com/opencord/voltha-lib-go/v6/pkg/log"
-	mock_kafka "github.com/opencord/voltha-lib-go/v6/pkg/mocks/kafka"
-	"github.com/opencord/voltha-protos/v4/go/common"
-	"github.com/opencord/voltha-protos/v4/go/voltha"
-	"github.com/stretchr/testify/assert"
 	"strconv"
 	"testing"
 	"time"
+
+	"github.com/opencord/voltha-lib-go/v7/pkg/kafka"
+	"github.com/opencord/voltha-lib-go/v7/pkg/log"
+	mock_kafka "github.com/opencord/voltha-lib-go/v7/pkg/mocks/kafka"
+	"github.com/opencord/voltha-protos/v5/go/common"
+	"github.com/opencord/voltha-protos/v5/go/voltha"
+	"github.com/stretchr/testify/assert"
 )
 
 const waitForKafkaEventsTimeout = 20 * time.Second
@@ -70,14 +70,11 @@ loop:
 	for {
 		select {
 		case msg := <-kafkaChnl:
-			if msg.Body != nil {
-				event := voltha.Event{}
-				if err := ptypes.UnmarshalAny(msg.Body, &event); err == nil {
-					count += 1
-					if count == numEvents {
-						resp <- "ok"
-						break loop
-					}
+			if _, ok := msg.(*voltha.Event); ok {
+				count += 1
+				if count == numEvents {
+					resp <- "ok"
+					break loop
 				}
 			}
 		case <-timer.C:
@@ -87,10 +84,10 @@ loop:
 	}
 }
 
-func createAndSendEvent(proxy *EventProxy, ID string) error {
+func createAndSendEvent(proxy *EventProxy, id string) error {
 	eventMsg := &voltha.RPCEvent{
 		Rpc:         "dummy",
-		OperationId: ID,
+		OperationId: id,
 		ResourceId:  "dummy",
 		Service:     "dummy",
 		StackId:     "dummy",
@@ -121,7 +118,11 @@ func TestEventProxyReceiveAndSendMessage(t *testing.T) {
 
 	// Init Event Proxy
 	ep := NewEventProxy(MsgClient(cTkc), MsgTopic(topic))
-	go ep.Start()
+	go func() {
+		if err := ep.Start(); err != nil {
+			logger.Fatalw(context.Background(), "failure-starting-event-proxy", log.Fields{"error": err})
+		}
+	}()
 	time.Sleep(1 * time.Millisecond)
 	for i := 0; i < numEvents; i++ {
 		go func(ID int) {
@@ -147,7 +148,11 @@ func TestEventProxyStopWhileSendingEvents(t *testing.T) {
 	resp := make(chan string)
 	// Init Event Proxy
 	ep := NewEventProxy(MsgClient(cTkc), MsgTopic(topic))
-	go ep.Start()
+	go func() {
+		if err := ep.Start(); err != nil {
+			logger.Fatalw(context.Background(), "failure-starting-event-proxy", log.Fields{"error": err})
+		}
+	}()
 	time.Sleep(1 * time.Millisecond)
 	for i := 0; i < numEvents; i++ {
 		go func(ID int) {
@@ -171,7 +176,11 @@ func TestEventProxyStopWhenNoEventsSend(t *testing.T) {
 	resp := make(chan string)
 	// Init Event Proxy
 	ep := NewEventProxy(MsgClient(cTkc), MsgTopic(topic))
-	go ep.Start()
+	go func() {
+		if err := ep.Start(); err != nil {
+			logger.Fatalw(context.Background(), "failure-starting-event-proxy", log.Fields{"error": err})
+		}
+	}()
 	time.Sleep(1 * time.Millisecond)
 	go ep.Stop()
 	go waitForEventProxyToStop(ep, resp)
