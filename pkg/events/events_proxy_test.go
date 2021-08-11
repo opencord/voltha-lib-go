@@ -18,16 +18,16 @@ package events
 
 import (
 	"context"
-	"github.com/golang/protobuf/ptypes"
+	"strconv"
+	"testing"
+	"time"
+
 	"github.com/opencord/voltha-lib-go/v6/pkg/kafka"
 	"github.com/opencord/voltha-lib-go/v6/pkg/log"
 	mock_kafka "github.com/opencord/voltha-lib-go/v6/pkg/mocks/kafka"
 	"github.com/opencord/voltha-protos/v4/go/common"
 	"github.com/opencord/voltha-protos/v4/go/voltha"
 	"github.com/stretchr/testify/assert"
-	"strconv"
-	"testing"
-	"time"
 )
 
 const waitForKafkaEventsTimeout = 20 * time.Second
@@ -70,14 +70,11 @@ loop:
 	for {
 		select {
 		case msg := <-kafkaChnl:
-			if msg.Body != nil {
-				event := voltha.Event{}
-				if err := ptypes.UnmarshalAny(msg.Body, &event); err == nil {
-					count += 1
-					if count == numEvents {
-						resp <- "ok"
-						break loop
-					}
+			if _, ok := msg.(*voltha.Event); ok {
+				count += 1
+				if count == numEvents {
+					resp <- "ok"
+					break loop
 				}
 			}
 		case <-timer.C:
