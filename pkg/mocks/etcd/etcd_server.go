@@ -18,10 +18,12 @@ package etcd
 import (
 	"context"
 	"fmt"
-	"go.etcd.io/etcd/embed"
 	"net/url"
 	"os"
+	"strings"
 	"time"
+
+	"go.etcd.io/etcd/embed"
 )
 
 const (
@@ -56,11 +58,15 @@ func MKConfig(ctx context.Context, configName string, clientPort, peerPort int, 
 	cfg := embed.NewConfig()
 	cfg.Name = configName
 	cfg.Dir = localPersistentStorageDir
-	cfg.Logger = "zap"
+	// cfg.Logger = "zap"
 	if !islogLevelValid(logLevel) {
 		logger.Fatalf(ctx, "Invalid log level -%s", logLevel)
 	}
-	cfg.LogLevel = logLevel
+	// cfg.LogLevel = logLevel
+	cfg.Debug = strings.EqualFold(logLevel, "debug")
+	cfg.LogPkgLevels = "*=C"
+	cfg.SetupLogging()
+
 	acurl, err := url.Parse(fmt.Sprintf("http://localhost:%d", clientPort))
 	if err != nil {
 		logger.Fatalf(ctx, "Invalid client port -%d", clientPort)
@@ -84,9 +90,10 @@ func MKConfig(ctx context.Context, configName string, clientPort, peerPort int, 
 //getDefaultCfg specifies the default config
 func getDefaultCfg() *embed.Config {
 	cfg := embed.NewConfig()
+	cfg.Debug = false
+	cfg.LogPkgLevels = "*=C"
+	cfg.SetupLogging()
 	cfg.Dir = defaultLocalPersistentStorage
-	cfg.Logger = "zap"
-	cfg.LogLevel = "error"
 	return cfg
 }
 

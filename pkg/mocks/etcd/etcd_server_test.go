@@ -19,13 +19,14 @@ package etcd
 import (
 	"context"
 	"fmt"
+	"os"
+	"testing"
+	"time"
+
 	"github.com/opencord/voltha-lib-go/v6/pkg/db/kvstore"
 	"github.com/opencord/voltha-lib-go/v6/pkg/log"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
-	"os"
-	"testing"
-	"time"
 )
 
 var etcdServer *EtcdServer

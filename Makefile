@@ -58,6 +58,7 @@ endif
 
 ## build the library
 build: local-protos
+## ${GO} build -mod=vendor ./...
 	${GO} build -mod=vendor ./...
 
 ## lint and unit tests
