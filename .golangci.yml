@@ -17,9 +17,18 @@ run:
 
 linters:
   enable:
-    #- gocritic
-    - gofmt
-    #- golint
-    #- unparam
     #- gochecknoglobals
     #- gochecknoinits
+    # - gocyclo
+    - gofmt
+    # - golint
+    # - govet
+    # - ineffassign
+    # - misspell
+    - errcheck
+    #- unparam
+
+issues:
+  exclude:
+    - "Package github.com/golang/protobuf/proto is deprecated"
+    - "Package github.com/golang/protobuf/jsonpb is deprecated"

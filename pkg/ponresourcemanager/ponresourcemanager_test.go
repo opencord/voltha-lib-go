@@ -20,13 +20,14 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/opencord/voltha-lib-go/v6/pkg/db"
-	"github.com/opencord/voltha-lib-go/v6/pkg/db/kvstore"
-	"github.com/opencord/voltha-lib-go/v6/pkg/log"
-	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/opencord/voltha-lib-go/v7/pkg/db"
+	"github.com/opencord/voltha-lib-go/v7/pkg/db/kvstore"
+	"github.com/opencord/voltha-lib-go/v7/pkg/log"
+	"github.com/stretchr/testify/assert"
 )
 
 const (

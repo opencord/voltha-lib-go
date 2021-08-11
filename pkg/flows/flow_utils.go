@@ -23,11 +23,12 @@ import (
 	"fmt"
 	"hash"
 	"sort"
+	"sync"
 
 	"github.com/cevaris/ordered_map"
-	"github.com/gogo/protobuf/proto"
-	"github.com/opencord/voltha-lib-go/v6/pkg/log"
-	ofp "github.com/opencord/voltha-protos/v4/go/openflow_13"
+	"github.com/golang/protobuf/proto"
+	"github.com/opencord/voltha-lib-go/v7/pkg/log"
+	ofp "github.com/opencord/voltha-protos/v5/go/openflow_13"
 )
 
 var (
@@ -1323,7 +1324,8 @@ func (fg *FlowsAndGroups) AddFrom(from *FlowsAndGroups) {
 }
 
 type DeviceRules struct {
-	Rules map[string]*FlowsAndGroups
+	Rules     map[string]*FlowsAndGroups
+	rulesLock sync.RWMutex
 }
 
 func NewDeviceRules() *DeviceRules {
@@ -1335,6 +1337,8 @@ func NewDeviceRules() *DeviceRules {
 func (dr *DeviceRules) Copy() *DeviceRules {
 	copyDR := NewDeviceRules()
 	if dr != nil {
+		dr.rulesLock.RLock()
+		defer dr.rulesLock.RUnlock()
 		for key, val := range dr.Rules {
 			if val != nil {
 				copyDR.Rules[key] = val.Copy()
@@ -1344,7 +1348,19 @@ func (dr *DeviceRules) Copy() *DeviceRules {
 	return copyDR
 }
 
+func (dr *DeviceRules) Keys() []string {
+	dr.rulesLock.RLock()
+	defer dr.rulesLock.RUnlock()
+	keys := make([]string, 0, len(dr.Rules))
+	for k := range dr.Rules {
+		keys = append(keys, k)
+	}
+	return keys
+}
+
 func (dr *DeviceRules) ClearFlows(deviceId string) {
+	dr.rulesLock.Lock()
+	defer dr.rulesLock.Unlock()
 	if _, exist := dr.Rules[deviceId]; exist {
 		dr.Rules[deviceId].Flows = ordered_map.NewOrderedMap()
 	}
@@ -1352,6 +1368,8 @@ func (dr *DeviceRules) ClearFlows(deviceId string) {
 
 func (dr *DeviceRules) FilterRules(deviceIds map[string]string) *DeviceRules {
 	filteredDR := NewDeviceRules()
+	dr.rulesLock.RLock()
+	defer dr.rulesLock.RUnlock()
 	for key, val := range dr.Rules {
 		if _, exist := deviceIds[key]; exist {
 			filteredDR.Rules[key] = val.Copy()
@@ -1361,6 +1379,8 @@ func (dr *DeviceRules) FilterRules(deviceIds map[string]string) *DeviceRules {
 }
 
 func (dr *DeviceRules) AddFlow(deviceId string, flow *ofp.OfpFlowStats) {
+	dr.rulesLock.Lock()
+	defer dr.rulesLock.Unlock()
 	if _, exist := dr.Rules[deviceId]; !exist {
 		dr.Rules[deviceId] = NewFlowsAndGroups()
 	}
@@ -1368,11 +1388,15 @@ func (dr *DeviceRules) AddFlow(deviceId string, flow *ofp.OfpFlowStats) {
 }
 
 func (dr *DeviceRules) GetRules() map[string]*FlowsAndGroups {
+	dr.rulesLock.RLock()
+	defer dr.rulesLock.RUnlock()
 	return dr.Rules
 }
 
 func (dr *DeviceRules) String() string {
 	var buffer bytes.Buffer
+	dr.rulesLock.RLock()
+	defer dr.rulesLock.RUnlock()
 	for key, value := range dr.Rules {
 		buffer.WriteString("DeviceId:")
 		buffer.WriteString(key)
@@ -1383,6 +1407,8 @@ func (dr *DeviceRules) String() string {
 }
 
 func (dr *DeviceRules) AddFlowsAndGroup(deviceId string, fg *FlowsAndGroups) {
+	dr.rulesLock.Lock()
+	defer dr.rulesLock.Unlock()
 	if _, ok := dr.Rules[deviceId]; !ok {
 		dr.Rules[deviceId] = NewFlowsAndGroups()
 	}
@@ -1392,6 +1418,8 @@ func (dr *DeviceRules) AddFlowsAndGroup(deviceId string, fg *FlowsAndGroups) {
 // CreateEntryIfNotExist creates a new deviceId in the Map if it does not exist and assigns an
 // empty FlowsAndGroups to it.  Otherwise, it does nothing.
 func (dr *DeviceRules) CreateEntryIfNotExist(deviceId string) {
+	dr.rulesLock.Lock()
+	defer dr.rulesLock.Unlock()
 	if _, ok := dr.Rules[deviceId]; !ok {
 		dr.Rules[deviceId] = NewFlowsAndGroups()
 	}
@@ -1568,7 +1596,7 @@ func ConvertToMulticastMacBytes(ip uint32) []byte {
 	//convert each octet to decimal
 	for i := 0; i < 6; i++ {
 		if i != 0 {
-			catalyze = catalyze >> 8
+			catalyze >>= 8
 		}
 		octet := mac & catalyze
 		octetDecimal := octet >> uint8(40-i*8)
