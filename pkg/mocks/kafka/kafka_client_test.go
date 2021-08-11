@@ -18,11 +18,12 @@ package kafka
 
 import (
 	"context"
-	"github.com/opencord/voltha-lib-go/v6/pkg/kafka"
-	ic "github.com/opencord/voltha-protos/v4/go/inter_container"
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
+
+	"github.com/opencord/voltha-lib-go/v7/pkg/kafka"
+	ic "github.com/opencord/voltha-protos/v5/go/inter_container"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestKafkaClientCreateTopic(t *testing.T) {
@@ -50,9 +51,9 @@ func TestKafkaClientSubscribeSend(t *testing.T) {
 	assert.NotNil(t, ch)
 	testCh := make(chan bool)
 	maxWait := 5 * time.Millisecond
-	msg := &ic.InterContainerMessage{
-		Header: &ic.Header{Id: "1234", ToTopic: topic.Name},
-		Body:   nil,
+	msg := &ic.DeviceReason{
+		DeviceId: "1234",
+		Reason:   "mock",
 	}
 	timer := time.NewTimer(maxWait)
 	defer timer.Stop()

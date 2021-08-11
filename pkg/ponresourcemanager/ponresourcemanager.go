@@ -25,9 +25,9 @@ import (
 	"time"
 
 	bitmap "github.com/boljen/go-bitmap"
-	"github.com/opencord/voltha-lib-go/v6/pkg/db"
-	"github.com/opencord/voltha-lib-go/v6/pkg/db/kvstore"
-	"github.com/opencord/voltha-lib-go/v6/pkg/log"
+	"github.com/opencord/voltha-lib-go/v7/pkg/db"
+	"github.com/opencord/voltha-lib-go/v7/pkg/db/kvstore"
+	"github.com/opencord/voltha-lib-go/v7/pkg/log"
 )
 
 const (
@@ -38,7 +38,7 @@ const (
 	GEMPORT_ID = "GEMPORT_ID"
 	FLOW_ID    = "FLOW_ID"
 
-	//Constants for passing command line arugments
+	//Constants for passing command line arguments
 	OLT_MODEL_ARG = "--olt_model"
 
 	PATH_PREFIX = "%s/resource_manager/{%s}"

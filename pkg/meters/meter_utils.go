@@ -18,9 +18,10 @@ package meters
 import (
 	"context"
 	"fmt"
-	"github.com/opencord/voltha-lib-go/v6/pkg/log"
-	ofp "github.com/opencord/voltha-protos/v4/go/openflow_13"
-	tp_pb "github.com/opencord/voltha-protos/v4/go/tech_profile"
+
+	"github.com/opencord/voltha-lib-go/v7/pkg/log"
+	ofp "github.com/opencord/voltha-protos/v5/go/openflow_13"
+	tp_pb "github.com/opencord/voltha-protos/v5/go/tech_profile"
 )
 
 // GetTrafficShapingInfo returns CIR,PIR and GIR values

@@ -17,7 +17,7 @@ package meters
 
 import (
 	"context"
-	"github.com/opencord/voltha-protos/v4/go/openflow_13"
+	"github.com/opencord/voltha-protos/v5/go/openflow_13"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

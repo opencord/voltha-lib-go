@@ -19,7 +19,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/opencord/voltha-protos/v4/go/voltha"
+	"github.com/opencord/voltha-protos/v5/go/common"
+	"github.com/opencord/voltha-protos/v5/go/voltha"
 )
 
 type ContextType string
@@ -64,8 +65,8 @@ const (
 
 //CreateDeviceStateChangeEvent forms and returns a new DeviceStateChange Event
 func CreateDeviceStateChangeEvent(serialNumber string, deviceID string, parentID string,
-	prevOperStatus voltha.OperStatus_Types, prevConnStatus voltha.ConnectStatus_Types, prevAdminStatus voltha.AdminState_Types,
-	operStatus voltha.OperStatus_Types, connStatus voltha.ConnectStatus_Types, adminStatus voltha.AdminState_Types,
+	prevOperStatus common.OperStatus_Types, prevConnStatus common.ConnectStatus_Types, prevAdminStatus common.AdminState_Types,
+	operStatus common.OperStatus_Types, connStatus common.ConnectStatus_Types, adminStatus common.AdminState_Types,
 	parentPort uint32, isRoot bool) *voltha.DeviceEvent {
 
 	context := make(map[string]string)
