@@ -19,13 +19,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/opencord/voltha-lib-go/v6/pkg/log"
-	v3Client "go.etcd.io/etcd/clientv3"
-	v3rpcTypes "go.etcd.io/etcd/etcdserver/api/v3rpc/rpctypes"
 	"os"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/opencord/voltha-lib-go/v7/pkg/log"
+	v3Client "go.etcd.io/etcd/clientv3"
+	v3rpcTypes "go.etcd.io/etcd/etcdserver/api/v3rpc/rpctypes"
 )
 
 const (

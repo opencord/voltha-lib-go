@@ -25,7 +25,7 @@ VOLTHA_TOOLS_VERSION ?= 2.4.0
 
 GO                = docker run --rm --user $$(id -u):$$(id -g) -v ${CURDIR}:/app $(shell test -t 0 && echo "-it") -v gocache:/.cache -v gocache-${VOLTHA_TOOLS_VERSION}:/go/pkg voltha/voltha-ci-tools:${VOLTHA_TOOLS_VERSION}-golang go
 GO_JUNIT_REPORT   = docker run --rm --user $$(id -u):$$(id -g) -v ${CURDIR}:/app -i voltha/voltha-ci-tools:${VOLTHA_TOOLS_VERSION}-go-junit-report go-junit-report
-GOCOVER_COBERTURA = docker run --rm --user $$(id -u):$$(id -g) -v ${CURDIR}:/app/src/github.com/opencord/voltha-lib-go/v6 -i voltha/voltha-ci-tools:${VOLTHA_TOOLS_VERSION}-gocover-cobertura gocover-cobertura
+GOCOVER_COBERTURA = docker run --rm --user $$(id -u):$$(id -g) -v ${CURDIR}:/app/src/github.com/opencord/voltha-lib-go/v7 -i voltha/voltha-ci-tools:${VOLTHA_TOOLS_VERSION}-gocover-cobertura gocover-cobertura
 GOLANGCI_LINT     = docker run --rm --user $$(id -u):$$(id -g) -v ${CURDIR}:/app $(shell test -t 0 && echo "-it") -v gocache:/.cache -v gocache-${VOLTHA_TOOLS_VERSION}:/go/pkg voltha/voltha-ci-tools:${VOLTHA_TOOLS_VERSION}-golangci-lint golangci-lint
 
 .PHONY: local-protos
@@ -49,8 +49,8 @@ local-protos:
 	@mkdir -p python/local_imports
 ifdef LOCAL_PROTOS
 	rm -rf vendor/github.com/opencord/voltha-protos
-	mkdir -p vendor/github.com/opencord/voltha-protos/v4/go
-	cp -r ${LOCAL_PROTOS}/go/* vendor/github.com/opencord/voltha-protos/v4/go
+	mkdir -p vendor/github.com/opencord/voltha-protos/v5/go
+	cp -r ${LOCAL_PROTOS}/go/* vendor/github.com/opencord/voltha-protos/v5/go
 	rm -rf python/local_imports/voltha-protos
 	mkdir -p python/local_imports/voltha-protos/dist
 	cp ${LOCAL_PROTOS}/dist/*.tar.gz python/local_imports/voltha-protos/dist/
@@ -58,6 +58,7 @@ endif
 
 ## build the library
 build: local-protos
+## ${GO} build -mod=vendor ./...
 	${GO} build -mod=vendor ./...
 
 ## lint and unit tests
