@@ -37,6 +37,99 @@ func init() {
 	timeoutError = status.Errorf(codes.Aborted, "timeout")
 }
 
+func buildEapolFlow(vlanId uint32) *ofp.OfpFlowStats {
+	return &ofp.OfpFlowStats{
+		TableId: 0,
+		Priority: 10000,
+		Match: &ofp.OfpMatch{
+			Type: ofp.OfpMatchType_OFPMT_OXM,
+			OxmFields: []*ofp.OfpOxmField{
+				{
+					OxmClass: ofp.OfpOxmClass_OFPXMC_OPENFLOW_BASIC,
+					Field: &ofp.OfpOxmField_OfbField{
+						OfbField: &ofp.OfpOxmOfbField{ Type: IN_PORT, Value: &ofp.OfpOxmOfbField_Port{Port: 16}},
+					},
+				},
+				{
+					OxmClass: ofp.OfpOxmClass_OFPXMC_OPENFLOW_BASIC,
+					Field: &ofp.OfpOxmField_OfbField{
+						OfbField: &ofp.OfpOxmOfbField{ Type: ETH_TYPE, Value: &ofp.OfpOxmOfbField_EthType{EthType: 34958}},  // 888e (EAPOL)
+					},
+				},
+				{
+					OxmClass: ofp.OfpOxmClass_OFPXMC_OPENFLOW_BASIC,
+					Field: &ofp.OfpOxmField_OfbField{
+						OfbField: &ofp.OfpOxmOfbField{ Type: TUNNEL_ID, Value: &ofp.OfpOxmOfbField_TunnelId{TunnelId: 20592}},  // 888e (EAPOL)
+					},
+				},
+			},
+		},
+		Instructions: []*ofp.OfpInstruction{
+			&ofp.OfpInstruction{
+				Type: uint32(ofp.OfpInstructionType_OFPIT_APPLY_ACTIONS),
+				Data: &ofp.OfpInstruction_Actions{Actions: &ofp.OfpInstructionActions{
+					Actions: []*ofp.OfpAction{
+						{
+							Type: ofp.OfpActionType_OFPAT_SET_FIELD,
+							Action: &ofp.OfpAction_SetField{
+								SetField: &ofp.OfpActionSetField{
+									Field: &ofp.OfpOxmField{
+										OxmClass: ofp.OfpOxmClass_OFPXMC_OPENFLOW_BASIC,
+										Field: &ofp.OfpOxmField_OfbField{
+											OfbField: VlanVid(vlanId),
+										},
+									}},
+							},
+						},
+					},
+				}},
+			},
+		},
+	}
+}
+
+func TestHashFlowStats(t *testing.T) {
+
+	flowWithNoInstructions := &ofp.OfpFlowStats{
+		TableId: 0,
+		Priority: 10000,
+		Match: &ofp.OfpMatch{
+			Type: ofp.OfpMatchType_OFPMT_OXM,
+			OxmFields: []*ofp.OfpOxmField{
+				{
+					OxmClass: ofp.OfpOxmClass_OFPXMC_OPENFLOW_BASIC,
+					Field: &ofp.OfpOxmField_OfbField{
+						OfbField: &ofp.OfpOxmOfbField{ Type: IN_PORT, Value: &ofp.OfpOxmOfbField_Port{Port: 16}},
+					},
+				},
+				{
+					OxmClass: ofp.OfpOxmClass_OFPXMC_OPENFLOW_BASIC,
+					Field: &ofp.OfpOxmField_OfbField{
+						OfbField: &ofp.OfpOxmOfbField{ Type: ETH_TYPE, Value: &ofp.OfpOxmOfbField_EthType{EthType: 34958}},  // 888e (EAPOL)
+					},
+				},
+				{
+					OxmClass: ofp.OfpOxmClass_OFPXMC_OPENFLOW_BASIC,
+					Field: &ofp.OfpOxmField_OfbField{
+						OfbField: &ofp.OfpOxmOfbField{ Type: TUNNEL_ID, Value: &ofp.OfpOxmOfbField_TunnelId{TunnelId: 20592}},  // 888e (EAPOL)
+					},
+				},
+			},
+		},
+	}
+
+	_, err := HashFlowStats(flowWithNoInstructions)
+	assert.Nil(t, err)
+
+	flow1 := buildEapolFlow(8187) // 4091 - default eapol
+	flow2 := buildEapolFlow(4996) // 900 - customer tag
+
+	flow1Hash, err := HashFlowStats(flow1)
+	flow2Hash, err := HashFlowStats(flow2)
+	assert.Nil(t, err)
+	assert.NotEqual(t, flow1Hash, flow2Hash, "Hash for EAPOL flows with different VLANs should be different")
+}
+
 func TestFlowsAndGroups_AddFlow(t *testing.T) {
 	fg := NewFlowsAndGroups()
 	allFlows := fg.ListFlows()
