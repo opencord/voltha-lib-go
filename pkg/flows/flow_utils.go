@@ -770,6 +770,20 @@ func HashFlowStats(flow *ofp.OfpFlowStats) (uint64, error) {
 		}
 	}
 
+	for _, instruction := range flow.Instructions {
+		if instruction.Type == uint32(APPLY_ACTIONS) {
+			for _, a := range instruction.GetActions().Actions {
+				switch a.Type {
+				case SET_FIELD:
+					field := a.GetSetField().GetField().GetOfbField()
+					if err := hashWriteOfbField(md5Hash, field); err != nil {
+						return 0, err
+					}
+				}
+			}
+		}
+	}
+
 	ret := md5Hash.Sum(nil)
 	return binary.BigEndian.Uint64(ret[0:8]), nil
 }
