@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68562e33_43bdd56f",
+        "filename": "pkg/platform/platform.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-09-14T06:17:07Z",
+      "side": 1,
+      "message": "you might want to re-state this a bit.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 73
+      },
+      "revId": "c69fab7839f165e7c09572903144f0d1cf8abfcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ce19745_6d2e32ce",
+        "filename": "pkg/platform/platform.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-09-14T06:17:07Z",
+      "side": 1,
+      "message": "Make \"upstream\" and \"downstream\" also a platform constant?",
+      "range": {
+        "startLine": 222,
+        "startChar": 22,
+        "endLine": 222,
+        "endChar": 30
+      },
+      "revId": "c69fab7839f165e7c09572903144f0d1cf8abfcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
