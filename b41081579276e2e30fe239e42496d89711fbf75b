@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "505bf531_fc6d2ba9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "also change the VERSION file to a major version",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6ec72ae_1c86f36d",
+        "filename": "pkg/events/eventif/events_proxy_if.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "shall these have error returns ?",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab0d07f0_72667a2a",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "being a PITA but while we are at it, please use a better name for this lock so people know what it\u0027s used for. if it\u0027s a generic flow lock I think flowsOperationsLock is good enough",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ddbaa83_3abc50c3",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "this should probably be \u003e\u003d",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de3347a5_73dddd07",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "looking at this string parsing is there a way we can define the error to contain an enum or something and then compare it against it ?",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2c7f513_fa536bf3",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "do you need an else statement here to at least mention that the channel is not present ? and possibly take action on this such as re-creating it?",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaabf0e3_b801a38e",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "why a 10 buffer ?",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32d29f56_3b8cfefc",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "why do you need a go routine here ? can\u0027t you do this on the main thread ? it seams that your still using a single routine and blocking the main thread through channels or am I missing something ?",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "853e2793_2ef51a4a",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "same",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51b16f06_0a42c77a",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "same",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3d138e1_5fa77790",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "is this something we might want in the future ? I think it woudl be good to have. Also if not used please remove.",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ba785a6_068d6c7a",
+        "filename": "pkg/grpc/grpc_profile.cpu",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "can probably be removed, or am I mistaken ?",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b181e14_d9603a58",
+        "filename": "pkg/kafka/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-09-23T09:56:23Z",
+      "side": 1,
+      "message": "I think we should have a comment saying that this is used just for outwards facing comunication now.",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
