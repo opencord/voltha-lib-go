@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa9556fd_81cfc80f",
+        "filename": "Makefile",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2021-09-27T23:27:47Z",
+      "side": 1,
+      "message": "is this needed?",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 32
+      },
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6ec72ae_1c86f36d",
         "filename": "pkg/events/eventif/events_proxy_if.go",
         "patchSetId": 7
@@ -31,6 +54,24 @@
       "writtenOn": "2021-09-23T09:56:23Z",
       "side": 1,
       "message": "shall these have error returns ?",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b3f6b8a_0d8fa76a",
+        "filename": "pkg/events/eventif/events_proxy_if.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2021-09-27T23:27:47Z",
+      "side": 1,
+      "message": "They are triggered in a go-routine, so if we need an error we should probably return a channel to report possible errors",
+      "parentUuid": "e6ec72ae_1c86f36d",
       "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -122,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c91feba7_21d11980",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2021-09-27T23:27:47Z",
+      "side": 1,
+      "message": "I think it\u0027s an arbitrary value, but considering that the channel is drained very quickly it should be enough",
+      "parentUuid": "eaabf0e3_b801a38e",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32d29f56_3b8cfefc",
         "filename": "pkg/grpc/client.go",
         "patchSetId": 7
@@ -167,6 +226,29 @@
       "writtenOn": "2021-09-23T09:56:23Z",
       "side": 1,
       "message": "same",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af672081_11194c10",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2021-09-27T23:27:47Z",
+      "side": 1,
+      "message": "should we move UpdateStatus as an interc",
+      "range": {
+        "startLine": 443,
+        "startChar": 4,
+        "endLine": 443,
+        "endChar": 16
+      },
       "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
