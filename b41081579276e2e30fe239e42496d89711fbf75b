@@ -463,6 +463,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf991fc5_ab17506b",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2021-09-28T17:35:23Z",
+      "side": 1,
+      "message": "Nevermind... the full sentence was \"should we move UpdateStatus as an interceptor\" but I never finished typing it as I backtracked the code and looks fine. I didn\u0027t think that gerrit saved it.",
+      "parentUuid": "0b57ab04_5b77c72b",
+      "range": {
+        "startLine": 443,
+        "startChar": 4,
+        "endLine": 443,
+        "endChar": 16
+      },
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3d138e1_5fa77790",

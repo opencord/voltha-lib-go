@@ -46,6 +46,30 @@
       },
       "revId": "1c5053e828ce835779375900c798ad7819fe2122",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1696756c_85b56d64",
+        "filename": "pkg/kafka/endpoint_manager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2021-09-28T17:35:23Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "6324c1a5_18b1ac0a",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 20
+      },
+      "revId": "1c5053e828ce835779375900c798ad7819fe2122",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
