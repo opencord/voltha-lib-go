@@ -22,6 +22,86 @@
       },
       "revId": "4d7acfefb07ef95de171a14ad548ee7e0a4347d3",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d26c2e_0d2f2702",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-09-28T06:07:45Z",
+      "side": 1,
+      "message": "backOffMaxInterval?",
+      "range": {
+        "startLine": 132,
+        "startChar": 57,
+        "endLine": 132,
+        "endChar": 79
+      },
+      "revId": "4d7acfefb07ef95de171a14ad548ee7e0a4347d3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15285c40_c197fa26",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-09-28T06:07:45Z",
+      "side": 1,
+      "message": "state updated here without a lock, is that ok? There is lock before and after this go routine, but that is not enough given this a go routine.",
+      "range": {
+        "startLine": 377,
+        "startChar": 7,
+        "endLine": 377,
+        "endChar": 34
+      },
+      "revId": "4d7acfefb07ef95de171a14ad548ee7e0a4347d3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f25b96cc_ceb57801",
+        "filename": "pkg/grpc/utils.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-09-28T06:07:45Z",
+      "side": 1,
+      "message": "Missing copyright template",
+      "revId": "4d7acfefb07ef95de171a14ad548ee7e0a4347d3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3579e7fc_0c0c86a0",
+        "filename": "pkg/grpc/utils_test.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-09-28T06:07:45Z",
+      "side": 1,
+      "message": "Missing copyright template",
+      "revId": "4d7acfefb07ef95de171a14ad548ee7e0a4347d3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
