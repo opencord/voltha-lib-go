@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4b8db56_b792de61",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-09-28T21:11:48Z",
+      "side": 1,
+      "message": "But that is before the go routine and I am not sure that will work, unless I am missing something.",
+      "parentUuid": "bebf677c_f751822e",
+      "range": {
+        "startLine": 377,
+        "startChar": 7,
+        "endLine": 377,
+        "endChar": 34
+      },
+      "revId": "4d7acfefb07ef95de171a14ad548ee7e0a4347d3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f25b96cc_ceb57801",
         "filename": "pkg/grpc/utils.go",
         "patchSetId": 8
