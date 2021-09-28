@@ -18,6 +18,24 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "614e0196_7afb370f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "Will change to 7.0.0",
+      "parentUuid": "505bf531_fc6d2ba9",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa9556fd_81cfc80f",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-09-27T23:27:47Z",
       "side": 1,
       "message": "is this needed?",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 32
+      },
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a5d23ae_8600e241",
+        "filename": "Makefile",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "nope, will remove",
+      "parentUuid": "fa9556fd_81cfc80f",
       "range": {
         "startLine": 61,
         "startChar": 0,
@@ -78,6 +120,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "043a71e6_e1216dad",
+        "filename": "pkg/events/eventif/events_proxy_if.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "Ok. Pointless in the current implementation as it is an infinite loop that ends only when the whole container goes down.",
+      "parentUuid": "e6ec72ae_1c86f36d",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ab0d07f0_72667a2a",
         "filename": "pkg/flows/flow_utils.go",
         "patchSetId": 7
@@ -89,6 +149,24 @@
       "writtenOn": "2021-09-23T09:56:23Z",
       "side": 1,
       "message": "being a PITA but while we are at it, please use a better name for this lock so people know what it\u0027s used for. if it\u0027s a generic flow lock I think flowsOperationsLock is good enough",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df2af88f_17e151ee",
+        "filename": "pkg/flows/flow_utils.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "ab0d07f0_72667a2a",
       "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -112,6 +190,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b582fe4_7b4ebbaf",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "The two values can be equal, so no need to error out.",
+      "parentUuid": "1ddbaa83_3abc50c3",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de3347a5_73dddd07",
         "filename": "pkg/grpc/client.go",
         "patchSetId": 7
@@ -129,6 +225,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fe393a69_270d53a2",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "I am also not in favour of string parsing. Unfortunately, these are errors from the grpc library and if we use the error code returned then this can correspond to a valid code returned by a voltha service (e.g. unavailable). We are limited by what the grpc library offers.",
+      "parentUuid": "de3347a5_73dddd07",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2c7f513_fa536bf3",
         "filename": "pkg/grpc/client.go",
         "patchSetId": 7
@@ -140,6 +254,24 @@
       "writtenOn": "2021-09-23T09:56:23Z",
       "side": 1,
       "message": "do you need an else statement here to at least mention that the channel is not present ? and possibly take action on this such as re-creating it?",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63bd58a7_29f21643",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "Activity monitoring is configurable, i.e. it can be enabled or disabled.  If it\u0027s disabled then the else part is invoked as a no-op",
+      "parentUuid": "f2c7f513_fa536bf3",
       "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -198,6 +330,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55aabd15_6f46971c",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "The main thread listens to events and dispatches various threads that generates events that is also consumed by this main thread.  So running everything on the main thread will deadlock.",
+      "parentUuid": "32d29f56_3b8cfefc",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "853e2793_2ef51a4a",
         "filename": "pkg/grpc/client.go",
         "patchSetId": 7
@@ -215,6 +365,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70b980ac_421edd6a",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "Same response",
+      "parentUuid": "853e2793_2ef51a4a",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51b16f06_0a42c77a",
         "filename": "pkg/grpc/client.go",
         "patchSetId": 7
@@ -226,6 +394,24 @@
       "writtenOn": "2021-09-23T09:56:23Z",
       "side": 1,
       "message": "same",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df122337_47ebf69f",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "Same response",
+      "parentUuid": "51b16f06_0a42c77a",
       "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -255,6 +441,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b57ab04_5b77c72b",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "Can you please elaborate?",
+      "parentUuid": "af672081_11194c10",
+      "range": {
+        "startLine": 443,
+        "startChar": 4,
+        "endLine": 443,
+        "endChar": 16
+      },
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3d138e1_5fa77790",
         "filename": "pkg/grpc/client.go",
         "patchSetId": 7
@@ -266,6 +476,24 @@
       "writtenOn": "2021-09-23T09:56:23Z",
       "side": 1,
       "message": "is this something we might want in the future ? I think it woudl be good to have. Also if not used please remove.",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c25a46c_154b4d54",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "I will keep it, even though in my testing i did not see any difference it makes.  It\u0027s an area where we can investigate, at some point, to speed up connection establishment, if at all possible.",
+      "parentUuid": "d3d138e1_5fa77790",
       "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -289,6 +517,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37b6e868_d69e65f0",
+        "filename": "pkg/grpc/grpc_profile.cpu",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "2ba785a6_068d6c7a",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b181e14_d9603a58",
         "filename": "pkg/kafka/client.go",
         "patchSetId": 7
@@ -300,6 +546,24 @@
       "writtenOn": "2021-09-23T09:56:23Z",
       "side": 1,
       "message": "I think we should have a comment saying that this is used just for outwards facing comunication now.",
+      "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5bcaa7f_6bde45fb",
+        "filename": "pkg/kafka/client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "7b181e14_d9603a58",
       "revId": "b41081579276e2e30fe239e42496d89711fbf75b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }

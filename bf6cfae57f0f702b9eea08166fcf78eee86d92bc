@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "dd3b4a3c_e287c5b0",
         "filename": "go.mod",
@@ -14,8 +15,25 @@
       "side": 1,
       "message": "can we change the version as v1.25.1 down and omit this replace?",
       "revId": "bf6cfae57f0f702b9eea08166fcf78eee86d92bc",
-      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
-      "unresolved": true
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fa934e4_e329a620",
+        "filename": "go.mod",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-28T14:27:01Z",
+      "side": 1,
+      "message": "Unfortunately, go module brings different versions due to indirect grpc references.  Therefore, this change is need,",
+      "parentUuid": "dd3b4a3c_e287c5b0",
+      "revId": "bf6cfae57f0f702b9eea08166fcf78eee86d92bc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
