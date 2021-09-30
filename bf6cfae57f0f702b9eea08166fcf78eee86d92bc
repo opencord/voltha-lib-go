@@ -34,6 +34,24 @@
       "parentUuid": "dd3b4a3c_e287c5b0",
       "revId": "bf6cfae57f0f702b9eea08166fcf78eee86d92bc",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec768792_e1673a1c",
+        "filename": "go.mod",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-30T16:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fa934e4_e329a620",
+      "revId": "bf6cfae57f0f702b9eea08166fcf78eee86d92bc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }

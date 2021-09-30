@@ -36,6 +36,24 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f6c10a4_5e454078",
+        "filename": "pkg/grpc/client_test.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-30T16:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79e88758_1192835f",
+      "revId": "915d4c104ec36666068a60387a57dc3e39aee717",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb7a84cc_1655ad2e",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Will update",
       "parentUuid": "cb7a84cc_1655ad2e",
+      "revId": "915d4c104ec36666068a60387a57dc3e39aee717",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55ef2729_9466235a",
+        "filename": "pkg/grpc/mock_core_service.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-30T16:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd520bc9_636029a4",
       "revId": "915d4c104ec36666068a60387a57dc3e39aee717",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -118,6 +154,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4a4df61_de0ca9fb",
+        "filename": "pkg/mocks/grpc/common.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-30T16:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "060074bc_d94c3a3e",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "915d4c104ec36666068a60387a57dc3e39aee717",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e123484b_8086ce00",
@@ -149,6 +209,24 @@
       "side": 1,
       "message": "Will update",
       "parentUuid": "e123484b_8086ce00",
+      "revId": "915d4c104ec36666068a60387a57dc3e39aee717",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b48c24b_7af3755f",
+        "filename": "pkg/mocks/grpc/mock_adapter_services.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-30T16:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ecd959d_d90c2bdc",
       "revId": "915d4c104ec36666068a60387a57dc3e39aee717",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -200,6 +278,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbeccc85_f73c4b4e",
+        "filename": "pkg/mocks/grpc/mock_adapter_services.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-30T16:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b3943e8_f19110e6",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 42
+      },
+      "revId": "915d4c104ec36666068a60387a57dc3e39aee717",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30dd5587_beff843e",
@@ -235,6 +337,24 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17f8f669_7424554d",
+        "filename": "pkg/mocks/grpc/mock_core_services.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-30T16:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb3363a0_197e79d6",
+      "revId": "915d4c104ec36666068a60387a57dc3e39aee717",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7812e368_312e8827",
@@ -266,6 +386,24 @@
       "side": 1,
       "message": "Will update",
       "parentUuid": "7812e368_312e8827",
+      "revId": "915d4c104ec36666068a60387a57dc3e39aee717",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "341e1746_72345570",
+        "filename": "pkg/mocks/grpc/mock_grpc_server.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-09-30T16:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2951afbb_2c9bbe1c",
       "revId": "915d4c104ec36666068a60387a57dc3e39aee717",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
