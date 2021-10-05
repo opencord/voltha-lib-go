@@ -58,6 +58,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e864b2f_4eb0a733",
+        "filename": "pkg/platform/platform.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-10-05T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68562e33_43bdd56f",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 73
+      },
+      "revId": "c69fab7839f165e7c09572903144f0d1cf8abfcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ce19745_6d2e32ce",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-09-14T06:17:07Z",
       "side": 1,
       "message": "Make \"upstream\" and \"downstream\" also a platform constant?",
+      "range": {
+        "startLine": 222,
+        "startChar": 22,
+        "endLine": 222,
+        "endChar": 30
+      },
+      "revId": "c69fab7839f165e7c09572903144f0d1cf8abfcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f98fd1c_da9763be",
+        "filename": "pkg/platform/platform.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-10-05T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ce19745_6d2e32ce",
       "range": {
         "startLine": 222,
         "startChar": 22,
