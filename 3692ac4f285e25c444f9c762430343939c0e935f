@@ -16,6 +16,24 @@
       "message": "Shouldn\u0027t we return error in this case and other cases below. Otherwise the portnumber generated could result in unpredictable behavior I think. The function signature should change to also return back an error. The calling function should skip adding such ports when error is returned.",
       "revId": "3692ac4f285e25c444f9c762430343939c0e935f",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c58a1a5d_cf43d6e8",
+        "filename": "pkg/platform/platform.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-10-06T18:13:09Z",
+      "side": 1,
+      "message": "Yes these return values can be added to signature, but this patch is done here for ensure parity only with the moved original one. We can open another task for your comments because it requires changes also in callers of the function. And the same comment is applicable for nearly all functions of this class as well.",
+      "parentUuid": "c3408b09_e14572f7",
+      "revId": "3692ac4f285e25c444f9c762430343939c0e935f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
