@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "586d27f2_388300c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-10-06T13:14:14Z",
+      "side": 1,
+      "message": "This commit is no longer needed because this change is already indirectly included into the grpc migration ..",
+      "revId": "855548b949b452e79c67ec6dc645539d1d5b6fa2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
