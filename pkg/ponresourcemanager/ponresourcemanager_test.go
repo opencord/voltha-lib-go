@@ -20,6 +20,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/boljen/go-bitmap"
 	"strings"
 	"testing"
 	"time"
@@ -202,4 +203,156 @@ func TestExcludeReservedGemPortIdFromThePool(t *testing.T) {
 		}
 	}
 
+}
+
+func TestResourcePoolOverflow(t *testing.T) {
+	ctx := context.Background()
+	PONRMgr, err := NewPONResourceManager(ctx, "gpon", "onu", "olt1",
+		"etcd", "1:1", "service/voltha")
+	if err != nil {
+		return
+	}
+	PONRMgr.KVStore = &db.Backend{
+		Client: newMockKvClient(ctx),
+	}
+
+	PONRMgr.KVStoreForConfig = &db.Backend{
+		Client: newMockKvClient(ctx),
+	}
+	// create a pool in the range of [1,16]
+	StartIndex := uint32(1)
+	EndIndex := uint32(16)
+
+	FormatResult, err := PONRMgr.FormatResource(ctx, 1, StartIndex, EndIndex, []uint32{})
+	if err != nil {
+		t.Error("Failed to format resource", err)
+		return
+	}
+
+	// Add resource as json in kv store.
+	err = PONRMgr.KVStore.Put(ctx, GEMPORT_ID_POOL_PATH, FormatResult)
+	if err != nil {
+		t.Error("Error in posting data to kv store", GEMPORT_ID_POOL_PATH)
+		return
+	}
+
+	for i := 1; i <= 20; i++ {
+		// get gem port id pool from the kv store
+		resource, err := PONRMgr.GetResource(context.Background(), GEMPORT_ID_POOL_PATH)
+		if err != nil {
+			t.Error("Failed to get resource from gem port id pool", err)
+			return
+		}
+		// get a gem port id from the pool
+		nextID, err := PONRMgr.GenerateNextID(ctx, resource)
+		// all free ids in the pool will be consumed by the first 16 steps of the loop
+		// resource-exhausted error is expected from the pool at the 17th step of the loop
+		if i > int(EndIndex) {
+			assert.NotNil(t, err)
+		} else if err != nil {
+			t.Error("Failed to get gem port id from the pool", err)
+			return
+		} else {
+			assert.NotEqual(t, 0, nextID)
+			// put updated gem port id pool into the kv store
+			err = PONRMgr.UpdateResource(context.Background(), GEMPORT_ID_POOL_PATH, resource)
+			if err != nil {
+				t.Error("Failed to put updated gem port id pool into the kv store", err)
+				return
+			}
+		}
+	}
+}
+
+func TestPONResourceManager_ReleaseInvalidID(t *testing.T) {
+	ctx := context.Background()
+	PONRMgr, err := NewPONResourceManager(ctx, "gpon", "onu", "olt1",
+		"etcd", "1:1", "service/voltha")
+	if err != nil {
+		return
+	}
+	PONRMgr.KVStore = &db.Backend{
+		Client: newMockKvClient(ctx),
+	}
+
+	PONRMgr.KVStoreForConfig = &db.Backend{
+		Client: newMockKvClient(ctx),
+	}
+	// create a pool in the range of [1,16]
+	StartIndex := uint32(1)
+	EndIndex := uint32(16)
+
+	FormatResult, err := PONRMgr.FormatResource(ctx, 1, StartIndex, EndIndex, []uint32{})
+	if err != nil {
+		t.Error("Failed to format resource", err)
+		return
+	}
+
+	// Add resource as json in kv store.
+	err = PONRMgr.KVStore.Put(ctx, GEMPORT_ID_POOL_PATH, FormatResult)
+	if err != nil {
+		t.Error("Error in posting data to kv store", GEMPORT_ID_POOL_PATH)
+		return
+	}
+
+	// get gem port id pool from the kv store
+	resource, err := PONRMgr.GetResource(context.Background(), GEMPORT_ID_POOL_PATH)
+	if err != nil {
+		t.Error("Failed to get resource from gem port id pool", err)
+		return
+	}
+	//try to release an ID whose value is out of the boundaries of the pool and expect false
+	released := PONRMgr.ReleaseID(ctx, resource, uint32(EndIndex + 1))
+	assert.Equal(t, false, released)
+}
+
+func TestPONResourceManager_ReserveInvalidID(t *testing.T) {
+	ctx := context.Background()
+	PONRMgr, err := NewPONResourceManager(ctx, "gpon", "onu", "olt1",
+		"etcd", "1:1", "service/voltha")
+	if err != nil {
+		return
+	}
+	PONRMgr.KVStore = &db.Backend{
+		Client: newMockKvClient(ctx),
+	}
+
+	PONRMgr.KVStoreForConfig = &db.Backend{
+		Client: newMockKvClient(ctx),
+	}
+	// create a pool in the range of [1,16]
+	StartIndex := uint32(1)
+	EndIndex := uint32(16)
+
+	FormatResult, err := PONRMgr.FormatResource(ctx, 1, StartIndex, EndIndex, []uint32{})
+	if err != nil {
+		t.Error("Failed to format resource", err)
+		return
+	}
+
+	// Add resource as json in kv store.
+	err = PONRMgr.KVStore.Put(ctx, GEMPORT_ID_POOL_PATH, FormatResult)
+	if err != nil {
+		t.Error("Error in posting data to kv store", GEMPORT_ID_POOL_PATH)
+		return
+	}
+	// get gem port id pool from the kv store
+	resource, err := PONRMgr.GetResource(context.Background(), GEMPORT_ID_POOL_PATH)
+	if err != nil {
+		t.Error("Failed to get resource from gem port id pool", err)
+		return
+	}
+	ByteArray, err := ToByte(resource[POOL])
+	if err != nil {
+		t.Error(ctx, "Failed to convert resource to byte array")
+		return
+	}
+	Data := bitmap.TSFromData(ByteArray, false)
+	if Data == nil {
+		t.Error(ctx, "Failed to get resource pool")
+		return
+	}
+	//try to reserve an ID whose value is out of the boundaries of the pool and expect false
+	released := PONRMgr.reserveID(ctx, Data, StartIndex, EndIndex + 1)
+	assert.Equal(t, false, released)
 }
