@@ -1273,6 +1273,10 @@ func (PONRMgr *PONResourceManager) GenerateNextID(ctx context.Context, Resource 
 			break
 		}
 	}
+	if Idx == Len {
+		logger.Errorw(ctx, "resource-exhausted--no-free-id-left-in-the-pool", log.Fields{"pool-length": Len})
+		return 0, errors.New("resource-exhausted--no-free-id-left-in-the-pool")
+	}
 	Data.Set(Idx, true)
 	res := uint32(Resource[START_IDX].(float64))
 	Resource[POOL] = Data.Data(false)
