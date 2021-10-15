@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2240438_787b6488",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-10-15T12:35:28Z",
+      "side": 1,
+      "message": "There is no need to log an error if the function is going to return an error. This is because the caller might \"handle\" the error, in which case there isn\u0027t a system error.\n\nAnd while this is done other places in this code those will have to be cleaned up, so might as well not add another with this patch ;)",
+      "range": {
+        "startLine": 1277,
+        "startChar": 0,
+        "endLine": 1277,
+        "endChar": 103
+      },
+      "revId": "e738bb821e4fa90ac0ff866dc81b0e6581295305",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd49a209_8e6444c0",
         "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
         "patchSetId": 3
