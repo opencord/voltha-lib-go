@@ -22,7 +22,7 @@ import (
 	"time"
 
 	"github.com/opencord/voltha-lib-go/v7/pkg/kafka"
-	ic "github.com/opencord/voltha-protos/v5/go/inter_container"
+	"github.com/opencord/voltha-protos/v5/go/core_adapter"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -51,7 +51,7 @@ func TestKafkaClientSubscribeSend(t *testing.T) {
 	assert.NotNil(t, ch)
 	testCh := make(chan bool)
 	maxWait := 5 * time.Millisecond
-	msg := &ic.DeviceReason{
+	msg := &core_adapter.DeviceReason{
 		DeviceId: "1234",
 		Reason:   "mock",
 	}
