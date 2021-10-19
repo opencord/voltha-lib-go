@@ -28,7 +28,7 @@ import (
 	"github.com/opencord/voltha-lib-go/v7/pkg/log"
 	"github.com/opencord/voltha-lib-go/v7/pkg/probe"
 	"github.com/opencord/voltha-protos/v5/go/common"
-	"github.com/opencord/voltha-protos/v5/go/core"
+	"github.com/opencord/voltha-protos/v5/go/core_services"
 	"github.com/opencord/voltha-protos/v5/go/voltha"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
@@ -71,7 +71,7 @@ func (s *testCoreServer) registerService(ctx context.Context, t *testing.T) {
 	s.server = NewGrpcServer(s.apiEndPoint, nil, false, s.probe)
 
 	s.server.AddService(func(server *grpc.Server) {
-		core.RegisterCoreServiceServer(server, &MockCoreServiceHandler{})
+		core_services.RegisterCoreServiceServer(server, &MockCoreServiceHandler{})
 	})
 }
 
@@ -143,7 +143,7 @@ func setAndTestCoreServiceHandler(ctx context.Context, conn *grpc.ClientConn) in
 	if conn == nil {
 		return nil
 	}
-	svc := core.NewCoreServiceClient(conn)
+	svc := core_services.NewCoreServiceClient(conn)
 	if h, err := svc.GetHealthStatus(ctx, &empty.Empty{}); err != nil || h.State != voltha.HealthStatus_HEALTHY {
 		return nil
 	}
@@ -154,7 +154,7 @@ func idleConnectionTest(ctx context.Context, conn *grpc.ClientConn) interface{} 
 	if conn == nil {
 		return nil
 	}
-	svc := core.NewCoreServiceClient(conn)
+	svc := core_services.NewCoreServiceClient(conn)
 	if h, err := svc.GetHealthStatus(ctx, &empty.Empty{}); err != nil || h.State != voltha.HealthStatus_HEALTHY {
 		return nil
 	}
@@ -174,10 +174,10 @@ func (c *testClient) start(ctx context.Context, t *testing.T, handler SetAndTest
 	c.client.Start(probeCtx, handler)
 }
 
-func (c *testClient) getClient(t *testing.T) core.CoreServiceClient {
+func (c *testClient) getClient(t *testing.T) core_services.CoreServiceClient {
 	gc, err := c.client.GetClient()
 	assert.Nil(t, err)
-	coreClient, ok := gc.(core.CoreServiceClient)
+	coreClient, ok := gc.(core_services.CoreServiceClient)
 	assert.True(t, ok)
 	return coreClient
 }
