@@ -123,9 +123,6 @@ github.com/gogo/protobuf/proto
 github.com/gogo/protobuf/protoc-gen-gogo/descriptor
 # github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da
 ## explicit
-# github.com/golang/mock v1.6.0
-## explicit
-github.com/golang/mock/gomock
 # github.com/golang/protobuf v1.5.2
 ## explicit
 github.com/golang/protobuf/descriptor
@@ -226,15 +223,19 @@ github.com/modern-go/concurrent
 github.com/modern-go/reflect2
 # github.com/onsi/gomega v1.14.0
 ## explicit
-# github.com/opencord/voltha-protos/v5 v5.0.0
+# github.com/opencord/voltha-protos/v5 v5.0.0 => ../voltha-protos
 ## explicit
-github.com/opencord/voltha-protos/v5/go/adapter_services
+github.com/opencord/voltha-protos/v5/go/adapter_service
 github.com/opencord/voltha-protos/v5/go/common
-github.com/opencord/voltha-protos/v5/go/core
+github.com/opencord/voltha-protos/v5/go/core_adapter
+github.com/opencord/voltha-protos/v5/go/core_service
 github.com/opencord/voltha-protos/v5/go/ext/config
 github.com/opencord/voltha-protos/v5/go/extension
-github.com/opencord/voltha-protos/v5/go/inter_container
+github.com/opencord/voltha-protos/v5/go/health
+github.com/opencord/voltha-protos/v5/go/inter_adapter
+github.com/opencord/voltha-protos/v5/go/olt_inter_adapter_service
 github.com/opencord/voltha-protos/v5/go/omci
+github.com/opencord/voltha-protos/v5/go/onu_inter_adapter_service
 github.com/opencord/voltha-protos/v5/go/openflow_13
 github.com/opencord/voltha-protos/v5/go/openolt
 github.com/opencord/voltha-protos/v5/go/tech_profile
@@ -354,7 +355,9 @@ golang.org/x/text/unicode/norm
 # golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac
 ## explicit
 golang.org/x/time/rate
-# google.golang.org/genproto v0.0.0-20210924002016-3dee208752a0
+# golang.org/x/tools v0.1.1
+## explicit
+# google.golang.org/genproto v0.0.0-20211101144312-62acf1d99145
 google.golang.org/genproto/googleapis/api/annotations
 google.golang.org/genproto/googleapis/api/httpbody
 google.golang.org/genproto/googleapis/rpc/status
@@ -446,5 +449,6 @@ gopkg.in/yaml.v3
 # sigs.k8s.io/yaml v1.2.0
 ## explicit
 sigs.k8s.io/yaml
+# github.com/opencord/voltha-protos/v5 => ../voltha-protos
 # go.etcd.io/bbolt v1.3.4 => github.com/coreos/bbolt v1.3.4
 # google.golang.org/grpc => google.golang.org/grpc v1.25.1
