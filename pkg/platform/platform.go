@@ -32,19 +32,20 @@ Logical (OF) UNI port number
 
     OpenFlow port number corresponding to PON UNI
 
-     20        12              4      0
-    +--+--------+--------------+------+
-    |0 | pon id |    onu id    |uni id|
-    +--+--------+--------------+------+
+     24        16          8          0
+    +--+--------+----------+----------+
+    |0 | pon id |  onu id  |  uni id  |
+    +--+--------+----------+----------+
 
     pon id = 8 bits = 256 PON ports
     onu id = 8 bits = 256 ONUs per PON port
+    uni id = 8 bits = 256 UNIs per ONU
 
 Logical (OF) NNI port number
 
     OpenFlow port number corresponding to PON NNI
 
-     20                             0
+     24                             0
     +--+----------------------------+
     |1 |                    intf_id |
     +--+----------------------------+
@@ -64,7 +65,7 @@ PON OLT (OF) port number
 
 const (
 	// Number of bits for the physical UNI of the ONUs
-	bitsForUniID = 4
+	bitsForUniID = 8
 	// Number of bits for the ONU ID
 	bitsForONUID = 8
 	// Number of bits for PON ID
@@ -81,25 +82,23 @@ const (
 	ponIntfMarkerPos = 28
 	// Value of marker used to distinguish PON port type of OF port
 	ponIntfMarkerValue = 0x2
-	// Number of bits for NNI ID
-	bitsforNNIID = 20
-	// minNniIntPortNum is used to store start range of nni port number (1 << 20) 1048576
-	minNniIntPortNum = (1 << bitsforNNIID)
-	// maxNniPortNum is used to store the maximum range of nni port number ((1 << 21)-1) 2097151
-	maxNniPortNum = ((1 << (bitsforNNIID + 1)) - 1)
+	// minNniIntPortNum is used to store start range of nni port number (1 << 24) 16777216
+	minNniIntPortNum = (1 << nniUniDiffPos)
+	// maxNniPortNum is used to store the maximum range of nni port number ((1 << 25)-1) 33554432
+	maxNniPortNum = ((1 << (nniUniDiffPos + 1)) - 1)
 	// minPonIntfPortNum stores the minimum pon port number
 	minPonIntfPortNum = ponIntfMarkerValue << ponIntfMarkerPos
 	// maxPonIntfPortNum stores the maximum pon port number
 	maxPonIntfPortNum = (ponIntfMarkerValue << ponIntfMarkerPos) | (1 << bitsForPONID)
 	upstream          = "upstream"
 	downstream        = "downstream"
+	//Technology Profiles ID start value
+	TpIDStart = 64
+	//Technology Profiles ID end value
+	TpIDEnd = 256
+	//Number of Technology Profiles can be defined.
+	TpRange = TpIDEnd - TpIDStart
 )
-
-//MinUpstreamPortID value
-var MinUpstreamPortID = 0xfffd
-
-//MaxUpstreamPortID value
-var MaxUpstreamPortID = 0xfffffffd
 
 var controllerPorts = []uint32{0xfffd, 0x7ffffffd, 0xfffffffd}
 
