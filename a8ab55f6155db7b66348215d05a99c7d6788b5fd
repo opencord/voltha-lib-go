@@ -16,6 +16,24 @@
       "message": "By any chance has this been tested or are there related changes that need to go in at the same time?",
       "revId": "a8ab55f6155db7b66348215d05a99c7d6788b5fd",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8efeb259_27115791",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-10-21T18:54:04Z",
+      "side": 1,
+      "message": "Basic test with BBSIM is done. There are no other related changes.",
+      "parentUuid": "0b4fba59_33862501",
+      "revId": "a8ab55f6155db7b66348215d05a99c7d6788b5fd",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
