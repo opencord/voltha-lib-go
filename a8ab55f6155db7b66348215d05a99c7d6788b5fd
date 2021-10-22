@@ -1,0 +1,9 @@
+Verified+1: Jenkins Technical User <do-not-reply@opennetworking.org>
+Code-Review+1: Matteo Scandolo <teo@opennetworking.org>
+Code-Review+1: Girish Gowdra <girish@opennetworking.org>
+Code-Review+2: Andrea Campanella <andrea@opennetworking.org>
+Submitted-by: Andrea Campanella <andrea@opennetworking.org>
+Submitted-at: Fri, 22 Oct 2021 07:29:44 +0000
+Reviewed-on: https://gerrit.opencord.org/c/voltha-lib-go/+/28364
+Project: voltha-lib-go
+Branch: refs/heads/master
