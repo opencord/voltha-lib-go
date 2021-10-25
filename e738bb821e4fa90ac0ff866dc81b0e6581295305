@@ -58,6 +58,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18cdc5e6_96dc8f8d",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2021-10-25T14:16:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2240438_787b6488",
+      "range": {
+        "startLine": 1277,
+        "startChar": 0,
+        "endLine": 1277,
+        "endChar": 103
+      },
+      "revId": "e738bb821e4fa90ac0ff866dc81b0e6581295305",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd49a209_8e6444c0",
@@ -75,6 +99,24 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41553ec9_76fddf04",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2021-10-25T14:16:19Z",
+      "side": 1,
+      "message": "Done\nAlso added a unit test, named TestPONResourceManager_ReleaseInvalidID, for this case.",
+      "parentUuid": "fd49a209_8e6444c0",
+      "revId": "e738bb821e4fa90ac0ff866dc81b0e6581295305",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adfb8c3f_1e9e58d6",
@@ -88,6 +130,24 @@
       "writtenOn": "2021-10-13T18:00:22Z",
       "side": 1,
       "message": "Same comment here",
+      "revId": "e738bb821e4fa90ac0ff866dc81b0e6581295305",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fa15186_9b2b9de1",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1321,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2021-10-25T14:16:19Z",
+      "side": 1,
+      "message": "Done.\nAlso added a unit test, named TestPONResourceManager_ReserveInvalidID, for this case.",
+      "parentUuid": "adfb8c3f_1e9e58d6",
       "revId": "e738bb821e4fa90ac0ff866dc81b0e6581295305",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
