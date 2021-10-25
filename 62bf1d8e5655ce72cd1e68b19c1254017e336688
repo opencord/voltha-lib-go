@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ee9b2d8_22af3380",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-10-25T15:05:09Z",
+      "side": 1,
+      "message": "@esin: Needs a go fmt. Otherwise the changes look good.",
+      "revId": "62bf1d8e5655ce72cd1e68b19c1254017e336688",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
