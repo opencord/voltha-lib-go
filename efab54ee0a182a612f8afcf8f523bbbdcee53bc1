@@ -52,6 +52,24 @@
       "parentUuid": "7103c4cc_67038e63",
       "revId": "efab54ee0a182a612f8afcf8f523bbbdcee53bc1",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cdbf7d9_c1280bc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2021-10-26T14:57:57Z",
+      "side": 1,
+      "message": "cherrypicked to branch 2.8 via https://gerrit.opencord.org/c/voltha-lib-go/+/28501",
+      "parentUuid": "238805df_73553646",
+      "revId": "efab54ee0a182a612f8afcf8f523bbbdcee53bc1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
