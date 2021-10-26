@@ -16,6 +16,24 @@
       "message": "@esin: Needs a go fmt. Otherwise the changes look good.",
       "revId": "62bf1d8e5655ce72cd1e68b19c1254017e336688",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d0c9431_4a5519be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2021-10-26T07:33:38Z",
+      "side": 1,
+      "message": "thanks for taking care of it",
+      "parentUuid": "1ee9b2d8_22af3380",
+      "revId": "62bf1d8e5655ce72cd1e68b19c1254017e336688",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
