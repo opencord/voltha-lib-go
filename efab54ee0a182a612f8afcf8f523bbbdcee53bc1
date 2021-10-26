@@ -16,6 +16,24 @@
       "message": "merged, please backport",
       "revId": "efab54ee0a182a612f8afcf8f523bbbdcee53bc1",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7103c4cc_67038e63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000498
+      },
+      "writtenOn": "2021-10-26T12:58:22Z",
+      "side": 1,
+      "message": "@andrea @girish which branch should we port this patch to? There seems to be no 2.8 branch for voltha-lib-go. Should we port it to 2.5?",
+      "parentUuid": "faca8836_1b0cd81a",
+      "revId": "efab54ee0a182a612f8afcf8f523bbbdcee53bc1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
