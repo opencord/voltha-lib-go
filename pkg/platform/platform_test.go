@@ -365,7 +365,7 @@ func TestIsControllerBoundFlow(t *testing.T) {
 		// TODO: Add test cases.
 		{"IsControllerBoundFlow-1", args{outPort: 2147483645}, true},
 		{"IsControllerBoundFlow-2", args{outPort: 2147483646}, false},
-		{"IsControllerBoundFlow-3", args{outPort: 4294967293}, true},
+		{"IsControllerBoundFlow-3", args{outPort: 4294967293}, false},
 		{"IsControllerBoundFlow-4", args{outPort: 4294967294}, false},
 		{"IsControllerBoundFlow-5", args{outPort: 65539}, false},
 		{"IsControllerBoundFlow-6", args{outPort: 1000}, false},
