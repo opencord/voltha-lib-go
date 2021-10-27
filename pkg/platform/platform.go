@@ -98,9 +98,9 @@ const (
 	TpIDEnd = 256
 	//Number of Technology Profiles can be defined.
 	TpRange = TpIDEnd - TpIDStart
+	//Mask for Controller Port check. Controller Port defined in OF protos is 0x7ffffffd.
+	ControllerPortMask = 0x7fffffff
 )
-
-var controllerPorts = []uint32{0xfffd, 0x7ffffffd, 0xfffffffd}
 
 //MkUniPortNum returns new UNIportNum based on intfID, inuID and uniID
 func MkUniPortNum(ctx context.Context, intfID, onuID, uniID uint32) uint32 {
@@ -195,20 +195,16 @@ func ExtractAccessFromFlow(inPort, outPort uint32) (uint32, uint32, uint32, uint
 
 //IsUpstream returns true for Upstream and false for downstream
 func IsUpstream(outPort uint32) bool {
-	for _, port := range controllerPorts {
-		if port == outPort {
-			return true
-		}
+	if IsControllerBoundFlow(outPort) {
+		return true
 	}
 	return (outPort & (1 << nniUniDiffPos)) == (1 << nniUniDiffPos)
 }
 
 //IsControllerBoundFlow returns true/false
 func IsControllerBoundFlow(outPort uint32) bool {
-	for _, port := range controllerPorts {
-		if port == outPort {
-			return true
-		}
+	if outPort == uint32(ofp.OfpPortNo_OFPP_CONTROLLER) {
+		return true
 	}
 	return false
 }
