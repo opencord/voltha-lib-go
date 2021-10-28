@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1597f502_fc0b3d31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-10-28T12:46:49Z",
+      "side": 1,
+      "message": "+1\nBuilt images for of agent, olt adapter, one adapter and core, Verified here: https://jenkins.opencord.org/view/VOLTHA-2.X-Tests/job/periodic-voltha-openonu-go-test-bbsim/657/ ",
+      "revId": "b8b808d8642452ad8f427038d6da58f7d2804b4e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
