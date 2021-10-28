@@ -39,6 +39,30 @@
       },
       "revId": "b8b808d8642452ad8f427038d6da58f7d2804b4e",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a5c4df7_12d4b88a",
+        "filename": "pkg/platform/platform.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-10-28T19:38:00Z",
+      "side": 1,
+      "message": "I think 0xfffd shouldn\u0027t be allowed because it is a UNI port number(It was already a UNI port number before the last changes). But for 0xfffffffd, I\u0027m not sure if ONOS puts this into any flow or not. If it does not, then I prefer to do the way you suggest either. This if check I put here is the one used in rw-core for controller bound flow check. @Andrea do you mind to run test again if I change it to use 0x7ffffffd only?",
+      "parentUuid": "8aa36acc_0c7f875d",
+      "range": {
+        "startLine": 206,
+        "startChar": 21,
+        "endLine": 206,
+        "endChar": 92
+      },
+      "revId": "b8b808d8642452ad8f427038d6da58f7d2804b4e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
