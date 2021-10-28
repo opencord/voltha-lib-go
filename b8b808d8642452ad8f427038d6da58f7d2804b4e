@@ -16,6 +16,29 @@
       "message": "+1\nBuilt images for of agent, olt adapter, one adapter and core, Verified here: https://jenkins.opencord.org/view/VOLTHA-2.X-Tests/job/periodic-voltha-openonu-go-test-bbsim/657/ ",
       "revId": "b8b808d8642452ad8f427038d6da58f7d2804b4e",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aa36acc_0c7f875d",
+        "filename": "pkg/platform/platform.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-10-28T19:08:08Z",
+      "side": 1,
+      "message": "I am not sure if this is a right check\nIf someone were to pass outport as 0xfffffffd to this function, it will return true which is not correct\n\n0xfffffffd \u0026 0x7fffffff \u003d\u003d 0x7ffffffd will return true. But I guess you want this check to be true only when outPort is 0x7ffffffd - is that correct? If so then why not just check like below\n\nif outPort \u003d\u003d uint32(ofp.OfpPortNo_OFPP_CONTROLLER) {\n    return true\n}\n\nSorry I misunderstood something. Do you also want this check to return ok when outPort is 0xfffd and 0xfffffffd. If 0xfffd and 0xfffffffd are no longer valid then we may simplify the logic here.",
+      "range": {
+        "startLine": 206,
+        "startChar": 21,
+        "endLine": 206,
+        "endChar": 92
+      },
+      "revId": "b8b808d8642452ad8f427038d6da58f7d2804b4e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
