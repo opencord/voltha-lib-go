@@ -80,6 +80,30 @@
       },
       "revId": "b8b808d8642452ad8f427038d6da58f7d2804b4e",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ea21d56_e8dfe6a6",
+        "filename": "pkg/platform/platform.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-11-02T15:11:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6a5c4df7_12d4b88a",
+      "range": {
+        "startLine": 206,
+        "startChar": 21,
+        "endLine": 206,
+        "endChar": 92
+      },
+      "revId": "b8b808d8642452ad8f427038d6da58f7d2804b4e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
