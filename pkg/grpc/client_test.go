@@ -44,7 +44,8 @@ const (
 	timeout         = 10 * time.Second
 )
 
-var testForNoActivityCh = make(chan time.Time, 10)
+var testForNoActivityCh = make(chan time.Time, 20)
+var testKeepAliveCh = make(chan time.Time, 20)
 
 type testCoreServer struct {
 	apiEndPoint string
@@ -130,7 +131,10 @@ func newTestClient(apiEndpoint string, handler RestartedHandler) *testClient {
 		return nil
 	}
 
-	tc.client, err = NewClient(apiEndpoint,
+	tc.client, err = NewClient(
+		"test-endpoint",
+		apiEndpoint,
+		"CoreService",
 		handler,
 		ActivityCheck(true))
 	if err != nil {
@@ -291,6 +295,7 @@ func serverRestarts(t *testing.T, numRestartRuns int) {
 
 	// Test 1: Verify that probe status shows ready eventually
 	var servicesReady isConditionSatisfied = func() bool {
+		// logger.Debugw(context.Background(), "checking-probes", log.Fields{"ts": ts.probe.IsReady(), "tc": tc.probe.IsReady()})
 		return ts.probe.IsReady() && tc.probe.IsReady()
 	}
 	err = waitUntilCondition(timeout, servicesReady)
@@ -350,7 +355,13 @@ func serverRestarts(t *testing.T, numRestartRuns int) {
 	ts.stop()
 }
 
-func testNoActivity(t *testing.T) {
+// Liveness function
+func keepAliveMonitor(timestamp time.Time) {
+	logger.Debugw(context.Background(), "received-liveness", log.Fields{"timestamp": timestamp})
+	testKeepAliveCh <- timestamp
+}
+
+func testKeepAlive(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -361,8 +372,10 @@ func testNoActivity(t *testing.T) {
 
 	// Create the test client and start it
 	tc := newTestClient(apiEndpoint, serverRestarted)
+	tc.client.SubscribeForLiveness(keepAliveMonitor)
 	assert.NotNil(t, tc)
 	go tc.start(ctx, t, idleConnectionTest)
+	defer tc.client.Stop(context.Background())
 
 	// Create and start the test server
 	ts := newTestCoreServer(apiEndpoint)
@@ -394,7 +407,7 @@ func testNoActivity(t *testing.T) {
 loop:
 	for {
 		select {
-		case timestamp := <-testForNoActivityCh:
+		case timestamp := <-testKeepAliveCh:
 			if timestamp.After(start) {
 				count += 1
 				if count > numChecks {
@@ -405,6 +418,78 @@ loop:
 			t.Fatal("no activity on the idle channel")
 		}
 	}
+}
+
+func testClientFailure(t *testing.T, numClientRestarts int) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	// Create a grpc endpoint for the server
+	grpcPort, err := freeport.GetFreePort()
+	assert.Nil(t, err)
+	apiEndpoint := "127.0.0.1:" + strconv.Itoa(grpcPort)
+
+	// Create the test client and start it
+	tc := newTestClient(apiEndpoint, serverRestarted)
+	assert.NotNil(t, tc)
+	go tc.start(ctx, t, idleConnectionTest)
+
+	// Create and start the test server
+	ts := newTestCoreServer(apiEndpoint)
+	ts.registerService(ctx, t)
+	go ts.start(ctx, t)
+	defer ts.stop()
+
+	// Test 1: Verify that probe status shows ready eventually
+	var servicesReady isConditionSatisfied = func() bool {
+		return ts.probe.IsReady() && tc.probe.IsReady()
+	}
+	err = waitUntilCondition(timeout, servicesReady)
+	assert.Nil(t, err)
+
+	// Test 2: Verify we get a valid client and can make grpc requests with it
+	coreClient := tc.getClient(t)
+	assert.NotNil(t, coreClient)
+
+	device, err := coreClient.GetDevice(context.Background(), &common.ID{Id: "1234"})
+	assert.Nil(t, err)
+	assert.NotNil(t, device)
+	assert.Equal(t, "test-1234", device.Type)
+
+	for i := 1; i <= numClientRestarts; i++ {
+		// Kill grpc client
+		tc.client.Stop(context.Background())
+		var clientNotReady isConditionSatisfied = func() bool {
+			return !tc.probe.IsReady()
+		}
+		err = waitUntilCondition(timeout, clientNotReady)
+		assert.Nil(t, err)
+
+		// Create a new client
+		tc.client, err = NewClient(
+			"test-endpoint",
+			apiEndpoint,
+			"CoreService",
+			serverRestarted,
+			ActivityCheck(true))
+		assert.Nil(t, err)
+
+		probeCtx := context.WithValue(ctx, probe.ProbeContextKey, tc.probe)
+		go tc.client.Start(probeCtx, idleConnectionTest)
+		//Verify that probe status shows ready eventually
+		err = waitUntilCondition(timeout, servicesReady)
+		assert.Nil(t, err)
+
+		// Verify we get a valid client and can make grpc requests with it
+		coreClient = tc.getClient(t)
+		assert.NotNil(t, coreClient)
+
+		device, err = coreClient.GetDevice(context.Background(), &common.ID{Id: "1234"})
+		assert.Nil(t, err)
+		assert.NotNil(t, device)
+		assert.Equal(t, "test-1234", device.Type)
+	}
+	tc.client.Stop(context.Background())
 }
 
 func testServerLimit(t *testing.T) {
@@ -519,12 +604,14 @@ func TestSuiteClient3(t *testing.T) {
 	// Test starting client before server
 	clientStartsFirstTest(t)
 
-	// Test server restarts
-	serverRestarts(t, 1)
+	// // Test server restarts
+	serverRestarts(t, 5)
 
 	//Test that the client test the grpc connection on no activity
-	testNoActivity(t)
+	testKeepAlive(t)
 
 	// Test client queueing with server limit
 	testServerLimit(t)
+
+	testClientFailure(t, 5)
 }
