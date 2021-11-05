@@ -4,6 +4,7 @@ go 1.16
 
 replace (
 	github.com/coreos/bbolt v1.3.4 => go.etcd.io/bbolt v1.3.4
+	github.com/opencord/voltha-protos/v5 => ../voltha-protos
 	go.etcd.io/bbolt v1.3.4 => github.com/coreos/bbolt v1.3.4
 	google.golang.org/grpc => google.golang.org/grpc v1.25.1
 )
@@ -31,6 +32,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
+	github.com/jhump/protoreflect v1.10.1
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/onsi/gomega v1.14.0 // indirect
 	github.com/opencord/voltha-protos/v5 v5.0.0
