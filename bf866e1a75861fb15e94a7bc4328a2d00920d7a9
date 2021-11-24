@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efb6910b_7d2a40ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2021-11-24T16:48:13Z",
+      "side": 1,
+      "message": "Please change the version in the VERSION file to -dev to get rid of the tag collision",
+      "revId": "bf866e1a75861fb15e94a7bc4328a2d00920d7a9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
