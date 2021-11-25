@@ -16,6 +16,23 @@
       "message": "Please change the version in the VERSION file to -dev to get rid of the tag collision",
       "revId": "bf866e1a75861fb15e94a7bc4328a2d00920d7a9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4367a9a_36e93c21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2021-11-25T00:29:31Z",
+      "side": 1,
+      "message": "Needs a minor version bump.",
+      "revId": "bf866e1a75861fb15e94a7bc4328a2d00920d7a9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
