@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02aac83f_0bceeea4",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2021-12-01T16:46:38Z",
+      "side": 1,
+      "message": "what happens if the event does not have the suffix or it\u0027s not empty ? we should have a \"default\" case",
+      "revId": "8cde76ca151d1c78ed25d544572d5100adb71f88",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
