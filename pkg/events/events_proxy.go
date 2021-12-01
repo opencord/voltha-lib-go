@@ -80,9 +80,10 @@ func (ep *EventProxy) getEventHeader(eventName string,
 	eventType eventif.EventType,
 	raisedTs int64) (*voltha.EventHeader, error) {
 	var header voltha.EventHeader
-	if strings.Contains(eventName, "_") {
+
+	if strings.HasSuffix(eventName, "RAISE_EVENT") || strings.HasSuffix(eventName, "CLEAR_EVENT") {
 		eventName = strings.Join(strings.Split(eventName, "_")[:len(strings.Split(eventName, "_"))-2], "_")
-	} else {
+	} else if eventName == "" {
 		eventName = "UNKNOWN_EVENT"
 	}
 	/* Populating event header */
