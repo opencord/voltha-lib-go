@@ -24,7 +24,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/opencord/voltha-lib-go/v7/pkg/log"
 	"github.com/opencord/voltha-lib-go/v7/pkg/probe"
 	"github.com/opencord/voltha-protos/v5/go/common"
@@ -131,32 +130,33 @@ func newTestClient(apiEndpoint string, handler RestartedHandler) *testClient {
 		return nil
 	}
 
-	tc.client, err = NewClient(apiEndpoint,
-		handler,
-		ActivityCheck(true))
+	tc.client, err = NewClient(
+		"test-endpoint",
+		apiEndpoint,
+		handler)
 	if err != nil {
 		return nil
 	}
 	return tc
 }
 
-func setAndTestCoreServiceHandler(ctx context.Context, conn *grpc.ClientConn) interface{} {
+func setAndTestCoreServiceHandler(ctx context.Context, conn *grpc.ClientConn, clientConn *common.Connection) interface{} {
 	if conn == nil {
 		return nil
 	}
 	svc := core_service.NewCoreServiceClient(conn)
-	if h, err := svc.GetHealthStatus(ctx, &empty.Empty{}); err != nil || h.State != health.HealthStatus_HEALTHY {
+	if h, err := svc.GetHealthStatus(ctx, clientConn); err != nil || h.State != health.HealthStatus_HEALTHY {
 		return nil
 	}
 	return svc
 }
 
-func idleConnectionTest(ctx context.Context, conn *grpc.ClientConn) interface{} {
+func idleConnectionTest(ctx context.Context, conn *grpc.ClientConn, clientConn *common.Connection) interface{} {
 	if conn == nil {
 		return nil
 	}
 	svc := core_service.NewCoreServiceClient(conn)
-	if h, err := svc.GetHealthStatus(ctx, &empty.Empty{}); err != nil || h.State != health.HealthStatus_HEALTHY {
+	if h, err := svc.GetHealthStatus(ctx, clientConn); err != nil || h.State != health.HealthStatus_HEALTHY {
 		return nil
 	}
 	testForNoActivityCh <- time.Now()
@@ -447,9 +447,9 @@ func testClientFailure(t *testing.T, numClientRestarts int) {
 		assert.Nil(t, err)
 		// Create a new client
 		tc.client, err = NewClient(
+			"test-ednpoint",
 			apiEndpoint,
-			serverRestarted,
-			ActivityCheck(true))
+			serverRestarted)
 		assert.Nil(t, err)
 		probeCtx := context.WithValue(ctx, probe.ProbeContextKey, tc.probe)
 		go tc.client.Start(probeCtx, idleConnectionTest)
