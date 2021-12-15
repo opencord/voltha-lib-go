@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package grpc
+package grpc_test
 
 import (
 	"context"
@@ -24,11 +24,11 @@ import (
 	"testing"
 	"time"
 
+	vgrpc "github.com/opencord/voltha-lib-go/v7/pkg/grpc"
 	"github.com/opencord/voltha-lib-go/v7/pkg/log"
 	"github.com/opencord/voltha-lib-go/v7/pkg/probe"
 	"github.com/opencord/voltha-protos/v5/go/common"
 	"github.com/opencord/voltha-protos/v5/go/core_service"
-	"github.com/opencord/voltha-protos/v5/go/health"
 	"github.com/opencord/voltha-protos/v5/go/voltha"
 	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
@@ -44,12 +44,14 @@ const (
 	timeout         = 10 * time.Second
 )
 
-var testForNoActivityCh = make(chan time.Time, 10)
+var testForNoActivityCh = make(chan time.Time, 20)
+var testKeepAliveCh = make(chan time.Time, 20)
 
 type testCoreServer struct {
 	apiEndPoint string
-	server      *GrpcServer
+	server      *vgrpc.GrpcServer
 	probe       *probe.Probe
+	coreService *vgrpc.MockCoreServiceHandler
 }
 
 func newTestCoreServer(apiEndpoint string) *testCoreServer {
@@ -64,14 +66,15 @@ func (s *testCoreServer) registerService(ctx context.Context, t *testing.T) {
 
 	probePort, err := freeport.GetFreePort()
 	assert.Nil(t, err)
-	probeEndpoint := "127.0.0.1:" + strconv.Itoa(probePort)
+	probeEndpoint := ":" + strconv.Itoa(probePort)
 	go s.probe.ListenAndServe(ctx, probeEndpoint)
 	s.probe.RegisterService(ctx, testGrpcServer)
 
-	s.server = NewGrpcServer(s.apiEndPoint, nil, false, s.probe)
+	s.server = vgrpc.NewGrpcServer(s.apiEndPoint, nil, false, s.probe)
+	s.coreService = vgrpc.NewMockCoreServiceHandler()
 
 	s.server.AddService(func(server *grpc.Server) {
-		core_service.RegisterCoreServiceServer(server, &MockCoreServiceHandler{})
+		core_service.RegisterCoreServiceServer(server, s.coreService)
 	})
 }
 
@@ -80,11 +83,13 @@ func (s *testCoreServer) start(ctx context.Context, t *testing.T) {
 	assert.NotEqual(t, "", s.apiEndPoint)
 
 	s.probe.UpdateStatus(ctx, testGrpcServer, probe.ServiceStatusRunning)
+	s.coreService.Start()
 	s.server.Start(ctx)
 	s.probe.UpdateStatus(ctx, testGrpcServer, probe.ServiceStatusStopped)
 }
 
 func (s *testCoreServer) stop() {
+	s.coreService.Stop()
 	if s.server != nil {
 		s.server.Stop()
 	}
@@ -93,7 +98,7 @@ func (s *testCoreServer) stop() {
 type testClient struct {
 	apiEndPoint string
 	probe       *probe.Probe
-	client      *Client
+	client      *vgrpc.Client
 }
 
 func serverRestarted(ctx context.Context, endPoint string) error {
@@ -101,38 +106,39 @@ func serverRestarted(ctx context.Context, endPoint string) error {
 	return nil
 }
 
-func newTestClient(apiEndpoint string, handler RestartedHandler) *testClient {
+func newTestClient(apiEndpoint string, handler vgrpc.RestartedHandler) *testClient {
 	tc := &testClient{
 		apiEndPoint: apiEndpoint,
 		probe:       &probe.Probe{},
 	}
 	// Set the environment variables that this client will use
 	var err error
-	err = os.Setenv(grpcBackoffInitialInterval, initialInterval.String())
+	err = os.Setenv("GRPC_BACKOFF_INITIAL_INTERVAL", initialInterval.String())
 	if err != nil {
-		logger.Warnw(context.Background(), "setting-env-variable-failed", log.Fields{"error": err, "variable": grpcBackoffInitialInterval})
+		logger.Warnw(context.Background(), "setting-env-variable-failed", log.Fields{"error": err, "variable": "GRPC_BACKOFF_INITIAL_INTERVAL"})
 		return nil
 	}
-	err = os.Setenv(grpcBackoffInitialInterval, maxInterval.String())
+	err = os.Setenv("GRPC_BACKOFF_MAX_INTERVAL", maxInterval.String())
 	if err != nil {
-		logger.Warnw(context.Background(), "setting-env-variable-failed", log.Fields{"error": err, "variable": grpcBackoffInitialInterval})
+		logger.Warnw(context.Background(), "setting-env-variable-failed", log.Fields{"error": err, "variable": "GRPC_BACKOFF_MAX_INTERVAL"})
 		return nil
 	}
-	err = os.Setenv(grpcBackoffMaxElapsedTime, maxElapsedTime.String())
+	err = os.Setenv("GRPC_BACKOFF_MAX_ELAPSED_TIME", maxElapsedTime.String())
 	if err != nil {
-		logger.Warnw(context.Background(), "setting-env-variable-failed", log.Fields{"error": err, "variable": grpcBackoffMaxElapsedTime})
-		return nil
-	}
-
-	err = os.Setenv(grpcMonitorInterval, monitorInterval.String())
-	if err != nil {
-		logger.Warnw(context.Background(), "setting-env-variable-failed", log.Fields{"error": err, "variable": grpcMonitorInterval})
+		logger.Warnw(context.Background(), "setting-env-variable-failed", log.Fields{"error": err, "variable": "GRPC_BACKOFF_MAX_ELAPSED_TIME"})
 		return nil
 	}
 
-	tc.client, err = NewClient(
+	err = os.Setenv("GRPC_MONITOR_INTERVAL", monitorInterval.String())
+	if err != nil {
+		logger.Warnw(context.Background(), "setting-env-variable-failed", log.Fields{"error": err, "variable": "GRPC_MONITOR_INTERVAL"})
+		return nil
+	}
+
+	tc.client, err = vgrpc.NewClient(
 		"test-endpoint",
 		apiEndpoint,
+		"core_service.CoreService",
 		handler)
 	if err != nil {
 		return nil
@@ -140,30 +146,24 @@ func newTestClient(apiEndpoint string, handler RestartedHandler) *testClient {
 	return tc
 }
 
-func setAndTestCoreServiceHandler(ctx context.Context, conn *grpc.ClientConn, clientConn *common.Connection) interface{} {
+func getCoreServiceHandler(ctx context.Context, conn *grpc.ClientConn) interface{} {
 	if conn == nil {
 		return nil
 	}
-	svc := core_service.NewCoreServiceClient(conn)
-	if h, err := svc.GetHealthStatus(ctx, clientConn); err != nil || h.State != health.HealthStatus_HEALTHY {
-		return nil
-	}
-	return svc
+	return core_service.NewCoreServiceClient(conn)
 }
 
-func idleConnectionTest(ctx context.Context, conn *grpc.ClientConn, clientConn *common.Connection) interface{} {
+func idleConnectionTest(ctx context.Context, conn *grpc.ClientConn) interface{} {
 	if conn == nil {
 		return nil
 	}
 	svc := core_service.NewCoreServiceClient(conn)
-	if h, err := svc.GetHealthStatus(ctx, clientConn); err != nil || h.State != health.HealthStatus_HEALTHY {
-		return nil
-	}
+
 	testForNoActivityCh <- time.Now()
 	return svc
 }
 
-func (c *testClient) start(ctx context.Context, t *testing.T, handler SetAndTestServiceHandler) {
+func (c *testClient) start(ctx context.Context, t *testing.T, handler vgrpc.GetServiceClient) {
 	assert.NotNil(t, c.client)
 
 	probePort, err := freeport.GetFreePort()
@@ -199,7 +199,7 @@ func serverStartsFirstTest(t *testing.T) {
 	// Create the test client and start it
 	tc := newTestClient(apiEndpoint, serverRestarted)
 	assert.NotNil(t, tc)
-	go tc.start(ctx, t, setAndTestCoreServiceHandler)
+	go tc.start(ctx, t, getCoreServiceHandler)
 
 	// Test 1: Verify that probe status shows ready eventually
 	var servicesReady isConditionSatisfied = func() bool {
@@ -230,7 +230,7 @@ func clientStartsFirstTest(t *testing.T) {
 	// Create the test client and start it
 	tc := newTestClient(apiEndpoint, serverRestarted)
 	assert.NotNil(t, tc)
-	go tc.start(ctx, t, setAndTestCoreServiceHandler)
+	go tc.start(ctx, t, getCoreServiceHandler)
 
 	// Verify client is not ready
 	var clientNotReady isConditionSatisfied = func() bool {
@@ -288,7 +288,7 @@ func serverRestarts(t *testing.T, numRestartRuns int) {
 
 	// Subscribe for liveness
 	tc.client.SubscribeForLiveness(livessness)
-	go tc.start(ctx, t, setAndTestCoreServiceHandler)
+	go tc.start(ctx, t, getCoreServiceHandler)
 
 	// Test 1: Verify that probe status shows ready eventually
 	var servicesReady isConditionSatisfied = func() bool {
@@ -315,11 +315,6 @@ func serverRestarts(t *testing.T, numRestartRuns int) {
 		err = waitUntilCondition(timeout, serverDown)
 		assert.Nil(t, err)
 
-		// Make a grpc request - this will detect the server being down and automatically trigger the grpc client
-		// to reconnect
-		_, err = coreClient.GetDevice(context.Background(), &common.ID{Id: "1234"})
-		assert.NotNil(t, err)
-
 		// Wait until the client service shows as not ready. A wait is not needed.  It's just to verify that the
 		// client changes connection state.
 		var clientNotReady isConditionSatisfied = func() bool {
@@ -332,10 +327,9 @@ func serverRestarts(t *testing.T, numRestartRuns int) {
 
 		assert.Nil(t, err)
 
-		// Keep the server down for 1/2 second
-		time.Sleep(500 * time.Millisecond)
-
-		// Test 4: Restart the server and verify the server is back online
+		// Test 4: Re-create the server and verify the server is back online
+		ts = newTestCoreServer(apiEndpoint)
+		ts.registerService(ctx, t)
 		go ts.start(ctx, t)
 		err = waitUntilCondition(timeout, servicesReady)
 		assert.Nil(t, err)
@@ -351,7 +345,13 @@ func serverRestarts(t *testing.T, numRestartRuns int) {
 	ts.stop()
 }
 
-func testNoActivity(t *testing.T) {
+// Liveness function
+func keepAliveMonitor(timestamp time.Time) {
+	logger.Debugw(context.Background(), "received-liveness", log.Fields{"timestamp": timestamp})
+	testKeepAliveCh <- timestamp
+}
+
+func testKeepAlive(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -367,8 +367,10 @@ func testNoActivity(t *testing.T) {
 
 	// Create and start the test server
 	ts := newTestCoreServer(apiEndpoint)
+	tc.client.SubscribeForLiveness(keepAliveMonitor)
 	ts.registerService(ctx, t)
 	go ts.start(ctx, t)
+	defer tc.client.Stop(context.Background())
 
 	// Test 1: Verify that probe status shows ready eventually
 	var servicesReady isConditionSatisfied = func() bool {
@@ -395,7 +397,7 @@ func testNoActivity(t *testing.T) {
 loop:
 	for {
 		select {
-		case timestamp := <-testForNoActivityCh:
+		case timestamp := <-testKeepAliveCh:
 			if timestamp.After(start) {
 				count += 1
 				if count > numChecks {
@@ -445,20 +447,25 @@ func testClientFailure(t *testing.T, numClientRestarts int) {
 		}
 		err = waitUntilCondition(timeout, clientNotReady)
 		assert.Nil(t, err)
+
 		// Create a new client
-		tc.client, err = NewClient(
-			"test-ednpoint",
+		tc.client, err = vgrpc.NewClient(
+			"test-endpoint",
 			apiEndpoint,
+			"core_service.CoreService",
 			serverRestarted)
 		assert.Nil(t, err)
 		probeCtx := context.WithValue(ctx, probe.ProbeContextKey, tc.probe)
 		go tc.client.Start(probeCtx, idleConnectionTest)
+
 		//Verify that probe status shows ready eventually
 		err = waitUntilCondition(timeout, servicesReady)
 		assert.Nil(t, err)
+
 		// Verify we get a valid client and can make grpc requests with it
 		coreClient = tc.getClient(t)
 		assert.NotNil(t, coreClient)
+
 		device, err = coreClient.GetDevice(context.Background(), &common.ID{Id: "1234"})
 		assert.Nil(t, err)
 		assert.NotNil(t, device)
@@ -569,7 +576,7 @@ func testServerLimit(t *testing.T) {
 	}
 }
 
-func TestSuiteClient3(t *testing.T) {
+func TestSuite(t *testing.T) {
 	// Setup
 	log.SetAllLogLevel(volthaTestLogLevel)
 
@@ -580,14 +587,14 @@ func TestSuiteClient3(t *testing.T) {
 	clientStartsFirstTest(t)
 
 	// Test server restarts
-	serverRestarts(t, 1)
+	serverRestarts(t, 10)
 
-	//Test that the client test the grpc connection on no activity
-	testNoActivity(t)
+	// Test that the client test the grpc connection on no activity
+	testKeepAlive(t)
 
 	// Test client queueing with server limit
 	testServerLimit(t)
 
-	// Test the scenario where a client restarts
+	// // Test the scenario where a client restarts
 	testClientFailure(t, 10)
 }
