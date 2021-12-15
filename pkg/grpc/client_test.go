@@ -44,7 +44,8 @@ const (
 	timeout         = 10 * time.Second
 )
 
-var testForNoActivityCh = make(chan time.Time, 10)
+var testForNoActivityCh = make(chan time.Time, 20)
+var testKeepAliveCh = make(chan time.Time, 20)
 
 type testCoreServer struct {
 	apiEndPoint string
@@ -64,7 +65,7 @@ func (s *testCoreServer) registerService(ctx context.Context, t *testing.T) {
 
 	probePort, err := freeport.GetFreePort()
 	assert.Nil(t, err)
-	probeEndpoint := "127.0.0.1:" + strconv.Itoa(probePort)
+	probeEndpoint := ":" + strconv.Itoa(probePort)
 	go s.probe.ListenAndServe(ctx, probeEndpoint)
 	s.probe.RegisterService(ctx, testGrpcServer)
 
@@ -133,6 +134,7 @@ func newTestClient(apiEndpoint string, handler RestartedHandler) *testClient {
 	tc.client, err = NewClient(
 		"test-endpoint",
 		apiEndpoint,
+		"CoreService",
 		handler)
 	if err != nil {
 		return nil
@@ -315,11 +317,6 @@ func serverRestarts(t *testing.T, numRestartRuns int) {
 		err = waitUntilCondition(timeout, serverDown)
 		assert.Nil(t, err)
 
-		// Make a grpc request - this will detect the server being down and automatically trigger the grpc client
-		// to reconnect
-		_, err = coreClient.GetDevice(context.Background(), &common.ID{Id: "1234"})
-		assert.NotNil(t, err)
-
 		// Wait until the client service shows as not ready. A wait is not needed.  It's just to verify that the
 		// client changes connection state.
 		var clientNotReady isConditionSatisfied = func() bool {
@@ -331,9 +328,6 @@ func serverRestarts(t *testing.T, numRestartRuns int) {
 		err = waitUntilCondition(timeout, clientNotReady)
 
 		assert.Nil(t, err)
-
-		// Keep the server down for 1/2 second
-		time.Sleep(500 * time.Millisecond)
 
 		// Test 4: Restart the server and verify the server is back online
 		go ts.start(ctx, t)
@@ -351,7 +345,13 @@ func serverRestarts(t *testing.T, numRestartRuns int) {
 	ts.stop()
 }
 
-func testNoActivity(t *testing.T) {
+// Liveness function
+func keepAliveMonitor(timestamp time.Time) {
+	logger.Debugw(context.Background(), "received-liveness", log.Fields{"timestamp": timestamp})
+	testKeepAliveCh <- timestamp
+}
+
+func testKeepAlive(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -367,8 +367,10 @@ func testNoActivity(t *testing.T) {
 
 	// Create and start the test server
 	ts := newTestCoreServer(apiEndpoint)
+	tc.client.SubscribeForLiveness(keepAliveMonitor)
 	ts.registerService(ctx, t)
 	go ts.start(ctx, t)
+	defer tc.client.Stop(context.Background())
 
 	// Test 1: Verify that probe status shows ready eventually
 	var servicesReady isConditionSatisfied = func() bool {
@@ -395,7 +397,7 @@ func testNoActivity(t *testing.T) {
 loop:
 	for {
 		select {
-		case timestamp := <-testForNoActivityCh:
+		case timestamp := <-testKeepAliveCh:
 			if timestamp.After(start) {
 				count += 1
 				if count > numChecks {
@@ -445,20 +447,25 @@ func testClientFailure(t *testing.T, numClientRestarts int) {
 		}
 		err = waitUntilCondition(timeout, clientNotReady)
 		assert.Nil(t, err)
+
 		// Create a new client
 		tc.client, err = NewClient(
-			"test-ednpoint",
+			"test-endpoint",
 			apiEndpoint,
+			"CoreService",
 			serverRestarted)
 		assert.Nil(t, err)
 		probeCtx := context.WithValue(ctx, probe.ProbeContextKey, tc.probe)
 		go tc.client.Start(probeCtx, idleConnectionTest)
+
 		//Verify that probe status shows ready eventually
 		err = waitUntilCondition(timeout, servicesReady)
 		assert.Nil(t, err)
+
 		// Verify we get a valid client and can make grpc requests with it
 		coreClient = tc.getClient(t)
 		assert.NotNil(t, coreClient)
+
 		device, err = coreClient.GetDevice(context.Background(), &common.ID{Id: "1234"})
 		assert.Nil(t, err)
 		assert.NotNil(t, device)
@@ -569,7 +576,7 @@ func testServerLimit(t *testing.T) {
 	}
 }
 
-func TestSuiteClient3(t *testing.T) {
+func TestSuiteClient(t *testing.T) {
 	// Setup
 	log.SetAllLogLevel(volthaTestLogLevel)
 
@@ -582,12 +589,12 @@ func TestSuiteClient3(t *testing.T) {
 	// Test server restarts
 	serverRestarts(t, 1)
 
-	//Test that the client test the grpc connection on no activity
-	testNoActivity(t)
+	// Test that the client test the grpc connection on no activity
+	testKeepAlive(t)
 
 	// Test client queueing with server limit
 	testServerLimit(t)
 
-	// Test the scenario where a client restarts
-	testClientFailure(t, 10)
+	// // // Test the scenario where a client restarts
+	testClientFailure(t, 1)
 }
