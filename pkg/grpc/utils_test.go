@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package grpc
+package grpc_test
 
 import (
 	"context"
@@ -21,6 +21,7 @@ import (
 	"testing"
 	"time"
 
+	vgrpc "github.com/opencord/voltha-lib-go/v7/pkg/grpc"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -28,7 +29,7 @@ func TestBackoffNoWait(t *testing.T) {
 	initTime := 1 * time.Millisecond
 	maxTime := 500 * time.Millisecond
 	maxElapsedTime := 0 * time.Millisecond
-	backoff := NewBackoff(initTime, maxTime, maxElapsedTime)
+	backoff := vgrpc.NewBackoff(initTime, maxTime, maxElapsedTime)
 	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
 	defer cancel()
 	err := backoff.Backoff(ctx)
@@ -39,7 +40,7 @@ func TestBackoffElapsedTime(t *testing.T) {
 	initTime := 10 * time.Millisecond
 	maxTime := 50 * time.Millisecond
 	maxElapsedTime := 500 * time.Millisecond
-	b := NewBackoff(initTime, maxTime, maxElapsedTime)
+	b := vgrpc.NewBackoff(initTime, maxTime, maxElapsedTime)
 	start := time.Now()
 loop:
 	for {
@@ -55,7 +56,7 @@ func TestBackoffSuccess(t *testing.T) {
 	initTime := 100 * time.Millisecond
 	maxTime := 500 * time.Millisecond
 	maxElapsedTime := 0 * time.Millisecond
-	backoff := NewBackoff(initTime, maxTime, maxElapsedTime)
+	backoff := vgrpc.NewBackoff(initTime, maxTime, maxElapsedTime)
 	ctx, cancel := context.WithTimeout(context.Background(), 2000*time.Millisecond)
 	defer cancel()
 	previous := time.Duration(0)
@@ -75,7 +76,7 @@ func TestBackoffContextTimeout(t *testing.T) {
 	initTime := 1000 * time.Millisecond
 	maxTime := 1100 * time.Millisecond
 	maxElapsedTime := 0 * time.Millisecond
-	backoff := NewBackoff(initTime, maxTime, maxElapsedTime)
+	backoff := vgrpc.NewBackoff(initTime, maxTime, maxElapsedTime)
 	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
 	defer cancel()
 	err := backoff.Backoff(ctx)
@@ -86,18 +87,18 @@ func TestBackoffContextTimeout(t *testing.T) {
 func TestSetFromEnvVariable(t *testing.T) {
 	// 1. Test with unsupported type
 	var valInt int
-	err := SetFromEnvVariable("MY-KEY", valInt)
+	err := vgrpc.SetFromEnvVariable("MY-KEY", valInt)
 	assert.NotNil(t, err)
 
 	//2. Test with supported type but no env variable present
 	var valDuration time.Duration
-	err = SetFromEnvVariable("MY-KEY", &valDuration)
+	err = vgrpc.SetFromEnvVariable("MY-KEY", &valDuration)
 	assert.Nil(t, err)
 
 	//3. Test with supported type and env variable present
 	err = os.Setenv("MY-KEY", "10s")
 	assert.Nil(t, err)
-	err = SetFromEnvVariable("MY-KEY", &valDuration)
+	err = vgrpc.SetFromEnvVariable("MY-KEY", &valDuration)
 	assert.Nil(t, err)
 	assert.Equal(t, 10*time.Second, valDuration)
 }
