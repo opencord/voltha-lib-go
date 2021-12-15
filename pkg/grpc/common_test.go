@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package grpc
+package grpc_test
 
 import (
 	"fmt"
@@ -39,11 +39,12 @@ const (
 
 type isConditionSatisfied func() bool
 
-// Unit test initialization. This init() function handles all unit tests in
-// the current directory.
+var logger log.CLogger
+
 func init() {
-	// Logger must be configured or bad things happen
-	_, err := log.SetDefaultLogger(log.JSON, volthaTestLogLevel, log.Fields{"instanceId": 1})
+	// Setup this package so that it's log level can be modified at run time
+	var err error
+	logger, err = log.RegisterPackage(log.JSON, log.DebugLevel, log.Fields{})
 	if err != nil {
 		panic(err)
 	}
