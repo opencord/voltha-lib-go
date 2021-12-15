@@ -17,9 +17,10 @@ package grpc
 
 import (
 	"context"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc"
-	"testing"
 )
 
 // A Mock Probe that returns the Ready member using the IsReady() func
