@@ -33,7 +33,7 @@ const (
 	 * useful.
 	 */
 
-	volthaTestLogLevel = log.FatalLevel
+	volthaTestLogLevel = log.DebugLevel
 	retryInterval      = 50 * time.Millisecond
 )
 
