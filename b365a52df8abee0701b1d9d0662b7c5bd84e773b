@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ca9ef68_ec7d97de",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2022-01-25T17:23:03Z",
+      "side": 1,
+      "message": "Why the \"Send\" here? Can be something like RunWithTimeout for ex.",
+      "range": {
+        "startLine": 230,
+        "startChar": 5,
+        "endLine": 230,
+        "endChar": 20
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
