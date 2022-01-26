@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd06c48f_d574c58f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2022-01-26T00:11:31Z",
+      "side": 1,
+      "message": "There is quite a lot happening here. From what I understood, this look ok to me. We will know more when we test. +1",
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ca9ef68_ec7d97de",
@@ -20,6 +37,23 @@
         "endLine": 230,
         "endChar": 20
       },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a93f2ec_ba3b0241",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2022-01-26T00:11:31Z",
+      "side": 1,
+      "message": "it probably does not matter, but we could use a \u0027break\u0027 here?\nAlso how does the \u0027service\u0027 string look like? Is c.remoteServiceName a subset string of \u0027service\u0027 string or they should be the same?",
       "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
