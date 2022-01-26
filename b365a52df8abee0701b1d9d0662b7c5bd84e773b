@@ -102,6 +102,121 @@
       "message": "it probably does not matter, but we could use a \u0027break\u0027 here?\nAlso how does the \u0027service\u0027 string look like? Is c.remoteServiceName a subset string of \u0027service\u0027 string or they should be the same?",
       "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc5f1caf_d62f66db",
+        "filename": "pkg/grpc/client_test.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2022-01-26T16:17:49Z",
+      "side": 1,
+      "message": "bit of a nit i suppose, but latest Go guidance is to put test code in \u003cpkg\u003e_test pkg in same directory as \u003cpkg\u003e. This works for testing the \"external\" interface. This also assume you are not touching the internal bits of the package.",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 12
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eab7d076_13718127",
+        "filename": "pkg/grpc/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2022-01-26T16:17:49Z",
+      "side": 1,
+      "message": "Do we really want to default to DebugLevel. Why not ErrorLevel?",
+      "range": {
+        "startLine": 27,
+        "startChar": 45,
+        "endLine": 27,
+        "endChar": 59
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e8368d3_a87c63ef",
+        "filename": "pkg/grpc/common_test.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2022-01-26T16:17:49Z",
+      "side": 1,
+      "message": "bit of a nit i suppose, but latest Go guidance is to put test code in \u003cpkg\u003e_test pkg in same directory as \u003cpkg\u003e. This works for testing the \"external\" interface. This also assume you are not touching the internal bits of the package.",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 12
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "244a3cb8_349eb1d0",
+        "filename": "pkg/grpc/mock_core_service.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2022-01-26T16:17:49Z",
+      "side": 1,
+      "message": "if this is part of tests only then the standard comment about pkg name applies. as is this code will be compiled and incorporated with the production code.",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 12
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60d8e4b0_5bed2fe7",
+        "filename": "pkg/grpc/server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2022-01-26T16:17:49Z",
+      "side": 1,
+      "message": "if not needed then should be deleted.",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 24
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
