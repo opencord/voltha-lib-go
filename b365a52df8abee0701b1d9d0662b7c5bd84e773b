@@ -66,6 +66,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92222e59_32884944",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2022-01-27T15:59:39Z",
+      "side": 1,
+      "message": "debug ?",
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aa0f444c_50f607f0",
         "filename": "pkg/grpc/client.go",
         "patchSetId": 2
@@ -106,6 +123,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae7f5112_bd1dad51",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2022-01-27T15:59:39Z",
+      "side": 1,
+      "message": "being picky, maybe a better name ?",
+      "range": {
+        "startLine": 330,
+        "startChar": 1,
+        "endLine": 330,
+        "endChar": 7
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc5f1caf_d62f66db",
         "filename": "pkg/grpc/client_test.go",
         "patchSetId": 2
@@ -140,6 +180,30 @@
       "writtenOn": "2022-01-26T16:17:49Z",
       "side": 1,
       "message": "Do we really want to default to DebugLevel. Why not ErrorLevel?",
+      "range": {
+        "startLine": 27,
+        "startChar": 45,
+        "endLine": 27,
+        "endChar": 59
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4483d397_aaeeedcc",
+        "filename": "pkg/grpc/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2022-01-27T15:59:39Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "eab7d076_13718127",
       "range": {
         "startLine": 27,
         "startChar": 45,
