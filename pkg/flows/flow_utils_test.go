@@ -314,6 +314,63 @@ func TestFlowsAndGroups_AddFrom(t *testing.T) {
 	assert.Equal(t, group.Desc.GroupId, allGroups[0].Desc.GroupId)
 }
 
+func TestDeviceRules_FilterRules(t *testing.T) {
+	dr := NewDeviceRules()
+	rules := dr.GetRules()
+	assert.True(t, len(rules) == 0)
+
+	dr.AddFlow("1", nil)
+	dr.AddFlow("2", nil)
+	dr.AddFlow("3", nil)
+	dr.AddFlow("4", nil)
+	rules = dr.GetRules()
+	assert.True(t, len(rules) == 4)
+
+	keep := map[string]string{"1": "1", "3": "3", "5": "5"}
+	result := dr.FilterRules(keep)
+	rules = result.GetRules()
+	assert.True(t, len(rules) == 2)
+
+	_, ok := rules["1"]
+	assert.True(t, ok)
+	_, ok = rules["2"]
+	assert.False(t, ok)
+	_, ok = rules["3"]
+	assert.True(t, ok)
+	_, ok = rules["4"]
+	assert.False(t, ok)
+}
+
+func TestDeviceRules_RemoveRule(t *testing.T) {
+	dr := NewDeviceRules()
+	rules := dr.GetRules()
+	assert.True(t, len(rules) == 0)
+
+	dr.AddFlow("1", nil)
+	dr.AddFlow("2", nil)
+	dr.AddFlow("3", nil)
+	dr.AddFlow("4", nil)
+	rules = dr.GetRules()
+	assert.True(t, len(rules) == 4)
+
+	dr.RemoveRule("3")
+	rules = dr.GetRules()
+	assert.True(t, len(rules) == 3)
+
+	_, ok := rules["1"]
+	assert.True(t, ok)
+	_, ok = rules["2"]
+	assert.True(t, ok)
+	_, ok = rules["3"]
+	assert.False(t, ok)
+	_, ok = rules["4"]
+	assert.True(t, ok)
+
+	dr.RemoveRule("5")
+	rules = dr.GetRules()
+	assert.True(t, len(rules) == 3)
+}
+
 func TestDeviceRules_AddFlow(t *testing.T) {
 	dr := NewDeviceRules()
 	rules := dr.GetRules()
