@@ -65,6 +65,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "013dda36_a30e78a3",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-02-10T19:05:45Z",
+      "side": 1,
+      "message": "Updated.  Only need one extra buffer when a client starts.",
+      "parentUuid": "1848ce20_69e7484c",
+      "range": {
+        "startLine": 111,
+        "startChar": 43,
+        "endLine": 111,
+        "endChar": 45
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ca9ef68_ec7d97de",
@@ -112,6 +136,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e455df27_c2782425",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-02-10T19:05:45Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "ebdebc8b_6236c798",
+      "range": {
+        "startLine": 230,
+        "startChar": 5,
+        "endLine": 230,
+        "endChar": 20
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92222e59_32884944",
@@ -143,6 +191,24 @@
       "side": 1,
       "message": "will change",
       "parentUuid": "92222e59_32884944",
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40819551_ee0ad92d",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-02-10T19:05:45Z",
+      "side": 1,
+      "message": "changed",
+      "parentUuid": "1ff456ae_4ee81e93",
       "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -194,6 +260,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee6393ed_2271048a",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-02-10T19:05:45Z",
+      "side": 1,
+      "message": "Changed to full match",
+      "parentUuid": "ed6b6ec5_be450aac",
+      "range": {
+        "startLine": 294,
+        "startChar": 13,
+        "endLine": 294,
+        "endChar": 21
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a93f2ec_ba3b0241",
@@ -225,6 +315,24 @@
       "side": 1,
       "message": "Yes, a break would be good.\n\nSee comments above for the remote service name.",
       "parentUuid": "8a93f2ec_ba3b0241",
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ebce75d_57b6e8f5",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-02-10T19:05:45Z",
+      "side": 1,
+      "message": "updated.",
+      "parentUuid": "8db206cc_8106f9d0",
       "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -276,6 +384,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0525ad47_a286b693",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-02-10T19:05:45Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "e44a2f35_f7382697",
+      "range": {
+        "startLine": 330,
+        "startChar": 1,
+        "endLine": 330,
+        "endChar": 7
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc5f1caf_d62f66db",
@@ -313,6 +445,30 @@
       "side": 1,
       "message": "This is a white box test, can\u0027t really move into a separate package.   If it\u0027s more than a nit then I will open a Jira as this pattern is used in a lot of places.",
       "parentUuid": "cc5f1caf_d62f66db",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 12
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22d51bf9_0d80b362",
+        "filename": "pkg/grpc/client_test.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-02-10T19:05:45Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "c769d9f6_27353988",
       "range": {
         "startLine": 16,
         "startChar": 8,
@@ -394,6 +550,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34785de3_4fe5dadd",
+        "filename": "pkg/grpc/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-02-10T19:05:45Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "45652ee1_6e63fb3f",
+      "range": {
+        "startLine": 27,
+        "startChar": 45,
+        "endLine": 27,
+        "endChar": 59
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e8368d3_a87c63ef",
@@ -431,6 +611,30 @@
       "side": 1,
       "message": "See prior comments",
       "parentUuid": "8e8368d3_a87c63ef",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 12
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "465b9fce_97557a5c",
+        "filename": "pkg/grpc/common_test.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-02-10T19:05:45Z",
+      "side": 1,
+      "message": "changed to a test package whenever possible.",
+      "parentUuid": "1ae8f5cb_b7354c60",
       "range": {
         "startLine": 16,
         "startChar": 8,
@@ -488,6 +692,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bda509e8_02a87260",
+        "filename": "pkg/grpc/mock_core_service.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-02-10T19:05:45Z",
+      "side": 1,
+      "message": "This code is used by the tests in the olt adapter.",
+      "parentUuid": "12a8d4e1_cce97019",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 12
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60d8e4b0_5bed2fe7",
@@ -525,6 +753,30 @@
       "side": 1,
       "message": "Will remove.",
       "parentUuid": "60d8e4b0_5bed2fe7",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 24
+      },
+      "revId": "b365a52df8abee0701b1d9d0662b7c5bd84e773b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a80be57_a0ef5c59",
+        "filename": "pkg/grpc/server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-02-10T19:05:45Z",
+      "side": 1,
+      "message": "deleted",
+      "parentUuid": "5d12a821_ee74f7f7",
       "range": {
         "startLine": 170,
         "startChar": 0,
