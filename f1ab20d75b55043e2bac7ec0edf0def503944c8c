@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9db78045_498bf0b5",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2022-03-15T17:08:53Z",
+      "side": 1,
+      "message": "Can you please remove the commented old line",
+      "revId": "f1ab20d75b55043e2bac7ec0edf0def503944c8c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
