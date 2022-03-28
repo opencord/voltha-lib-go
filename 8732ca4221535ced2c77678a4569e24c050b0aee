@@ -22,6 +22,30 @@
       },
       "revId": "8732ca4221535ced2c77678a4569e24c050b0aee",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4c800a9_83f144a9",
+        "filename": "pkg/events/eventif/events_proxy_if.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000635
+      },
+      "writtenOn": "2022-03-28T14:49:34Z",
+      "side": 1,
+      "message": "Hi, Thanks for the comment, i have checked the suggestions and used \"Multiple Initialization Functions\" option since we are passing only one argument.",
+      "parentUuid": "df148a1e_7b1ba7bc",
+      "range": {
+        "startLine": 28,
+        "startChar": 48,
+        "endLine": 28,
+        "endChar": 62
+      },
+      "revId": "8732ca4221535ced2c77678a4569e24c050b0aee",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
