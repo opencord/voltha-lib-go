@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea2b45fd_3e7fa6d9",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000116
+      },
+      "writtenOn": "2022-04-11T22:03:29Z",
+      "side": 1,
+      "message": "ok, please create a README page for the support of Redis. either here or in (volta-docs)",
+      "parentUuid": "af328009_552d32f2",
+      "range": {
+        "startLine": 44,
+        "startChar": 19,
+        "endLine": 44,
+        "endChar": 28
+      },
+      "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16e81913_14bab0c6",
         "filename": "pkg/db/kvstore/redisclient.go",
         "patchSetId": 8
