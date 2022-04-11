@@ -56,6 +56,29 @@
       "message": "if this is not needed can we remove ?",
       "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a3e5bb9_2cfa493e",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2022-04-11T16:38:38Z",
+      "side": 1,
+      "message": "nit pick: length",
+      "range": {
+        "startLine": 170,
+        "startChar": 1,
+        "endLine": 170,
+        "endChar": 7
+      },
+      "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
