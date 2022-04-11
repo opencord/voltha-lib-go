@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "472644be_c6e08390",
+        "filename": "VERSION",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-04-11T18:51:51Z",
+      "side": 1,
+      "message": "will do.",
+      "parentUuid": "1bb10fb1_5bb2d596",
+      "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5311ecc8_75d2de2f",
         "filename": "pkg/db/kvstore/redisclient.go",
         "patchSetId": 8
@@ -31,6 +49,30 @@
       "writtenOn": "2022-04-11T11:29:52Z",
       "side": 1,
       "message": "this seems better to be at least a constant. Is there any way we can also expose it via parameters ? where is this defined also in redis ?",
+      "range": {
+        "startLine": 44,
+        "startChar": 19,
+        "endLine": 44,
+        "endChar": 28
+      },
+      "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af328009_552d32f2",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-04-11T18:51:51Z",
+      "side": 1,
+      "message": "I was hesitant while I was making it hard-coded but I could not think of a good reason to make it configurable. If we make it configurable, the same configuration parameter should be sent to redis, voltha-go and the adapter charts. I\u0027d also need to change a couple of function signatures which would break the backward compatibility. \nIf we decide to leave it as it is, I should explicitly document in the code that redis should be installed with using \"sebaRedis\" parameter as the MasterName.",
+      "parentUuid": "5311ecc8_75d2de2f",
       "range": {
         "startLine": 44,
         "startChar": 19,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd7228f3_df713622",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-04-11T18:51:51Z",
+      "side": 1,
+      "message": "will do.",
+      "parentUuid": "16e81913_14bab0c6",
+      "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a3e5bb9_2cfa493e",
         "filename": "pkg/db/kvstore/redisclient.go",
         "patchSetId": 8
@@ -71,6 +131,30 @@
       "writtenOn": "2022-04-11T16:38:38Z",
       "side": 1,
       "message": "nit pick: length",
+      "range": {
+        "startLine": 170,
+        "startChar": 1,
+        "endLine": 170,
+        "endChar": 7
+      },
+      "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03118bc4_e9beafd8",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-04-11T18:51:51Z",
+      "side": 1,
+      "message": "will do.",
+      "parentUuid": "5a3e5bb9_2cfa493e",
       "range": {
         "startLine": 170,
         "startChar": 1,
