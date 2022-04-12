@@ -36,6 +36,24 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc46583b_6c5d5e1f",
+        "filename": "VERSION",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-04-12T10:03:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "472644be_c6e08390",
+      "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5311ecc8_75d2de2f",
@@ -107,6 +125,30 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a330b1b_9b6f92c8",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-04-12T10:03:39Z",
+      "side": 1,
+      "message": "voltha-lib-go doesn\u0027t have a README file. I\u0027ll update voltha-docs",
+      "parentUuid": "ea2b45fd_3e7fa6d9",
+      "range": {
+        "startLine": 44,
+        "startChar": 19,
+        "endLine": 44,
+        "endChar": 28
+      },
+      "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16e81913_14bab0c6",
@@ -138,6 +180,24 @@
       "side": 1,
       "message": "will do.",
       "parentUuid": "16e81913_14bab0c6",
+      "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "205454a7_41867040",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-04-12T10:03:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd7228f3_df713622",
       "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -179,6 +239,30 @@
       "side": 1,
       "message": "will do.",
       "parentUuid": "5a3e5bb9_2cfa493e",
+      "range": {
+        "startLine": 170,
+        "startChar": 1,
+        "endLine": 170,
+        "endChar": 7
+      },
+      "revId": "e866009d6695bb3cb01a29da88857c3ba5e8ebe0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd1015b7_87aafb08",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-04-12T10:03:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03118bc4_e9beafd8",
       "range": {
         "startLine": 170,
         "startChar": 1,
