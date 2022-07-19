@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c72e79d_8be1d67b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000127
+      },
+      "writtenOn": "2022-07-19T20:47:00Z",
+      "side": 1,
+      "message": "Bump the version in VERSION file from 7.2.0 to 7.2.1 so that you can pull this version as a go.mod dependency in whichever application this new feature is needed.\nIdeally this issue should have been flagged as part of the linter checks, not sure why that was not picked up.",
+      "revId": "e252e1c4072274a5ae1cd1556059ac7ad6ac0970",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
