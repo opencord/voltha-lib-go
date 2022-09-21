@@ -16,6 +16,24 @@
       "message": "Hi Amit, would it be possible to use this feature in the modules other than voltha components?",
       "revId": "2298e7cb03d3be219b4bbad0be8b22a35d800c4d",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "127f377d_cddfc29c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2022-09-21T08:59:55Z",
+      "side": 1,
+      "message": "Hi @Serkant thanks for the comment.\n\nI also did think about it, but then though of keeping it tight and only to be used by the olt/onu adapters and the vCore. Also am suggesting that any new counter/metric that any of these components want to introduce needs to be updated first in this package. I understand that this introduces additional overhead even for very small changes; say introducing a single counter.\n\nThe reason is that, if we don\u0027t do this we don\u0027t know which components are updating which counters and users have to dig into the code to find out what is available and what is not, the experience we have with our current events (at least I don\u0027t know a way to find out the list of events that say the OLT adapter or ONU adapter can emit)\n\nWe can discuss further on this in the next TST meeting.",
+      "parentUuid": "8a7affea_ca8cb7bc",
+      "revId": "2298e7cb03d3be219b4bbad0be8b22a35d800c4d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
