@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a7affea_ca8cb7bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-09-21T07:50:14Z",
+      "side": 1,
+      "message": "Hi Amit, would it be possible to use this feature in the modules other than voltha components?",
+      "revId": "2298e7cb03d3be219b4bbad0be8b22a35d800c4d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
