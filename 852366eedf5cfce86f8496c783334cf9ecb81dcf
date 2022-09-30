@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbee1483_20aabec7",
+        "filename": "pkg/stats/manager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-09-30T12:30:53Z",
+      "side": 1,
+      "message": "Since the Collector name would be a part of the counter prefix, I suggest using the below format for application names for consistent naming:\nadapter_openolt\nadapter_openonu\nrw_core\n\nSo that the counter names would start with:\nvoltha-adapter-openolt\n...",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1daa1cb_4d8e0914",
+        "filename": "pkg/stats/promserver.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-09-30T12:30:53Z",
+      "side": 1,
+      "message": "To comply with the best practices here https://prometheus.io/docs/practices/naming/\nThe Name field should be in snake case format, e.g. device_counters.",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5da6e8fa_4e0bff4f",
+        "filename": "pkg/stats/promserver.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-09-30T12:30:53Z",
+      "side": 1,
+      "message": "I believe we should drop either devId or serial number as a label since each label would result in having a different time-series data in Prometheus.",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c6430e7_643e191e",
+        "filename": "pkg/stats/stats.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-09-30T12:30:53Z",
+      "side": 1,
+      "message": "Same comment for the counter names: Better if we apply snake case format.\nAlso, for all the unit-less accumulating counts, the advised naming format: \ndiscoveries_received_total\nactivated_onus_total\nomci_cc_tx_retries_total\nomci_cc_tx_timeous_total",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab5d0c97_36e55641",
+        "filename": "pkg/stats/stats.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-09-30T12:30:53Z",
+      "side": 1,
+      "message": "The unit should be added to the names. If this is an accumulating counter, then the better naming format\ndb_write_time_seconds_total\ndb_read_time_seconds_total",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
