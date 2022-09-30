@@ -54,6 +54,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa54ba23_538f2074",
+        "filename": "pkg/stats/stats.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-09-30T13:00:26Z",
+      "side": 1,
+      "message": "Is this a counter that always goes up? If not, we should also introduce the Gauge type. Or if we still want to use this as a counter, should we consider when to reset this counter?",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c6430e7_643e191e",
         "filename": "pkg/stats/stats.go",
         "patchSetId": 7
