@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65ef2418_26a0999c",
+        "filename": "pkg/stats/manager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2022-10-01T19:45:17Z",
+      "side": 1,
+      "message": "Made the changes, please have a look",
+      "parentUuid": "dbee1483_20aabec7",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1daa1cb_4d8e0914",
         "filename": "pkg/stats/promserver.go",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2022-09-30T12:30:53Z",
       "side": 1,
       "message": "To comply with the best practices here https://prometheus.io/docs/practices/naming/\nThe Name field should be in snake case format, e.g. device_counters.",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76bd588a_4c9f57b9",
+        "filename": "pkg/stats/promserver.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2022-10-01T19:45:17Z",
+      "side": 1,
+      "message": "Made the changes, please have a look",
+      "parentUuid": "a1daa1cb_4d8e0914",
       "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f887919a_db0ddb95",
+        "filename": "pkg/stats/promserver.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2022-10-01T19:45:17Z",
+      "side": 1,
+      "message": "I see your point and the cost implication of this. But I think both of these would be needed by operators, these are both unique identifications and different operators could use either of the two.\n\nAlso if you see the PM metrics being exported by the kafka topic exporter it is using multiple labels.\n\nI would think that at the moment, the flexibility it brings to the operators outweighs the additional cost.\n\nPlease share your thoughts/suggestions?",
+      "parentUuid": "5da6e8fa_4e0bff4f",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa54ba23_538f2074",
         "filename": "pkg/stats/stats.go",
         "patchSetId": 7
@@ -65,6 +119,24 @@
       "writtenOn": "2022-09-30T13:00:26Z",
       "side": 1,
       "message": "Is this a counter that always goes up? If not, we should also introduce the Gauge type. Or if we still want to use this as a counter, should we consider when to reset this counter?",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a3b5c06_bbf541a5",
+        "filename": "pkg/stats/stats.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2022-10-01T19:45:17Z",
+      "side": 1,
+      "message": "I added this counter thinking of counting the number of ONUs that were activated and not the \"number of Active ONUs\" so I used Counter and not Gauge.\n\nI have not added support of Gauge in the lib yet, if we feel need for it and have counters like that we can add support for Gauge in the successive versions",
+      "parentUuid": "fa54ba23_538f2074",
       "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "215e261e_e7617c0b",
+        "filename": "pkg/stats/stats.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2022-10-01T19:45:17Z",
+      "side": 1,
+      "message": "Made the changes, please have a relook",
+      "parentUuid": "7c6430e7_643e191e",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ab5d0c97_36e55641",
         "filename": "pkg/stats/stats.go",
         "patchSetId": 7
@@ -99,6 +189,24 @@
       "writtenOn": "2022-09-30T12:30:53Z",
       "side": 1,
       "message": "The unit should be added to the names. If this is an accumulating counter, then the better naming format\ndb_write_time_seconds_total\ndb_read_time_seconds_total",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "281f4e39_573b7897",
+        "filename": "pkg/stats/stats.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2022-10-01T19:45:17Z",
+      "side": 1,
+      "message": "I have documented at the top of the stats file that all time durations measured are only in ms, so I think we don\u0027t need to put in the unit in the counter name. Also different counters having different units would be a problem as the buckets we are using are tuned for milli seconds. I also would not go with the \"total\" word in the name of the counter as it causes more confusion with the buckets.\n\nPlease do share your thoughts.",
+      "parentUuid": "ab5d0c97_36e55641",
       "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
