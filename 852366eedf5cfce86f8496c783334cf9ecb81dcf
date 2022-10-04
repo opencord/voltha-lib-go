@@ -36,6 +36,24 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b66af40_96cfca6b",
+        "filename": "pkg/stats/manager.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-10-04T11:55:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65ef2418_26a0999c",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1daa1cb_4d8e0914",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Made the changes, please have a look",
       "parentUuid": "a1daa1cb_4d8e0914",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6381c3ff_295b9956",
+        "filename": "pkg/stats/promserver.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-10-04T11:55:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76bd588a_4c9f57b9",
       "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -108,6 +144,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c2792a2_83e2a60b",
+        "filename": "pkg/stats/promserver.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-10-04T11:55:05Z",
+      "side": 1,
+      "message": "I think we can leave this as it is and later decide what to do with a demo. I don\u0027t have the experience and I can\u0027t imagine if the result would be to see thousands of different counters on the Graphana dashboard when we have a fully loaded system. We can ignore the performance implications to some degree, but usability would be a matter.",
+      "parentUuid": "f887919a_db0ddb95",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa54ba23_538f2074",
         "filename": "pkg/stats/stats.go",
         "patchSetId": 7
@@ -137,6 +191,24 @@
       "side": 1,
       "message": "I added this counter thinking of counting the number of ONUs that were activated and not the \"number of Active ONUs\" so I used Counter and not Gauge.\n\nI have not added support of Gauge in the lib yet, if we feel need for it and have counters like that we can add support for Gauge in the successive versions",
       "parentUuid": "fa54ba23_538f2074",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6977a9d_186faca5",
+        "filename": "pkg/stats/stats.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-10-04T11:55:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a3b5c06_bbf541a5",
       "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
@@ -176,6 +248,24 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df23f4d5_e3ba5be9",
+        "filename": "pkg/stats/stats.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-10-04T11:55:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "215e261e_e7617c0b",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab5d0c97_36e55641",
@@ -207,6 +297,24 @@
       "side": 1,
       "message": "I have documented at the top of the stats file that all time durations measured are only in ms, so I think we don\u0027t need to put in the unit in the counter name. Also different counters having different units would be a problem as the buckets we are using are tuned for milli seconds. I also would not go with the \"total\" word in the name of the counter as it causes more confusion with the buckets.\n\nPlease do share your thoughts.",
       "parentUuid": "ab5d0c97_36e55641",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dfeebfa_8b364a06",
+        "filename": "pkg/stats/stats.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-10-04T11:55:05Z",
+      "side": 1,
+      "message": "That\u0027s ok. I just wanted to point out the best practices for metric naming and if you think it\u0027s the right way then let\u0027s use them without the unit suffix.\nIn this case, we have to assume the one who inspects the counters knows the unit of the counter or/and we can assume the unit is not important while checking if there is an anomaly in the system. Both make sense to me.",
+      "parentUuid": "281f4e39_573b7897",
       "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
