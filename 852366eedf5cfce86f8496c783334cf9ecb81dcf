@@ -160,6 +160,24 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "895fb0ee_05edfdf1",
+        "filename": "pkg/stats/promserver.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2022-10-05T08:35:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c2792a2_83e2a60b",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa54ba23_538f2074",
@@ -315,6 +333,24 @@
       "side": 1,
       "message": "That\u0027s ok. I just wanted to point out the best practices for metric naming and if you think it\u0027s the right way then let\u0027s use them without the unit suffix.\nIn this case, we have to assume the one who inspects the counters knows the unit of the counter or/and we can assume the unit is not important while checking if there is an anomaly in the system. Both make sense to me.",
       "parentUuid": "281f4e39_573b7897",
+      "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72ba1767_4ee17a27",
+        "filename": "pkg/stats/stats.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2022-10-05T08:35:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dfeebfa_8b364a06",
       "revId": "852366eedf5cfce86f8496c783334cf9ecb81dcf",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
