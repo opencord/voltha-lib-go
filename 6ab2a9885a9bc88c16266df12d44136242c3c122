@@ -1,0 +1,8 @@
+Code-Review+2: Amit Ghosh <amit.ghosh@radisys.com>
+Code-Review+1: Serkant Uluderya <serkant.uluderya@netsia.com>
+Verified+1: Jenkins Technical User <do-not-reply@opennetworking.org>
+Submitted-by: Joey Armstrong <joey@opennetworking.org>
+Submitted-at: Mon, 10 Oct 2022 04:08:13 +0000
+Reviewed-on: https://gerrit.opencord.org/c/voltha-lib-go/+/33247
+Project: voltha-lib-go
+Branch: refs/heads/master
