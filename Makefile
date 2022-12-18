@@ -1,5 +1,5 @@
 #
-# Copyright 2016 the original author or authors.
+# Copyright 2016-2022 Open Networking Foundation (ONF) and the ONF Contributors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -48,10 +48,10 @@ help:
 local-protos:
 	@mkdir -p python/local_imports
 ifdef LOCAL_PROTOS
-	rm -rf vendor/github.com/opencord/voltha-protos
+	$(RM) -r vendor/github.com/opencord/voltha-protos
 	mkdir -p vendor/github.com/opencord/voltha-protos/v5/go
 	cp -r ${LOCAL_PROTOS}/go/* vendor/github.com/opencord/voltha-protos/v5/go
-	rm -rf python/local_imports/voltha-protos
+	$(RM) -r python/local_imports/voltha-protos
 	mkdir -p python/local_imports/voltha-protos/dist
 	cp ${LOCAL_PROTOS}/dist/*.tar.gz python/local_imports/voltha-protos/dist/
 endif
@@ -80,7 +80,7 @@ lint-mod:
 lint: lint-mod
 
 sca:
-	@rm -rf ./sca-report
+	@$(RM) -r ./sca-report
 	@mkdir -p ./sca-report
 	@echo "Running static code analysis..."
 	@${GOLANGCI_LINT} run --deadline=4m --out-format junit-xml ./... | tee ./sca-report/sca-report.xml
@@ -97,9 +97,11 @@ test: local-protos
 
 clean: distclean
 
-distclean:
-	rm -rf ./sca-report ./tests
+distclean sterile:
+	$(RM) -r ./sca-report ./tests
 
 mod-update:
 	${GO} mod tidy
 	${GO} mod vendor
+
+# [EOF]

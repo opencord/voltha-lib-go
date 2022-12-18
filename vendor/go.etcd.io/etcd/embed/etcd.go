@@ -1,4 +1,4 @@
-// Copyright 2016 The etcd Authors
+// Copyright 2016-2022 The etcd Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -581,3 +581,5 @@ func parseCompactionRetention(mode, retention string) (ret time.Duration, err er
 	}
 	return ret, nil
 }
+
+// [EOF]
