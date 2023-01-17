@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aff9b00f_bf5e05b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2023-01-17T19:46:01Z",
+      "side": 1,
+      "message": "go.mod and VERSION file updated for release.\nUnit testing passed, tests reported connect failure -- assume they are messages from negative testing for now.\nMerge edits to trigger a release build.",
+      "revId": "b085c50dbe3675aacdca93e5cfd5fbc51caeece3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
