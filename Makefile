@@ -1,5 +1,6 @@
-#
-# Copyright 2016-2022 Open Networking Foundation (ONF) and the ONF Contributors
+# -*- makefile -*-
+# -----------------------------------------------------------------------
+# Copyright 2016-2023 Open Networking Foundation (ONF) and the ONF Contributors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +13,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+# -----------------------------------------------------------------------
 
-# set default shell
-SHELL = bash -e -o pipefail
+.DEFAULT_GOAL := help
+
+##-------------------##
+##---]  GLOBALS  [---##
+##-------------------##
+TOP         ?= .
+MAKEDIR     ?= $(TOP)/makefiles
+
+NO-LINT-MAKEFILE := true    # cleanup needed
+NO-LINT-PYTHON   := true    # cleanup needed
+NO-LINT-SHELL    := true    # cleanup needed
+
+export SHELL := bash -e -o pipefail
+
+##--------------------##
+##---]  INCLUDES  [---##
+##--------------------##
+include $(MAKEDIR)/include.mk
 
 # Variables
 VERSION                    ?= $(shell cat ./VERSION)
@@ -28,23 +45,11 @@ GO_JUNIT_REPORT   = docker run --rm --user $$(id -u):$$(id -g) -v ${CURDIR}:/app
 GOCOVER_COBERTURA = docker run --rm --user $$(id -u):$$(id -g) -v ${CURDIR}:/app/src/github.com/opencord/voltha-lib-go/v7 -i voltha/voltha-ci-tools:${VOLTHA_TOOLS_VERSION}-gocover-cobertura gocover-cobertura
 GOLANGCI_LINT     = docker run --rm --user $$(id -u):$$(id -g) -v ${CURDIR}:/app $(shell test -t 0 && echo "-it") -v gocache:/.cache -v gocache-${VOLTHA_TOOLS_VERSION}:/go/pkg voltha/voltha-ci-tools:${VOLTHA_TOOLS_VERSION}-golangci-lint golangci-lint
 
-.PHONY: local-protos
 
-# This should to be the first and default target in this Makefile
-help:
-	@echo "Usage: make [<target>]"
-	@echo "where available targets are:"
-	@echo
-	@echo "build                : Build the library"
-	@echo "clean                : Remove files created by the build"
-	@echo "distclean            : Remove build and testing artifacts and reports"
-	@echo "lint-mod             : Verify the integrity of the 'mod' files"
-	@echo "lint                 : Shorthand for lint-style & lint-sanity"
-	@echo "mod-update           : Update go.mod and the vendor directory"
-	@echo "test                 : Generate reports for all go tests"
-	@echo
-
+## -----------------------------------------------------------------------
 ## Local Development Helpers
+## -----------------------------------------------------------------------
+.PHONY: local-protos
 local-protos:
 	@mkdir -p python/local_imports
 ifdef LOCAL_PROTOS
@@ -56,13 +61,17 @@ ifdef LOCAL_PROTOS
 	cp ${LOCAL_PROTOS}/dist/*.tar.gz python/local_imports/voltha-protos/dist/
 endif
 
+## -----------------------------------------------------------------------
 ## build the library
+## -----------------------------------------------------------------------
 build: local-protos
 ## ${GO} build -mod=vendor ./...
 	${GO} build -mod=vendor ./...
 
 ## lint and unit tests
 
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
 lint-mod:
 	@echo "Running dependency check..."
 	@${GO} mod verify
@@ -77,8 +86,12 @@ lint-mod:
 	@[[ `git ls-files --exclude-standard --others go.mod go.sum vendor` == "" ]] || (echo "ERROR: Untracked files detected after running go mod tidy / go mod vendor" && git status -- go.mod go.sum vendor && git checkout -- go.mod go.sum vendor && exit 1)
 	@echo "Vendor check OK."
 
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
 lint: lint-mod
 
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
 sca:
 	@$(RM) -r ./sca-report
 	@mkdir -p ./sca-report
@@ -87,6 +100,8 @@ sca:
 	@echo ""
 	@echo "Static code analysis OK"
 
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
 test: local-protos
 	@mkdir -p ./tests/results
 	@${GO} test -mod=vendor -v -coverprofile ./tests/results/go-test-coverage.out -covermode count ./... 2>&1 | tee ./tests/results/go-test-results.out ;\
@@ -95,11 +110,17 @@ test: local-protos
 	${GOCOVER_COBERTURA} < ./tests/results/go-test-coverage.out > ./tests/results/go-test-coverage.xml ;\
 	exit $$RETURN
 
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
 clean: distclean
 
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
 distclean sterile:
 	$(RM) -r ./sca-report ./tests
 
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
 mod-update:
 	${GO} mod tidy
 	${GO} mod vendor
