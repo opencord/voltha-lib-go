@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57c63c18_2fd34aae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000963
+      },
+      "writtenOn": "2023-03-10T21:39:16Z",
+      "side": 1,
+      "message": "this is to enable olt adaptor to dial to voltha core grpc server with retry options",
+      "revId": "03cae2656c717446e13ab197a2bd67b80e5ccd87",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
