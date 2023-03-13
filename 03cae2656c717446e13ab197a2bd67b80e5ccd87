@@ -16,6 +16,57 @@
       "message": "this is to enable olt adaptor to dial to voltha core grpc server with retry options",
       "revId": "03cae2656c717446e13ab197a2bd67b80e5ccd87",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89a0f525_820c664d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2023-03-13T10:11:54Z",
+      "side": 1,
+      "message": "Update to VERSION file is missing",
+      "revId": "03cae2656c717446e13ab197a2bd67b80e5ccd87",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95caa25a_531c713f",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2023-03-13T10:11:54Z",
+      "side": 1,
+      "message": "as per the function signature, we could pass multiple interceptors. Why use only index 0 here?",
+      "revId": "03cae2656c717446e13ab197a2bd67b80e5ccd87",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "767abc62_2b809f60",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2023-03-13T10:11:54Z",
+      "side": 1,
+      "message": "Same comment as above, why only index 0",
+      "revId": "03cae2656c717446e13ab197a2bd67b80e5ccd87",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
