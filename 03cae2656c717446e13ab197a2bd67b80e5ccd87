@@ -52,6 +52,24 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8758717a_67497be1",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2023-03-15T12:32:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95caa25a_531c713f",
+      "revId": "03cae2656c717446e13ab197a2bd67b80e5ccd87",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "767abc62_2b809f60",
@@ -65,6 +83,24 @@
       "writtenOn": "2023-03-13T10:11:54Z",
       "side": 1,
       "message": "Same comment as above, why only index 0",
+      "revId": "03cae2656c717446e13ab197a2bd67b80e5ccd87",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1509f7e2_018ba11b",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2023-03-15T12:32:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "767abc62_2b809f60",
       "revId": "03cae2656c717446e13ab197a2bd67b80e5ccd87",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
