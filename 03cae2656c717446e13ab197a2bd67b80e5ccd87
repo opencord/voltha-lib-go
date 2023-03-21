@@ -106,6 +106,24 @@
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1244a0f_7024563b",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2023-03-21T15:19:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4500a4d_4a7bd2ab",
+      "revId": "03cae2656c717446e13ab197a2bd67b80e5ccd87",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "767abc62_2b809f60",
@@ -155,6 +173,24 @@
       "side": 1,
       "message": "fixed in latest patch",
       "parentUuid": "767abc62_2b809f60",
+      "revId": "03cae2656c717446e13ab197a2bd67b80e5ccd87",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e2bba74_ef7ae318",
+        "filename": "pkg/grpc/client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1000097
+      },
+      "writtenOn": "2023-03-21T15:19:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8caadcf_7e23a773",
       "revId": "03cae2656c717446e13ab197a2bd67b80e5ccd87",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
