@@ -101,6 +101,48 @@ func (c *EtcdClient) IsConnectionUp(ctx context.Context) bool {
 	return true
 }
 
+// RetryMax to for Get operation
+func GetWithRetry(client *v3Client.Client, ctx context.Context, key string, opts v3Client.OpOption) (*v3Client.GetResponse, error) {
+       var (
+               resp *v3Client.GetResponse
+               err  error
+       )
+
+       RetryMax := 10
+       for i := 0; i < RetryMax; i++ {
+               resp, err = client.Get(ctx, key, opts)
+               if err == nil {
+                       return resp, nil
+               }
+               logger.Infow(ctx, "etcdclient-GetWithRetry", log.Fields{"key": key})
+               time.Sleep(1000 * time.Millisecond)
+       }
+       logger.Errorw(ctx, "failed-to-get-response-max-retry-out", log.Fields{"error": err})
+
+       return nil, err
+}
+
+// RetryMax to for Put operation
+func PutWithRetry(client *v3Client.Client, ctx context.Context, key string, value string) (*v3Client.PutResponse, error) {
+       var (
+               resp *v3Client.PutResponse
+               err  error
+       )
+
+       RetryMax := 10
+       for i := 0; i < RetryMax; i++ {
+               resp, err = client.Put(ctx, key, value)
+               if err == nil {
+                       return resp, nil
+               }
+               logger.Infow(ctx, "etcdclient-PutWithRetry", log.Fields{"key": key})
+               time.Sleep(1000 * time.Millisecond)
+       }
+       logger.Errorw(ctx, "failed-to-put-response-max-retry-out", log.Fields{"error": err})
+
+       return nil, err
+}
+
 // List returns an array of key-value pairs with key as a prefix.  Timeout defines how long the function will
 // wait for a response
 func (c *EtcdClient) List(ctx context.Context, key string) (map[string]*KVPair, error) {
@@ -109,7 +151,8 @@ func (c *EtcdClient) List(ctx context.Context, key string) (map[string]*KVPair, 
 		return nil, err
 	}
 	defer c.pool.Put(client)
-	resp, err := client.Get(ctx, key, v3Client.WithPrefix())
+	// resp, err := client.Get(ctx, key, v3Client.WithPrefix())
+	resp, err := GetWithRetry(client, ctx, key, v3Client.WithPrefix())
 
 	if err != nil {
 		logger.Error(ctx, err)
@@ -135,7 +178,8 @@ func (c *EtcdClient) Get(ctx context.Context, key string) (*KVPair, error) {
 
 startLoop:
 	for {
-		resp, err := client.Get(ctx, key)
+		// resp, err := client.Get(ctx, key)
+		resp, err := GetWithRetry(client, ctx, key, v3Client.WithPrefix())
 		if err != nil {
 			switch err {
 			case context.Canceled:
@@ -192,7 +236,8 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 	attempt := 0
 startLoop:
 	for {
-		_, err = client.Put(ctx, key, val)
+		// _, err = client.Put(ctx, key, val)
+		_, err := PutWithRetry(client, ctx, key, val)
 		if err != nil {
 			switch err {
 			case context.Canceled:
