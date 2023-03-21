@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c654d6ff_4f01c918",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2023-03-21T07:16:16Z",
+      "side": 1,
+      "message": "this should come from the options, and , Get Api will not do the retry by itself if we pass the right fields?",
+      "revId": "dcaa04c900c3a5e440c55090be5cb3f64f811095",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
