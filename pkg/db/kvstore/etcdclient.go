@@ -37,6 +37,8 @@ const (
 const (
 	defaultMaxPoolCapacity = 1000 // Default size of an Etcd Client pool
 	defaultMaxPoolUsage    = 100  // Maximum concurrent request an Etcd Client is allowed to process
+	defaultCOntextTimeout  = 15   // Context timeout(seconds) when performing get operation incase kvStore is busy/down
+
 )
 
 // EtcdClient represents the Etcd KV store client
@@ -135,13 +137,18 @@ func (c *EtcdClient) Get(ctx context.Context, key string) (*KVPair, error) {
 
 startLoop:
 	for {
+		// context with an increased timeout
+		timeout := defaultCOntextTimeout * time.Second
+		ctx, cancel := context.WithTimeout(context.Background(), timeout)
+		defer cancel()
+
 		resp, err := client.Get(ctx, key)
 		if err != nil {
 			switch err {
 			case context.Canceled:
 				logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
 			case context.DeadlineExceeded:
-				logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err, "context": ctx})
+				logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err, "context": ctx, "ctx-timeout": timeout})
 			case v3rpcTypes.ErrEmptyKey:
 				logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
 			case v3rpcTypes.ErrLeaderChanged,
@@ -192,13 +199,18 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 	attempt := 0
 startLoop:
 	for {
+		// context with an increased timeout
+		timeout := defaultCOntextTimeout * time.Second
+		ctx, cancel := context.WithTimeout(context.Background(), timeout)
+		defer cancel()
+
 		_, err = client.Put(ctx, key, val)
 		if err != nil {
 			switch err {
 			case context.Canceled:
 				logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
 			case context.DeadlineExceeded:
-				logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err, "context": ctx})
+				logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err, "context": ctx, "ctx-timeout": timeout})
 			case v3rpcTypes.ErrEmptyKey:
 				logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
 			case v3rpcTypes.ErrLeaderChanged,
