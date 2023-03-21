@@ -51,7 +51,7 @@ const (
 	DefaultProducerFlushMaxmessages = 100
 	DefaultProducerReturnSuccess    = true
 	DefaultProducerReturnErrors     = true
-	DefaultProducerRetryMax         = 3
+	DefaultProducerRetryMax         = 10
 	DefaultProducerRetryBackoff     = time.Millisecond * 100
 	DefaultConsumerMaxwait          = 100
 	DefaultMaxProcessingTime        = 100
@@ -59,8 +59,8 @@ const (
 	DefaultNumberPartitions         = 3
 	DefaultNumberReplicas           = 1
 	DefaultAutoCreateTopic          = false
-	DefaultMetadataMaxRetry         = 3
-	DefaultMaxRetries               = 3
+	DefaultMetadataMaxRetry         = 15
+	DefaultMaxRetries               = 10
 	DefaultLivenessChannelInterval  = time.Second * 30
 )
 
