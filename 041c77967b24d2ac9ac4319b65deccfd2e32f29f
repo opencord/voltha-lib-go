@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca88e250_da87ac09",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2023-04-23T14:21:56Z",
+      "side": 1,
+      "message": "Retrying implicitly when the context deadline is exceeded in a library function like Get could be problematic.\nIf the context deadline is set to a specific value by the caller, the intended behavior is the operation would be completed by the specified timeframe or get an error if not. \nI also expect we would be receiving the same error repeatedly in case of retries and it may cause longer operation times.\nDo you have a specific use case or example explaining why we need to retry when the context deadline exceeded error is received?",
+      "revId": "041c77967b24d2ac9ac4319b65deccfd2e32f29f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
