@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef512848_e6a58bb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000971
+      },
+      "writtenOn": "2023-05-23T10:23:35Z",
+      "side": 1,
+      "message": "\u003e Patch Set 7: Verified+1\n\u003e \n\u003e Build Successful \n\u003e \n\u003e https://jenkins.opencord.org/job/verify_voltha-lib-go_unit-test/958/ : SUCCESS\n\u003e \n\u003e https://jenkins.opencord.org/job/verify_voltha-lib-go_licensed/957/ : SUCCESS\n\nrecheck",
+      "revId": "0c47ac0b907628292c7b03c16d5a17f9412da1d0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "this should come from the options, and , Get Api will not do the retry by itself if we pass the right fields?",
       "revId": "dcaa04c900c3a5e440c55090be5cb3f64f811095",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd9b0f25_f5b81731",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000971
+      },
+      "writtenOn": "2023-05-23T10:23:35Z",
+      "side": 1,
+      "message": "Get API does not have any option for retry. (https://gerrit.opencord.org/plugins/gitiles/voltha-lib-go/+/refs/heads/master/vendor/go.etcd.io/etcd/clientv3/op.go#34)",
+      "parentUuid": "c654d6ff_4f01c918",
+      "revId": "dcaa04c900c3a5e440c55090be5cb3f64f811095",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "Retrying implicitly when the context deadline is exceeded in a library function like Get could be problematic.\nIf the context deadline is set to a specific value by the caller, the intended behavior is the operation would be completed by the specified timeframe or get an error if not. \nI also expect we would be receiving the same error repeatedly in case of retries and it may cause longer operation times.\nDo you have a specific use case or example explaining why we need to retry when the context deadline exceeded error is received?",
       "revId": "041c77967b24d2ac9ac4319b65deccfd2e32f29f",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1f6c764_6634c47e",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000971
+      },
+      "writtenOn": "2023-05-23T10:23:35Z",
+      "side": 1,
+      "message": "Changes to increase the context-timeout for Get() and Put() operation. If the etcd server is unresponsive or not available within the given timeout duration, the operation will still return a \"DeadlineExceeded\" error.",
+      "parentUuid": "ca88e250_da87ac09",
+      "revId": "041c77967b24d2ac9ac4319b65deccfd2e32f29f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
