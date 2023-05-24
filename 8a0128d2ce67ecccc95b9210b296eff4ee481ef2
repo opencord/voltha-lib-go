@@ -16,6 +16,40 @@
       "message": "\u003e Patch Set 9:\n\u003e \n\u003e Build Failed \n\u003e \n\u003e https://jenkins.opencord.org/job/verify_voltha-lib-go_unit-test/959/ : FAILURE\n\u003e \n\u003e https://jenkins.opencord.org/job/verify_voltha-lib-go_licensed/959/ : SUCCESS\n\nrecheck",
       "revId": "8a0128d2ce67ecccc95b9210b296eff4ee481ef2",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "034ce1b3_739368b3",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2023-05-24T11:18:49Z",
+      "side": 1,
+      "message": "we are overwriding the context here,",
+      "revId": "8a0128d2ce67ecccc95b9210b296eff4ee481ef2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43005c4f_7af56f2d",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2023-05-24T11:18:49Z",
+      "side": 1,
+      "message": "same here, we cannot have overiding the context",
+      "revId": "8a0128d2ce67ecccc95b9210b296eff4ee481ef2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
