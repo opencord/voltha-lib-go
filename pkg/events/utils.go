@@ -71,7 +71,7 @@ const (
 	Clear EventAction = "CLEAR_EVENT"
 )
 
-//CreateDeviceStateChangeEvent forms and returns a new DeviceStateChange Event
+// CreateDeviceStateChangeEvent forms and returns a new DeviceStateChange Event
 func CreateDeviceStateChangeEvent(serialNumber string, deviceID string, parentID string,
 	prevOperStatus common.OperStatus_Types, prevConnStatus common.ConnectStatus_Types, prevAdminStatus common.AdminState_Types,
 	operStatus common.OperStatus_Types, connStatus common.ConnectStatus_Types, adminStatus common.AdminState_Types,
@@ -98,7 +98,7 @@ func CreateDeviceStateChangeEvent(serialNumber string, deviceID string, parentID
 	}
 }
 
-//CreateDeviceDeletedEvent forms and returns a new DeviceState Event
+// CreateDeviceDeletedEvent forms and returns a new DeviceState Event
 func CreateDeviceDeletedEvent(serialNumber string, deviceID string, parentID string,
 	onuId uint32, parentPonPort uint32, isRoot bool) *voltha.DeviceEvent {
 
