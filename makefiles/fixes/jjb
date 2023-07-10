@@ -1,0 +1,5 @@
+make: *** No rule to make target 'checkout-ci-management-sub-modules', needed by 'lint-jjb'.  Stop.
+
+  o lint-jjb should only be enabled for ci-management repos.
+  o Disable checking by assigning (NO_LINT_JJB := true) in ${repo-root}/config.mk
+

@@ -1,6 +1,6 @@
 # -*- makefile -*-
 # -----------------------------------------------------------------------
-# Copyright 2022 Open Networking Foundation (ONF) and the ONF Contributors
+# Copyright 2022-2023 Open Networking Foundation (ONF) and the ONF Contributors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,19 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# SPDX-FileCopyrightText: 2022 Open Networking Foundation (ONF) and the ONF Contributors
+# SPDX-FileCopyrightText: 2022-2023 Open Networking Foundation (ONF) and the ONF Contributors
 # SPDX-License-Identifier: Apache-2.0
 # -----------------------------------------------------------------------
----
-# yamllint.conf
+# https://gerrit.opencord.org/plugins/gitiles/onf-make
+# ONF.makefile.version = 1.0
+# -----------------------------------------------------------------------
 
-extends: default
+ifndef mk-include--onf-commands
 
-rules:
-  empty-lines:
-    max-end: 1
-  line-length:
-    max: 120
-  braces:
-    min-spaces-inside: 0
-    max-spaces-inside: 1
+$(if $(DEBUG),$(warning ENTER))
+
+include $(ONF_MAKEDIR)/commands/kail.mk
+
+$(if $(DEBUG),$(warning LEAVE))
+
+mk-include--onf-commands := true
+
+endif # mk-include--onf-make
+
+# [EOF]

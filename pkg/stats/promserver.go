@@ -1,17 +1,17 @@
 /*
- * Copyright 2018-present Open Networking Foundation
+* Copyright 2018-2023 Open Networking Foundation (ONF) and the ONF Contributors
 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+* http://www.apache.org/licenses/LICENSE-2.0
 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
  */
 package stats
 
@@ -129,21 +129,21 @@ func (ps *PromStatsServer) initializeCollectors(ctx context.Context, name Collec
 	prometheus.MustRegister(ps.otherDurations)
 }
 
-//CountForDevice counts the number of times the counterName happens for device devId with serial number sn. Each call to Count increments it by one.
+// CountForDevice counts the number of times the counterName happens for device devId with serial number sn. Each call to Count increments it by one.
 func (ps *PromStatsServer) CountForDevice(devId, sn string, counterName DeviceCounter) {
 	if ps.devCounters != nil {
 		ps.devCounters.WithLabelValues(devId, sn, counterName.String()).Inc()
 	}
 }
 
-//AddForDevice adds val to counter.
+// AddForDevice adds val to counter.
 func (ps *PromStatsServer) AddForDevice(devId, sn string, counter DeviceCounter, val float64) {
 	if ps.devCounters != nil {
 		ps.devCounters.WithLabelValues(devId, sn, counter.String()).Add(val)
 	}
 }
 
-//CollectDurationForDevice calculates the duration from startTime to time.Now() for device devID with serial number sn.
+// CollectDurationForDevice calculates the duration from startTime to time.Now() for device devID with serial number sn.
 func (ps *PromStatsServer) CollectDurationForDevice(devID, sn string, dName DeviceDuration, startTime time.Time) {
 	if ps.otherDurations != nil {
 		timeSpent := time.Since(startTime)
@@ -151,21 +151,21 @@ func (ps *PromStatsServer) CollectDurationForDevice(devID, sn string, dName Devi
 	}
 }
 
-//Count counts the number of times the counterName happens. Each call to Count increments it by one.
+// Count counts the number of times the counterName happens. Each call to Count increments it by one.
 func (ps *PromStatsServer) Count(counter NonDeviceCounter) {
 	if ps.otherCounters != nil {
 		ps.otherCounters.WithLabelValues(counter.String()).Inc()
 	}
 }
 
-//Add adds val to counter.
+// Add adds val to counter.
 func (ps *PromStatsServer) Add(counter NonDeviceCounter, val float64) {
 	if ps.otherCounters != nil {
 		ps.otherCounters.WithLabelValues(counter.String()).Add(val)
 	}
 }
 
-//CollectDuration calculates the duration from startTime to time.Now().
+// CollectDuration calculates the duration from startTime to time.Now().
 func (ps *PromStatsServer) CollectDuration(dName NonDeviceDuration, startTime time.Time) {
 	if ps.otherDurations != nil {
 		timeSpent := time.Since(startTime)

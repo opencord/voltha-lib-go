@@ -38,4 +38,8 @@ endif
 	@echo "  lint-mod             : Verify the integrity of the 'mod' files"
 	@echo "  sca                  : "
 
+	@echo
+	@echo "  % $(MAKE) help-{topic} VERBOSE=1"
+	@echo "                       : Extended makefile target help"
+
 # [EOF]

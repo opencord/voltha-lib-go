@@ -14,25 +14,60 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# SPDX-FileCopyrightText: 2022 Open Networking Foundation (ONF) and the ONF Contributors
+# SPDX-FileCopyrightText: 2022-2023 Open Networking Foundation (ONF) and the ONF Contributors
 # SPDX-License-Identifier: Apache-2.0
 # -----------------------------------------------------------------------
+# https://gerrit.opencord.org/plugins/gitiles/onf-make
+# ONF.makefile.version = 1.0
+# -----------------------------------------------------------------------
+
+ifndef mk-include--onf-make # single-include guard macro
 
 $(if $(DEBUG),$(warning ENTER))
 
-ONF_MAKE ?= $(MAKEDIR)# fix this -- two distinct makefile imports needed
-ONF_MAKE ?= $(error ONF_MAKE= is required)
-
 ## -----------------------------------------------------------------------
+## Define vars based on relative import (normalize symlinks)
+## Usage: include makefiles/onf/include.mk
 ## -----------------------------------------------------------------------
-help::
-	@echo "Usage: make [options] [target] ..."
+onf-mk-abs    ?= $(abspath $(lastword $(MAKEFILE_LIST)))
+onf-mk-top    := $(subst /include.mk,$(null),$(onf-mk-abs))
+ONF_MAKEDIR   := $(onf-mk-top)
 
-include $(ONF_MAKE)/consts.mk
-include $(ONF_MAKE)/help.mk
-include $(ONF_MAKE)/lint/include.mk
-# include $(ONF_MAKE)/python/include.mk
+TOP ?= $(patsubst %/makefiles/include.mk,%,$(onf-mk-abs))
+
+include $(ONF_MAKEDIR)/consts.mk
+include $(ONF_MAKEDIR)/help/include.mk       # render target help
+include $(ONF_MAKEDIR)/utils/include.mk      # dependency-less helper macros
+include $(ONF_MAKEDIR)/etc/include.mk        # banner macros
+include $(ONF_MAKEDIR)/commands/include.mk   # Tools and local installers
+
+include $(ONF_MAKEDIR)/virtualenv.mk#        # lint-{jjb,python} depends on venv
+include $(ONF_MAKEDIR)/lint/include.mk
+
+include $(ONF_MAKEDIR)/gerrit/include.mk
+include $(ONF_MAKEDIR)/git/include.mk
+include $(ONF_MAKEDIR)/jjb/include.mk
+
+# include $(ONF_MAKEDIR)/release/include.mk
+
+include $(ONF_MAKEDIR)/todo.mk
+include $(ONF_MAKEDIR)/help/variables.mk
+
+##---------------------##
+##---]  ON_DEMAND  [---##
+##---------------------##
+$(if $(USE-ONF-GERRIT-MK),$(eval include $(ONF_MAKEDIR)/gerrit/include.mk))
+$(if $(USE-ONF-DOCKER-MK),$(eval include $(ONF_MAKEDIR)/docker/include.mk))
+
+##-------------------##
+##---]  TARGETS  [---##
+##-------------------##
+include $(ONF_MAKEDIR)/targets/include.mk # clean, sterile, tox
 
 $(if $(DEBUG),$(warning LEAVE))
+
+mk-include--onf-make := true
+
+endif # mk-include--onf-make
 
 # [EOF]
