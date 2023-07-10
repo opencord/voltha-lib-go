@@ -1,0 +1,64 @@
+# -*- makefile -*-
+# -----------------------------------------------------------------------
+# Copyright 2022-2023 Open Networking Foundation (ONF) and the ONF Contributors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------
+# Intent: Helper makefile target used to setup for a release
+# -----------------------------------------------------------------------
+
+$(if $(DEBUG),$(warning ENTER))
+
+##-------------------##
+##---]  GLOBALS  [---##
+##-------------------##
+jjb-gen-dir := build
+
+##-------------------##
+##---]  TARGETS  [---##
+##-------------------##
+all: help
+
+## -----------------------------------------------------------------------
+## Intent: Generate pipeline jobs
+## -----------------------------------------------------------------------
+.PHONY: jjb-gen
+
+jjb-gen-log := $(jjb-gen-dir)/jjb-gen.log
+jjb-gen:
+	@mkdir -p $(jjb-gen-dir)
+
+	@echo
+	@echo "** Generating pipelines (target: $@)"
+	@touch "$(jjb-gen-dir)/.sentinel"
+	( jenkins-jobs test $(PWD)/jjb -o $(jjb-gen-dir) 3>&1 2>&1 )\
+	   > "$(jjb-gen-log)"
+
+  ifdef LOGS
+	-@less "$(jjb-gen-log)"
+  endif
+
+  ifdef VERBOSE
+	@echo
+	@echo "** Display generated pipelines"
+	find "$(jjb-gen-dir)" -newer "$(jjb-gen-dir)/.sentinel" -ls
+  endif
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+sterile ::
+	$(RM) -r $(jjb-gen-dir)
+
+$(if $(DEBUG),$(warning LEAVE))
+
+# [EOF]
