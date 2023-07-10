@@ -1,6 +1,6 @@
 # -*- makefile -*-
 # -----------------------------------------------------------------------
-# Copyright 2022 Open Networking Foundation (ONF) and the ONF Contributors
+# Copyright 2022-2023 Open Networking Foundation (ONF) and the ONF Contributors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,28 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# SPDX-FileCopyrightText: 2022 Open Networking Foundation (ONF) and the ONF Contributors
+# SPDX-FileCopyrightText: 2022-2023 Open Networking Foundation (ONF) and the ONF Contributors
 # SPDX-License-Identifier: Apache-2.0
 # -----------------------------------------------------------------------
+# https://gerrit.opencord.org/plugins/gitiles/onf-make
+# ONF.makefile.version = 1.0
+# -----------------------------------------------------------------------
 
-YAML_FILES ?= $(error YAML_FILES= is required)
-
-lint-yaml-dep = $(addsuffix ^lint-yaml,$(YAML_FILES))
-lint-yaml-src = $(firstword $(subst ^,$(space),$(1)))
+$(if $(DEBUG),$(warning ENTER))
 
 ##-------------------##
 ##---]  TARGETS  [---##
 ##-------------------##
-.PHONY : lint-yaml
-lint   : lint-yaml
+include $(ONF_MAKEDIR)/targets/clean.mk
+include $(ONF_MAKEDIR)/targets/check.mk
+include $(ONF_MAKEDIR)/targets/sterile.mk
+include $(ONF_MAKEDIR)/targets/test/include.mk
 
-lint-yaml: $(venv-activate)
-lint-yaml: $(lint-yaml-dep)
-
-$(lint-yaml-dep):
-	$(vst-env) && yamllint -s $(call lint-yaml-src,$@)
-
-help::
-	@echo "  lint-yaml            Syntax check yaml sources"
+$(if $(DEBUG),$(warning LEAVE))
 
 # [EOF]

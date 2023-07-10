@@ -1,8 +1,8 @@
 # -*- makefile -*-
 # -----------------------------------------------------------------------
-# Copyright 2022 Open Networking Foundation (ONF) and the ONF Contributors
+# Copyright 2017-2023 Open Networking Foundation (ONF) and the ONF Contributors
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the "License")
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
@@ -13,41 +13,66 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-# SPDX-FileCopyrightText: 2022 Open Networking Foundation (ONF) and the ONF Contributors
-# SPDX-License-Identifier: Apache-2.0
 # -----------------------------------------------------------------------
 
 $(if $(DEBUG),$(warning ENTER))
 
-yamllint      := $(env-clean) yamllint
+##-------------------##
+##---]  GLOBALS  [---##
+##-------------------##
+.PHONY: lint-yaml lint-yaml-all lint-yaml-modified
 
-## -------------------------------
-## Add requirement(s) for checking
-## -------------------------------
-# yamllint-cfg := .yamllint
-yamllint-cfg := yamllint.helm
-yamllint-conf = $(wildcard $(yamllint-cfg) $(MAKEDIR)/lint/yaml/$(yamllint-cfg))
-yamllint-args += $(addprefix --config-file$(space),$(yamllint-conf))
+have-yaml-files := $(if $(strip $(YAML_FILES)),true)
+YAML_FILES      ?= $(error YAML_FILES= is required)
 
-# yamllint-args := --no-warnings
-# yamllint-args := --strict
-
-yamllint-find := find . -name 'vendor' -prune
-yamllint-find += -o -name '*.yaml' -type f
-yamllint-find += -print0
+YAMLLINT = $(activate) && yamllint
+yamllint-args += --strict
 
 ## -----------------------------------------------------------------------
+## Intent: Use the yaml command to perform syntax checking.
 ## -----------------------------------------------------------------------
-lint lint-yaml:
-	$(HIDE)$(env-clean) $(yamllint-find) \
-	    | xargs -0 --no-run-if-empty -t -n1 $(yamllint) $(yamllint-args)
+ifndef NO-LINT-YAML
+  lint-yaml-mode := $(if $(have-yaml-files),modified,all)
+  lint      : lint-yaml
+  lint-yaml : lint-yaml-$(lint-yaml-mode)
+endif# NO-LINT-YAML
 
 ## -----------------------------------------------------------------------
+## Intent: exhaustive yaml syntax checking
+## -----------------------------------------------------------------------
+lint-yaml-all: lint-yaml-cmd-version
+
+	$(call banner-enter,Target $@)
+	$(HIDE)$(MAKE) --no-print-directory lint-yaml-install
+	$(HIDE)$(activate) && $(call gen-yaml-find-cmd) \
+	    | $(env-clean) $(xargs-cmd) -I'{}' \
+		bash -c "$(YAMLLINT) $(yamllint-args) {}"
+	$(call banner-leave,Target $@)
+
+## -----------------------------------------------------------------------
+## Intent: check deps for format and python3 cleanliness
+## Note:
+##   yaml --py3k option no longer supported
+## -----------------------------------------------------------------------
+lint-yaml-modified: lint-yaml-cmd-version
+
+	$(call banner-enter,Target $@)
+	$(HIDE)$(MAKE) --no-print-directory lint-yaml-install
+	$(YAMLLINT) $(yamllint-args) $(YAML_FILES)
+	$(call banner-leave,Target $@)
+
+## -----------------------------------------------------------------------
+## Intent: Display command usage
 ## -----------------------------------------------------------------------
 help::
-	@echo "  lint-yaml                     Syntax check yaml sources"
+	@echo '  lint-yaml          Syntax check python using the yaml command'
+  ifdef VERBOSE
+	@echo '  $(MAKE) lint-yaml YAML_FILES=...'
+	@echo '  lint-yaml-all       yaml checking: exhaustive'
+	@echo '  lint-yaml-modified  yaml checking: only locally modified'
+	@echo '  lint-yaml-install   Install the pylint command'
+  endif
 
-$(if $(DEBUG),$(warning ENTER))
+$(if $(DEBUG),$(warning LEAVE))
 
 # [EOF]
