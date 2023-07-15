@@ -53,3 +53,7 @@ require (
 	google.golang.org/protobuf v1.27.1
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
+
+replace github.com/opencord/voltha-protos/v5 => github.com/opencord/voltha-protos/v5 v5.4.7
+
+replace github.com/golang/protobuf => github.com/golang/protobuf v1.5.3

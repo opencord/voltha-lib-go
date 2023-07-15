@@ -139,8 +139,7 @@ test-go :
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
 .PHONY: test-go-cover
-test-go : gen-coverage-coverprofile gen-coverage-junit gen-coverage-cobertura
-
+test-go-cover : gen-coverage-coverprofile gen-coverage-junit gen-coverage-cobertura
 
 ## -----------------------------------------------------------------------
 ## Intent: Generate coverprofile data
@@ -173,6 +172,8 @@ gen-coverage-coverprofile:
 	)  
 
 	$(if $(LOCAL_FIX_PERMS),chmod o-w "$(go-result-out)")
+	$(if $(LOCAL_FIX_PERMS),chmod o-w "$(go-cover-out)")
+
 	$(call banner-leave,Target $@)
 
 ## -----------------------------------------------------------------------
@@ -207,7 +208,7 @@ gen-coverage-cobertura :
 
         # Fix docker volume perms if building locally
 	$(if $(LOCAL_FIX_PERMS),touch "$(go-cover-xml)")
-	$(if $(LOCAL_FIX_PERMS),chmod o+w "$(coverproifle-xml)")
+	$(if $(LOCAL_FIX_PERMS),chmod o+w "$(go-cover-xml)")
 
 	${GOCOVER_COBERTURA} < "$(go-cover-out)" > "$(go-cover-xml)"
 
