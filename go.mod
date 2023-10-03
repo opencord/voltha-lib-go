@@ -54,6 +54,9 @@ require (
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
 
-replace github.com/opencord/voltha-protos/v5 => github.com/opencord/voltha-protos/v5 v5.4.7
+replace (
+	github.com/opencord/voltha-protos/v5 => github.com/opencord/voltha-protos/v5 v5.4.7
+	github.com/opencord/voltha-protos/v5 v5.4.6 => github.com/opencord/voltha-protos/v5 v5.4.10
+)
 
 replace github.com/golang/protobuf => github.com/golang/protobuf v1.5.3
