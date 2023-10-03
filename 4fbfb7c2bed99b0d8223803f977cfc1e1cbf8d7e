@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df01e2b4_4ec237d6",
+        "filename": "go.mod",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2023-10-03T21:25:32Z",
+      "side": 1,
+      "message": "Why are there two lines here? Shouldn\u0027t it be only \"github.com/opencord/voltha-protos/v5 \u003d\u003e github.com/opencord/voltha-protos/v5 v5.4.10\"",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "4fbfb7c2bed99b0d8223803f977cfc1e1cbf8d7e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
