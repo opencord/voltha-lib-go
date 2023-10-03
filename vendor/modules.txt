@@ -134,7 +134,7 @@ github.com/gogo/protobuf/proto
 github.com/gogo/protobuf/protoc-gen-gogo/descriptor
 # github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da
 ## explicit
-# github.com/golang/protobuf v1.5.2 => github.com/golang/protobuf v1.5.3
+# github.com/golang/protobuf v1.5.2
 ## explicit
 github.com/golang/protobuf/descriptor
 github.com/golang/protobuf/jsonpb
@@ -245,7 +245,7 @@ github.com/modern-go/concurrent
 github.com/modern-go/reflect2
 # github.com/onsi/gomega v1.14.0
 ## explicit
-# github.com/opencord/voltha-protos/v5 v5.4.6 => github.com/opencord/voltha-protos/v5 v5.4.7
+# github.com/opencord/voltha-protos/v5 v5.4.10
 ## explicit
 github.com/opencord/voltha-protos/v5/go/adapter_service
 github.com/opencord/voltha-protos/v5/go/common
@@ -490,5 +490,3 @@ gopkg.in/yaml.v3
 sigs.k8s.io/yaml
 # go.etcd.io/bbolt v1.3.4 => github.com/coreos/bbolt v1.3.4
 # google.golang.org/grpc => google.golang.org/grpc v1.25.1
-# github.com/opencord/voltha-protos/v5 => github.com/opencord/voltha-protos/v5 v5.4.7
-# github.com/golang/protobuf => github.com/golang/protobuf v1.5.3

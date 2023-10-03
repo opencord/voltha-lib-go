@@ -34,7 +34,7 @@ require (
 	github.com/jhump/protoreflect v1.10.2
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/onsi/gomega v1.14.0 // indirect
-	github.com/opencord/voltha-protos/v5 v5.4.6
+	github.com/opencord/voltha-protos/v5 v5.4.10
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
 	github.com/prometheus/client_golang v1.11.0
@@ -53,7 +53,3 @@ require (
 	google.golang.org/protobuf v1.27.1
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
-
-replace github.com/opencord/voltha-protos/v5 => github.com/opencord/voltha-protos/v5 v5.4.7
-
-replace github.com/golang/protobuf => github.com/golang/protobuf v1.5.3
