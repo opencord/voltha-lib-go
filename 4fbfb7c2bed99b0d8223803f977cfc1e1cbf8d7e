@@ -22,6 +22,30 @@
       },
       "revId": "4fbfb7c2bed99b0d8223803f977cfc1e1cbf8d7e",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75a9d74a_9170719c",
+        "filename": "go.mod",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2023-10-03T21:33:20Z",
+      "side": 1,
+      "message": "More importantly why do we have replace lines? why don\u0027t we just change the version number at the related line in \u0027required\u0027 section?",
+      "parentUuid": "df01e2b4_4ec237d6",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "4fbfb7c2bed99b0d8223803f977cfc1e1cbf8d7e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
