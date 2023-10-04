@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66d13c8c_5c503660",
+        "filename": "go.mod",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2023-10-04T17:37:02Z",
+      "side": 1,
+      "message": "fyi\u003e  Version 1.5.3 has been active since July,\ndo you still want to revert back to 1.5.2 ?\n\n2023-07-15 16:37:44 -0400 57) replace github.com/golang/protobuf \u003d\u003e github.com/golang/protobuf v1.5.3",
+      "parentUuid": "cec244a7_71c65384",
+      "range": {
+        "startLine": 27,
+        "startChar": 32,
+        "endLine": 27,
+        "endChar": 34
+      },
+      "revId": "98ea11ea04e0dbd58b44dc235f08e607a1271ed0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4abc048_539225e7",
         "filename": "go.mod",
         "patchSetId": 4
