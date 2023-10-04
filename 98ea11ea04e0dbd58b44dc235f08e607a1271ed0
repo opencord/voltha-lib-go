@@ -22,6 +22,29 @@
       },
       "revId": "98ea11ea04e0dbd58b44dc235f08e607a1271ed0",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4abc048_539225e7",
+        "filename": "go.mod",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2023-10-04T17:28:51Z",
+      "side": 1,
+      "message": "This line also needs to be removed",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 71
+      },
+      "revId": "98ea11ea04e0dbd58b44dc235f08e607a1271ed0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
