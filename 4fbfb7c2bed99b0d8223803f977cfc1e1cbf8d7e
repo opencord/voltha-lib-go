@@ -46,6 +46,30 @@
       },
       "revId": "4fbfb7c2bed99b0d8223803f977cfc1e1cbf8d7e",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70e93f9f_cf60ac00",
+        "filename": "go.mod",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2023-10-04T13:39:48Z",
+      "side": 1,
+      "message": "( copying notes across all patches )\n\nAll of the go.{mod,sum} / proto-version edits are being made by the same shell script which runs commands in the commit message.\n\n  o Check source versions prior to edit, are the replacements making sense ?\n  o See if go mod edit can be used w/o the -rewrite switch:\n    - maintain one versioned line per module per Mahir.\n    - will gain benefit of command line tools maintaining syntax and checking for problems.",
+      "parentUuid": "75a9d74a_9170719c",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "4fbfb7c2bed99b0d8223803f977cfc1e1cbf8d7e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
