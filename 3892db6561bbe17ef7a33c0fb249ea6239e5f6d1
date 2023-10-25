@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2beaaaaf_da6c2b9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000982
+      },
+      "writtenOn": "2023-10-25T06:55:51Z",
+      "side": 1,
+      "message": "more or less the same comments as here: https://gerrit.opencord.org/c/voltha-go/+/34782",
+      "revId": "3892db6561bbe17ef7a33c0fb249ea6239e5f6d1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
