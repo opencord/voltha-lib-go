@@ -16,6 +16,24 @@
       "message": "fyi\u003e\n\n% go version\ngo version go1.21.2 linux/amd64\n\n% make mod-update LOCAL_FIX_PERMS\u003d1\n\n ** ---------------------------------------------------------------------------\n ** make ENTER: Target mod-vendor\n ** ---------------------------------------------------------------------------\ndocker run --rm --user $(id -u):$(id -g) --interactive --tty -v /home/joey/projects/sandbox/voltha-lib-go-all/I58dbd754e70f9443bc3801d21a3064df982d1bcd:/app -v gocache:/.cache -v gocache-2.4.0:/go/pkg voltha/voltha-ci-tools:2.4.0-golang go mod vendor\n\ninternal error: failed to find embedded files of github.com/klauspost/compress/huff0: //go:build comment without // +build comment\n\nmake: *** [Makefile:95: mod-vendor] Error 1\n",
       "revId": "30538c30457531322e0d57f601208467d7050ac9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9395315e_bc862f4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2023-12-01T14:44:09Z",
+      "side": 1,
+      "message": "//go:build comment without // +build comment\n\nOh and this cryptic problem is noting the comment should be re-written as: //\u003cspace\u003ebuild.",
+      "parentUuid": "6779de08_299236aa",
+      "revId": "30538c30457531322e0d57f601208467d7050ac9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
