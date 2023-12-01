@@ -10,7 +10,7 @@ replace (
 
 require (
 	github.com/HdrHistogram/hdrhistogram-go v1.1.0 // indirect
-	github.com/Shopify/sarama v1.29.1
+	github.com/Shopify/sarama v1.37.0
 	github.com/boljen/go-bitmap v0.0.0-20151001105940-23cd2fb0ce7d
 	github.com/bsm/sarama-cluster v2.1.15+incompatible
 	github.com/cevaris/ordered_map v0.0.0-20190319150403-3adeae072e73
@@ -21,7 +21,7 @@ require (
 	github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
-	github.com/eapache/go-resiliency v1.2.0
+	github.com/eapache/go-resiliency v1.3.0
 	github.com/go-redis/redis/v8 v8.3.4
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2
@@ -37,9 +37,9 @@ require (
 	github.com/opencord/voltha-protos/v5 v5.4.10
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
-	github.com/prometheus/client_golang v1.11.0
+	github.com/prometheus/client_golang v1.13.0
 	github.com/soheilhy/cmux v0.1.5 // indirect
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.8.0
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20201229170055-e5319fda7802 // indirect
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
@@ -50,6 +50,6 @@ require (
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac // indirect
 	golang.org/x/tools v0.1.1 // indirect
 	google.golang.org/grpc v1.44.0
-	google.golang.org/protobuf v1.27.1
+	google.golang.org/protobuf v1.28.1
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
