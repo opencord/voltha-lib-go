@@ -34,6 +34,23 @@
       "parentUuid": "6779de08_299236aa",
       "revId": "30538c30457531322e0d57f601208467d7050ac9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56f08d5d_079570d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2023-12-04T14:59:58Z",
+      "side": 1,
+      "message": "Patch blocked on question of golang interpreter should be updated to a later version.\n\nAlso merge conflicts reported will need to be resolved.",
+      "revId": "30538c30457531322e0d57f601208467d7050ac9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
