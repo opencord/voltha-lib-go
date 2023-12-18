@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9eb480f_61aa8fe0",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2023-12-18T18:48:42Z",
+      "side": 1,
+      "message": "O in COntex should be lowercase.",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 10
+      },
+      "revId": "8a0128d2ce67ecccc95b9210b296eff4ee481ef2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "034ce1b3_739368b3",
         "filename": "pkg/db/kvstore/etcdclient.go",
         "patchSetId": 10
