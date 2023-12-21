@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4664bc9_1d2735df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2023-12-21T20:43:26Z",
+      "side": 1,
+      "message": "Status update:\nJira ticket VOL-5222 opened for upgrading the docker image golang interpreter for jenkins testing.\nAdded new ticket in the commit mesage.\n\ngolang v1.17.10 will be installed initially.\nAdditional work will be needed in the code base to upgrade to 1.18 and beyond.",
+      "revId": "18cfd6231275f28c10dfb19b0a1169bda97745e6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
