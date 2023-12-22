@@ -51,3 +51,4 @@ func TestPmConfig(t *testing.T) {
 	assert.EqualValues(t, 380000, pm.frequency)
 	assert.Equal(t, false, pm.frequencyOverride)
 }
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

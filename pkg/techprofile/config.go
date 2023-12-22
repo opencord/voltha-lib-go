@@ -139,3 +139,4 @@ func NewTechProfileFlags(KVStoreType string, KVStoreAddress string, basePathKvSt
 
 	return &techProfileFlags
 }
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

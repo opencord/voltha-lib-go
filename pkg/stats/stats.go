@@ -114,3 +114,4 @@ func (s DeviceDuration) String() string {
 	}
 	return "unknown"
 }
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

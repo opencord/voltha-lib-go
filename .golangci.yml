@@ -34,3 +34,4 @@ issues:
     - "Package github.com/golang/protobuf/proto is deprecated"
     - "Package github.com/golang/protobuf/jsonpb is deprecated"
     - "SA1019: voltha.ImageDownload is deprecated"
+# [EOF] - 20231222: Ignore, this triage patch will be abandoned

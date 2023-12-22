@@ -796,3 +796,4 @@ func TestConvertToMulticastMac(t *testing.T) {
 	macInBytes := ConvertToMulticastMacBytes(mcastIp)
 	assert.True(t, bytes.Equal(macInBytes, expectedMacInBytes))
 }
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

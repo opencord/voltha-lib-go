@@ -121,3 +121,4 @@ func CreateDeviceDeletedEvent(serialNumber string, deviceID string, parentID str
 		DeviceEventName: eventName,
 	}
 }
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

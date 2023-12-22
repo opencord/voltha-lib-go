@@ -40,3 +40,4 @@ type TechProfileIf interface {
 	GetResourceID(ctx context.Context, IntfID uint32, ResourceType string, NumIDs uint32) ([]uint32, error)
 	FreeResourceID(ctx context.Context, IntfID uint32, ResourceType string, ReleaseContent []uint32) error
 }
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

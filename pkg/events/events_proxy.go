@@ -376,3 +376,4 @@ func (ep *EventProxy) eventTopicExits(ctx context.Context) bool {
 	}
 	return false
 }
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

@@ -179,3 +179,4 @@ func (kc *KafkaClient) ListTopics(ctx context.Context) ([]string, error) {
 	topics := []string{"voltha.events", "myTopic"}
 	return topics, nil
 }
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

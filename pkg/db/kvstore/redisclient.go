@@ -415,3 +415,4 @@ func (c *RedisClient) Close(ctx context.Context) {
 		logger.Errorw(ctx, "error-closing-client", log.Fields{"error": err})
 	}
 }
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

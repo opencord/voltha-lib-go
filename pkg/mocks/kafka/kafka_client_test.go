@@ -93,3 +93,4 @@ func TestKafkaClientStop(t *testing.T) {
 	assert.Nil(t, err)
 	cTkc.Stop(context.Background())
 }
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

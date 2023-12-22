@@ -1515,3 +1515,4 @@ func (t *TechProfileMgr) reconcileTpInstancesToCache(ctx context.Context) error 
 
 	return nil
 }
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned
