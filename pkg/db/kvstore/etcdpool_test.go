@@ -249,3 +249,4 @@ func closeWithVaryingCapacity(t *testing.T, capacity, maxUsage int) {
 
 	wg.Wait()
 }
+# [EOF] - delta:force

@@ -273,3 +273,4 @@ func (b *Backend) DeleteWatch(ctx context.Context, key string, ch chan *kvstore.
 
 	b.Client.CloseWatch(ctx, formattedPath, ch)
 }
+# [EOF] - delta:force

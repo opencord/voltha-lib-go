@@ -415,3 +415,4 @@ func (c *RedisClient) Close(ctx context.Context) {
 		logger.Errorw(ctx, "error-closing-client", log.Fields{"error": err})
 	}
 }
+# [EOF] - delta:force

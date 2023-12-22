@@ -68,3 +68,4 @@ func TestGetMacAddress(t *testing.T) {
 	}
 
 }
+# [EOF] - delta:force

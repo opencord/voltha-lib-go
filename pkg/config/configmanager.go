@@ -282,3 +282,4 @@ func (c *ComponentConfig) Delete(ctx context.Context, configKey string) error {
 	}
 	return nil
 }
+# [EOF] - delta:force

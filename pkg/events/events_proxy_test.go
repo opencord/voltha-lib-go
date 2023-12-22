@@ -187,3 +187,4 @@ func TestEventProxyStopWhenNoEventsSend(t *testing.T) {
 	val := <-resp
 	assert.Equal(t, val, "ok")
 }
+# [EOF] - delta:force

@@ -93,3 +93,4 @@ type Client interface {
 	AcquireLock(ctx context.Context, lockName string, timeout time.Duration) error
 	ReleaseLock(lockName string) error
 }
+# [EOF] - delta:force

@@ -441,3 +441,4 @@ func TestGetStatusMissingService(t *testing.T) {
 	ss := p.GetStatus("three")
 	assert.Equal(t, ServiceStatusUnknown, ss, "Service status should have been ServiceStatusUnknown")
 }
+# [EOF] - delta:force
