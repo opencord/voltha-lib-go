@@ -306,3 +306,4 @@ func defaultHealthFunc(services map[string]ServiceStatus) bool {
 	}
 	return true
 }
+# [EOF] - delta:force

@@ -93,3 +93,4 @@ func TestKafkaClientStop(t *testing.T) {
 	assert.Nil(t, err)
 	cTkc.Stop(context.Background())
 }
+# [EOF] - delta:force

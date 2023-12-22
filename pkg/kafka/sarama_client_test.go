@@ -37,3 +37,4 @@ func TestSaramaClientEnableLivenessChannel(t *testing.T) {
 		t.Error("Failed to read from the channel")
 	}
 }
+# [EOF] - delta:force

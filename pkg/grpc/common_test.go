@@ -75,3 +75,4 @@ func waitUntilCondition(timeout time.Duration, verificationFunction isConditionS
 		return fmt.Errorf("timeout-waiting-for-condition")
 	}
 }
+# [EOF] - delta:force

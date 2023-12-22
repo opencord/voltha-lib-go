@@ -267,3 +267,4 @@ func FlowExtractInfo(ctx context.Context, flow *ofp.OfpFlowStats, flowDirection 
 
 	return uniPortNo, ponIntf, onuID, uniID, inPort, ethType, nil
 }
+# [EOF] - delta:force

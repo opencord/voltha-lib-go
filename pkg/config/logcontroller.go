@@ -385,3 +385,4 @@ func GenerateLogConfigHash(createHashLog map[string]string) ([16]byte, error) {
 	createHashLogBytes = append(createHashLogBytes, levelData...)
 	return md5.Sum(createHashLogBytes), nil
 }
+# [EOF] - delta:force

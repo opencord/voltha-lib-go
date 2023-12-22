@@ -1173,3 +1173,4 @@ func (sc *SaramaClient) ListTopics(ctx context.Context) ([]string, error) {
 
 	return topics, nil
 }
+# [EOF] - delta:force

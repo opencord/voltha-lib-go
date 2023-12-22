@@ -171,3 +171,4 @@ func (cc *ComponentLogFeaturesController) loadAndApplyLogCorrelationStatusUpdate
 
 	log.GetGlobalLFM().SetLogCorrelationStatus(desiredLogCorrelationStatus == "ENABLED")
 }
+# [EOF] - delta:force

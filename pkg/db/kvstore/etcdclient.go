@@ -472,3 +472,4 @@ func (c *EtcdClient) AcquireLock(ctx context.Context, lockName string, timeout t
 func (c *EtcdClient) ReleaseLock(lockName string) error {
 	return errUnimplemented
 }
+# [EOF] - delta:force

@@ -51,3 +51,4 @@ func TestPmConfig(t *testing.T) {
 	assert.EqualValues(t, 380000, pm.frequency)
 	assert.Equal(t, false, pm.frequencyOverride)
 }
+# [EOF] - delta:force

@@ -74,3 +74,4 @@ func (n *NullStatsServer) CollectDurationForDevice(devID, sn string, dName NonDe
 func (n *NullStatsServer) Count(counter NonDeviceCounter)                               {}
 func (n *NullStatsServer) Add(counter NonDeviceCounter, val float64)                    {}
 func (n *NullStatsServer) CollectDuration(dName NonDeviceDuration, startTime time.Time) {}
+# [EOF] - delta:force

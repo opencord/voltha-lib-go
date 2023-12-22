@@ -79,3 +79,4 @@ type Client interface {
 	EnableHealthinessChannel(ctx context.Context, enable bool) chan bool
 	ListTopics(ctx context.Context) ([]string, error)
 }
+# [EOF] - delta:force

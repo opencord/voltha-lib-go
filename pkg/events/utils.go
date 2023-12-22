@@ -121,3 +121,4 @@ func CreateDeviceDeletedEvent(serialNumber string, deviceID string, parentID str
 		DeviceEventName: eventName,
 	}
 }
+# [EOF] - delta:force
