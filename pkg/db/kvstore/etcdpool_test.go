@@ -249,3 +249,5 @@ func closeWithVaryingCapacity(t *testing.T, capacity, maxUsage int) {
 
 	wg.Wait()
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

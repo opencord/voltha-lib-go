@@ -267,3 +267,5 @@ func FlowExtractInfo(ctx context.Context, flow *ofp.OfpFlowStats, flowDirection 
 
 	return uniPortNo, ponIntf, onuID, uniID, inPort, ethType, nil
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

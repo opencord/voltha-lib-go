@@ -672,3 +672,5 @@ func (c *Client) SubscribeForLiveness(callback func(timestamp time.Time)) {
 	defer c.livenessLock.Unlock()
 	c.livenessCallback = callback
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

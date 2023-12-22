@@ -238,3 +238,5 @@ func (r *roundRobin) Close(ctx context.Context) {
 		}
 	}
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

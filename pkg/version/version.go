@@ -68,3 +68,5 @@ func (v VersionInfoType) String(indent string) string {
 	builder.WriteString(fmt.Sprintf("%sOS/Arch:      %s/%s\n", indent, VersionInfo.Os, VersionInfo.Arch))
 	return builder.String()
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

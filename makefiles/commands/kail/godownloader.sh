@@ -388,3 +388,4 @@ CHECKSUM=checksums.txt
 CHECKSUM_URL=${GITHUB_DOWNLOAD}/${TAG}/${CHECKSUM}
 
 execute
+# [EOF] - 20231222: Ignore, this triage patch will be abandoned

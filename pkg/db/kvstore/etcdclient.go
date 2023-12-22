@@ -472,3 +472,5 @@ func (c *EtcdClient) AcquireLock(ctx context.Context, lockName string, timeout t
 func (c *EtcdClient) ReleaseLock(lockName string) error {
 	return errUnimplemented
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

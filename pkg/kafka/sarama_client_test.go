@@ -37,3 +37,5 @@ func TestSaramaClientEnableLivenessChannel(t *testing.T) {
 		t.Error("Failed to read from the channel")
 	}
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

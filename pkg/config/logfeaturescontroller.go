@@ -171,3 +171,5 @@ func (cc *ComponentLogFeaturesController) loadAndApplyLogCorrelationStatusUpdate
 
 	log.GetGlobalLFM().SetLogCorrelationStatus(desiredLogCorrelationStatus == "ENABLED")
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

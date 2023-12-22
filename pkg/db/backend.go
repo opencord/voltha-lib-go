@@ -273,3 +273,5 @@ func (b *Backend) DeleteWatch(ctx context.Context, key string, ch chan *kvstore.
 
 	b.Client.CloseWatch(ctx, formattedPath, ch)
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

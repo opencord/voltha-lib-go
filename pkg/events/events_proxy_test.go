@@ -187,3 +187,5 @@ func TestEventProxyStopWhenNoEventsSend(t *testing.T) {
 	val := <-resp
 	assert.Equal(t, val, "ok")
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

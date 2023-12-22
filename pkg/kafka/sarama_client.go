@@ -1173,3 +1173,5 @@ func (sc *SaramaClient) ListTopics(ctx context.Context) ([]string, error) {
 
 	return topics, nil
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

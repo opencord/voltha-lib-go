@@ -80,3 +80,5 @@ func TestPromStatsServer_Start(t *testing.T) {
 	assert.Contains(t, string(bodyBytes), `voltha_rw_core_device_counters{counter="discoveries_received_total",device_id="dev2",serial_no="serial2"} 56`)
 	assert.Contains(t, string(bodyBytes), `voltha_rw_core_device_durations_bucket{device_id="dev3",duration="onu_discovery_proc_time",serial_no="sn3",le="300"} 1`)
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned

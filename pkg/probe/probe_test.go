@@ -441,3 +441,5 @@ func TestGetStatusMissingService(t *testing.T) {
 	ss := p.GetStatus("three")
 	assert.Equal(t, ServiceStatusUnknown, ss, "Service status should have been ServiceStatusUnknown")
 }
+
+// [EOF] - 20231222: Ignore, this triage patch will be abandoned
