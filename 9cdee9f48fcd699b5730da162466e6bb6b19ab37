@@ -16,6 +16,24 @@
       "message": "Why not changing the voltha-protos dependency to the latest version of it?",
       "revId": "9cdee9f48fcd699b5730da162466e6bb6b19ab37",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0716045c_f177ba13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2024-01-10T20:26:20Z",
+      "side": 1,
+      "message": "The first cosmetic patch (comment/copyright edits) will establish a baseline -- no source edits are made so job expected to \"always\" pass.\n\nSecond patch submission (pending) for each repo builds upon this state by updating dependencies, versions and anything else needed.\n\nIf we bundle these two into a single job and the bundle job fails, it will not be clear if the failure is due to pre-existing corruption (patch #1) or if (patch #2) dependency updates were the culprit.",
+      "parentUuid": "1e8e80f9_e95ac1bf",
+      "revId": "9cdee9f48fcd699b5730da162466e6bb6b19ab37",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
