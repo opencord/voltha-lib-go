@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e8e80f9_e95ac1bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2024-01-10T04:49:27Z",
+      "side": 1,
+      "message": "Why not changing the voltha-protos dependency to the latest version of it?",
+      "revId": "9cdee9f48fcd699b5730da162466e6bb6b19ab37",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
