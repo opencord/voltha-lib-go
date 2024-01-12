@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e61b92fc_93be268a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2024-01-12T18:21:21Z",
+      "side": 1,
+      "message": "Release branch w: VERSION\u003d7.5.2, .gitreview\u003dvoltha-2.12 merged earlier.\nMerge this patch to assign VERSION\u003d7.6.0-dev",
+      "revId": "002499201178ae38df4ead623739e6943539e797",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
