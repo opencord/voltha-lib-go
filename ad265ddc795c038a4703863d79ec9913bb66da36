@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52ee3556_add92a75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2024-01-12T18:06:33Z",
+      "side": 1,
+      "message": "Review input welcome, merging to avoid stray patches sneaking in between release branch creation and pending master branch update for master",
+      "revId": "ad265ddc795c038a4703863d79ec9913bb66da36",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
