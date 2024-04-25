@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7e87bee_5d475bae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2024-04-25T15:24:21Z",
+      "side": 1,
+      "message": "Non-invasive: pre-commit use is currently on demand and setup is manual.\nMerge patch so repo linting can begin.",
+      "revId": "03075e0438a3143819c7d049fa4beee74963a465",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
