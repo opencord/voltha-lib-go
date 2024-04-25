@@ -1,0 +1,37 @@
+// Use IntelliSense to learn about possible attributes.
+// Hover to view descriptions of existing attributes.
+// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+
+// -----------------------------------------------------------------------
+// Microsoft licensing for .vscode/ checked into revision control.
+// TODO: Update repository LICENSE/ directory as a permanent answer
+// (per reuse tool)
+// -----------------------------------------------------------------------
+// https://code.visualstudio.com/license
+ SCOPE OF LICENSE. This license applies to the Visual Studio Code product. Source code for Visual Studio Code is available at https://github.com/Microsoft/vscode under the MIT license agreement. The software is licensed, not sold. This agreement only gives you some rights to use the software. Microsoft reserves all other rights. Unless applicable law gives you more rights despite this limitation, you may use the software only as expressly permitted in this agreement. In doing so, you must comply with any technical limitations in the software that only allow you to use it in certain ways. You may not
+
+    reverse engineer, decompile or disassemble the software, or otherwise attempt to derive the source code for the software except and solely to the extent required by third party licensing terms governing use of certain open source components that may be included in the software;
+    remove, minimize, block or modify any notices of Microsoft or its suppliers in the software;
+    use the software in any way that is against the law;
+    share, publish, rent or lease the software, or provide the software as a stand-alone offering for others to use.
+// -----------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------
+ * Copyright 2021-2024 Open Networking Foundation Contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * -----------------------------------------------------------------------
+ * SPDX-FileCopyrightText: 2021-2024 Open Networking Foundation Contributors
+ * SPDX-License-Identifier: Apache-2.0
+ * -----------------------------------------------------------------------
+ */
