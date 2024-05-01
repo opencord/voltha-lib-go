@@ -29,14 +29,14 @@ ifndef --onf-make-git--
 ##--------------------##
 ##---]  INCLUDES  [---##
 ##--------------------##
-include $(ONF_MAKEDIR)/git/help.mk
-include $(ONF_MAKEDIR)/git/required.mk
+include $(legacy-mk)/git/help.mk
+include $(legacy-mk)/git/required.mk
 
 ## Special snowflake: per-repository logic loader
--include $(ONF_MAKEDIR)/git/byrepo/$(--repo-name--).mk
+-include $(legacy-mk)/git/byrepo/$(--repo-name--).mk
 
 # Dynamic loading when targets are requested by name
-include $(ONF_MAKEDIR)/git/submodules.mk
+include $(legacy-mk)/git/submodules.mk
 
 endif # --onf-make-git--
 

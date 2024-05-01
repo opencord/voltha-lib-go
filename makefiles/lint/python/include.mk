@@ -22,9 +22,9 @@ $(if $(DEBUG),$(warning ENTER))
 ##-------------------##
 $(if $(UNSTABLE),$(eval lint-python-all := true))
 
-include $(ONF_MAKEDIR)/lint/python/find_utils.mk
-include $(ONF_MAKEDIR)/lint/python/flake8.mk
-include $(ONF_MAKEDIR)/lint/python/pylint.mk
+include $(legacy-mk)/lint/python/find_utils.mk
+include $(legacy-mk)/lint/python/flake8.mk
+include $(legacy-mk)/lint/python/pylint.mk
 
 $(if $(DEBUG),$(warning LEAVE))
 

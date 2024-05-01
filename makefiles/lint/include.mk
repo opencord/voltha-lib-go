@@ -36,17 +36,17 @@ help ::
 #   NO-LINT-PYLINT := true
 # endif
 
-include $(ONF_MAKEDIR)/lint/groovy.mk
-include $(ONF_MAKEDIR)/lint/jjb.mk
-include $(ONF_MAKEDIR)/lint/json.mk
-include $(ONF_MAKEDIR)/lint/license/include.mk
-include $(ONF_MAKEDIR)/lint/makefile.mk
-include $(ONF_MAKEDIR)/lint/python/include.mk
-include $(ONF_MAKEDIR)/lint/shellcheck/include.mk
-include $(ONF_MAKEDIR)/lint/tox/include.mk
-include $(ONF_MAKEDIR)/lint/yaml/include.mk
+include $(legacy-mk)/lint/groovy.mk
+include $(legacy-mk)/lint/jjb.mk
+include $(legacy-mk)/lint/json.mk
+include $(legacy-mk)/lint/license/include.mk
+include $(legacy-mk)/lint/makefile.mk
+include $(legacy-mk)/lint/python/include.mk
+include $(legacy-mk)/lint/shellcheck/include.mk
+include $(legacy-mk)/lint/tox/include.mk
+include $(legacy-mk)/lint/yaml/include.mk
 
-include $(ONF_MAKEDIR)/lint/help.mk
+include $(legacy-mk)/lint/help.mk
 
 $(if $(DEBUG),$(warning LEAVE))
 

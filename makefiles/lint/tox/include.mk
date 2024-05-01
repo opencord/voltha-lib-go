@@ -20,7 +20,7 @@
 
 $(if $(DEBUG),$(warning ENTER))
 
-include $(ONF_MAKEDIR)/lint/tox/tox.mk
+include $(legacy-mk)/lint/tox/tox.mk
 
 $(if $(DEBUG),$(warning LEAVE))
 

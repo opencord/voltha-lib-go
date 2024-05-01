@@ -31,7 +31,7 @@ YAMLLINT = $(activate) && yamllint
 ## Add requirement(s) for checking
 ## -------------------------------
 yamllint-cfg  := yamllint.helm
-yamllint-conf = $(wildcard $(yamllint-cfg) $(ONF_MAKEDIR)/lint/yaml/$(yamllint-cfg))
+yamllint-conf = $(wildcard $(yamllint-cfg) $(legacy-mk)/lint/yaml/$(yamllint-cfg))
 yamllint-args += $(addprefix --config-file$(space),$(yamllint-conf))
 yamllint-args += --strict
 

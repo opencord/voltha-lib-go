@@ -9,14 +9,14 @@ help ::
 	@echo
 	@echo "[LINT]"
 
-include $(ONF_MAKE)/lint/makefile.mk
-include $(ONF_MAKE)/lint/python.mk
-include $(ONF_MAKE)/lint/shell.mk
+include $(legacy-mk)/lint/makefile.mk
+include $(legacy-mk)/lint/python.mk
+include $(legacy-mk)/lint/shell.mk
 
 ifdef YAML_FILES
-  include $(ONF_MAKE)/lint/yaml/python.mk
+  include $(legacy-mk)/lint/yaml/python.mk
 else
-  include $(ONF_MAKE)/lint/yaml/yamllint.mk
+  include $(legacy-mk)/lint/yaml/yamllint.mk
 endif
 
 $(if $(DEBUG),$(warning LEAVE))

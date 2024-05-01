@@ -19,9 +19,9 @@
 # -----------------------------------------------------------------------
 
 ifdef PYTHON_FILES
-  include $(ONF_MAKEDIR)/python/test/include.mk
+  include $(legacy-mk)/python/test/include.mk
 else
-  include $(ONF_MAKEDIR)/python/test/include.mk
+  include $(legacy-mk)/python/test/include.mk
 endif
 
 # [EOF]

@@ -20,7 +20,7 @@ $(if $(DEBUG),$(warning ENTER))
 ##--------------------##
 ##---]  INCLUDES  [---##
 ##--------------------##
-include $(ONF_MAKEDIR)/lint/yaml/byrepo/$(--repo-name--)/yamllint.mk
+include $(legacy-mk)/lint/yaml/byrepo/$(--repo-name--)/yamllint.mk
 
 $(if $(DEBUG),$(warning LEAVE))
 

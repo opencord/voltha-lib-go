@@ -22,11 +22,11 @@ $(if $(DEBUG),$(warning ENTER))
 ##--------------------##
 ##---]  INCLUDES  [---##
 ##--------------------##
-# include $(ONF_MAKEDIR)/lint/shellcheck/help.mk
-include $(ONF_MAKEDIR)/lint/shellcheck/find_utils.mk
+# include $(legacy-mk)/lint/shellcheck/help.mk
+include $(legacy-mk)/lint/shellcheck/find_utils.mk
 
 # Standard lint-yaml targets
-include $(ONF_MAKEDIR)/lint/shellcheck/shellcheck.mk
+include $(legacy-mk)/lint/shellcheck/shellcheck.mk
 
 mk-include--onf-lint-shellcheck := true#        # Flag to inhibit re-including
 

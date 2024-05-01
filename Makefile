@@ -24,8 +24,18 @@
 ##--------------------##
 ##---]  INCLUDES  [---##
 ##--------------------##
-include config.mk
-include makefiles/include.mk
+$(if $(findstring disabled-joey,$(USER)),\
+   $(eval USE_LF_MK := 1)) # special snowflake
+
+##--------------------##
+##---]  INCLUDES  [---##
+##--------------------##
+ifdef USE_LF_MK
+  $(error should not be here)
+  include lf/include.mk
+else
+  include lf/transition.mk
+endif # ifdef USE_LF_MK
 
 # Variables
 VERSION                    ?= $(shell cat ./VERSION)
@@ -170,14 +180,14 @@ gen-coverage-coverprofile:
 	$(if $(LOCAL_FIX_PERMS),touch "$(go-result-out)")
 	$(if $(LOCAL_FIX_PERMS),chmod o+w "$(go-result-out)")
 
-        # ------------------------------------------ 
+        # ------------------------------------------
         # set -euo pipefail else tee masks $? return
         # ------------------------------------------
 	@echo '** Running test coverage: exit-on-error is currently disabled'
 	-(\
 	    set -euo pipefail; \
 	    $(GO) test -mod=vendor -v -coverprofile "$(go-cover-out)" -covermode count ./... 2>&1 | tee "$(go-result-out)" \
-	)  
+	)
 
 	$(if $(LOCAL_FIX_PERMS),chmod o-w "$(go-result-out)")
 	$(if $(LOCAL_FIX_PERMS),chmod o-w "$(go-cover-out)")
@@ -255,4 +265,3 @@ help ::
 	@echo '  gen-coverage-cobertura       Generate cobertura report'
 
 # [EOF]
-

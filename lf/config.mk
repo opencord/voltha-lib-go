@@ -70,6 +70,7 @@ JOBCONFIG_DIR ?= job-configs
 ##---]  Filesystem exclusions  [---##
 ##---------------------------------##
 onf-excl-dirs := $(null)        # make clean: dirs=
+onf-excl-dirs += lf#            # git submodule
 onf-excl-dirs += .venv#         # $(venv-name)
 onf-excl-dirs += vendor#        # golang / voltha*-go
 onf-excl-dirs += patches#       # voltha docs - python upgrade

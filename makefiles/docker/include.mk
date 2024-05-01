@@ -18,7 +18,7 @@
 $(if $(DEBUG),$(warning ENTER))
 
 # Per-repository
-include $(ONF_MAKEDIR)/docker/config/$(--repo-name--).mk
+include $(legacy-mk)/docker/config/$(--repo-name--).mk
 
 # ------------------- ##
 # ---]  GLOBALS  [--- ##

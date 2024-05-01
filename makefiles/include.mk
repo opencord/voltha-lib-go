@@ -35,34 +35,34 @@ ONF_MAKEDIR   := $(onf-mk-top)
 
 TOP ?= $(patsubst %/makefiles/include.mk,%,$(onf-mk-abs))
 
-include $(ONF_MAKEDIR)/consts.mk
-include $(ONF_MAKEDIR)/help/include.mk       # render target help
-include $(ONF_MAKEDIR)/utils/include.mk      # dependency-less helper macros
-include $(ONF_MAKEDIR)/etc/include.mk        # banner macros
-include $(ONF_MAKEDIR)/commands/include.mk   # Tools and local installers
+include $(legacy-mk)/consts.mk
+include $(legacy-mk)/help/include.mk       # render target help
+include $(legacy-mk)/utils/include.mk      # dependency-less helper macros
+include $(legacy-mk)/etc/include.mk        # banner macros
+include $(legacy-mk)/commands/include.mk   # Tools and local installers
 
-include $(ONF_MAKEDIR)/virtualenv.mk#        # lint-{jjb,python} depends on venv
-include $(ONF_MAKEDIR)/lint/include.mk
+include $(legacy-mk)/virtualenv.mk#        # lint-{jjb,python} depends on venv
+include $(legacy-mk)/lint/include.mk
 
-include $(ONF_MAKEDIR)/gerrit/include.mk
-include $(ONF_MAKEDIR)/git/include.mk
-include $(ONF_MAKEDIR)/jjb/include.mk
+include $(legacy-mk)/gerrit/include.mk
+include $(legacy-mk)/git/include.mk
+include $(legacy-mk)/jjb/include.mk
 
-# include $(ONF_MAKEDIR)/release/include.mk
+# include $(legacy-mk)/release/include.mk
 
-include $(ONF_MAKEDIR)/todo.mk
-include $(ONF_MAKEDIR)/help/variables.mk
+include $(legacy-mk)/todo.mk
+include $(legacy-mk)/help/variables.mk
 
 ##---------------------##
 ##---]  ON_DEMAND  [---##
 ##---------------------##
-$(if $(USE-ONF-GERRIT-MK),$(eval include $(ONF_MAKEDIR)/gerrit/include.mk))
-$(if $(USE-ONF-DOCKER-MK),$(eval include $(ONF_MAKEDIR)/docker/include.mk))
+$(if $(USE-ONF-GERRIT-MK),$(eval include $(legacy-mk)/gerrit/include.mk))
+$(if $(USE-ONF-DOCKER-MK),$(eval include $(legacy-mk)/docker/include.mk))
 
 ##-------------------##
 ##---]  TARGETS  [---##
 ##-------------------##
-include $(ONF_MAKEDIR)/targets/include.mk # clean, sterile, tox
+include $(legacy-mk)/targets/include.mk # clean, sterile, tox
 
 $(if $(DEBUG),$(warning LEAVE))
 
