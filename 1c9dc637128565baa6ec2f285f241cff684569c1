@@ -34,6 +34,24 @@
       "parentUuid": "438a1b95_3d584a64",
       "revId": "1c9dc637128565baa6ec2f285f241cff684569c1",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e845c7c1_41a18fbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2024-05-24T13:31:36Z",
+      "side": 1,
+      "message": "A discussion item for this patch was added in the 05/28 VOLTHA TSC meeting agenda:\n\nhttps://docs.google.com/document/d/1mNqronCip_-tDjFI-ZoudNteC3AnOcVONPHz7HuW8Eg/edit",
+      "parentUuid": "68ba5c74_cc2020fe",
+      "revId": "1c9dc637128565baa6ec2f285f241cff684569c1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
