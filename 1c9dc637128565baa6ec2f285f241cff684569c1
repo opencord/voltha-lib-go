@@ -16,6 +16,24 @@
       "message": "Why do we have vscode related files in the repo?",
       "revId": "1c9dc637128565baa6ec2f285f241cff684569c1",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68ba5c74_cc2020fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2024-05-24T13:17:11Z",
+      "side": 1,
+      "message": "Excellent question\n\nI can think of two cases that might explain it:\n  o Stray file checkin (% git add --all)\n  o More likely -- editor settings, someone wanted to avoid having re-configuring their environment whenever the repository is cloned.\n\nThough thinking about that last item more, adding .vscode/ would be akin to distributing personal preference to the project as a default w/o discussion.\n\nIt creates a form of variant behavior, not all Broadband/VOLTHA repositories are configured with a .vscode/ directory.\n\nOh and launch.json also contains a version string (\"version\": \"0.2.0\").\nWondering if that might inadvertently freeze something in the local development environment unless the file is actively maintained and checked in.\n\nNOTE: File added/last updated 2021\n\nIn hindsight I would vote to remove the vscode directory, [any thoughts] ?\n\nIf configs and maintenance are not standard but needed for convenience it could be supported by two answers:\n   o Edit .gitignore to prevent checkins.\n   o For individual use and preferences:\n      - Create a shell script to archive/restore vscode between checkouts.\n   o If .vscode/ has a larger audience:\n      - Create a git repository for storing a portable base config (and versions!)\n      - Add the vscode repo as a git submodule so devs will have a familiar base to work with.\n\n[any thoughts] ?",
+      "parentUuid": "438a1b95_3d584a64",
+      "revId": "1c9dc637128565baa6ec2f285f241cff684569c1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
