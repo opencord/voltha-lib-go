@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a202515e_7a331f61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2024-07-18T23:50:16Z",
+      "side": 1,
+      "message": "recheck\n\nrepo:voltha-lib-go - trying out regenerated jenkins node/image",
+      "revId": "b75c4586562280fef55e36a2e6545f609b8aede7",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
