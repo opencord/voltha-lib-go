@@ -16,6 +16,23 @@
       "message": "recheck\n\nrepo:voltha-lib-go - trying out regenerated jenkins node/image",
       "revId": "b75c4586562280fef55e36a2e6545f609b8aede7",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b35fa750_ae345d0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000948
+      },
+      "writtenOn": "2024-08-22T15:11:04Z",
+      "side": 1,
+      "message": "recheck\n\nRerun patch with the replacement AMI image (ubuntu 24.04)",
+      "revId": "b75c4586562280fef55e36a2e6545f609b8aede7",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
