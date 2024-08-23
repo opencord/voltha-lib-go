@@ -33,6 +33,23 @@
       "message": "recheck\n\nRerun patch with the replacement AMI image (ubuntu 24.04)",
       "revId": "b75c4586562280fef55e36a2e6545f609b8aede7",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b58774c5_8b7cf965",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001013
+      },
+      "writtenOn": "2024-08-23T20:39:28Z",
+      "side": 1,
+      "message": "recheck\n\nRunning on rebuilt 18.04 agent.",
+      "revId": "b75c4586562280fef55e36a2e6545f609b8aede7",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
