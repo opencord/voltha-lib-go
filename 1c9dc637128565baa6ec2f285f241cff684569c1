@@ -52,6 +52,24 @@
       "parentUuid": "68ba5c74_cc2020fe",
       "revId": "1c9dc637128565baa6ec2f285f241cff684569c1",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d09be39d_ff15352b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001013
+      },
+      "writtenOn": "2024-09-16T20:19:36Z",
+      "side": 1,
+      "message": "Per the meeting notes, .vscode should be removed. I\u0027ve removed it and pushed a new version of this. It is ready for review and merge.",
+      "parentUuid": "e845c7c1_41a18fbd",
+      "revId": "1c9dc637128565baa6ec2f285f241cff684569c1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
