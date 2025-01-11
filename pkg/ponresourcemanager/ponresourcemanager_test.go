@@ -20,10 +20,11 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/boljen/go-bitmap"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/boljen/go-bitmap"
 
 	"github.com/opencord/voltha-lib-go/v7/pkg/db"
 	"github.com/opencord/voltha-lib-go/v7/pkg/db/kvstore"
@@ -44,6 +45,7 @@ type MockResKVClient struct {
 func newMockKvClient(ctx context.Context) *MockResKVClient {
 	var mockResKVClient MockResKVClient
 	mockResKVClient.resourceMap = make(map[string]interface{})
+	logger.Debug(ctx, "Creating new MockKVClient")
 	return &mockResKVClient
 }
 
@@ -72,6 +74,42 @@ func (kvclient *MockResKVClient) Get(ctx context.Context, key string) (*kvstore.
 		return maps[key], nil
 	}
 	return nil, errors.New("key didn't find")
+}
+
+// GetWithPrefix mock function implementation for KVClient
+func (kvclient *MockResKVClient) GetWithPrefix(ctx context.Context, prefixKey string) (map[string]*kvstore.KVPair, error) {
+	logger.Debugw(ctx, "GetWithPrefix of MockKVClient called", log.Fields{"prefixKey": prefixKey})
+	if prefixKey != "" {
+		if strings.Contains(prefixKey, GEM_POOL_PATH) {
+			logger.Debug(ctx, "Getting keys with prefix:", GEM_POOL_PATH)
+			maps := make(map[string]*kvstore.KVPair)
+			for key, resource := range kvclient.resourceMap {
+				if strings.HasPrefix(key, prefixKey) {
+					maps[key] = kvstore.NewKVPair(key, resource, "mock", 3000, 1)
+				}
+			}
+			return maps, nil
+		}
+	}
+	return nil, errors.New("prefixKey didn't find")
+}
+
+// GetWithPrefixKeysOnly returns only the keys with the specified prefix.
+func (kvclient *MockResKVClient) GetWithPrefixKeysOnly(ctx context.Context, prefixKey string) ([]string, error) {
+	logger.Debugw(ctx, "GetWithPrefixKeysOnly of MockKVClient called", log.Fields{"prefixKey": prefixKey})
+	if prefixKey != "" {
+		if strings.Contains(prefixKey, GEM_POOL_PATH) {
+			logger.Debug(ctx, "Getting keys with prefix:", GEM_POOL_PATH)
+			var keys []string
+			for key := range kvclient.resourceMap {
+				if strings.HasPrefix(key, prefixKey) {
+					keys = append(keys, key)
+				}
+			}
+			return keys, nil
+		}
+	}
+	return nil, errors.New("prefixKey not found")
 }
 
 // Put mock function implementation for KVClient
