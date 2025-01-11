@@ -216,7 +216,7 @@ func TestIsErrorIndicatingAliveKvstore(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if backend.isErrorIndicatingAliveKvstore(context.Background(), tt.arg) != tt.want {
+			if backend.isErrorIndicatingAliveKvstore(tt.arg) != tt.want {
 				t.Errorf("isErrorIndicatingAliveKvstore failed for %s: expected %t but got %t", tt.name, tt.want, !tt.want)
 			}
 		})
