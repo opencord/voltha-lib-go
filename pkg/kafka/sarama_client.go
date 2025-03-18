@@ -13,6 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
  */
+
 package kafka
 
 import (
@@ -23,8 +24,9 @@ import (
 	"sync"
 	"time"
 
+	scc "github.com/opencord/voltha-lib-go/v7/pkg/sarama-cluster"
+
 	"github.com/Shopify/sarama"
-	scc "github.com/bsm/sarama-cluster"
 	"github.com/eapache/go-resiliency/breaker"
 	"github.com/golang/protobuf/proto"
 	"github.com/google/uuid"
@@ -44,43 +46,43 @@ var _ Client = &SaramaClient{}
 
 // SaramaClient represents the messaging proxy
 type SaramaClient struct {
+	lastLivenessTime              time.Time
 	cAdmin                        sarama.ClusterAdmin
-	KafkaAddress                  string
 	producer                      sarama.AsyncProducer
 	consumer                      sarama.Consumer
 	groupConsumers                map[string]*scc.Consumer
-	lockOfGroupConsumers          sync.RWMutex
+	doneCh                        chan int
+	metadataCallback              func(fromTopic string, timestamp time.Time)
+	topicToConsumerChannelMap     map[string]*consumerChannels
+	topicLockMap                  map[string]*sync.RWMutex
+	liveness                      chan bool
+	healthiness                   chan bool
+	KafkaAddress                  string
 	consumerGroupPrefix           string
-	consumerType                  int
 	consumerGroupName             string
+	consumerType                  int
 	producerFlushFrequency        int
 	producerFlushMessages         int
 	producerFlushMaxmessages      int
 	producerRetryMax              int
 	producerRetryBackOff          time.Duration
-	producerReturnSuccess         bool
-	producerReturnErrors          bool
 	consumerMaxwait               int
 	maxProcessingTime             int
 	numPartitions                 int
 	numReplicas                   int
-	autoCreateTopic               bool
-	doneCh                        chan int
-	metadataCallback              func(fromTopic string, timestamp time.Time)
-	topicToConsumerChannelMap     map[string]*consumerChannels
-	lockTopicToConsumerChannelMap sync.RWMutex
-	topicLockMap                  map[string]*sync.RWMutex
-	lockOfTopicLockMap            sync.RWMutex
 	metadataMaxRetry              int
-	alive                         bool
-	livenessMutex                 sync.Mutex
-	liveness                      chan bool
 	livenessChannelInterval       time.Duration
-	lastLivenessTime              time.Time
-	started                       bool
+	lockOfGroupConsumers          sync.RWMutex
+	lockTopicToConsumerChannelMap sync.RWMutex
+	lockOfTopicLockMap            sync.RWMutex
+	livenessMutex                 sync.Mutex
 	healthinessMutex              sync.Mutex
+	producerReturnSuccess         bool
+	producerReturnErrors          bool
+	autoCreateTopic               bool
+	alive                         bool
+	started                       bool
 	healthy                       bool
-	healthiness                   chan bool
 }
 
 type SaramaClientOption func(*SaramaClient)

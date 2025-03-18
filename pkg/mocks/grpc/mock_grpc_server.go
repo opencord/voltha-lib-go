@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package grpc
 
 import (
@@ -33,9 +34,9 @@ const (
 )
 
 type MockGRPCServer struct {
-	ApiEndpoint string
 	server      *vgrpc.GrpcServer
 	probe       *probe.Probe
+	ApiEndpoint string
 }
 
 func NewMockGRPCServer(ctx context.Context) (*MockGRPCServer, error) {

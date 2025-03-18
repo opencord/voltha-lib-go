@@ -44,12 +44,12 @@ const (
 // It stores ComponentConfig and GlobalConfig of loglevel config of specific Voltha component type
 // For example,ComponentLogController instance will be created for rw-core component
 type ComponentLogController struct {
-	ComponentName       string
 	componentNameConfig *ComponentConfig
 	GlobalConfig        *ComponentConfig
 	configManager       *ConfigManager
-	logHash             [16]byte
+	ComponentName       string
 	initialLogLevel     string // Initial default log level set by helm chart
+	logHash             [16]byte
 }
 
 func NewComponentLogController(ctx context.Context, cm *ConfigManager) (*ComponentLogController, error) {
@@ -147,7 +147,7 @@ func (c *ComponentLogController) persistRegisteredLogPackageList(ctx context.Con
 }
 
 // ProcessLogConfig will first load and apply log config and then start waiting on component config and global config
-// channels for any changes. Event channel will be recieved from Backend for valid change type
+// channels for any changes. Event channel will be received from Backend for valid change type
 // Then data for componentn log config and global log config will be retrieved from Backend and stored in updatedLogConfig in precedence order
 // If any changes in updatedLogConfig will be applied on component
 func (c *ComponentLogController) processLogConfig(ctx context.Context) {
@@ -318,7 +318,7 @@ func (c *ComponentLogController) loadAndApplyLogConfig(ctx context.Context, logC
 	return nil
 }
 
-// createModifiedLogLevels loops through the activeLogLevels recieved from zap logger and updatedLogLevels recieved from buildUpdatedLogConfig
+// createModifiedLogLevels loops through the activeLogLevels received from zap logger and updatedLogLevels received from buildUpdatedLogConfig
 // to identify and create map of modified Log Levels of 2 types:
 // - Packages for which log level has been changed
 // - Packages for which log level config has been cleared - set to default log level

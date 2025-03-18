@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package probe
 
 import (
@@ -86,13 +87,14 @@ type ServiceStatusUpdate struct {
 	Status ServiceStatus
 }
 
-// Probe reciever on which to implement probe capabilities
+// Probe receiver on which to implement probe capabilities
 type Probe struct {
 	readyFunc  func(map[string]ServiceStatus) bool
 	healthFunc func(map[string]ServiceStatus) bool
 
+	status map[string]ServiceStatus
+
 	mutex     sync.RWMutex
-	status    map[string]ServiceStatus
 	isReady   bool
 	isHealthy bool
 }

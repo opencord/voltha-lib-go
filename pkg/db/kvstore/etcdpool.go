@@ -13,6 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
  */
+
 package kvstore
 
 import (
@@ -50,28 +51,28 @@ func NewRoundRobinEtcdClientAllocator(endpoints []string, timeout time.Duration,
 }
 
 type rrEntry struct {
+	age    time.Time
 	client *clientv3.Client
 	count  int
-	age    time.Time
 }
 
 type roundRobin struct {
-	//block chan struct{}
-	sync.Mutex
-	available []*rrEntry
 	all       map[*clientv3.Client]*rrEntry
 	full      map[*clientv3.Client]*rrEntry
 	waitList  *list.List
+	closingCh chan struct{}
+	stopCh    chan struct{}
+	available []*rrEntry
+	//ageOut    time.Duration
+	endpoints []string
 	max       int
 	capacity  int
 	timeout   time.Duration
-	//ageOut    time.Duration
-	endpoints []string
 	size      int
-	logLevel  log.LogLevel
-	closing   bool
-	closingCh chan struct{}
-	stopCh    chan struct{}
+	//block chan struct{}
+	sync.Mutex
+	logLevel log.LogLevel
+	closing  bool
 }
 
 // Get returns an Etcd client. If not is available, it will create one

@@ -18,19 +18,18 @@ run:
 
 linters:
   enable:
-    #  - gochecknoglobals
-    #  - gochecknoinits
-    #  - gocyclo
+    # - gochecknoglobals
+    # - gochecknoinits
+    # - gocyclo
     - gofmt
-    #  - golint
-    #  - govet
-    #  - ineffassign
-    #  - misspell
+    - govet
+    - ineffassign
+    - misspell
     - errcheck
-    #  - unparam
+    # - unparam
 
 issues:
   exclude:
-    - "Package github.com/golang/protobuf/proto is deprecated"
-    - "Package github.com/golang/protobuf/jsonpb is deprecated"
-    - "SA1019: voltha.ImageDownload is deprecated"
+    - 'SA1019: voltha.ImageDownload is deprecated'
+    - 'SA1019: "github.com/golang/protobuf/proto" is deprecated'
+    - 'SA1019: "github.com/golang/protobuf/jsonpb" is deprecated'

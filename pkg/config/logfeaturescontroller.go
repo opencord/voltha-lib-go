@@ -33,9 +33,9 @@ const (
 // ComponentLogFeatureController represents Configuration for Logging related features of Tracing and Log
 // Correlation of specific Voltha component.
 type ComponentLogFeaturesController struct {
-	ComponentName               string
 	componentNameConfig         *ComponentConfig
 	configManager               *ConfigManager
+	ComponentName               string
 	initialTracingStatus        bool // Initial default tracing status set by helm chart
 	initialLogCorrelationStatus bool // Initial default log correlation status set by helm chart
 }
