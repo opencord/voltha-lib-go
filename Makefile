@@ -125,7 +125,7 @@ sca:
 	@$(RM) -r ./sca-report
 	@mkdir -p ./sca-report
 	@echo "Running static code analysis..."
-	@${GOLANGCI_LINT} run --deadline=4m --out-format junit-xml ./... | tee ./sca-report/sca-report.xml
+	@${GOLANGCI_LINT} run --timeout=4m --out-format junit-xml ./... | tee ./sca-report/sca-report.xml
 	@echo ""
 	@echo "Static code analysis OK"
 

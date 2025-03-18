@@ -12,7 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+*/
+
 package flows
 
 import (
@@ -1185,17 +1186,17 @@ func MkGroupStat(ga *GroupArgs) *ofp.OfpGroupEntry {
 type OfpFlowModArgs map[string]uint64
 
 type FlowArgs struct {
+	Command     *ofp.OfpFlowModCommand
+	KV          OfpFlowModArgs
 	MatchFields []*ofp.OfpOxmOfbField
 	Actions     []*ofp.OfpAction
-	Command     *ofp.OfpFlowModCommand
 	Priority    uint32
-	KV          OfpFlowModArgs
 }
 
 type GroupArgs struct {
-	GroupId uint32
-	Buckets []*ofp.OfpBucket
 	Command *ofp.OfpGroupModCommand
+	Buckets []*ofp.OfpBucket
+	GroupId uint32
 }
 
 type FlowsAndGroups struct {

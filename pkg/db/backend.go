@@ -36,16 +36,16 @@ const (
 
 // Backend structure holds details for accessing the kv store
 type Backend struct {
+	lastLivenessTime        time.Time // Instant of last alive state push
 	Client                  kvstore.Client
+	liveness                chan bool // channel to post alive state
 	StoreType               string
-	Timeout                 time.Duration
 	Address                 string
 	PathPrefix              string
-	alive                   bool // Is this backend connection alive?
-	livenessMutex           sync.Mutex
-	liveness                chan bool     // channel to post alive state
+	Timeout                 time.Duration
 	LivenessChannelInterval time.Duration // regularly push alive state beyond this interval
-	lastLivenessTime        time.Time     // Instant of last alive state push
+	livenessMutex           sync.Mutex
+	alive                   bool // Is this backend connection alive?
 }
 
 // NewBackend creates a new instance of a Backend structure
@@ -239,7 +239,7 @@ func (b *Backend) GetWithPrefixKeysOnly(ctx context.Context, prefixKey string) (
 	return pair, err
 }
 
-// Put stores an item value under the specifed key
+// Put stores an item value under the specified key
 func (b *Backend) Put(ctx context.Context, key string, value interface{}) error {
 	span, ctx := log.CreateChildSpan(ctx, "kvs-put")
 	defer span.Finish()

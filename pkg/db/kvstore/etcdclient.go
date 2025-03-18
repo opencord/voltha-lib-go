@@ -12,7 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
- */
+*/
+
 package kvstore
 
 import (
@@ -42,8 +43,8 @@ const (
 // EtcdClient represents the Etcd KV store client
 type EtcdClient struct {
 	pool               EtcdClientAllocator
-	watchedChannels    sync.Map
 	watchedClients     map[string]*v3Client.Client
+	watchedChannels    sync.Map
 	watchedClientsLock sync.RWMutex
 }
 

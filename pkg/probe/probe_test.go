@@ -18,12 +18,13 @@ package probe
 import (
 	"context"
 	"encoding/json"
-	"github.com/stretchr/testify/assert"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestServiceStatusString(t *testing.T) {
@@ -178,7 +179,7 @@ func TestDetailzWithServies(t *testing.T) {
 	w := httptest.NewRecorder()
 	p.detailzFunc(w, req)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 
 	assert.Equal(t, http.StatusOK, resp.StatusCode, "invalid status code for no services")
 	assert.Equal(t, "application/json", resp.Header.Get("Content-Type"), "wrong content type")

@@ -12,7 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
- */
+*/
+
 package kafka
 
 import (
@@ -37,10 +38,10 @@ var _ kafka.Client = &KafkaClient{}
 
 type KafkaClient struct {
 	topicsChannelMap map[string][]chan proto.Message
-	lock             sync.RWMutex
-	alive            bool
-	livenessMutex    sync.Mutex
 	liveness         chan bool
+	lock             sync.RWMutex
+	livenessMutex    sync.Mutex
+	alive            bool
 }
 
 func NewKafkaClient() *KafkaClient {
@@ -161,7 +162,7 @@ func (kc *KafkaClient) EnableLivenessChannel(ctx context.Context, enable bool) c
 		if kc.liveness == nil {
 			logger.Info(ctx, "kafka-create-liveness-channel")
 			kc.liveness = make(chan bool, 10)
-			// post intial state to the channel
+			// post initial state to the channel
 			kc.liveness <- kc.alive
 		}
 	} else {

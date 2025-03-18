@@ -13,6 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
  */
+
 package kafka
 
 import (
@@ -41,8 +42,8 @@ type Topic struct {
 }
 
 type KVArg struct {
-	Key   string
 	Value interface{}
+	Key   string
 }
 
 type RpcMType int
@@ -57,9 +58,9 @@ const (
 )
 
 type RpcResponse struct {
-	MType RpcMType
 	Err   error
 	Reply *any.Any
+	MType RpcMType
 }
 
 func NewResponse(messageType RpcMType, err error, body *any.Any) *RpcResponse {
