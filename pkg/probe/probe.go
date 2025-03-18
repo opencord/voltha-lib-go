@@ -12,8 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package probe
+ */package probe
 
 import (
 	"context"
@@ -86,13 +85,14 @@ type ServiceStatusUpdate struct {
 	Status ServiceStatus
 }
 
-// Probe reciever on which to implement probe capabilities
+// Probe receiver on which to implement probe capabilities
 type Probe struct {
 	readyFunc  func(map[string]ServiceStatus) bool
 	healthFunc func(map[string]ServiceStatus) bool
 
+	status map[string]ServiceStatus
+
 	mutex     sync.RWMutex
-	status    map[string]ServiceStatus
 	isReady   bool
 	isHealthy bool
 }

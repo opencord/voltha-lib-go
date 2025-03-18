@@ -12,8 +12,7 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
- */
-package techprofile
+ */package techprofile
 
 import (
 	"fmt"
@@ -99,21 +98,21 @@ const (
 
 // TechprofileFlags represents the set of configurations used
 type TechProfileFlags struct {
-	KVStoreAddress               string
-	KVStoreType                  string
-	KVStoreTimeout               time.Duration
 	KVBackend                    *db.Backend // this is the backend used to store TP instances
 	DefaultTpKVBackend           *db.Backend // this is the backend used to read the TP profile
 	ResourceInstanceKVBacked     *db.Backend // this is the backed used to read/write Resource Instances
+	KVStoreAddress               string
+	KVStoreType                  string
 	TPKVPathPrefix               string
 	defaultTpKvPathPrefix        string
 	TPFileKVPath                 string
 	ResourceInstanceKVPathPrefix string
 	DefaultTPName                string
+	DefaultPbits                 []string
+	KVStoreTimeout               time.Duration
+	LogLevel                     int
 	TPVersion                    uint32
 	NumGemPorts                  uint32
-	DefaultPbits                 []string
-	LogLevel                     int
 	DefaultTechProfileID         uint32
 	DefaultNumGemPorts           uint32
 }

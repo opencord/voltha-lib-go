@@ -52,7 +52,7 @@ nop-cmd        := :
 ## Default shell:
 ##   o set -e            enable error checking
 ##   o set -u            report undefined errors
-##   o set -o pipefail   propogate shell pipeline failures.
+##   o set -o pipefail   propagate shell pipeline failures.
 ## -----------------------------------------------------------------------
 SHELL ?= /bin/bash
 have-shell-bash := $(filter bash,$(subst /,$(space),$(SHELL)))

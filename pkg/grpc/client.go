@@ -12,8 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package grpc
+ */package grpc
 
 import (
 	"context"
@@ -74,24 +73,24 @@ const (
 )
 
 type Client struct {
+	service                interface{}
+	connection             *grpc.ClientConn
+	events                 chan event
+	onRestart              RestartedHandler
+	livenessCallback       func(timestamp time.Time)
 	clientEndpoint         string
 	clientContextData      string
 	serverEndPoint         string
 	remoteServiceName      string
-	connection             *grpc.ClientConn
-	connectionLock         sync.RWMutex
-	stateLock              sync.RWMutex
-	state                  state
-	service                interface{}
-	events                 chan event
-	onRestart              RestartedHandler
 	backoffInitialInterval time.Duration
 	backoffMaxInterval     time.Duration
 	backoffMaxElapsedTime  time.Duration
 	monitorInterval        time.Duration
-	done                   bool
+	connectionLock         sync.RWMutex
+	stateLock              sync.RWMutex
 	livenessLock           sync.RWMutex
-	livenessCallback       func(timestamp time.Time)
+	state                  state
+	done                   bool
 }
 
 type ClientOption func(*Client)

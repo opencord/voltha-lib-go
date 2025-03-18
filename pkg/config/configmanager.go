@@ -12,8 +12,7 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
- */
-package config
+ */package config
 
 import (
 	"context"
@@ -48,7 +47,7 @@ func (c ConfigType) String() string {
 	return [...]string{"loglevel", "metadata", "kafka", "logfeatures"}[c]
 }
 
-// ChangeEvent represents the event recieved from watch
+// ChangeEvent represents the event received from watch
 // For example, Put Event
 type ChangeEvent int
 
@@ -61,11 +60,11 @@ func (ce ChangeEvent) String() string {
 	return [...]string{"Put", "Delete"}[ce]
 }
 
-// ConfigChangeEvent represents config for the events recieved from watch
+// ConfigChangeEvent represents config for the events received from watch
 // For example,ChangeType is Put ,ConfigAttribute default
 type ConfigChangeEvent struct {
-	ChangeType      ChangeEvent
 	ConfigAttribute string
+	ChangeType      ChangeEvent
 }
 
 // ConfigManager is a wrapper over Backend to maintain Configuration of voltha components
@@ -91,10 +90,10 @@ type ConfigManager struct {
 // /voltha/service/config/rw-core/loglevel/
 type ComponentConfig struct {
 	cManager         *ConfigManager
-	componentLabel   string
-	configType       ConfigType
 	changeEventChan  chan *ConfigChangeEvent
 	kvStoreEventChan chan *kvstore.Event
+	componentLabel   string
+	configType       ConfigType
 }
 
 func NewConfigManager(ctx context.Context, kvClient kvstore.Client, kvStoreType, kvStoreAddress string, kvStoreTimeout time.Duration) *ConfigManager {
@@ -126,9 +125,9 @@ func (c *ConfigManager) RetrieveComponentList(ctx context.Context, configType Co
 		return nil, err
 	}
 
-	// Looping through the data recieved from the Backend for config
+	// Looping through the data received from the Backend for config
 	// Trimming and Splitting the required key and value from data and  storing as componentName,PackageName and Level
-	// For Example, recieved key would be <Backend Prefix Path>/<Config Prefix>/<Component Name>/<Config Type>/default and value \"DEBUG\"
+	// For Example, received key would be <Backend Prefix Path>/<Config Prefix>/<Component Name>/<Config Type>/default and value \"DEBUG\"
 	// Then in default will be stored as PackageName,componentName as <Component Name> and DEBUG will be stored as value in List struct
 	ccPathPrefix := kvStorePathSeparator + configType.String() + kvStorePathSeparator
 	pathPrefix := c.KVStoreDataPathPrefix + kvStorePathSeparator + c.KVStoreConfigPrefix + kvStorePathSeparator
@@ -188,7 +187,7 @@ func (c *ComponentConfig) MonitorForConfigChange(ctx context.Context) chan *Conf
 	return c.changeEventChan
 }
 
-// processKVStoreWatchEvents process event channel recieved from the Backend for any ChangeType
+// processKVStoreWatchEvents process event channel received from the Backend for any ChangeType
 // It checks for the EventType is valid or not.For the valid EventTypes creates ConfigChangeEvent and send it on channel
 func (c *ComponentConfig) processKVStoreWatchEvents(ctx context.Context) {
 
@@ -246,9 +245,9 @@ func (c *ComponentConfig) RetrieveAll(ctx context.Context) (map[string]string, e
 		return nil, err
 	}
 
-	// Looping through the data recieved from the Backend for the given key
+	// Looping through the data received from the Backend for the given key
 	// Trimming the required key and value from data and  storing as key/value pair
-	// For Example, recieved key would be <Backend Prefix Path>/<Config Prefix>/<Component Name>/<Config Type>/default and value \"DEBUG\"
+	// For Example, received key would be <Backend Prefix Path>/<Config Prefix>/<Component Name>/<Config Type>/default and value \"DEBUG\"
 	// Then in default will be stored as key and DEBUG will be stored as value in map[string]string
 	res := make(map[string]string)
 	ccPathPrefix := c.cManager.Backend.PathPrefix + kvStorePathSeparator + key + kvStorePathSeparator
