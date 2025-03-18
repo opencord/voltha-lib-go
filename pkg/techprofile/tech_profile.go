@@ -699,17 +699,17 @@ func (t *TechProfileMgr) GetTrafficQueues(ctx context.Context, tp *tp_pb.TechPro
 }
 
 func (t *TechProfileMgr) validateInstanceControlAttr(ctx context.Context, instCtl tp_pb.InstanceControl) error {
-	if instCtl.Onu != "single-instance" && instCtl.Onu != "multi-instance" {
+	if instCtl.Onu != "single-instance" && instCtl.Onu != defaultOnuInstance {
 		logger.Errorw(ctx, "invalid-onu-instance-control-attribute", log.Fields{"onu-inst": instCtl.Onu})
 		return errors.New("invalid-onu-instance-ctl-attr")
 	}
 
-	if instCtl.Uni != "single-instance" && instCtl.Uni != "multi-instance" {
+	if instCtl.Uni != "single-instance" && instCtl.Uni != defaultOnuInstance {
 		logger.Errorw(ctx, "invalid-uni-instance-control-attribute", log.Fields{"uni-inst": instCtl.Uni})
 		return errors.New("invalid-uni-instance-ctl-attr")
 	}
 
-	if instCtl.Uni == "multi-instance" {
+	if instCtl.Uni == defaultOnuInstance {
 		logger.Error(ctx, "uni-multi-instance-tp-not-supported")
 		return errors.New("uni-multi-instance-tp-not-supported")
 	}
@@ -730,7 +730,7 @@ func (t *TechProfileMgr) allocateTPInstance(ctx context.Context, uniPortName str
 
 	logger.Infow(ctx, "Allocating TechProfileMgr instance from techprofile template", log.Fields{"uniPortName": uniPortName, "intfID": intfID, "numGem": tp.NumGemPorts})
 
-	if tp.InstanceControl.Onu == "multi-instance" {
+	if tp.InstanceControl.Onu == defaultOnuInstance {
 		tcontIDs, err = t.GetResourceID(ctx, intfID, t.resourceMgr.GetResourceTypeAllocID(), 1)
 		if err != nil {
 			logger.Errorw(ctx, "Error getting alloc id from rsrcrMgr", log.Fields{"err": err, "intfID": intfID})
@@ -817,9 +817,7 @@ func (t *TechProfileMgr) allocateTPInstance(ctx context.Context, uniPortName str
 		}
 	}
 	//add multicast GEM ports to dsGemPortAttributeList afterwards
-	for k := range dsMulticastGemAttributeList {
-		dsGemPortAttributeList = append(dsGemPortAttributeList, dsMulticastGemAttributeList[k])
-	}
+	dsGemPortAttributeList = append(dsGemPortAttributeList, dsMulticastGemAttributeList...)
 
 	return &tp_pb.TechProfileInstance{
 		SubscriberIdentifier: uniPortName,
@@ -857,7 +855,7 @@ func (t *TechProfileMgr) allocateEponTPInstance(ctx context.Context, uniPortName
 
 	logger.Infow(ctx, "allocating-tp-instance-from-tp-template", log.Fields{"uniPortName": uniPortName, "intfID": intfID, "numGem": tp.NumGemPorts})
 
-	if tp.InstanceControl.Onu == "multi-instance" {
+	if tp.InstanceControl.Onu == defaultOnuInstance {
 		if tcontIDs, err = t.GetResourceID(ctx, intfID, t.resourceMgr.GetResourceTypeAllocID(), 1); err != nil {
 			logger.Errorw(ctx, "Error getting alloc id from rsrcrMgr", log.Fields{"err": err, "intfID": intfID})
 			return nil

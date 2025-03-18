@@ -1,7 +1,7 @@
 ---
 
 # -----------------------------------------------------------------------
-# [NOTE] - Propogate .pre-commit-config.yaml edits to all repositories!
+# [NOTE] - Propagate .pre-commit-config.yaml edits to all repositories!
 # -----------------------------------------------------------------------
 # [NOTE] - Common config file source lives in repo:onf-make
 #    - https://gerrit.opencord.org/plugins/gitiles/

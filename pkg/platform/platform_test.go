@@ -19,14 +19,15 @@ package platform
 
 import (
 	"context"
+	"math"
+	"reflect"
+	"testing"
+
 	fu "github.com/opencord/voltha-lib-go/v7/pkg/flows"
 	ofp "github.com/opencord/voltha-protos/v5/go/openflow_13"
 	"github.com/opencord/voltha-protos/v5/go/voltha"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"math"
-	"reflect"
-	"testing"
 )
 
 func TestMkUniPortNum(t *testing.T) {
@@ -91,10 +92,10 @@ func TestIntfIDFromUniPortNum(t *testing.T) {
 		want uint32
 	}{
 		// TODO: Add test cases.
-		{"IntfIDFromUniPortNum-1", args{portNum: 8096}, ((8096 / 65536) & 255)},
-		{"IntfIDFromUniPortNum-2", args{portNum: 1024}, ((1024 / 65536) & 255)},
-		{"IntfIDFromUniPortNum-3", args{portNum: 66560}, ((66560 / 65536) & 255)},
-		{"IntfIDFromUniPortNum-4", args{portNum: 16712193}, ((16712193 / 65536) & 255)},
+		{"IntfIDFromUniPortNum-1", args{portNum: 8096}, 0},       // 8096 / 65536 results in 0
+		{"IntfIDFromUniPortNum-2", args{portNum: 1024}, 0},       // 1024 / 65536 results in 0
+		{"IntfIDFromUniPortNum-3", args{portNum: 66560}, 1},      // 66560 / 65536 results in 1
+		{"IntfIDFromUniPortNum-4", args{portNum: 16712193}, 255}, // 16712193 / 65536 results in 255
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

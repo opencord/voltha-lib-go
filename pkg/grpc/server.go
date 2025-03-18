@@ -12,7 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
- */
+*/
+
 package grpc
 
 import (
@@ -64,13 +65,14 @@ type ReadyProbe interface {
 }
 
 type GrpcServer struct {
-	gs       *grpc.Server
-	address  string
-	secure   bool
-	services []func(*grpc.Server)
-	probe    ReadyProbe // optional
+	probe ReadyProbe // optional
+
+	gs *grpc.Server
 
 	*GrpcSecurity
+	address  string
+	services []func(*grpc.Server)
+	secure   bool
 }
 
 /*

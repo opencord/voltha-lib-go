@@ -134,13 +134,6 @@ const (
 //type ResourceType string
 
 type PONResourceManager struct {
-	//Implements APIs to initialize/allocate/release alloc/gemport/onu IDs.
-	Technology       string
-	DeviceType       string
-	DeviceID         string
-	Backend          string // ETCD only currently
-	Address          string // address of the KV store
-	OLTModel         string
 	KVStore          *db.Backend
 	KVStoreForConfig *db.Backend
 
@@ -149,8 +142,15 @@ type PONResourceManager struct {
 	PonResourceRanges  map[string]interface{}
 	SharedResourceMgrs map[string]*PONResourceManager
 	SharedIdxByType    map[string]string
-	IntfIDs            []uint32 // list of pon interface IDs
-	Globalorlocal      string
+	//Implements APIs to initialize/allocate/release alloc/gemport/onu IDs.
+	Technology    string
+	DeviceType    string
+	DeviceID      string
+	Backend       string // ETCD only currently
+	Address       string // address of the KV store
+	OLTModel      string
+	Globalorlocal string
+	IntfIDs       []uint32 // list of pon interface IDs
 }
 
 func newKVClient(ctx context.Context, storeType string, address string, timeout time.Duration) (kvstore.Client, error) {
@@ -606,7 +606,7 @@ func (PONRMgr *PONResourceManager) InitResourceIDPool(ctx context.Context, Intf 
 		// Add resource as json in kv store.
 		err = PONRMgr.KVStore.Put(ctx, Path, FormatResult)
 		if err == nil {
-			logger.Debug(ctx, "Successfuly posted to kv store")
+			logger.Debug(ctx, "Successfully posted to kv store")
 			return err
 		}
 	}
