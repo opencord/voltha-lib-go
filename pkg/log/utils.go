@@ -23,13 +23,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/opentracing/opentracing-go"
-	jtracing "github.com/uber/jaeger-client-go"
-	jcfg "github.com/uber/jaeger-client-go/config"
 	"io"
 	"os"
 	"strings"
 	"sync"
+
+	"github.com/opentracing/opentracing-go"
+	jtracing "github.com/uber/jaeger-client-go"
+	jcfg "github.com/uber/jaeger-client-go/config"
 )
 
 const (
@@ -39,11 +40,11 @@ const (
 // Global Settings governing the Log Correlation and Tracing features. Should only
 // be updated through the exposed public methods
 type LogFeaturesManager struct {
-	isTracePublishingEnabled bool
-	isLogCorrelationEnabled  bool
 	componentName            string // Name of component extracted from ENV variable
 	activeTraceAgentAddress  string
 	lock                     sync.Mutex
+	isTracePublishingEnabled bool
+	isLogCorrelationEnabled  bool
 }
 
 var globalLFM *LogFeaturesManager = &LogFeaturesManager{}
@@ -103,7 +104,7 @@ func (c traceCloser) Close() error {
 func (lfm *LogFeaturesManager) InitTracingAndLogCorrelation(tracePublishEnabled bool, traceAgentAddress string, logCorrelationEnabled bool) (io.Closer, error) {
 	lfm.componentName = os.Getenv("COMPONENT_NAME")
 	if lfm.componentName == "" {
-		return nil, errors.New("Unable to retrieve PoD Component Name from Runtime env")
+		return nil, errors.New("unable to retrieve PoD Component Name from Runtime env")
 	}
 
 	lfm.lock.Lock()
@@ -234,7 +235,7 @@ func (lfm *LogFeaturesManager) SetTracePublishingStatus(isEnabled bool) {
 	}
 }
 
-// Method to contruct a new Jaeger Tracer instance based on given Trace Agent address and Publish status.
+// Method to construct a new Jaeger Tracer instance based on given Trace Agent address and Publish status.
 // The last attribute indicates whether to use Loopback IP for creating Jaeger Client when the DNS lookup
 // of supplied Trace Agent address has failed. It is fine to fallback during the initialization step, but
 // not later (when enabling/disabling the status dynamically)

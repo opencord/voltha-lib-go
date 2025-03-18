@@ -109,7 +109,7 @@ func TestFlowsAndGroups_Copy(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)), // Removed unnecessary bitwise OR with 0
 		},
 		Actions: []*ofp.OfpAction{
 			SetField(VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 10)),
@@ -175,7 +175,7 @@ func TestFlowsAndGroups_GetFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 1500},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(5),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 		},
 		Actions: []*ofp.OfpAction{
 			PushVlan(0x8100),
@@ -229,7 +229,7 @@ func TestFlowsAndGroups_String(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -276,7 +276,7 @@ func TestFlowsAndGroups_AddFrom(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			Metadata_ofp(1000),
 			TunnelId(uint64(1)),
 			VlanPcp(0),
@@ -388,7 +388,7 @@ func TestDeviceRules_AddFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			Metadata_ofp(1000),
 			TunnelId(uint64(1)),
 			VlanPcp(0),
@@ -422,7 +422,7 @@ func TestDeviceRules_AddFlowsAndGroup(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 2000},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			Metadata_ofp(1000),
 			TunnelId(uint64(1)),
 			VlanPcp(0),
@@ -469,7 +469,7 @@ func TestFlowHasOutPort(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 2000},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			Metadata_ofp(1000),
 			TunnelId(uint64(1)),
 			VlanPcp(0),
@@ -488,7 +488,7 @@ func TestFlowHasOutPort(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 2000},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 		},
 	}
 	flow, err = MkFlowStat(fa)
@@ -504,7 +504,7 @@ func TestFlowHasOutGroup(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -522,7 +522,7 @@ func TestFlowHasOutGroup(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -542,7 +542,7 @@ func TestMatchFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -560,7 +560,7 @@ func TestMatchFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -579,7 +579,7 @@ func TestMatchFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -594,7 +594,7 @@ func TestMatchFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 501, "table_id": 1, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -612,7 +612,7 @@ func TestMatchFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 2, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -627,7 +627,7 @@ func TestMatchFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268467, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -642,7 +642,7 @@ func TestMatchFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268468, "flags": 14},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -657,7 +657,7 @@ func TestMatchFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(4),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -672,7 +672,7 @@ func TestMatchFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 		},
@@ -686,7 +686,7 @@ func TestMatchFlow(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1, "cookie": 38268468, "flags": 12},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -707,7 +707,7 @@ func TestFlowMatchesMod(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),
@@ -725,7 +725,7 @@ func TestFlowMatchesMod(t *testing.T) {
 		KV: OfpFlowModArgs{"priority": 500, "table_id": 1},
 		MatchFields: []*ofp.OfpOxmOfbField{
 			InPort(2),
-			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT) | 0),
+			VlanVid(uint32(ofp.OfpVlanId_OFPVID_PRESENT)),
 			VlanPcp(0),
 			EthType(0x800),
 			Ipv4Dst(0xe00a0a0a),

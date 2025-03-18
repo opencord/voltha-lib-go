@@ -44,7 +44,7 @@ lint-yaml-cmd-version : $(venv-activate-bin)/yamllint
 	$< --version
 
 ## -----------------------------------------------------------------------
-## Intent: On-demand instalation of the yamllint command
+## Intent: On-demand installation of the yamllint command
 ## -----------------------------------------------------------------------
 lint-yaml-install := $(venv-activate-bin)/yamllint
 $(lint-yaml-install) : $(venv-activate-script)

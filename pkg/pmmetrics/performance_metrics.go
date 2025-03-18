@@ -22,11 +22,11 @@ import (
 
 // PmMetrics structure holds metric and device info
 type PmMetrics struct {
+	metrics           map[string]*voltha.PmConfig
 	deviceID          string
 	frequency         uint32
 	grouped           bool
 	frequencyOverride bool
-	metrics           map[string]*voltha.PmConfig
 }
 
 type PmMetricsOption func(*PmMetrics)

@@ -40,10 +40,10 @@ type lastEvent struct{}
 
 type EventProxy struct {
 	kafkaClient    kafka.Client
-	eventTopic     kafka.Topic
-	eventQueue     *EventQueue
 	queueCtx       context.Context
+	eventQueue     *EventQueue
 	queueCancelCtx context.CancelFunc
+	eventTopic     kafka.Topic
 }
 
 func NewEventProxy(opts ...EventProxyOption) *EventProxy {
@@ -128,7 +128,7 @@ func (ep *EventProxy) SendDeviceEvent(ctx context.Context, deviceEvent *voltha.D
 /* Send out device events with key*/
 func (ep *EventProxy) SendDeviceEventWithKey(ctx context.Context, deviceEvent *voltha.DeviceEvent, category eventif.EventCategory, subCategory eventif.EventSubCategory, raisedTs int64, key string) error {
 	if deviceEvent == nil {
-		logger.Error(ctx, "Recieved empty device event")
+		logger.Error(ctx, "Received empty device event")
 		return errors.New("Device event nil")
 	}
 	var event voltha.Event
@@ -156,7 +156,7 @@ func (ep *EventProxy) SendDeviceEventWithKey(ctx context.Context, deviceEvent *v
 // SendKpiEvent is to send kpi events to voltha.event topic
 func (ep *EventProxy) SendKpiEvent(ctx context.Context, id string, kpiEvent *voltha.KpiEvent2, category eventif.EventCategory, subCategory eventif.EventSubCategory, raisedTs int64) error {
 	if kpiEvent == nil {
-		logger.Error(ctx, "Recieved empty kpi event")
+		logger.Error(ctx, "Received empty kpi event")
 		return errors.New("KPI event nil")
 	}
 	var event voltha.Event
@@ -249,13 +249,13 @@ func (ep *EventProxy) Stop() {
 }
 
 type EventQueue struct {
-	mutex                sync.RWMutex
 	eventChannel         chan interface{}
 	insertPosition       *ring.Ring
 	popPosition          *ring.Ring
 	dataToSendAvailable  chan struct{}
 	readyToSendToKafkaCh chan struct{}
 	eventQueueStopped    chan struct{}
+	mutex                sync.RWMutex
 }
 
 func newEventQueue() *EventQueue {

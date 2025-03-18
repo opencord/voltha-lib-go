@@ -71,7 +71,7 @@ todo:
 	@echo "  o Update to support standard makefile target behavior:"
 	@echo "    all taget is test not default behavior for automation."
 	@echo "  o Change lint target dep from test to check -or smoke"
-	@echo "    target test sould be more involved with content validation"
+	@echo "    target test could be more involved with content validation"
 	@echo "  o Refactor lint target(s) with voltha-system-tests/makefiles"
 	@echo "  o Linting should be dependency driven,"
 	@echo "    only check when sources are modified."
