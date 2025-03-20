@@ -612,6 +612,8 @@ func (c *Client) connectToEndpoint(ctx context.Context, p *probe.Probe, retry_in
 	}
 	conn, err := grpc.Dial(c.serverEndPoint,
 		grpc.WithInsecure(),
+		grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(100*1024*1024)),
+		grpc.WithDefaultCallOptions(grpc.MaxCallSendMsgSize(100*1024*1024)),
 		grpc.WithStreamInterceptor(grpc_middleware.ChainStreamClient(
 			grpc_opentracing.StreamClientInterceptor(grpc_opentracing.WithTracer(log.ActiveTracerProxy{})),
 		)),

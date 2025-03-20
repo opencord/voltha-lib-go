@@ -109,7 +109,10 @@ func (s *GrpcServer) Start(ctx context.Context) {
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
 			grpc_opentracing.UnaryServerInterceptor(grpc_opentracing.WithTracer(log.ActiveTracerProxy{})),
 			mkServerInterceptor(s),
-		))}
+		)),
+		grpc.MaxRecvMsgSize(100 * 1024 * 1024),
+		grpc.MaxSendMsgSize(100 * 1024 * 1024),
+		}
 
 	if s.secure && s.GrpcSecurity != nil {
 		creds, err := credentials.NewServerTLSFromFile(s.CertFile, s.KeyFile)
