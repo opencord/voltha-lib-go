@@ -18,7 +18,7 @@ package stats
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"testing"
 	"time"
@@ -71,7 +71,7 @@ func TestPromStatsServer_Start(t *testing.T) {
 
 	assert.Equal(t, 200, res.StatusCode)
 
-	bodyBytes, err := ioutil.ReadAll(res.Body)
+	bodyBytes, err := io.ReadAll(res.Body)
 	require.NoError(t, err)
 
 	assert.Contains(t, string(bodyBytes), `voltha_rw_core_counters{counter="bus_write_errors_total"} 2`)

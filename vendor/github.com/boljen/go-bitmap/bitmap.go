@@ -2,7 +2,7 @@
 //
 // Installation
 //
-// 	  go get github.com/boljen/go-bitmap
+//	go get github.com/boljen/go-bitmap
 package bitmap
 
 import "sync"

@@ -503,13 +503,9 @@ func getCallerInfo() (string, string, string, int) {
 		}
 	}
 
-	if strings.HasSuffix(packageName, ".init") {
-		packageName = strings.TrimSuffix(packageName, ".init")
-	}
+	packageName = strings.TrimSuffix(packageName, ".init")
 
-	if strings.HasSuffix(fileName, ".go") {
-		fileName = strings.TrimSuffix(fileName, ".go")
-	}
+	fileName = strings.TrimSuffix(fileName, ".go")
 
 	return packageName, fileName, funcName, foundFrame.Line
 }
