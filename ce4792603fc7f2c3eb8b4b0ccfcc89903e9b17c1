@@ -16,6 +16,24 @@
       "message": "Did you able to build voltha-lib-go with the new protos on your local? This line should be updated once the protos is merged.",
       "revId": "ce4792603fc7f2c3eb8b4b0ccfcc89903e9b17c1",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bb3a92a_e98ad77f",
+        "filename": "go.mod",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001025
+      },
+      "writtenOn": "2025-05-07T05:58:41Z",
+      "side": 1,
+      "message": "updated the new proto version",
+      "parentUuid": "7895690f_ded2da49",
+      "revId": "ce4792603fc7f2c3eb8b4b0ccfcc89903e9b17c1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
