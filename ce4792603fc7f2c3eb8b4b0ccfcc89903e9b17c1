@@ -34,6 +34,24 @@
       "parentUuid": "7895690f_ded2da49",
       "revId": "ce4792603fc7f2c3eb8b4b0ccfcc89903e9b17c1",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c1652b2_f7041921",
+        "filename": "go.mod",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001025
+      },
+      "writtenOn": "2025-05-07T14:31:35Z",
+      "side": 1,
+      "message": "added latestest version , so marking as resolved",
+      "parentUuid": "9bb3a92a_e98ad77f",
+      "revId": "ce4792603fc7f2c3eb8b4b0ccfcc89903e9b17c1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
