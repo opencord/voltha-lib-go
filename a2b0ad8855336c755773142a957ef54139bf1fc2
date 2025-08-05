@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c142a2f_b657bb81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000971
+      },
+      "writtenOn": "2025-08-05T07:39:39Z",
+      "side": 1,
+      "message": "\u003e Patch Set 1: Verified+1\n\u003e \n\u003e Build Successful \n\u003e \n\u003e https://jenkins.opencord.org/job/verify_voltha-lib-go_licensed/1040/ : SUCCESS\n\u003e \n\u003e https://jenkins.opencord.org/job/verify_voltha-lib-go_unit-test/1041/ : SUCCESS\n\nrecheck",
+      "revId": "a2b0ad8855336c755773142a957ef54139bf1fc2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
