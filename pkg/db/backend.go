@@ -209,6 +209,21 @@ func (b *Backend) Get(ctx context.Context, key string) (*kvstore.KVPair, error) 
 	return pair, err
 }
 
+// Get retrieves an item that matches the specified key
+func (b *Backend) GetWithRetry(ctx context.Context, key string) (*kvstore.KVPair, error) {
+	span, ctx := log.CreateChildSpan(ctx, "kvs-get")
+	defer span.Finish()
+
+	formattedPath := b.makePath(ctx, key)
+	logger.Debugw(ctx, "getting-key", log.Fields{"key": key, "path": formattedPath})
+
+	pair, err := b.Client.GetWithRetry(ctx, formattedPath)
+
+	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(err))
+
+	return pair, err
+}
+
 // GetWithPrefix retrieves one or more items that match the specified key prefix
 func (b *Backend) GetWithPrefix(ctx context.Context, prefixKey string) (map[string]*kvstore.KVPair, error) {
 	span, ctx := log.CreateChildSpan(ctx, "kvs-get-with-prefix")
@@ -254,6 +269,21 @@ func (b *Backend) Put(ctx context.Context, key string, value interface{}) error 
 	return err
 }
 
+// Put stores an item value under the specifed key
+func (b *Backend) PutWithRetry(ctx context.Context, key string, value interface{}) error {
+	span, ctx := log.CreateChildSpan(ctx, "kvs-put")
+	defer span.Finish()
+
+	formattedPath := b.makePath(ctx, key)
+	logger.Debugw(ctx, "putting-key", log.Fields{"key": key, "path": formattedPath})
+
+	err := b.Client.PutWithRetry(ctx, formattedPath, value)
+
+	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(err))
+
+	return err
+}
+
 // Delete removes an item under the specified key
 func (b *Backend) Delete(ctx context.Context, key string) error {
 	span, ctx := log.CreateChildSpan(ctx, "kvs-delete")
@@ -263,6 +293,21 @@ func (b *Backend) Delete(ctx context.Context, key string) error {
 	logger.Debugw(ctx, "deleting-key", log.Fields{"key": key, "path": formattedPath})
 
 	err := b.Client.Delete(ctx, formattedPath)
+
+	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(err))
+
+	return err
+}
+
+// Delete removes an item under the specified key
+func (b *Backend) DeleteWithRetry(ctx context.Context, key string) error {
+	span, ctx := log.CreateChildSpan(ctx, "kvs-delete")
+	defer span.Finish()
+
+	formattedPath := b.makePath(ctx, key)
+	logger.Debugw(ctx, "deleting-key", log.Fields{"key": key, "path": formattedPath})
+
+	err := b.Client.DeleteWithRetry(ctx, formattedPath)
 
 	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(err))
 
