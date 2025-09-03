@@ -76,10 +76,13 @@ func NewEvent(eventType int, key interface{}, value interface{}, version int64) 
 type Client interface {
 	List(ctx context.Context, key string) (map[string]*KVPair, error)
 	Get(ctx context.Context, key string) (*KVPair, error)
+	GetWithRetry(ctx context.Context, key string) (*KVPair, error)
 	GetWithPrefix(ctx context.Context, prefixKey string) (map[string]*KVPair, error)
 	GetWithPrefixKeysOnly(ctx context.Context, prefixKey string) ([]string, error)
 	Put(ctx context.Context, key string, value interface{}) error
+	PutWithRetry(ctx context.Context, key string, value interface{}) error
 	Delete(ctx context.Context, key string) error
+	DeleteWithRetry(ctx context.Context, key string) error
 	DeleteWithPrefix(ctx context.Context, prefixKey string) error
 	Watch(ctx context.Context, key string, withPrefix bool) chan *Event
 	IsConnectionUp(ctx context.Context) bool // timeout in second
