@@ -62,8 +62,45 @@ func (c *RedisClient) Get(ctx context.Context, key string) (*KVPair, error) {
 	return NewKVPair(key, valBytes, "", 0, 0), nil
 }
 
+func (c *RedisClient) GetWithRetry(ctx context.Context, key string) (*KVPair, error) {
+
+	val, err := c.redisAPI.Get(ctx, key).Result()
+	valBytes, _ := ToByte(val)
+	if err != nil {
+		return nil, nil
+	}
+	return NewKVPair(key, valBytes, "", 0, 0), nil
+}
+
 func (c *RedisClient) Put(ctx context.Context, key string, value interface{}) error {
 
+	// Validate that we can convert value to a string as etcd API expects a string
+	var val string
+	var er error
+	if val, er = ToString(value); er != nil {
+		return fmt.Errorf("unexpected-type-%T", value)
+	}
+
+	// Check if there is already a lease for this key - if there is then use it, otherwise a PUT will make
+	// that KV key permanent instead of automatically removing it after a lease expiration
+	setErr := c.redisAPI.Set(ctx, key, val, 0)
+	err := setErr.Err()
+
+	if err != nil {
+		switch setErr.Err() {
+		case context.Canceled:
+			logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
+		case context.DeadlineExceeded:
+			logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err})
+		default:
+			logger.Warnw(ctx, "bad-endpoints", log.Fields{"error": err})
+		}
+		return err
+	}
+	return nil
+}
+
+func (c *RedisClient) PutWithRetry(ctx context.Context, key string, value interface{}) error {
 	// Validate that we can convert value to a string as etcd API expects a string
 	var val string
 	var er error
@@ -145,6 +182,16 @@ func (c *RedisClient) List(ctx context.Context, key string) (map[string]*KVPair,
 }
 
 func (c *RedisClient) Delete(ctx context.Context, key string) error {
+	// delete the key
+	if _, err := c.redisAPI.Del(ctx, key).Result(); err != nil {
+		logger.Errorw(ctx, "failed-to-delete-key", log.Fields{"key": key, "error": err})
+		return err
+	}
+	logger.Debugw(ctx, "key(s)-deleted", log.Fields{"key": key})
+	return nil
+}
+
+func (c *RedisClient) DeleteWithRetry(ctx context.Context, key string) error {
 	// delete the key
 	if _, err := c.redisAPI.Del(ctx, key).Result(); err != nil {
 		logger.Errorw(ctx, "failed-to-delete-key", log.Fields{"key": key, "error": err})
