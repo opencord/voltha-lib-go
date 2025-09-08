@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2645ba68_b7b7962f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000971
+      },
+      "writtenOn": "2025-09-08T07:16:36Z",
+      "side": 1,
+      "message": "\u003e Patch Set 3: Verified+1\n\u003e \n\u003e Build Successful \n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_unit-test/1047/ : SUCCESS\n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_licensed/1046/ : SUCCESS\n\nrecheck",
+      "revId": "67c354179be01c25fcf29e3593488b58d5ee06d4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
