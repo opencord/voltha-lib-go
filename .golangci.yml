@@ -11,26 +11,40 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
----
+version: "2"
 run:
   modules-download-mode: vendor
-
 linters:
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - path: (.+)\.go$
+        text: Package github.com/golang/protobuf/proto is deprecated
+      - path: (.+)\.go$
+        text: Package github.com/golang/protobuf/jsonpb is deprecated
+      - path: (.+)\.go$
+        text: 'SA1019: voltha.ImageDownload is deprecated'
+      - path: pkg/grpc/client\.go
+        text: 'SA1019: grpcreflect.NewClient is deprecated'
+      - path: pkg/grpc/client\.go
+        text: 'SA1019: grpc.Dial is deprecated'
+      - path: pkg/grpc/client\.go
+        text: 'SA1019: grpc.WithInsecure is deprecated'
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
   enable:
-    #  - gochecknoglobals
-    #  - gochecknoinits
-    #  - gocyclo
     - gofmt
-    #  - golint
-    #  - govet
-    #  - ineffassign
-    #  - misspell
-    - errcheck
-    #  - unparam
-
-issues:
-  exclude:
-    - "Package github.com/golang/protobuf/proto is deprecated"
-    - "Package github.com/golang/protobuf/jsonpb is deprecated"
-    - "SA1019: voltha.ImageDownload is deprecated"
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
