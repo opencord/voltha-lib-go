@@ -23,6 +23,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/phayes/freeport"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -32,7 +33,9 @@ func TestPromStatsServer_Start(t *testing.T) {
 	serverCtx, serverCancel := context.WithCancel(context.Background())
 	defer serverCancel()
 
-	testPort := 34201
+	// Get a free port to avoid conflicts
+	testPort, err := freeport.GetFreePort()
+	require.NoError(t, err)
 
 	StatsServer.Start(serverCtx, testPort, VCore)
 
