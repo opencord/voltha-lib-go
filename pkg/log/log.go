@@ -202,7 +202,7 @@ func StringToLogLevel(l string) (LogLevel, error) {
 	case "FATAL":
 		return FatalLevel, nil
 	}
-	return 0, errors.New("Given LogLevel is invalid : " + l)
+	return 0, errors.New("given LogLevel is invalid : " + l)
 }
 
 func LogLevelToString(l LogLevel) (string, error) {
@@ -218,7 +218,7 @@ func LogLevelToString(l LogLevel) (string, error) {
 	case FatalLevel:
 		return "FATAL", nil
 	}
-	return "", fmt.Errorf("Given LogLevel is invalid %d", l)
+	return "", fmt.Errorf("given LogLevel is invalid %d", l)
 }
 
 func getDefaultConfig(outputType string, level LogLevel, defaultFields Fields) zp.Config {
@@ -674,7 +674,7 @@ func UpdateCallerSkipLevel(skipLevel int) (CLogger, error) {
 		return loggers[pkgName], nil
 	}
 
-	return loggers[pkgName], errors.New("Package Not Found")
+	return loggers[pkgName], errors.New("package not found")
 }
 
 // UpdateAllCallerSkipLevel create new loggers for all registered pacakges with the default updated caller skipltFields.
