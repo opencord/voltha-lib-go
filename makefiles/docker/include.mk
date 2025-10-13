@@ -23,7 +23,7 @@ include $(legacy-mk)/docker/config/$(--repo-name--).mk
 # ------------------- ##
 # ---]  GLOBALS  [--- ##
 # ------------------- ##
-VOLTHA_TOOLS_VERSION ?= 3.1.1
+VOLTHA_TOOLS_VERSION ?= 3.1.3
 
 # ---------------------------------
 # Induce error for misconfiguration
