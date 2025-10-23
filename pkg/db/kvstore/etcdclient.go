@@ -101,6 +101,25 @@ func (c *EtcdClient) IsConnectionUp(ctx context.Context) bool {
 	return true
 }
 
+// KeyExists returns boolean value based on the existence of the key in kv-store. Timeout defines how long the function will
+// wait for a response
+func (c *EtcdClient) KeyExists(ctx context.Context, key string) (bool, error) {
+	client, err := c.pool.Get(ctx)
+	if err != nil {
+		return false, err
+	}
+	defer c.pool.Put(client)
+	resp, err := client.Get(ctx, key, v3Client.WithKeysOnly(), v3Client.WithCountOnly())
+	if err != nil {
+		logger.Error(ctx, err)
+		return false, err
+	}
+	if resp.Count > 0 {
+		return true, nil
+	}
+	return false, nil
+}
+
 // List returns an array of key-value pairs with key as a prefix.  Timeout defines how long the function will
 // wait for a response
 func (c *EtcdClient) List(ctx context.Context, key string) (map[string]*KVPair, error) {

@@ -54,6 +54,11 @@ func (kvclient *MockResKVClient) List(ctx context.Context, key string) (map[stri
 	return nil, errors.New("key didn't find")
 }
 
+// List function implemented for KVClient.
+func (kvclient *MockResKVClient) KeyExists(ctx context.Context, key string) (bool, error) {
+	return false, errors.New("key didn't find")
+}
+
 // Get mock function implementation for KVClient
 func (kvclient *MockResKVClient) Get(ctx context.Context, key string) (*kvstore.KVPair, error) {
 	logger.Debugw(ctx, "Get of MockKVClient called", log.Fields{"key": key})
