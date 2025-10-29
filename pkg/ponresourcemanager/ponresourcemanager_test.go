@@ -81,6 +81,11 @@ func (kvclient *MockResKVClient) Get(ctx context.Context, key string) (*kvstore.
 	return nil, errors.New("key didn't find")
 }
 
+// Get mock function implementation for KVClient
+func (kvclient *MockResKVClient) GetWithRetry(ctx context.Context, key string) (*kvstore.KVPair, error) {
+	return nil, nil
+}
+
 // GetWithPrefix mock function implementation for KVClient
 func (kvclient *MockResKVClient) GetWithPrefix(ctx context.Context, prefixKey string) (map[string]*kvstore.KVPair, error) {
 	logger.Debugw(ctx, "GetWithPrefix of MockKVClient called", log.Fields{"prefixKey": prefixKey})
@@ -128,8 +133,18 @@ func (kvclient *MockResKVClient) Put(ctx context.Context, key string, value inte
 	return errors.New("key didn't find")
 }
 
+// Put mock function implementation for KVClient
+func (kvclient *MockResKVClient) PutWithRetry(ctx context.Context, key string, value interface{}) error {
+	return nil
+}
+
 // Delete mock function implementation for KVClient
 func (kvclient *MockResKVClient) Delete(ctx context.Context, key string) error {
+	return nil
+}
+
+// Delete mock function implementation for KVClient
+func (kvclient *MockResKVClient) DeleteWithRetry(ctx context.Context, key string) error {
 	return nil
 }
 
