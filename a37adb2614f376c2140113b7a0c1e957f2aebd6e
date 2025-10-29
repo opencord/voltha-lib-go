@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "648e50f6_a0a6db61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001041
+      },
+      "writtenOn": "2025-10-29T09:28:18Z",
+      "side": 1,
+      "message": "\u003e Patch Set 8: Verified-1\n\u003e \n\u003e Build Failed \n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_unit-test/1061/ : FAILURE\n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_licensed/1059/ : SUCCESS\n\nrecheck",
+      "revId": "a37adb2614f376c2140113b7a0c1e957f2aebd6e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
