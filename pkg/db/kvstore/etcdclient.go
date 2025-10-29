@@ -35,8 +35,10 @@ const (
 )
 
 const (
-	defaultMaxPoolCapacity = 1000 // Default size of an Etcd Client pool
-	defaultMaxPoolUsage    = 100  // Maximum concurrent request an Etcd Client is allowed to process
+	defaultMaxPoolCapacity         = 1000            // Default size of an Etcd Client pool
+	defaultMaxPoolUsage            = 100             // Maximum concurrent request an Etcd Client is allowed to process
+	defaultMaxAttempts             = 10              // Default number of attempts to retry an operation
+	defaultOperationContextTimeout = 3 * time.Second // Default context timeout for operations
 )
 
 // EtcdClient represents the Etcd KV store client
@@ -151,16 +153,27 @@ func (c *EtcdClient) Get(ctx context.Context, key string) (*KVPair, error) {
 	defer c.pool.Put(client)
 
 	attempt := 0
-
 startLoop:
+	retryCtx, cancel := context.WithTimeout(ctx, defaultOperationContextTimeout)
+	defer cancel()
+	if attempt >= defaultMaxAttempts {
+		logger.Warnw(ctx, "get-retries-exceeded", log.Fields{"key": key, "error": err, "attempt": attempt})
+		return nil, err
+	}
 	for {
-		resp, err := client.Get(ctx, key)
+		resp, err := client.Get(retryCtx, key)
 		if err != nil {
 			switch err {
 			case context.Canceled:
 				logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
 			case context.DeadlineExceeded:
-				logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err, "context": ctx})
+				attempt++
+				if er := backoff(ctx, attempt); er != nil {
+					logger.Warnw(ctx, "get-retries-failed", log.Fields{"key": key, "error": er, "attempt": attempt})
+					return nil, err
+				}
+				logger.Warnw(ctx, "retrying-get", log.Fields{"key": key, "error": err, "attempt": attempt})
+				goto startLoop
 			case v3rpcTypes.ErrEmptyKey:
 				logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
 			case v3rpcTypes.ErrLeaderChanged,
@@ -245,7 +258,6 @@ func (c *EtcdClient) GetWithPrefixKeysOnly(ctx context.Context, prefixKey string
 // accepts only a string as a value for a put operation. Timeout defines how long the function will
 // wait for a response
 func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) error {
-
 	// Validate that we can convert value to a string as etcd API expects a string
 	var val string
 	var err error
@@ -262,13 +274,25 @@ func (c *EtcdClient) Put(ctx context.Context, key string, value interface{}) err
 	attempt := 0
 startLoop:
 	for {
-		_, err = client.Put(ctx, key, val)
+		retryCtx, cancel := context.WithTimeout(ctx, defaultOperationContextTimeout)
+		defer cancel()
+		if attempt >= defaultMaxAttempts {
+			logger.Warnw(ctx, "put-retries-exceeded", log.Fields{"key": key, "error": err, "attempt": attempt})
+			return err
+		}
+		_, err = client.Put(retryCtx, key, val)
 		if err != nil {
 			switch err {
 			case context.Canceled:
 				logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
 			case context.DeadlineExceeded:
-				logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err, "context": ctx})
+				attempt++
+				if er := backoff(ctx, attempt); er != nil {
+					logger.Warnw(ctx, "put-retries-failed", log.Fields{"key": key, "error": er, "attempt": attempt})
+					return err
+				}
+				logger.Warnw(ctx, "retrying-put", log.Fields{"key": key, "error": err, "attempt": attempt})
+				goto startLoop
 			case v3rpcTypes.ErrEmptyKey:
 				logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
 			case v3rpcTypes.ErrLeaderChanged,
@@ -286,6 +310,14 @@ startLoop:
 				goto startLoop
 			default:
 				logger.Warnw(ctx, "etcd-server-error", log.Fields{"error": err})
+				// Retry for these server errors
+				attempt += 1
+				if er := backoff(ctx, attempt); er != nil {
+					logger.Warnw(ctx, "put-retries-failed", log.Fields{"key": key, "error": er, "attempt": attempt})
+					return err
+				}
+				logger.Warnw(ctx, "retrying-put", log.Fields{"key": key, "error": err, "attempt": attempt})
+				goto startLoop
 			}
 			return err
 		}
@@ -304,17 +336,23 @@ func (c *EtcdClient) Delete(ctx context.Context, key string) error {
 
 	attempt := 0
 startLoop:
+
 	for {
-		_, err = client.Delete(ctx, key)
+		retryCtx, cancel := context.WithTimeout(ctx, defaultOperationContextTimeout)
+		defer cancel()
+		if attempt >= defaultMaxAttempts {
+			logger.Warnw(ctx, "delete-retries-exceeded", log.Fields{"key": key, "error": err, "attempt": attempt})
+			return err
+		}
+		_, err = client.Delete(retryCtx, key)
 		if err != nil {
 			switch err {
 			case context.Canceled:
 				logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
-			case context.DeadlineExceeded:
-				logger.Warnw(ctx, "context-deadline-exceeded", log.Fields{"error": err, "context": ctx})
 			case v3rpcTypes.ErrEmptyKey:
 				logger.Warnw(ctx, "etcd-client-error", log.Fields{"error": err})
-			case v3rpcTypes.ErrLeaderChanged,
+			case context.DeadlineExceeded,
+				v3rpcTypes.ErrLeaderChanged,
 				v3rpcTypes.ErrGRPCNoLeader,
 				v3rpcTypes.ErrTimeout,
 				v3rpcTypes.ErrTimeoutDueToLeaderFail,
@@ -329,6 +367,14 @@ startLoop:
 				goto startLoop
 			default:
 				logger.Warnw(ctx, "etcd-server-error", log.Fields{"error": err})
+				// Retry for these server errors
+				attempt += 1
+				if er := backoff(ctx, attempt); er != nil {
+					logger.Warnw(ctx, "delete-retries-failed", log.Fields{"key": key, "error": er, "attempt": attempt})
+					return err
+				}
+				logger.Warnw(ctx, "retrying-delete", log.Fields{"key": key, "error": err, "attempt": attempt})
+				goto startLoop
 			}
 			return err
 		}
