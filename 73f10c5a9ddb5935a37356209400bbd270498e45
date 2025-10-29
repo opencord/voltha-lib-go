@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc51ed8_eec4e1b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001041
+      },
+      "writtenOn": "2025-10-29T20:39:26Z",
+      "side": 1,
+      "message": "\u003e Patch Set 1:\n\u003e \n\u003e No Builds Executed\n\nrecheck",
+      "revId": "73f10c5a9ddb5935a37356209400bbd270498e45",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
