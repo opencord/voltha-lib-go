@@ -33,6 +33,40 @@
       "message": "\u003e Patch Set 2: Verified-1\n\u003e \n\u003e Build Failed \n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_unit-test/1068/ : ABORTED\n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_licensed/1066/ : SUCCESS\n\nrecheck",
       "revId": "73f10c5a9ddb5935a37356209400bbd270498e45",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5126c6e7_7c3f2db4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2025-10-29T22:02:07Z",
+      "side": 1,
+      "message": "I could not fully understand the goal of this implementation since both etcd and redis clients provide implicit retry mechanisms. ",
+      "revId": "73f10c5a9ddb5935a37356209400bbd270498e45",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e78d2ef1_6ff3daac",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2025-10-29T22:02:07Z",
+      "side": 1,
+      "message": "this is not the best practice since both functions implements the same logic. If this is needed, GetWithRetry can call the Get function directly. Or the retry logic can be based on some values in the context so that there would not be a need for a seperate function for retry.",
+      "revId": "73f10c5a9ddb5935a37356209400bbd270498e45",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
