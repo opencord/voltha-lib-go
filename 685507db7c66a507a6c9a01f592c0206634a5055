@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61e98ccb_06562252",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001041
+      },
+      "writtenOn": "2025-10-30T09:50:03Z",
+      "side": 1,
+      "message": "\u003e Patch Set 10: Verified-1\n\u003e \n\u003e Build Unstable \n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_unit-test/1071/ : UNSTABLE\n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_licensed/1070/ : SUCCESS\n\nrecheck",
+      "revId": "685507db7c66a507a6c9a01f592c0206634a5055",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
