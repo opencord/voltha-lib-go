@@ -33,6 +33,23 @@
       "message": "\u003e Patch Set 15: Verified+1\n\u003e \n\u003e Build Successful \n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_unit-test/1073/ : SUCCESS\n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_licensed/1072/ : SUCCESS\n\nrecheck",
       "revId": "ddadcb4f130b9a9a67ba988da0c94e521835f3c5",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eadd88fb_2dd792fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001041
+      },
+      "writtenOn": "2025-11-02T21:25:07Z",
+      "side": 1,
+      "message": "\u003e Patch Set 16: Verified-1\n\u003e \n\u003e Build Unstable \n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_unit-test/1074/ : UNSTABLE\n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_licensed/1073/ : SUCCESS\n\nrecheck",
+      "revId": "ddadcb4f130b9a9a67ba988da0c94e521835f3c5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
