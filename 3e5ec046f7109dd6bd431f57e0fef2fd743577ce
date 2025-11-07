@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f58f2cbd_44428de9",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2025-11-07T20:34:01Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "3e5ec046f7109dd6bd431f57e0fef2fd743577ce",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d978634a_852bd7a5",
+        "filename": "pkg/db/kvstore/etcdclient.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2025-11-07T20:34:01Z",
+      "side": 1,
+      "message": "The cancel() should not be deferred inside the loop. In this way, we\u0027re creating a context in each iteration and deferring the cancel until the outer function returns. This may cause context leak.\nAfter calling the client.Put(), we can call cancel() without defer.",
+      "revId": "3e5ec046f7109dd6bd431f57e0fef2fd743577ce",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
