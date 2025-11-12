@@ -16,6 +16,24 @@
       "message": "Please ensure that the previous comments are addressed before +2.",
       "revId": "222b61b4ab1b4a3676d1cbf1258e71adcc506ea3",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dc515ce_36fe3da6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001041
+      },
+      "writtenOn": "2025-11-12T07:11:39Z",
+      "side": 1,
+      "message": "Yes, I have updated the context cancel logic, no defer within a loop. Also instead of creating any new similar function, using the existing ones and updated the cancel and retry logic.",
+      "parentUuid": "0b7da47b_d60e796f",
+      "revId": "222b61b4ab1b4a3676d1cbf1258e71adcc506ea3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
