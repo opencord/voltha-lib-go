@@ -256,12 +256,12 @@ func TestFlowsAndGroups_String(t *testing.T) {
 	fg.AddGroup(group)
 
 	str = fg.String()
-	assert.True(t, strings.Contains(str, "id: 11819684229970388353"))
-	assert.True(t, strings.Contains(str, "group_id: 10"))
-	assert.True(t, strings.Contains(str, "oxm_class: OFPXMC_OPENFLOW_BASIC"))
-	assert.True(t, strings.Contains(str, "type: OFPXMT_OFB_VLAN_VID"))
-	assert.True(t, strings.Contains(str, "vlan_vid: 4096"))
-	assert.True(t, strings.Contains(str, "buckets:"))
+	assert.True(t, strings.Contains(str, "id:  11819684229970388353"))
+	assert.True(t, strings.Contains(str, "group_id:  10"))
+	assert.True(t, strings.Contains(str, "oxm_class:  OFPXMC_OPENFLOW_BASIC"))
+	assert.True(t, strings.Contains(str, "type:  OFPXMT_OFB_VLAN_VID"))
+	assert.True(t, strings.Contains(str, "vlan_vid:  4096"))
+	assert.True(t, strings.Contains(str, "buckets:  {"))
 }
 
 func TestFlowsAndGroups_AddFrom(t *testing.T) {
