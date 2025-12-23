@@ -24,17 +24,7 @@ linters:
       - std-error-handling
     rules:
       - path: (.+)\.go$
-        text: Package github.com/golang/protobuf/proto is deprecated
-      - path: (.+)\.go$
-        text: Package github.com/golang/protobuf/jsonpb is deprecated
-      - path: (.+)\.go$
         text: 'SA1019: voltha.ImageDownload is deprecated'
-      - path: pkg/grpc/client\.go
-        text: 'SA1019: grpcreflect.NewClient is deprecated'
-      - path: pkg/grpc/client\.go
-        text: 'SA1019: grpc.Dial is deprecated'
-      - path: pkg/grpc/client\.go
-        text: 'SA1019: grpc.WithInsecure is deprecated'
     paths:
       - third_party$
       - builtin$
