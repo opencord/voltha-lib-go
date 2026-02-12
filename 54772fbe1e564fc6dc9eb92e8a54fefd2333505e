@@ -16,6 +16,24 @@
       "message": "can you move this as well",
       "revId": "54772fbe1e564fc6dc9eb92e8a54fefd2333505e",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfa045c9_b0608da2",
+        "filename": "pkg/events/events_proxy.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001019
+      },
+      "writtenOn": "2026-02-12T10:09:00Z",
+      "side": 1,
+      "message": "Moved to Debug",
+      "parentUuid": "ba73ee97_8ed472c2",
+      "revId": "54772fbe1e564fc6dc9eb92e8a54fefd2333505e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
