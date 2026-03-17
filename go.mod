@@ -1,6 +1,6 @@
 module github.com/opencord/voltha-lib-go/v7
 
-go 1.25.3
+go 1.25.5
 
 require (
 	github.com/IBM/sarama v1.46.2
@@ -12,7 +12,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/jhump/protoreflect v1.17.0
-	github.com/opencord/voltha-protos/v5 v5.7.1
+	github.com/opencord/voltha-protos/v5 v5.7.3
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/phayes/freeport v0.0.0-20220201140144-74d24b5ae9f5
 	github.com/prometheus/client_golang v1.23.2
