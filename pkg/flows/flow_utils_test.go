@@ -19,6 +19,7 @@ import (
 	"bytes"
 	"strings"
 	"testing"
+	"time"
 
 	ofp "github.com/opencord/voltha-protos/v5/go/openflow_13"
 	"github.com/stretchr/testify/assert"
@@ -223,6 +224,7 @@ func TestFlowsAndGroups_String(t *testing.T) {
 	var ga *GroupArgs
 
 	str := fg.String()
+	time.Sleep(2 * time.Millisecond) // Added sleep to address potential timing issues
 	assert.True(t, str == "")
 
 	fa = &FlowArgs{
@@ -256,6 +258,7 @@ func TestFlowsAndGroups_String(t *testing.T) {
 	fg.AddGroup(group)
 
 	str = fg.String()
+	time.Sleep(2 * time.Millisecond) // Added sleep to address potential timing issues
 	assert.True(t, strings.Contains(str, "id:  11819684229970388353"))
 	assert.True(t, strings.Contains(str, "group_id:  10"))
 	assert.True(t, strings.Contains(str, "oxm_class:  OFPXMC_OPENFLOW_BASIC"))
