@@ -62,6 +62,16 @@ func (c *RedisClient) Get(ctx context.Context, key string) (*KVPair, error) {
 	return NewKVPair(key, valBytes, "", 0, 0), nil
 }
 
+func getParentPrefixes(key string) []string {
+	parts := strings.Split(key, "/")
+	var prefixes []string
+	for i := 1; i < len(parts); i++ {
+		prefix := strings.Join(parts[:i], "/")
+		prefixes = append(prefixes, prefix)
+	}
+	return prefixes
+}
+
 func (c *RedisClient) Put(ctx context.Context, key string, value interface{}) error {
 
 	// Validate that we can convert value to a string as etcd API expects a string
@@ -73,11 +83,21 @@ func (c *RedisClient) Put(ctx context.Context, key string, value interface{}) er
 
 	// Check if there is already a lease for this key - if there is then use it, otherwise a PUT will make
 	// that KV key permanent instead of automatically removing it after a lease expiration
-	setErr := c.redisAPI.Set(ctx, key, val, 0)
-	err := setErr.Err()
+	pipe := c.redisAPI.TxPipeline()
+	pipe.Set(ctx, key, val, 0)
+	//setErr := c.redisAPI.Set(ctx, key, val, 0)
+	//err := setErr.Err()
+
+	prefixes := getParentPrefixes(key)
+	for _, p := range prefixes {
+		dirKey := "dir:" + p
+		pipe.SAdd(ctx, dirKey, key)
+	}
+
+	_, err := pipe.Exec(ctx)
 
 	if err != nil {
-		switch setErr.Err() {
+		switch err {
 		case context.Canceled:
 			logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
 		case context.DeadlineExceeded:
@@ -139,7 +159,9 @@ func (c *RedisClient) List(ctx context.Context, key string) (map[string]*KVPair,
 	m := make(map[string]*KVPair)
 	var values []interface{}
 
-	if keys, err = c.scanAllKeysWithPrefix(ctx, key); err != nil {
+	dirKey := "dir:" + key
+
+	if keys, err = c.redisAPI.SMembers(ctx, dirKey).Result(); err != nil {
 		return nil, err
 	}
 
@@ -159,7 +181,25 @@ func (c *RedisClient) List(ctx context.Context, key string) (map[string]*KVPair,
 
 func (c *RedisClient) Delete(ctx context.Context, key string) error {
 	// delete the key
-	if _, err := c.redisAPI.Del(ctx, key).Result(); err != nil {
+	pipe := c.redisAPI.TxPipeline()
+	pipe.Del(ctx, key)
+
+	prefixes := getParentPrefixes(key)
+	for _, p := range prefixes {
+		dirKey := "dir:" + p
+		pipe.SRem(ctx, dirKey, key)
+
+		// After removal, check if set is empty and delete dirKey if needed
+		pipe.Eval(ctx, `
+			local members = redis.call("SCARD", KEYS[1])
+			if members == 0 then
+				return redis.call("DEL", KEYS[1])
+			end
+			return 0
+		`, []string{dirKey})
+	}
+
+	if _, err := pipe.Exec(ctx); err != nil {
 		logger.Errorw(ctx, "failed-to-delete-key", log.Fields{"key": key, "error": err})
 		return err
 	}
@@ -170,33 +210,51 @@ func (c *RedisClient) Delete(ctx context.Context, key string) error {
 func (c *RedisClient) DeleteWithPrefix(ctx context.Context, prefixKey string) error {
 	var keys []string
 	var err error
-	if keys, err = c.scanAllKeysWithPrefix(ctx, prefixKey); err != nil {
+	dirKey := "dir:" + prefixKey
+
+	if keys, err = c.redisAPI.SMembers(ctx, dirKey).Result(); err != nil {
 		return err
 	}
 	if len(keys) == 0 {
 		logger.Warn(ctx, "nothing-to-delete-from-kv", log.Fields{"key": prefixKey})
 		return nil
 	}
-	//call delete for keys
-	entryCount := int64(0)
+
+	batchSize := 5000
 	start := 0
-	pageSize := 5000
 	length := len(keys)
+
 	for start < length {
-		end := start + pageSize
-		if end >= length {
+		end := start + batchSize
+		if end > length {
 			end = length
 		}
 		keysToDelete := keys[start:end]
-		count := int64(0)
-		if count, err = c.redisAPI.Del(ctx, keysToDelete...).Result(); err != nil {
-			logger.Errorw(ctx, "DeleteWithPrefix method failed", log.Fields{"prefixKey": prefixKey, "numOfMatchedKeys": len(keysToDelete), "err": err})
+
+		pipe := c.redisAPI.TxPipeline()
+		for _, key := range keysToDelete {
+			pipe.Del(ctx, key)
+			prefixes := getParentPrefixes(key)
+			for _, p := range prefixes {
+				pDirKey := "dir:" + p
+				pipe.SRem(ctx, pDirKey, key)
+			}
+		}
+
+		if _, err := pipe.Exec(ctx); err != nil {
+			logger.Errorw(ctx, "failed-to-delete-keys-with-prefix", log.Fields{"prefixKey": prefixKey, "numOfMatchedKeys": len(keysToDelete), "error": err})
 			return err
 		}
-		entryCount += count
 		start = end
 	}
-	logger.Debugf(ctx, "%d entries matching with the key prefix %s have been deleted successfully", entryCount, prefixKey)
+
+	// Delete the main dirKey after all keys are deleted
+	if _, err := c.redisAPI.Del(ctx, dirKey).Result(); err != nil {
+		logger.Errorw(ctx, "failed-to-delete-dir-key", log.Fields{"dirKey": dirKey, "error": err})
+		return err
+	}
+
+	logger.Debugf(ctx, "%d entries matching with the key prefix %s have been deleted successfully", len(keys), prefixKey)
 	return nil
 }
 
@@ -434,8 +492,9 @@ func (c *RedisClient) GetWithPrefix(ctx context.Context, prefix string) (map[str
 	var keys []string
 	m := make(map[string]*KVPair)
 	var values []interface{}
+	dirKey := "dir:" + prefix
 
-	if keys, err = c.scanAllKeysWithPrefix(ctx, prefix); err != nil {
+	if keys, err = c.redisAPI.SMembers(ctx, dirKey).Result(); err != nil {
 		return nil, err
 	}
 
@@ -455,7 +514,8 @@ func (c *RedisClient) GetWithPrefix(ctx context.Context, prefix string) (map[str
 
 func (c *RedisClient) GetWithPrefixKeysOnly(ctx context.Context, prefix string) ([]string, error) {
 	// Use the scanAllKeysWithPrefix function to fetch keys matching the prefix
-	keys, err := c.scanAllKeysWithPrefix(ctx, prefix)
+	dirKey := "dir:" + prefix
+	keys, err := c.redisAPI.SMembers(ctx, dirKey).Result()
 	if err != nil {
 		return nil, fmt.Errorf("failed to scan keys with prefix %s: %v", prefix, err)
 	}
