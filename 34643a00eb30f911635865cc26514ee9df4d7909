@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e72800e6_85fd3cdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001024
+      },
+      "writtenOn": "2026-04-06T14:09:45Z",
+      "side": 1,
+      "message": "\u003e Patch Set 2:\n\u003e \n\u003e No Builds Executed\n\nrecheck",
+      "revId": "34643a00eb30f911635865cc26514ee9df4d7909",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
