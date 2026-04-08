@@ -50,6 +50,23 @@
       "message": "recheck",
       "revId": "34643a00eb30f911635865cc26514ee9df4d7909",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72990bb3_4572fa36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001013
+      },
+      "writtenOn": "2026-04-08T01:23:03Z",
+      "side": 1,
+      "message": "Sorry, I was re-running this due to some issues with the Jenkins agents, but the failure appears to be legitimate:\n\n18:15:30 \u003d\u003d\u003d RUN   TestFlowsAndGroups_String\n18:15:30     flow_utils_test.go:259: \n18:15:30         \tError Trace:\t/app/pkg/flows/flow_utils_test.go:259\n18:15:30         \tError:      \tShould be true\n18:15:30         \tTest:       \tTestFlowsAndGroups_String\n18:15:30     flow_utils_test.go:260: \n18:15:30         \tError Trace:\t/app/pkg/flows/flow_utils_test.go:260\n18:15:30         \tError:      \tShould be true\n18:15:30         \tTest:       \tTestFlowsAndGroups_String\n18:15:30     flow_utils_test.go:261: \n18:15:30         \tError Trace:\t/app/pkg/flows/flow_utils_test.go:261\n18:15:30         \tError:      \tShould be true\n18:15:30         \tTest:       \tTestFlowsAndGroups_String\n18:15:30     flow_utils_test.go:262: \n18:15:30         \tError Trace:\t/app/pkg/flows/flow_utils_test.go:262\n18:15:30         \tError:      \tShould be true\n18:15:30         \tTest:       \tTestFlowsAndGroups_String\n18:15:30     flow_utils_test.go:263: \n18:15:30         \tError Trace:\t/app/pkg/flows/flow_utils_test.go:263\n18:15:30         \tError:      \tShould be true\n18:15:30         \tTest:       \tTestFlowsAndGroups_String\n18:15:30     flow_utils_test.go:264: \n18:15:30         \tError Trace:\t/app/pkg/flows/flow_utils_test.go:264\n18:15:30         \tError:      \tShould be true\n18:15:30         \tTest:       \tTestFlowsAndGroups_String\n18:15:30 --- FAIL: TestFlowsAndGroups_String (0.00s)",
+      "revId": "34643a00eb30f911635865cc26514ee9df4d7909",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
