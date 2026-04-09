@@ -62,8 +62,44 @@ func (c *RedisClient) Get(ctx context.Context, key string) (*KVPair, error) {
 	return NewKVPair(key, valBytes, "", 0, 0), nil
 }
 
-func (c *RedisClient) Put(ctx context.Context, key string, value interface{}) error {
+const (
+	// keysSetName is the Redis sorted set that acts as a secondary index of all
+	// keys managed by this client. Every Store adds the key (with score 0) and
+	// every Delete removes it, both within the same MULTI/EXEC pipeline so the
+	// index stays consistent with the data.
+	//
+	// Consumers can use this sorted set for efficient key discovery without
+	// resorting to the O(N) KEYS command:
+	//
+	//   // List all keys in the index:
+	//   ZRANGEBYLEX voltha:keys - +
+	//
+	//   // Prefix scan (e.g. all keys under namespace "onu/"):
+	//   ZRANGEBYLEX voltha:keys [onu/ (onu0
+	//   // or with the go-redis client:
+	//   client.ZRangeByLex(ctx, "voltha:keys", &redis.ZRangeBy{
+	//       Min: "[onu/",
+	//       Max: "(onu0",        // next char after '/' in ASCII
+	//   })
+	//
+	//
+	// Migration plan (for deployments upgrading from the previous non-indexed Store/Delete):
+	//
+	//  1. Deploy the new library version. From this point every Store/Delete
+	//     keeps the sorted set in sync automatically.
+	//  2. To back-fill existing keys that were written before the upgrade, run a
+	//     one-time migration script.
+	//     This adds all current keys to the index without overwriting entries.
+	//  3. After the migration script completes, the index is fully consistent.
+	//     Consumers can start using ZRANGEBYLEX queries.
+	//
+	// TODO:
+	// - Monitor Redis memory: Track sorted set growth in production
+	// - Consider cleanup strategy: Plan for TTL key cleanup from sorted set.
+	keysSetName = "voltha:keys"
+)
 
+func (c *RedisClient) Put(ctx context.Context, key string, value interface{}) error {
 	// Validate that we can convert value to a string as etcd API expects a string
 	var val string
 	var er error
@@ -71,13 +107,22 @@ func (c *RedisClient) Put(ctx context.Context, key string, value interface{}) er
 		return fmt.Errorf("unexpected-type-%T", value)
 	}
 
-	// Check if there is already a lease for this key - if there is then use it, otherwise a PUT will make
-	// that KV key permanent instead of automatically removing it after a lease expiration
-	setErr := c.redisAPI.Set(ctx, key, val, 0)
-	err := setErr.Err()
+	// Use a pipeline for atomic operations
+	pipe := c.redisAPI.TxPipeline()
 
+	// Set the key-value pair
+	pipe.Set(ctx, key, val, 0)
+
+	// Add key to sorted set with score 0 for efficient prefix queries
+	pipe.ZAdd(ctx, keysSetName, &redis.Z{
+		Score:  0,
+		Member: key,
+	})
+
+	// Execute pipeline
+	_, err := pipe.Exec(ctx)
 	if err != nil {
-		switch setErr.Err() {
+		switch err {
 		case context.Canceled:
 			logger.Warnw(ctx, "context-cancelled", log.Fields{"error": err})
 		case context.DeadlineExceeded:
@@ -90,34 +135,148 @@ func (c *RedisClient) Put(ctx context.Context, key string, value interface{}) er
 	return nil
 }
 
-func (c *RedisClient) scanAllKeysWithPrefix(ctx context.Context, key string) ([]string, error) {
-	var err error
-	allkeys := []string{}
-	cont := true
-	cursor := uint64(0)
-	matchPrefix := key + "*"
+func (c *RedisClient) Delete(ctx context.Context, key string) error {
+	// Use a pipeline for atomic operations
+	pipe := c.redisAPI.TxPipeline()
 
-	for cont {
-		// search in the first 10000 entries starting from the point indicated by the cursor
-		logger.Debugw(ctx, "redis-scan", log.Fields{"matchPrefix": matchPrefix, "cursor": cursor})
-		var keys []string
-		keys, cursor, err = c.redisAPI.Scan(context.Background(), cursor, matchPrefix, 10000).Result()
+	// Delete the key
+	pipe.Del(ctx, key)
+
+	// Remove key from sorted set
+	pipe.ZRem(ctx, keysSetName, key)
+
+	// Execute pipeline
+	_, err := pipe.Exec(ctx)
+	if err != nil {
+		logger.Errorw(ctx, "failed-to-delete-key", log.Fields{"key": key, "error": err})
+		return err
+	}
+
+	logger.Debugw(ctx, "key-deleted", log.Fields{"key": key})
+	return nil
+}
+
+func (c *RedisClient) DeleteWithPrefix(ctx context.Context, prefixKey string) error {
+	var keys []string
+	var err error
+
+	// Use ZRANGEBYLEX to get keys with prefix efficiently
+	if keys, err = c.getKeysWithPrefixFromSortedSet(ctx, prefixKey); err != nil {
+		return err
+	}
+
+	if len(keys) == 0 {
+		logger.Warn(ctx, "nothing-to-delete-from-kv", log.Fields{"key": prefixKey})
+		return nil
+	}
+
+	// Delete keys in batches using pipeline
+	entryCount := int64(0)
+	start := 0
+	pageSize := 5000
+	length := len(keys)
+
+	for start < length {
+		end := start + pageSize
+		if end >= length {
+			end = length
+		}
+		keysToDelete := keys[start:end]
+
+		pipe := c.redisAPI.TxPipeline()
+
+		// Delete the actual key-value pairs
+		pipe.Del(ctx, keysToDelete...)
+
+		// Remove keys from sorted set
+		members := make([]interface{}, len(keysToDelete))
+		for i, k := range keysToDelete {
+			members[i] = k
+		}
+		pipe.ZRem(ctx, keysSetName, members...)
+
+		// Execute pipeline
+		cmds, err := pipe.Exec(ctx)
+		if err != nil {
+			logger.Errorw(ctx, "DeleteWithPrefix method failed", log.Fields{"prefixKey": prefixKey, "numOfMatchedKeys": len(keysToDelete), "err": err})
+			return err
+		}
+
+		// First command is Del, get its result
+		if len(cmds) > 0 {
+			if delCmd, ok := cmds[0].(*redis.IntCmd); ok {
+				count, _ := delCmd.Result()
+				entryCount += count
+			}
+		}
+
+		start = end
+	}
+
+	logger.Debugf(ctx, "%d entries matching with the key prefix %s have been deleted successfully", entryCount, prefixKey)
+	return nil
+}
+
+func (c *RedisClient) GetWithPrefix(ctx context.Context, prefix string) (map[string]*KVPair, error) {
+	var err error
+	var keys []string
+	m := make(map[string]*KVPair)
+	var values []interface{}
+
+	// Use ZRANGEBYLEX to get keys with prefix efficiently
+	if keys, err = c.getKeysWithPrefixFromSortedSet(ctx, prefix); err != nil {
+		return nil, err
+	}
+
+	if len(keys) != 0 {
+		values, err = c.redisAPI.MGet(ctx, keys...).Result()
 		if err != nil {
 			return nil, err
 		}
-		if cursor == 0 {
-			// all data searched. break the loop
-			logger.Debugw(ctx, "redis-scan-ended", log.Fields{"matchPrefix": matchPrefix, "cursor": cursor})
-			cont = false
-		}
-		if len(keys) == 0 {
-			// no matched data found in this cycle. Continue to search
-			logger.Debugw(ctx, "redis-scan-no-data-found-continue", log.Fields{"matchPrefix": matchPrefix, "cursor": cursor})
-			continue
-		}
-		allkeys = append(allkeys, keys...)
 	}
-	return allkeys, nil
+
+	for i, key := range keys {
+		if valBytes, err := ToByte(values[i]); err == nil {
+			m[key] = NewKVPair(key, interface{}(valBytes), "", 0, 0)
+		}
+	}
+	return m, nil
+}
+
+func (c *RedisClient) GetWithPrefixKeysOnly(ctx context.Context, prefix string) ([]string, error) {
+	// Use ZRANGEBYLEX to get keys with prefix efficiently
+	keys, err := c.getKeysWithPrefixFromSortedSet(ctx, prefix)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get keys with prefix %s: %v", prefix, err)
+	}
+
+	if len(keys) == 0 {
+		logger.Debugw(ctx, "no-keys-found", log.Fields{"prefix": prefix})
+	}
+
+	return keys, nil
+}
+
+// Helper function to retrieve keys with prefix using ZRANGEBYLEX
+func (c *RedisClient) getKeysWithPrefixFromSortedSet(ctx context.Context, prefix string) ([]string, error) {
+	// ZRANGEBYLEX uses lexicographical ordering
+	// min: [prefix - includes prefix
+	// max: [prefix\xff - includes all keys starting with prefix
+	min := "[" + prefix
+	max := "[" + prefix + "\xff"
+
+	keys, err := c.redisAPI.ZRangeByLex(ctx, keysSetName, &redis.ZRangeBy{
+		Min: min,
+		Max: max,
+	}).Result()
+
+	if err != nil {
+		logger.Errorw(ctx, "failed-to-get-keys-with-prefix", log.Fields{"prefix": prefix, "error": err})
+		return nil, err
+	}
+
+	logger.Debugw(ctx, "keys-retrieved-with-prefix", log.Fields{"prefix": prefix, "count": len(keys)})
+	return keys, nil
 }
 
 func (c *RedisClient) KeyExists(ctx context.Context, key string) (bool, error) {
@@ -139,7 +298,8 @@ func (c *RedisClient) List(ctx context.Context, key string) (map[string]*KVPair,
 	m := make(map[string]*KVPair)
 	var values []interface{}
 
-	if keys, err = c.scanAllKeysWithPrefix(ctx, key); err != nil {
+	// Use ZRANGEBYLEX to get keys with prefix efficiently
+	if keys, err = c.getKeysWithPrefixFromSortedSet(ctx, key); err != nil {
 		return nil, err
 	}
 
@@ -157,49 +317,10 @@ func (c *RedisClient) List(ctx context.Context, key string) (map[string]*KVPair,
 	return m, nil
 }
 
-func (c *RedisClient) Delete(ctx context.Context, key string) error {
-	// delete the key
-	if _, err := c.redisAPI.Del(ctx, key).Result(); err != nil {
-		logger.Errorw(ctx, "failed-to-delete-key", log.Fields{"key": key, "error": err})
-		return err
-	}
-	logger.Debugw(ctx, "key(s)-deleted", log.Fields{"key": key})
-	return nil
-}
-
-func (c *RedisClient) DeleteWithPrefix(ctx context.Context, prefixKey string) error {
-	var keys []string
-	var err error
-	if keys, err = c.scanAllKeysWithPrefix(ctx, prefixKey); err != nil {
-		return err
-	}
-	if len(keys) == 0 {
-		logger.Warn(ctx, "nothing-to-delete-from-kv", log.Fields{"key": prefixKey})
-		return nil
-	}
-	//call delete for keys
-	entryCount := int64(0)
-	start := 0
-	pageSize := 5000
-	length := len(keys)
-	for start < length {
-		end := start + pageSize
-		if end >= length {
-			end = length
-		}
-		keysToDelete := keys[start:end]
-		count := int64(0)
-		if count, err = c.redisAPI.Del(ctx, keysToDelete...).Result(); err != nil {
-			logger.Errorw(ctx, "DeleteWithPrefix method failed", log.Fields{"prefixKey": prefixKey, "numOfMatchedKeys": len(keysToDelete), "err": err})
-			return err
-		}
-		entryCount += count
-		start = end
-	}
-	logger.Debugf(ctx, "%d entries matching with the key prefix %s have been deleted successfully", entryCount, prefixKey)
-	return nil
-}
-
+// Reserve creates a short-lived, TTL-based key used for distributed locking.
+// Reservation keys are intentionally NOT added to the voltha:keys sorted set
+// because they are ephemeral and should not appear in prefix-based queries
+// (List, GetWithPrefix, DeleteWithPrefix).
 func (c *RedisClient) Reserve(ctx context.Context, key string, value interface{}, ttl time.Duration) (interface{}, error) {
 	var val string
 	var er error
@@ -232,6 +353,8 @@ func (c *RedisClient) Reserve(ctx context.Context, key string, value interface{}
 
 }
 
+// ReleaseReservation removes the TTL on a reserved key, making it permanent.
+// Does not update the voltha:keys sorted set — see Reserve for rationale.
 func (c *RedisClient) ReleaseReservation(ctx context.Context, key string) error {
 
 	redisVal := c.redisAPI.Get(ctx, key).Val()
@@ -263,6 +386,8 @@ func (c *RedisClient) ReleaseAllReservations(ctx context.Context) error {
 	return nil
 }
 
+// RenewReservation refreshes the TTL on a previously reserved key.
+// Does not update the voltha:keys sorted set — see Reserve for rationale.
 func (c *RedisClient) RenewReservation(ctx context.Context, key string) error {
 	c.writeLock.Lock()
 	defer c.writeLock.Unlock()
@@ -427,42 +552,4 @@ func (c *RedisClient) Close(ctx context.Context) {
 	if err := c.redisAPI.Close(); err != nil {
 		logger.Errorw(ctx, "error-closing-client", log.Fields{"error": err})
 	}
-}
-
-func (c *RedisClient) GetWithPrefix(ctx context.Context, prefix string) (map[string]*KVPair, error) {
-	var err error
-	var keys []string
-	m := make(map[string]*KVPair)
-	var values []interface{}
-
-	if keys, err = c.scanAllKeysWithPrefix(ctx, prefix); err != nil {
-		return nil, err
-	}
-
-	if len(keys) != 0 {
-		values, err = c.redisAPI.MGet(ctx, keys...).Result()
-		if err != nil {
-			return nil, err
-		}
-	}
-	for i, key := range keys {
-		if valBytes, err := ToByte(values[i]); err == nil {
-			m[key] = NewKVPair(key, interface{}(valBytes), "", 0, 0)
-		}
-	}
-	return m, nil
-}
-
-func (c *RedisClient) GetWithPrefixKeysOnly(ctx context.Context, prefix string) ([]string, error) {
-	// Use the scanAllKeysWithPrefix function to fetch keys matching the prefix
-	keys, err := c.scanAllKeysWithPrefix(ctx, prefix)
-	if err != nil {
-		return nil, fmt.Errorf("failed to scan keys with prefix %s: %v", prefix, err)
-	}
-
-	if len(keys) == 0 {
-		logger.Debugw(ctx, "no-keys-found", log.Fields{"prefix": prefix})
-	}
-
-	return keys, nil
 }
