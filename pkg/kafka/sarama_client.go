@@ -81,6 +81,7 @@ type SaramaClient struct {
 	healthinessMutex              sync.Mutex
 	healthy                       bool
 	healthiness                   chan bool
+	requiredAcks                  sarama.RequiredAcks
 }
 
 type SaramaClientOption func(*SaramaClient)
@@ -212,6 +213,7 @@ func NewSaramaClient(opts ...SaramaClientOption) *SaramaClient {
 	client.autoCreateTopic = DefaultAutoCreateTopic
 	client.metadataMaxRetry = DefaultMetadataMaxRetry
 	client.livenessChannelInterval = DefaultLivenessChannelInterval
+	client.requiredAcks = DefaultRequiredAcks
 
 	for _, option := range opts {
 		option(client)
@@ -229,6 +231,12 @@ func NewSaramaClient(opts ...SaramaClientOption) *SaramaClient {
 	client.healthy = true
 
 	return client
+}
+
+func RequiredAcks(acks sarama.RequiredAcks) SaramaClientOption {
+	return func(args *SaramaClient) {
+		args.requiredAcks = acks
+	}
 }
 
 func (sc *SaramaClient) Start(ctx context.Context) error {
@@ -836,14 +844,23 @@ func (sc *SaramaClient) createPublisher(ctx context.Context) error {
 	config := sarama.NewConfig()
 	config.Version = sarama.V1_0_0_0
 	config.Producer.Partitioner = sarama.NewHashPartitioner
-	config.Producer.Flush.Frequency = time.Duration(sc.producerFlushFrequency)
+	config.Producer.Flush.Frequency = time.Duration(sc.producerFlushFrequency) * time.Millisecond
 	config.Producer.Flush.Messages = sc.producerFlushMessages
 	config.Producer.Flush.MaxMessages = sc.producerFlushMaxmessages
-	config.Producer.Return.Errors = sc.producerReturnErrors
-	config.Producer.Return.Successes = sc.producerReturnSuccess
-	//config.Producer.RequiredAcks = sarama.WaitForAll
-	config.Producer.RequiredAcks = sarama.WaitForLocal
-
+	config.Producer.Retry.Max = sc.producerRetryMax
+	config.Producer.Retry.Backoff = sc.producerRetryBackOff
+	// Send/SendLiveness always wait on both channels; both 'Return.Errors' & 'Return.Successes' must be unconditionally enabled to avoid blocking.
+	config.Producer.Return.Errors = true
+	config.Producer.Return.Successes = true
+	config.Producer.RequiredAcks = sc.requiredAcks
+	if sc.requiredAcks == sarama.WaitForAll {
+		config.Producer.Idempotent = true
+		config.Net.MaxOpenRequests = 1
+	}
+	if err := config.Validate(); err != nil {
+		logger.Errorw(ctx, "error-validating-producer-config", log.Fields{"error": err})
+		return err
+	}
 	brokers := []string{sc.KafkaAddress}
 
 	if producer, err := sarama.NewAsyncProducer(brokers, config); err != nil {
