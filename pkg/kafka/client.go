@@ -25,6 +25,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/IBM/sarama"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -63,6 +64,7 @@ const (
 	DefaultMetadataMaxRetry         = 3
 	DefaultMaxRetries               = 3
 	DefaultLivenessChannelInterval  = time.Second * 30
+	DefaultRequiredAcks             = sarama.WaitForAll
 )
 
 // MsgClient represents the set of APIs  a Kafka MsgClient must implement
