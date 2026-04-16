@@ -1,0 +1,8 @@
+Verified+1: Jenkins Technical User <do-not-reply@opennetworking.org>
+Code-Review+1: Serkant Uluderya <serkant.uluderya@netsia.com>
+Code-Review+2: Eric Ball <eball@linuxfoundation.org>
+Submitted-by: Eric Ball <eball@linuxfoundation.org>
+Submitted-at: Thu, 16 Apr 2026 22:49:48 +0000
+Reviewed-on: https://gerrit.lfbroadband.org/c/voltha-lib-go/+/37509
+Project: voltha-lib-go
+Branch: refs/heads/master
