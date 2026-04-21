@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17f77232_6bc858f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001013
+      },
+      "writtenOn": "2026-04-21T00:22:38Z",
+      "side": 1,
+      "message": "I\u0027ve manually verified the change in order to get CI working again.",
+      "revId": "1046dfaa53bec85bdf41c33b9f6d0e5619288846",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
