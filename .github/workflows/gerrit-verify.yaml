@@ -63,5 +63,3 @@ jobs:
       GERRIT_PATCHSET_REVISION: ${{ inputs.GERRIT_PATCHSET_REVISION }}
       GERRIT_PROJECT: ${{ inputs.GERRIT_PROJECT }}
       GERRIT_REFSPEC: ${{ inputs.GERRIT_REFSPEC }}
-    secrets:
-      GERRIT_SSH_PRIVKEY: ${{ secrets.GERRIT_SSH_PRIVKEY }}
