@@ -16,6 +16,23 @@
       "message": "\u003e Patch Set 5: Verified+1\n\u003e \n\u003e Build Successful \n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_licensed/1101/ : SUCCESS\n\u003e \n\u003e https://jenkins.lfbroadband.org/job/verify_voltha-lib-go_unit-test/1104/ : SUCCESS\n\nrecheck",
       "revId": "832557494ad0296135bcf3713f476f32c4359d19",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a662059d_2566ce92",
+        "filename": "pkg/kafka/sarama_client.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1000537
+      },
+      "writtenOn": "2026-04-22T11:07:53Z",
+      "side": 1,
+      "message": "please add some comments on this conditional config",
+      "revId": "832557494ad0296135bcf3713f476f32c4359d19",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
