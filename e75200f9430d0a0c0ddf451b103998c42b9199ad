@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "517bd2f5_795817b9",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2026-04-24T00:26:29Z",
+      "side": 1,
+      "message": "Too generic logs. User can\u0027t understand where the error is happened",
+      "range": {
+        "startLine": 96,
+        "startChar": 22,
+        "endLine": 100,
+        "endChar": 35
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b63324a2_2314570a",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2026-04-24T00:26:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure whether redis.Nil was used correctly here. Afaik redis.Nil is something like key-not-found.",
+      "range": {
+        "startLine": 107,
+        "startChar": 38,
+        "endLine": 107,
+        "endChar": 47
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3686899_e57bd046",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2026-04-24T00:26:29Z",
+      "side": 1,
+      "message": "better to put something additional to explicitly indicate the pipeline is a redis pipeline, like ”redis-pipline-command-failed”",
+      "range": {
+        "startLine": 108,
+        "startChar": 22,
+        "endLine": 108,
+        "endChar": 45
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfc80084_414f9fae",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2026-04-24T00:26:29Z",
+      "side": 1,
+      "message": "refer to previous comment about redis.Nil",
+      "range": {
+        "startLine": 133,
+        "startChar": 38,
+        "endLine": 133,
+        "endChar": 49
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f314f841_c51f2a2b",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2026-04-24T00:26:29Z",
+      "side": 1,
+      "message": "All the logs and errors are too generic.",
+      "range": {
+        "startLine": 134,
+        "startChar": 22,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a49b54db_8b5d09a6",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2026-04-24T00:26:29Z",
+      "side": 1,
+      "message": "should we return here or proceed with the next page?",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 4
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81682988_d806efcb",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2026-04-24T00:26:29Z",
+      "side": 1,
+      "message": "refer to previous comments",
+      "range": {
+        "startLine": 189,
+        "startChar": 39,
+        "endLine": 189,
+        "endChar": 44
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05e3b7f3_7ab1f98d",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2026-04-24T00:26:29Z",
+      "side": 1,
+      "message": "Why do we need this function? It is exactly same with the List function below.",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 14
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
