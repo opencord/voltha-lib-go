@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2c381ca_589270d0",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000960
+      },
+      "writtenOn": "2026-04-27T04:27:14Z",
+      "side": 1,
+      "message": "Updated the log",
+      "parentUuid": "517bd2f5_795817b9",
+      "range": {
+        "startLine": 96,
+        "startChar": 22,
+        "endLine": 100,
+        "endChar": 35
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b63324a2_2314570a",
         "filename": "pkg/db/kvstore/redisclient.go",
         "patchSetId": 8
@@ -37,6 +61,30 @@
       "writtenOn": "2026-04-24T00:26:29Z",
       "side": 1,
       "message": "I\u0027m not sure whether redis.Nil was used correctly here. Afaik redis.Nil is something like key-not-found.",
+      "range": {
+        "startLine": 107,
+        "startChar": 38,
+        "endLine": 107,
+        "endChar": 47
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95ebc69f_f81fc9fd",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000960
+      },
+      "writtenOn": "2026-04-27T04:27:14Z",
+      "side": 1,
+      "message": "Removed the redis.Nil check in Put API as it is not valid for redis Set operation.",
+      "parentUuid": "b63324a2_2314570a",
       "range": {
         "startLine": 107,
         "startChar": 38,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d74e2300_2217886c",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000960
+      },
+      "writtenOn": "2026-04-27T04:27:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3686899_e57bd046",
+      "range": {
+        "startLine": 108,
+        "startChar": 22,
+        "endLine": 108,
+        "endChar": 45
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfc80084_414f9fae",
         "filename": "pkg/db/kvstore/redisclient.go",
         "patchSetId": 8
@@ -83,6 +155,30 @@
       "writtenOn": "2026-04-24T00:26:29Z",
       "side": 1,
       "message": "refer to previous comment about redis.Nil",
+      "range": {
+        "startLine": 133,
+        "startChar": 38,
+        "endLine": 133,
+        "endChar": 49
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4595ee9_56bc99b2",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000960
+      },
+      "writtenOn": "2026-04-27T04:27:14Z",
+      "side": 1,
+      "message": "For a Delete operation, this check makes sense as it ignores the key-not-found errors and proceed further checking for other errors.",
+      "parentUuid": "bfc80084_414f9fae",
       "range": {
         "startLine": 133,
         "startChar": 38,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70735226_ab72f64c",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000960
+      },
+      "writtenOn": "2026-04-27T04:27:14Z",
+      "side": 1,
+      "message": "Updated the log",
+      "parentUuid": "f314f841_c51f2a2b",
+      "range": {
+        "startLine": 134,
+        "startChar": 22,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a49b54db_8b5d09a6",
         "filename": "pkg/db/kvstore/redisclient.go",
         "patchSetId": 8
@@ -129,6 +249,30 @@
       "writtenOn": "2026-04-24T00:26:29Z",
       "side": 1,
       "message": "should we return here or proceed with the next page?",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 4
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9822223d_f30b2a3e",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000960
+      },
+      "writtenOn": "2026-04-27T04:27:14Z",
+      "side": 1,
+      "message": "We can return here as the same errors might occur for the other page execution. We will let the application handle such errors (mostly the application should attempt some retries for such failures).",
+      "parentUuid": "a49b54db_8b5d09a6",
       "range": {
         "startLine": 185,
         "startChar": 0,
@@ -164,6 +308,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34585db5_c54e5258",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000960
+      },
+      "writtenOn": "2026-04-27T04:27:14Z",
+      "side": 1,
+      "message": "For a Delete operation, this check makes sense as it ignores the key-not-found errors and proceed further checking for other errors.",
+      "parentUuid": "81682988_d806efcb",
+      "range": {
+        "startLine": 189,
+        "startChar": 39,
+        "endLine": 189,
+        "endChar": 44
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "05e3b7f3_7ab1f98d",
         "filename": "pkg/db/kvstore/redisclient.go",
         "patchSetId": 8
@@ -175,6 +343,30 @@
       "writtenOn": "2026-04-24T00:26:29Z",
       "side": 1,
       "message": "Why do we need this function? It is exactly same with the List function below.",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 14
+      },
+      "revId": "e75200f9430d0a0c0ddf451b103998c42b9199ad",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bbe6a9b_b1f92109",
+        "filename": "pkg/db/kvstore/redisclient.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000960
+      },
+      "writtenOn": "2026-04-27T04:27:14Z",
+      "side": 1,
+      "message": "Yes, it is the same as List API. We will deprecate either one of these APIs going forward. For now removing either one of these APIs will cause backward compatibility with voltha applications (rw-core and adapters) and with vendors.\n\nWe will review the voltha applications and see which API can be deprecated without resulting in much code changes. The API being deprecated needs to be communicated to vendors as well.\n\nWe will take up this activity in a separate task.",
+      "parentUuid": "05e3b7f3_7ab1f98d",
       "range": {
         "startLine": 210,
         "startChar": 0,
