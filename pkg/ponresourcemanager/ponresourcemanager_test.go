@@ -188,7 +188,7 @@ func (kvclient *MockResKVClient) Close(ctx context.Context) {
 func TestExcludeReservedGemPortIdFromThePool(t *testing.T) {
 	ctx := context.Background()
 	PONRMgr, err := NewPONResourceManager(ctx, "gpon", "onu", "olt1",
-		"etcd", "1:1", "service/voltha")
+		"etcd", "1:1", "service/voltha", nil, nil)
 	if err != nil {
 		return
 	}
@@ -251,7 +251,7 @@ func TestExcludeReservedGemPortIdFromThePool(t *testing.T) {
 func TestResourcePoolOverflow(t *testing.T) {
 	ctx := context.Background()
 	PONRMgr, err := NewPONResourceManager(ctx, "gpon", "onu", "olt1",
-		"etcd", "1:1", "service/voltha")
+		"etcd", "1:1", "service/voltha", nil, nil)
 	if err != nil {
 		return
 	}
@@ -310,7 +310,7 @@ func TestResourcePoolOverflow(t *testing.T) {
 func TestPONResourceManager_ReleaseInvalidID(t *testing.T) {
 	ctx := context.Background()
 	PONRMgr, err := NewPONResourceManager(ctx, "gpon", "onu", "olt1",
-		"etcd", "1:1", "service/voltha")
+		"etcd", "1:1", "service/voltha", nil, nil)
 	if err != nil {
 		return
 	}
@@ -352,7 +352,7 @@ func TestPONResourceManager_ReleaseInvalidID(t *testing.T) {
 func TestPONResourceManager_ReserveInvalidID(t *testing.T) {
 	ctx := context.Background()
 	PONRMgr, err := NewPONResourceManager(ctx, "gpon", "onu", "olt1",
-		"etcd", "1:1", "service/voltha")
+		"etcd", "1:1", "service/voltha", nil, nil)
 	if err != nil {
 		return
 	}
