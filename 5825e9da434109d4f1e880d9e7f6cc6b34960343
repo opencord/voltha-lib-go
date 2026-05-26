@@ -33,6 +33,29 @@
       "message": "since now we\u0027re adding the Technology to the path, this would break any existing deployment. A note on the task, or release notes would be necessary.",
       "revId": "5825e9da434109d4f1e880d9e7f6cc6b34960343",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5688ea9e_a470b936",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2026-05-26T19:57:29Z",
+      "side": 1,
+      "message": "do these two need to swap",
+      "range": {
+        "startLine": 200,
+        "startChar": 1,
+        "endLine": 201,
+        "endChar": 1
+      },
+      "revId": "5825e9da434109d4f1e880d9e7f6cc6b34960343",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
