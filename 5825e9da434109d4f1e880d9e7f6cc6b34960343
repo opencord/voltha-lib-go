@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a2ae7b2_561d2143",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2026-05-26T19:35:09Z",
+      "side": 1,
+      "message": "if my understanding is correct, it is now PonResourceManager and TechProfileResourceManager uses a shared KV client. Care needs to be taken on closing the KV connection if this is the case.",
+      "revId": "5825e9da434109d4f1e880d9e7f6cc6b34960343",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c235b933_eb0ccd83",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2026-05-26T19:35:09Z",
+      "side": 1,
+      "message": "since now we\u0027re adding the Technology to the path, this would break any existing deployment. A note on the task, or release notes would be necessary.",
+      "revId": "5825e9da434109d4f1e880d9e7f6cc6b34960343",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    }
+  ]
+}
