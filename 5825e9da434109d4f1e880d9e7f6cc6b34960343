@@ -116,6 +116,30 @@
       },
       "revId": "5825e9da434109d4f1e880d9e7f6cc6b34960343",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68f41c63_995084b0",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001041
+      },
+      "writtenOn": "2026-06-02T07:01:54Z",
+      "side": 1,
+      "message": "Both are same, naming was confusing.",
+      "parentUuid": "bf3c175e_8297d621",
+      "range": {
+        "startLine": 200,
+        "startChar": 1,
+        "endLine": 201,
+        "endChar": 1
+      },
+      "revId": "5825e9da434109d4f1e880d9e7f6cc6b34960343",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
     }
   ]
 }
