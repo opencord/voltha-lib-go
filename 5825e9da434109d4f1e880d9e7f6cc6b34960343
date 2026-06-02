@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffc3b578_f8454618",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001041
+      },
+      "writtenOn": "2026-06-02T07:00:05Z",
+      "side": 1,
+      "message": "updated the comments",
+      "parentUuid": "1a2ae7b2_561d2143",
+      "revId": "5825e9da434109d4f1e880d9e7f6cc6b34960343",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c235b933_eb0ccd83",
         "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
         "patchSetId": 3
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7831b3c6_de4b2930",
+        "filename": "pkg/ponresourcemanager/ponresourcemanager.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1001041
+      },
+      "writtenOn": "2026-06-02T07:00:05Z",
+      "side": 1,
+      "message": "This piece of change was not needed so removed. Thanks!",
+      "parentUuid": "c235b933_eb0ccd83",
+      "revId": "5825e9da434109d4f1e880d9e7f6cc6b34960343",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5688ea9e_a470b936",
         "filename": "pkg/techprofile/tech_profile.go",
         "patchSetId": 3
@@ -48,6 +84,30 @@
       "writtenOn": "2026-05-26T19:57:29Z",
       "side": 1,
       "message": "do these two need to swap",
+      "range": {
+        "startLine": 200,
+        "startChar": 1,
+        "endLine": 201,
+        "endChar": 1
+      },
+      "revId": "5825e9da434109d4f1e880d9e7f6cc6b34960343",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf3c175e_8297d621",
+        "filename": "pkg/techprofile/tech_profile.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001041
+      },
+      "writtenOn": "2026-06-02T07:00:05Z",
+      "side": 1,
+      "message": "updated, Thanks!",
+      "parentUuid": "5688ea9e_a470b936",
       "range": {
         "startLine": 200,
         "startChar": 1,
