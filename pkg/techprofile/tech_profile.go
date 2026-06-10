@@ -1467,10 +1467,7 @@ func (t *TechProfileMgr) reconcileTpInstancesToCache(ctx context.Context, IntfId
 				} else {
 					logger.Errorw(ctx, "error-converting-kv-pair-value-to-byte", log.Fields{"err": err})
 				}
-
 			}
-
-			return nil
 		}
 	}
 	return nil
