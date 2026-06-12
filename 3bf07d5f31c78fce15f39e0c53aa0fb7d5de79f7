@@ -1,0 +1,10 @@
+Verified+1: Voltha Jobbuilder <releng+voltha-jobbuilder@linuxfoundation.org>
+Verified+1: Jenkins Technical User <do-not-reply@opennetworking.org>
+Code-Review+1: praneeth nalmas <praneeth.nalmas@radisys.com>
+Code-Review+1: Sridhar Ravindra <sridhar.ravindra@radisys.com>
+Code-Review+2: Mahir Gunyel <mahir.gunyel@netsia.com>
+Submitted-by: Abhilash Lakshmeshwar <l.s.abhilash@gmail.com>
+Submitted-at: Fri, 12 Jun 2026 06:08:42 +0000
+Reviewed-on: https://gerrit.lfbroadband.org/c/voltha-lib-go/+/37806
+Project: voltha-lib-go
+Branch: refs/heads/master
