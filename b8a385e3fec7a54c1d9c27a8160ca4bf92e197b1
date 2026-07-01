@@ -1,0 +1,8 @@
+Verified+1: Voltha Jobbuilder <releng+voltha-jobbuilder@linuxfoundation.org>
+Verified+1: Jenkins Technical User <do-not-reply@opennetworking.org>
+Code-Review+2: Abhilash Lakshmeshwar <l.s.abhilash@gmail.com>
+Submitted-by: Abhilash Lakshmeshwar <l.s.abhilash@gmail.com>
+Submitted-at: Wed, 01 Jul 2026 10:41:49 +0000
+Reviewed-on: https://gerrit.lfbroadband.org/c/voltha-lib-go/+/37626
+Project: voltha-lib-go
+Branch: refs/heads/master
