@@ -128,6 +128,16 @@ func (kvclient *MockResKVClient) Put(ctx context.Context, key string, value inte
 	return errors.New("key didn't find")
 }
 
+// PutHash mock function implementation for KVClient.
+func (kvclient *MockResKVClient) PutHash(ctx context.Context, key, field string, value interface{}) error {
+	return nil
+}
+
+// GetHash mock function implementation for KVClient.
+func (kvclient *MockResKVClient) GetHash(ctx context.Context, key, field string) (*kvstore.KVPair, error) {
+	return nil, nil
+}
+
 // Delete mock function implementation for KVClient
 func (kvclient *MockResKVClient) Delete(ctx context.Context, key string) error {
 	return nil

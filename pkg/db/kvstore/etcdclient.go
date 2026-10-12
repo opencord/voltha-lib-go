@@ -588,3 +588,13 @@ func (c *EtcdClient) AcquireLock(ctx context.Context, lockName string, timeout t
 func (c *EtcdClient) ReleaseLock(lockName string) error {
 	return errUnimplemented
 }
+
+// Delegate to Put
+func (c *EtcdClient) PutHash(ctx context.Context, key, _ string, value interface{}) error {
+	return c.Put(ctx, key, value)
+}
+
+// Delegate to Get
+func (c *EtcdClient) GetHash(ctx context.Context, key, _ string) (*KVPair, error) {
+	return c.Get(ctx, key)
+}

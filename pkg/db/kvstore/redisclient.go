@@ -17,6 +17,7 @@ package kvstore
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"strings"
@@ -392,15 +393,33 @@ func (c *RedisClient) listenForKeyChange(ctx context.Context, redisCh <-chan *re
 	defer cancel()
 	defer close(ch)
 	for msg := range redisCh {
-		words := strings.Split(msg.Channel, ":")
-		key := words[1]
+		const keyspacePrefix = "__keyspace@0__:"
+		if !strings.HasPrefix(msg.Channel, keyspacePrefix) {
+			continue
+		}
+		key := strings.TrimPrefix(msg.Channel, keyspacePrefix)
 		msgType := getMessageType(msg.Payload)
 		var valBytes []byte
 		if msgType == PUT {
-			ev, _ := c.Get(ctx, key)
-			valBytes, _ = ToByte(ev.Value)
+			var err error
+			var keyType string
+			if keyType, err = c.redisAPI.Type(ctx, key).Result(); err == nil {
+				switch keyType {
+				case "string":
+					valBytes, err = c.redisAPI.Get(ctx, key).Bytes()
+				case "hash":
+					var values map[string]string
+					values, err = c.redisAPI.HGetAll(ctx, key).Result()
+					if err == nil {
+						valBytes, err = json.Marshal(values)
+					}
+				}
+			}
+			if err != nil && err != redis.Nil {
+				logger.Warnw(ctx, "failed-to-read-value-for-redis-watch-event", log.Fields{"key": key, "error": err})
+			}
 		}
-		ch <- NewEvent(getMessageType(msg.Payload), []byte(key), valBytes, 0)
+		ch <- NewEvent(msgType, []byte(key), valBytes, 0)
 	}
 	logger.Debug(ctx, "stop-listening-on-channel ...")
 }
@@ -458,15 +477,16 @@ func (c *RedisClient) getChannelMaps(key string) ([]map[chan *Event]*redis.PubSu
 }
 
 func (c *RedisClient) Watch(ctx context.Context, key string, withPrefix bool) chan *Event {
-
+	logger.Infow(ctx, "creating-watcher-channel", log.Fields{"key": key})
 	ctx, cancel := context.WithCancel(ctx)
 
 	var subscribePath string
-	subscribePath = "__key*__:" + key
+	subscribePath = "__keyspace@0__:" + key
 	if withPrefix {
 		subscribePath += "*"
 	}
-	pubsub := c.redisAPI.PSubscribe(ctx, subscribePath)
+	var pubsub *redis.PubSub
+	pubsub = c.redisAPI.PSubscribe(ctx, subscribePath)
 	redisCh := pubsub.Channel()
 
 	// Create new channel
@@ -534,4 +554,51 @@ func (c *RedisClient) Close(ctx context.Context) {
 	if err := c.redisAPI.Close(); err != nil {
 		logger.Errorw(ctx, "error-closing-client", log.Fields{"error": err})
 	}
+}
+
+func (c *RedisClient) PutHash(ctx context.Context, key, field string, value interface{}) error {
+	val, err := ToString(value)
+	if err != nil {
+		return fmt.Errorf("unexpected-type-%T", value)
+	}
+
+	pipe := c.redisAPI.TxPipeline()
+	pipe.HSet(ctx, key, field, val)
+	pipe.ZAdd(ctx, keysSetName, &redis.Z{Score: 0, Member: key})
+
+	// Execute pipeline
+	cmds, err := pipe.Exec(ctx)
+	if err != nil {
+		switch err {
+		case context.Canceled:
+			logger.Warnw(ctx, "redis putHash failed : context-cancelled", log.Fields{"error": err, "key": key, "field": field})
+		case context.DeadlineExceeded:
+			logger.Warnw(ctx, "redis putHash failed : context-deadline-exceeded", log.Fields{"error": err, "key": key, "field": field})
+		default:
+			logger.Warnw(ctx, "redis putHash failed : bad-endpoints", log.Fields{"error": err, "key": key, "field": field})
+		}
+		return err
+	}
+
+	// Check individual command errors
+	for _, cmd := range cmds {
+		if cmd.Err() != nil {
+			logger.Warnw(ctx, "redis-pipeline-command-failed", log.Fields{"error": cmd.Err(), "key": key, "Cmd": cmd.String()})
+			return cmd.Err()
+		}
+	}
+	return nil
+}
+
+func (c *RedisClient) GetHash(ctx context.Context, key, field string) (*KVPair, error) {
+	val, err := c.redisAPI.HGet(ctx, key, field).Result()
+	if err != nil {
+		return nil, err
+	}
+
+	valBytes, err := ToByte(val)
+	if err != nil {
+		return nil, nil
+	}
+	return NewKVPair(key, valBytes, "", 0, 0), nil
 }

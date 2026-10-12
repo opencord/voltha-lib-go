@@ -38,6 +38,7 @@ const (
 	globalConfigRootNode              = "global"           // Root Node in kvstore containing global config
 	initialGlobalDefaultLogLevelValue = "WARN"             // Hard-coded Global Default loglevel pushed at PoD startup
 	logPackagesListKey                = "log_package_list" // kvstore key containing list of allowed log packages
+	fieldValueHashKey                 = "log_level"        // kvstore key containing hash of the field values
 )
 
 // ComponentLogController represents a Configuration for Logging Config of specific Voltha component type
@@ -360,7 +361,7 @@ func updateLogLevels(ctx context.Context, updatedLogConfig map[string]string) {
 		return
 	}
 
-	logger.Debugw(ctx, "applying-log-level-for-modified-packages", log.Fields{"changed-log-levels": changedLogLevels})
+	logger.Infow(ctx, "applying-log-level-for-modified-packages", log.Fields{"changed-log-levels": changedLogLevels})
 	for key, level := range changedLogLevels {
 		if key == defaultLogLevelKey {
 			if l, err := log.StringToLogLevel(level); err == nil {
