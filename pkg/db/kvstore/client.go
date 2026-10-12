@@ -82,6 +82,8 @@ type Client interface {
 	Put(ctx context.Context, key string, value interface{}) error
 	Delete(ctx context.Context, key string) error
 	DeleteWithPrefix(ctx context.Context, prefixKey string) error
+	PutHash(ctx context.Context, key, field string, value interface{}) error
+	GetHash(ctx context.Context, key, field string) (*KVPair, error)
 	Watch(ctx context.Context, key string, withPrefix bool) chan *Event
 	IsConnectionUp(ctx context.Context) bool // timeout in second
 	CloseWatch(ctx context.Context, key string, ch chan *Event)

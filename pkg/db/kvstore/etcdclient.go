@@ -558,6 +558,7 @@ func (c *EtcdClient) Close(ctx context.Context) {
 
 // The APIs below are not used
 var errUnimplemented = errors.New("deprecated")
+var errNotSupported = errors.New("not supported")
 
 // Reserve is deprecated
 func (c *EtcdClient) Reserve(ctx context.Context, key string, value interface{}, ttl time.Duration) (interface{}, error) {
@@ -587,4 +588,14 @@ func (c *EtcdClient) AcquireLock(ctx context.Context, lockName string, timeout t
 // ReleaseLock is deprecated
 func (c *EtcdClient) ReleaseLock(lockName string) error {
 	return errUnimplemented
+}
+
+// Not supported in ETCD
+func (c *EtcdClient) PutHash(ctx context.Context, key, field string, value interface{}) error {
+	return errNotSupported
+}
+
+// Not supported in ETCD
+func (c *EtcdClient) GetHash(ctx context.Context, key, field string) (*KVPair, error) {
+	return nil, errNotSupported
 }
