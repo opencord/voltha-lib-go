@@ -319,3 +319,32 @@ func (b *Backend) DeleteWatch(ctx context.Context, key string, ch chan *kvstore.
 
 	b.Client.CloseWatch(ctx, formattedPath, ch)
 }
+
+// PutHash stores a field value in a hash when the configured KV client supports hashes.
+func (b *Backend) PutHash(ctx context.Context, key, field string, value interface{}) error {
+	span, ctx := log.CreateChildSpan(ctx, "kvs-put")
+	defer span.Finish()
+
+	formattedPath := b.makePath(ctx, key)
+	logger.Debugw(ctx, "putting-hash-key", log.Fields{"key": key, "path": formattedPath})
+
+	err := b.Client.PutHash(ctx, formattedPath, field, value)
+
+	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(err))
+	return err
+}
+
+// GetHash retrieves a field value from a hash when the configured KV client supports hashes.
+func (b *Backend) GetHash(ctx context.Context, key, field string) (*kvstore.KVPair, error) {
+	span, ctx := log.CreateChildSpan(ctx, "kvs-get")
+	defer span.Finish()
+
+	formattedPath := b.makePath(ctx, key)
+	logger.Debugw(ctx, "getting-key", log.Fields{"key": key, "path": formattedPath})
+
+	pair, err := b.Client.GetHash(ctx, formattedPath, field)
+
+	b.updateLiveness(ctx, b.isErrorIndicatingAliveKvstore(err))
+
+	return pair, err
+}
