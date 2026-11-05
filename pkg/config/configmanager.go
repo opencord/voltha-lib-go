@@ -121,7 +121,7 @@ func NewConfigManager(ctx context.Context, kvClient kvstore.Client, kvStoreType,
 
 // RetrieveComponentList list the component Names for which loglevel is stored in kvstore
 func (c *ConfigManager) RetrieveComponentList(ctx context.Context, configType ConfigType) ([]string, error) {
-	data, err := c.Backend.List(ctx, c.KVStoreConfigPrefix)
+	configKeys, err := c.Backend.GetWithPrefixKeysOnly(ctx, c.KVStoreConfigPrefix)
 	if err != nil {
 		return nil, err
 	}
@@ -133,15 +133,15 @@ func (c *ConfigManager) RetrieveComponentList(ctx context.Context, configType Co
 	ccPathPrefix := kvStorePathSeparator + configType.String() + kvStorePathSeparator
 	pathPrefix := c.KVStoreDataPathPrefix + kvStorePathSeparator + c.KVStoreConfigPrefix + kvStorePathSeparator
 	var list []string
-	keys := make(map[string]interface{})
-	for attr := range data {
+	seenComponents := make(map[string]struct{})
+	for _, attr := range configKeys {
 		cname := strings.TrimPrefix(attr, pathPrefix)
 		cName := strings.SplitN(cname, ccPathPrefix, 2)
 		if len(cName) != 2 {
 			continue
 		}
-		if _, exist := keys[cName[0]]; !exist {
-			keys[cName[0]] = nil
+		if _, exist := seenComponents[cName[0]]; !exist {
+			seenComponents[cName[0]] = struct{}{}
 			list = append(list, cName[0])
 		}
 	}
@@ -223,7 +223,7 @@ func (c *ComponentConfig) Retrieve(ctx context.Context, configKey string) (strin
 
 	logger.Debugw(ctx, "retrieving-config", log.Fields{"key": key})
 
-	if kvpair, err := c.cManager.Backend.Get(ctx, key); err != nil {
+	if kvpair, err := c.cManager.Backend.GetHash(ctx, key, fieldValueHashKey); err != nil {
 		return "", err
 	} else {
 		if kvpair == nil {
@@ -241,7 +241,7 @@ func (c *ComponentConfig) RetrieveAll(ctx context.Context) (map[string]string, e
 
 	logger.Debugw(ctx, "retreiving-list", log.Fields{"key": key})
 
-	data, err := c.cManager.Backend.List(ctx, key)
+	keys, err := c.cManager.Backend.GetWithPrefixKeysOnly(ctx, key)
 	if err != nil {
 		return nil, err
 	}
@@ -252,8 +252,18 @@ func (c *ComponentConfig) RetrieveAll(ctx context.Context) (map[string]string, e
 	// Then in default will be stored as key and DEBUG will be stored as value in map[string]string
 	res := make(map[string]string)
 	ccPathPrefix := c.cManager.Backend.PathPrefix + kvStorePathSeparator + key + kvStorePathSeparator
-	for attr, val := range data {
-		res[strings.TrimPrefix(attr, ccPathPrefix)] = strings.Trim(fmt.Sprintf("%s", val.Value), "\"")
+	for _, attr := range keys {
+		configKey := strings.TrimPrefix(attr, ccPathPrefix)
+		if configKey == attr {
+			continue
+		}
+
+		value, err := c.Retrieve(ctx, configKey)
+		if err != nil {
+			return nil, fmt.Errorf("failed-to-retrieve-config-key %q: %w", configKey, err)
+		}
+		res[configKey] = value
+
 	}
 
 	return res, nil
@@ -265,7 +275,7 @@ func (c *ComponentConfig) Save(ctx context.Context, configKey string, configValu
 	logger.Debugw(ctx, "saving-config", log.Fields{"key": key, "value": configValue})
 
 	//save the data for update config
-	if err := c.cManager.Backend.Put(ctx, key, configValue); err != nil {
+	if err := c.cManager.Backend.PutHash(ctx, key, fieldValueHashKey, configValue); err != nil {
 		return err
 	}
 	return nil
